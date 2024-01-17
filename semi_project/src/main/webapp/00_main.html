@@ -10,6 +10,7 @@
 </head>
 <style>
 	body {
+		width: 100%;
 		margin: 0;
 		font-family: var(--bs-body-font-family);
 		font-size: var(--bs-body-font-size);
@@ -23,6 +24,7 @@
 		box-sizing: border-box;
 		display: block;
 		text-align: center;
+		
 	}
 
 	#header {
@@ -31,6 +33,7 @@
 		width: 100%;
 		max-width: 1020px;
 		margin: 0 auto;
+	
 	}
 
 	.blog-header-logo {
@@ -55,6 +58,7 @@
 
 	.justify-content-between {
 		justify-content: space-between !important;
+
 	}
 
 	.flex-nowrap {
@@ -86,11 +90,36 @@
 	}
 
 	/* 여기부터 중간부분 스타일*/
-	main-image {
+	.main-image {
 		padding-bottom: 0px;
-		margin: 0 0 80px;
 		position: relative;
+		padding: 0;
+		display: block;
+		max-width: 1020px;
+		width: 100%;
+		border: 5px solid black;
+		margin: 0 auto;
 	}
+	.main-prd{
+		border: 5px solid black;
+		max-width: 1020px;
+		width: 100%;
+		margin: 0 auto;
+	}
+	.prdList {
+		width: 100%;
+		max-width: 1020px;
+		margin: 0 auto;
+	}
+	
+	.prdList>li {
+		position: relative;
+		display: inline-block;
+		margin: 30px 0 10px;
+		color: #757575;
+		vertical-align: top;
+	}
+	
 </style>
 
 <body>
@@ -120,23 +149,136 @@
 				</div>
 			</div>
 		</header>
+		<br>
 		<div class="nav-scroller py-1 mb-2">
 			<nav class="nav d-flex justify-content-between">
-				<a class="p-2 link-secondary" href="#"><img src="images/icons-pretzel.png" width="25">스낵</a>
-				<a class="p-2 link-secondary" href="#"><img src="images/icons-cookie.png" width="25">파이&쿠키</a>
-				<a class="p-2 link-secondary" href="#"><img src="images/icons-candy.png" width="25">캔디&젤리</a>
-				<a class="p-2 link-secondary" href="#"><img src="images/icons-chocolate.png" width="25">초콜릿</a>
-				<a class="p-2 link-secondary" href="#"><img src="images/icons-chewing-gum.png" width="25">껌</a>
+				<a class="navbar-brand" href="#"><img src="images/icons-pretzel.png" width="25">스낵</a>
+				<a class="navbar-brand" href="#"><img src="images/icons-cookie.png" width="25">파이&쿠키</a>
+				<a class="navbar-brand" href="#"><img src="images/icons-candy.png" width="25">캔디&젤리</a>
+				<a class="navbar-brand" href="#"><img src="images/icons-chocolate.png" width="25">초콜릿</a>
+				<a class="navbar-brand" href="#"><img src="images/icons-chewing-gum.png" width="25">껌</a>
 			</nav>
+			<hr>
 		</div>
 	</div>
 	<!-- ================================================================================================================-->
 	<!-- 중간부분 -->
+	<br>
 	<div class="main-image">
-		
+		<img src="images/Koala.jpg" class="img-fluid" alt="Koala" style="width: 100%; height: 400px;">
 	</div>
-
-
+	<div class="main-prd">
+		<ul class="prdList grid3">
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+			<li id="anchorBoxId_1" class="xans">
+				<div class="card" style="width: 15rem;">
+					<img src="images/0.png" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
+							the
+							card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
