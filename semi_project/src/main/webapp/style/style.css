@@ -1,0 +1,154 @@
+@charset "UTF-8";
+body {
+	width: 100%;
+	max-width: 1020px;
+	margin: 0 auto;
+	/*
+		font-family: var(--bs-body-font-family);
+		font-size: var(--bs-body-font-size);
+		font-weight: var(--bs-body-font-weight);
+		line-height: var(--bs-body-line-height);
+		color: var(--bs-body-color);
+		text-align: var(--bs-body-text-align);
+		background-color: var(--bs-body-bg);
+		-webkit-text-size-adjust: 100%;
+		-webkit-tap-highlight-color: transparent;
+		*/
+	box-sizing: border-box;
+	display: block;
+	text-align: center;
+}
+
+div {
+	display: block;
+}
+
+/* header */
+	#header {
+	position: relative;
+	width: 100%;
+	max-width: 1020px;
+	margin: 0 auto;
+	display: block;
+}
+
+/*header 상단과 우측라인*/
+.align-items-center {
+	align-items: center !important;
+}
+
+/* header 상단과 네비바 전체*/
+.justify-content-between {
+	justify-content: space-between !important;
+}
+
+/* header 상단 전체*/
+.flex-nowrap {
+	flex-wrap: nowrap !important;
+}
+/* 공지사항*/
+.pt-1 { 
+	padding-top: 0.25rem !important;
+}
+
+/* 헤더라인*/
+.col-4 {
+	flex: 0 0 auto;
+	width: 33.33333333%;
+}
+
+
+/* 우측 라인*/
+.head-right-line {
+	margin-right: 20px;
+	text-align: right;
+}
+
+/* 왼쪽 라인*/
+.pt-1 {
+	text-align: left;
+	padding-right: 30px;
+}
+
+/* 네비 라인*/
+.d-flex {
+	text-align: left;
+	margin: 0 auto;
+}
+
+.main-image {
+	padding-bottom: 0px;
+	position: relative;
+	padding: 0;
+	display: block;
+	max-width: 1020px;
+	width: 100%;
+	border: 5px solid black;
+	margin: 0 auto;
+}
+
+.main-prd {
+	border: 5px solid black;
+	max-width: 1020px;
+	width: 100%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.prdList {
+	width: 100%;
+	max-width: 1020px;
+	margin: 0 auto;
+}
+
+.prdList>li {
+	position: relative;
+	display: inline-block;
+	margin: 30px 0 10px;
+	color: #757575;
+	vertical-align: top;
+}
+.subTitle {
+		text-align: left;
+	}
+/* footer 스타일*/
+.foot_line {
+	display: block;
+}
+
+.foot_line .inner_foot {
+	overflow: hidden;
+	position: relative;
+	width: 1020px;
+	margin: 0 auto;
+	padding: 37px 0 78px;
+}
+
+.foot_line .link_logo {
+	float: left;
+}
+
+.img_thumb {
+	display: block;
+}
+
+.foot_ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.foot_ul li {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	border: 0;
+	float: left;
+}
+
+.info_policy {
+	padding: 0 250px 0 0;
+	font-size: 12px;
+	line-height: 20px;
+	color: #888;
+	float: left;
+}

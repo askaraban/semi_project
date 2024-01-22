@@ -19,6 +19,7 @@ request.setCharacterEncoding("utf-8");
 	rel="stylesheet">
 	<!--  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">-->
+<link href="<%=request.getContextPath()%>/style/style.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
