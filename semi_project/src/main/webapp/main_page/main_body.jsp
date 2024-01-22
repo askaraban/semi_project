@@ -53,6 +53,7 @@ div {
 	max-width: 1020px;
 	width: 100%;
 	margin: 0 auto;
+	text-align: left;
 }
 
 .prdList {
@@ -68,6 +69,9 @@ div {
 	color: #757575;
 	vertical-align: top;
 }
+.subTitle {
+		text-align: left;
+	}
 </style>
 <body>
 	<br>
@@ -76,6 +80,9 @@ div {
 			style="width: 100%; height: 400px;">
 	</div>
 	<div class="main-prd">
+		<div>
+		<h2 class="subTitle">베스트 추천 상품</h2>
+		</div>
 		<ul class="prdList grid3">
 			<%for(ProductDTO pro : productList){ %>
 			<li id="anchorBoxId_1" class="xans">
