@@ -50,7 +50,7 @@ div {
 }
 /* 공지사항*/
 .pt-1 { 
-	padding-top: 0.25rem !important;
+	padding-top: 0.23rem !important;
 }
 
 /* 헤더라인*/
@@ -62,7 +62,7 @@ div {
 
 /* 우측 라인*/
 .head-right-line {
-	margin-right: 20px;
+	margin-right: 12px;
 	text-align: right;
 }
 
@@ -80,6 +80,26 @@ div {
 .d-flex {
 	text-align: left;
 	margin: 0 auto;
+}
+.search {
+  position: relative;
+  padding-right: 20px;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.search-img {
+  position : absolute;
+  width: 25px;
+  top: 10px;
+  right: 25px;
+  margin: 0;
 }
 
 .main-image {
