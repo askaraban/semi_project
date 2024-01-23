@@ -14,7 +14,7 @@
 
 <body>
 	<br>
-	<div class="main-image">
+	<div class="main-body">
 		<img src="../images/Koala.jpg" class="img-fluid" alt="Koala"
 			style="width: 100%; height: 400px;">
 	</div>

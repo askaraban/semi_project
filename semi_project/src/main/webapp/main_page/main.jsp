@@ -3,9 +3,24 @@
 
 <%
 String main_header = "/main_page/main_header.jsp";
-String main_body = "/main_page/main_body.jsp";
+//String main_body = "/main_page/main_body.jsp";
 String main_footer = "/main_page/main_footer.jsp";
-request.setCharacterEncoding("utf-8");
+
+	request.setCharacterEncoding("utf-8");
+	String group = request.getParameter("group");
+	if(group==null){
+		group="main_page";
+	}
+	
+	// 페이지의 몸체부에 포함될 JSP 문서의 파일명을 반환받아 저장
+	String worker=request.getParameter("worker");
+	if(worker==null){
+		worker="main_body";
+	}
+	
+	// 전달값을 사용하여 페이지 몸체부에 포함될 JSP 문서의 컨텍스트 경로를 생성하여 저장
+	String contentFilePath="/"+group+"/"+worker+".jsp";
+
 %>
 <!doctype html>
 <html lang="kr">
@@ -27,7 +42,7 @@ request.setCharacterEncoding("utf-8");
 	<%-- 헤더 --%>
 	<jsp:include page="<%=main_header %>"></jsp:include>
 	<%-- 바디 --%>
-	<jsp:include page="<%=main_body %>"></jsp:include>
+	<jsp:include page="<%=contentFilePath %>"></jsp:include>
 	<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"></jsp:include>
 	
