@@ -26,10 +26,10 @@
 				</div>
 				<div class="col-4 d-flex justify-content-end align-items-center">
 					<div class="search">
-						<form id="searching">
-							<input class=search-input type="text" placeholder="검색어 입력" name="searchProduct">
-							<a href="<%=request.getContextPath()%>/main_page/main.jsp?search=">
-							<img class=search-img src="<%=request.getContextPath()%>/images/icon/icons8-search.png" width="25" height="25"></a>
+						<form id="searching" action="<%=request.getContextPath()%>/main_page/main.jsp?group=main_page
+					&worker=main_header_action">
+							<input class=search-input type="text" placeholder="검색어 입력" name="keyword">
+							<input type="image" class=search-img src="<%=request.getContextPath()%>/images/icon/icons8-search.png" width="25" height="25"></a>
 						</form>
 					</div>
 					<a class="link-secondary head-right-line" href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
@@ -66,4 +66,10 @@
 			<hr>
 		</div>
 	</div>
+	
+<script type="text/javascript">
+	$(".search-img").click(function() {
+		$("#searching").submit();
+	})
+</script>
 </body>
