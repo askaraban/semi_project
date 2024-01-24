@@ -111,6 +111,7 @@ div {
 	width: 100%;
 	border: 5px solid black;
 	margin: 0 auto;
+	
 }
 
 .main-prd {
@@ -119,6 +120,7 @@ div {
 	width: 100%;
 	margin: 0 auto;
 	text-align: left;
+	min-height: 700px;
 }
 
 .prdList {

@@ -18,6 +18,7 @@
 					&worker=#">마이페이지</a>
 				</div>
 				<div class="col-4 text-center">
+				
 					<a class="blog-header-logo text-dark" href="main.jsp"> <img
 						alt="로고" src="<%=request.getContextPath()%>/images/0.png"
 						width="200">쿠키몰
@@ -25,9 +26,9 @@
 				</div>
 				<div class="col-4 d-flex justify-content-end align-items-center">
 					<div class="search">
-						<form>
+						<form id="searching">
 							<input class=search-input type="text" placeholder="검색어 입력" name="searchProduct">
-							<a href="#">
+							<a href="<%=request.getContextPath()%>/main_page/main.jsp?search=">
 							<img class=search-img src="<%=request.getContextPath()%>/images/icon/icons8-search.png" width="25" height="25"></a>
 						</form>
 					</div>
