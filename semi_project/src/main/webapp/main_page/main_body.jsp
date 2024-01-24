@@ -31,7 +31,7 @@
 					<%System.out.println(request.getContextPath()); %>
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text tod build on the
+						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<a href="#" class="btn btn-primary">구매하기</a> <a href="#"
 							class="btn btn-primary">장바구니</a>
