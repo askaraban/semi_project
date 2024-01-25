@@ -26,8 +26,7 @@
 				</div>
 				<div class="col-4 d-flex justify-content-end align-items-center">
 					<div class="search">
-						<form id="searching" action="<%=request.getContextPath()%>/main_page/main.jsp?group=main_page
-					&worker=main_header_action">
+						<form id="searching" action="<%=request.getContextPath()%>/main_page/main.jsp?group=main_page&worker=main_header_action">
 							<input class=search-input type="text" placeholder="검색어 입력" name="keyword">
 							<input type="image" class=search-img src="<%=request.getContextPath()%>/images/icon/icons8-search.png" width="25" height="25">
 						</form>

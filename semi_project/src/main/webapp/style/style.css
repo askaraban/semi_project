@@ -114,6 +114,20 @@ div {
 	
 }
 
+.main-text{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	width: 100%;
+	transform: translate(-50%, -50%);
+	font-size: 20px;
+	text-align: top;
+}
+.img-fluid{
+	width: 100%;
+	vertical-align: middle;
+}
+
 .main-prd {
 	border: 5px solid black;
 	max-width: 1020px;
