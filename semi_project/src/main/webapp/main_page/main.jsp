@@ -41,6 +41,9 @@ String main_footer = "/main_page/main_footer.jsp";
 
 	<%-- 헤더 --%>
 	<jsp:include page="<%=main_header %>"></jsp:include>
+	 
+	 
+	 
 	<%-- 바디 --%>
 	<jsp:include page="<%=contentFilePath %>"></jsp:include>
 	<% String returnURL = (String)request.getAttribute("returnURL");
