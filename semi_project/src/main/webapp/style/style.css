@@ -111,7 +111,10 @@ div {
 	width: 100%;
 	border: 5px solid black;
 	margin: 0 auto;
-	
+}
+.main-img{
+	border: 5px solid red;
+	height: 100%;
 }
 
 .main-text{

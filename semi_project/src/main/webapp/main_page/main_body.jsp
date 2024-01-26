@@ -14,12 +14,32 @@
 
 <body>
 	<br>
+	<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner main-img">
+    <div class="carousel-item active">
+      <img src="<%=request.getContextPath()%>/images/bestProduct.png" class="img-fluid" class="d-block w-100" alt="saleProduct">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath()%>/images/saleProduct.png" class="img-fluid" class="d-block w-100" alt="bestSaleProduct">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+	<%-- 
 	<div class="main-body main-img" >
 		<img src="<%=request.getContextPath()%>/images/main_img.png" class="img-fluid" alt="Koala"
 			style="width: 100%; height: 400px;">
 			<div class="main-text">여기를 모르ㅇㅇ</div>
 			<%=session.getAttribute("keyword") %>
 	</div>
+	--%>
 	<div class="main-prd">
 		<div>
 		<h2 class="subTitle">베스트 추천 상품</h2>

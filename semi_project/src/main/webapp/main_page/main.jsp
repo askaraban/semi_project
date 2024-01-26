@@ -4,7 +4,6 @@
 <%
 request.setCharacterEncoding("utf-8");
 String main_header = "/main_page/main_header.jsp";
-//String main_body = "/main_page/main_body.jsp";
 String main_footer = "/main_page/main_footer.jsp";
 
 	String group = request.getParameter("group");
