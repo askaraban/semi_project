@@ -36,6 +36,7 @@ String main_footer = "/main_page/main_footer.jsp";
 	<!--  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">-->
 <link href="<%=request.getContextPath()%>/style/style.css" type="text/css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/style/cart.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>

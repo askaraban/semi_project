@@ -17,7 +17,7 @@
 	<div class="main-body main-img" >
 		<img src="<%=request.getContextPath()%>/images/main_img.png" class="img-fluid" alt="Koala"
 			style="width: 100%; height: 400px;">
-			<div class="main-text">여기를 모르</div>
+			<div class="main-text">여기를 모르ㅇㅇ</div>
 			<%=session.getAttribute("keyword") %>
 	</div>
 	<div class="main-prd">

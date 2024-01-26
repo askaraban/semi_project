@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+.subTitle {
+	text-align: left;
+}
+
+/* cart 페이지 스타일*/
+.check-box-all-inner {
+	display: inline-block;
+	float: left;
+}
+
+/* cart 페이지 바디 부모*/
+.cart-body {
+	padding-left: 32px;
+	padding-right: 32px;
+	background-color: #f4f4f4;
+}
+
+/* cart 전체선택 부분*/
+.cart-store {
+	padding: 0 15px;
+	background-color: #fff;
+	border-radius: 16px;
+	box-sizing: border-box;
+	box-shadow: 0px 3px 9px rgba(0, 0, 0, .05);
+}
+
+/* cart 전체선택 체크박스*/
+.check-box-all {
+	padding: 11px 18px;
+	padding-bottom: 40px;
+	font-weight: bold;
+}
+
+/* cart 삭제버튼의 div*/
+.checkBtn {
+	position: relative;
+	text-align: right;
+	float: right;
+}
+
+/* cart 삭제버튼 이미지*/
+#checkDel {
+	font-size: 14px;
+}
+
+/* cart 상품 삭제버튼*/
+.btn-light {
+	border-radius: 15px;
+	font-size: 14px;
+}
+
+/* cart 상품 위의 헤드부분*/
+.store-head {
+	position: relative;
+	padding: 13px 0;
+	border-bottom: 1px solid #222;
+}
+
+/* cart 과자몰 체크박스 부분*/
+.cart-logo {
+	position: relative;
+	border-bottom: 1px solid black;
+	text-align: left;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 11px;
+}
+
+.product-info {
+	position: relative;
+	padding-left: 30px;
+	padding-top: 30px;
+}
+
+.product-inner {
+	display: flex;
+	position: relative;
+	border: 1px solid darkgoldenrod;
+}
+
+.cart-product-img {
+	position: relative;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	width: 82px;
+	height: 82px;
+	background-color: rgba(0, 0, 0, .04);
+	border-radius: 4px;
+	border: 1px solid blue;
+}
+
+.cart-product-infoArea {
+	-webkit-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	min-width: 0;
+	padding-left: 12px;
+	border: 1px solid red;
+}
+
+.cart-product-title {
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	word-break: break-all;
+	max-height: 40px;
+	font-size: 15px;
+	line-height: 20px;
+	color: #222;
+	letter-spacing: -0.3px;
+	text-align: left;
+}
+
+.cart-product-price {
+	margin-top: 3px;
+	font-weight: 600;
+	color: #222;
+	text-align: left;
+}
+
+.cart-product-count {
+	position: relative;
+	padding: 0 12px 12px;
+	background-color: #f6f7f8;
+	border-radius: 3px;
+}
+.cart-product-countInner{
+	
+	margin-top: 3px;
+    color: #222;
+    letter-spacing: -0.5px;
+    text-align: left;
+}
