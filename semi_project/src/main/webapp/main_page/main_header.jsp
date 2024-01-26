@@ -9,8 +9,8 @@
 				class="row flex-nowrap justify-content-between align-items-center">
 				<div class="col-4 pt-1">
 					<a class="link-secondary head-right-line"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=manager_page
-					&worker=#">공지사항</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page
+					&worker=notice_main">공지사항</a>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
 					&worker=#">회원가입</a>
