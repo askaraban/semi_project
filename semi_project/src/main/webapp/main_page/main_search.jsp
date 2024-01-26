@@ -10,7 +10,7 @@
 	</div>
 	<div class="main-prd">
 		<div>
-		<h2 class="subTitle">베dassadsa상품</h2>
+		<h2 class="subTitle"><%=request.getParameter("keyword") %></h2>
 		</ul>
 	</div>
 	<hr>

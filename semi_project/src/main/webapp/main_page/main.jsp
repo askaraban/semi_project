@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 <%
+request.setCharacterEncoding("utf-8");
 String main_header = "/main_page/main_header.jsp";
 //String main_body = "/main_page/main_body.jsp";
 String main_footer = "/main_page/main_footer.jsp";
 
-	request.setCharacterEncoding("utf-8");
 	String group = request.getParameter("group");
 	if(group==null){
 		group="main_page";
@@ -22,6 +22,7 @@ String main_footer = "/main_page/main_footer.jsp";
 	String contentFilePath="/"+group+"/"+worker+".jsp";
 
 %>
+
 <!doctype html>
 <html lang="kr">
 
@@ -40,19 +41,19 @@ String main_footer = "/main_page/main_footer.jsp";
 <body>
 
 	<%-- 헤더 --%>
-	<jsp:include page="<%=main_header %>"></jsp:include>
+	<jsp:include page="<%=main_header %>"/>
 	 
 	 
 	 
 	<%-- 바디 --%>
-	<jsp:include page="<%=contentFilePath %>"></jsp:include>
+	<jsp:include page="<%=contentFilePath %>"/>
 	<% String returnURL = (String)request.getAttribute("returnURL");
 			if(returnURL!=null) {
 				response.sendRedirect(returnURL);
 				return;
 			} %>
 	<%-- 풋터 --%>
-	<jsp:include page="<%=main_footer %>"></jsp:include>
+	<jsp:include page="<%=main_footer %>"/>
 	
 	
 	<!-- 부트스트랩 -->
