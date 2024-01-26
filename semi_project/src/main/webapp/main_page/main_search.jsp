@@ -3,14 +3,5 @@
 
 
 
-<br>
-	<div class="main-body">
-		<img src="<%=request.getContextPath()%>/images/main_img.png" class="img-fluid" alt="Koala"
-			style="width: 100%; height: 400px;">
-	</div>
-	<div class="main-prd">
-		<div>
-		<h2 class="subTitle"><%=request.getParameter("keyword") %></h2>
-		</ul>
-	</div>
-	<hr>
+<h1>검색결과 페이지</h1>
+<h2><%=request.getParameter("keyword")%></h2>
