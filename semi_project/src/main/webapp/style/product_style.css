@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.content {
+  background-color: skyblue;
+  color: white;
+  border: none;
+  
+  padding: 10px 30px;
+}
