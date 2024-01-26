@@ -24,8 +24,8 @@
 				<div class="col-4 text-center">
 
 					<a class="blog-header-logo text-dark" href="main.jsp"> <img
-						alt="로고" src="<%=request.getContextPath()%>/images/0.png"
-						width="200">쿠키몰
+						alt="로고" src="<%=request.getContextPath()%>/images/logo.png"
+						width="200">
 					</a>
 				</div>
 				<div class="col-4 d-flex justify-content-end align-items-center">
