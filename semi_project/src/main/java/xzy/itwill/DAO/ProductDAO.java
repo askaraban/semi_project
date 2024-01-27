@@ -20,6 +20,7 @@ public class ProductDAO extends JdbcDAO{
 		return _dao;
 	}
 	
+	// 첨부파일에 업로드한 이미지 파일의 경로를 삽입하는 메소드
 	public int uploadFile(ProductDTO product) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -30,7 +31,7 @@ public class ProductDAO extends JdbcDAO{
 			String sql = "insert into productList values (product_num.nextval,?)";
 			
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, product.getImagePath());
+			pstmt.setString(1, product.getProductImgPath());
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -40,6 +41,7 @@ public class ProductDAO extends JdbcDAO{
 		} return rows;
 	}
 	
+	// 업로드된 파일을 모두 검색해 가져옴
 	public List<ProductDTO> fileList(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -49,7 +51,7 @@ public class ProductDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select pronumber, imagepath from productList";
+			String sql = "select productId, productImgPath from productList";
 			
 			pstmt=con.prepareStatement(sql);
 			
@@ -58,8 +60,8 @@ public class ProductDAO extends JdbcDAO{
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				product.setPronumber(rs.getInt("pronumber"));
-				product.setImagePath(rs.getString("imagepath"));
+				product.setProductId(rs.getInt("productId"));
+				product.setProductImgPath(rs.getString("productImgPath"));
 				productList.add(product);
 			}
 			

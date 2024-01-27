@@ -39,7 +39,7 @@
 			} %>
 	</div>
 	<div id="footer">
-		<jsp:include page="/main_page/main_footer.jsp"/>
+		<jsp:include page="/manager_page/manager_footer.jsp"/>
 	</div>
 </body>
 </html>
