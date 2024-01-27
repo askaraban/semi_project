@@ -9,7 +9,8 @@
 <div id="logo"><a href="<%=request.getContextPath()%>/index.jsp?group=admin&worker=admin_main">관리자</a></div>
 
 <div id="menu">
-	<a href="#">제품관리</a>
+	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product">제품관리</a>
+	<a href="#">제품유형신설</a>
 	<a href="#">게시글관리</a>
 	<a href="#">주문관리</a>
 </div>  
