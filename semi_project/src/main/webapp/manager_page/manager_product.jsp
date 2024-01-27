@@ -87,22 +87,22 @@ div ul li {
 		<ul>
 			<li>
 				<div class="insert_div">
-					<input type="file"> <label>제품이미지</label>
+					<input type="file" name="product_img"> <label>제품이미지</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file"> <label>상세이미지1</label>
+					<input type="file" name="file1"> <label>상세이미지1</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file""> <label>상세이미지2</label>
+					<input type="file" name="file2"> <label>상세이미지2</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file""> <label>상세이미지3</label>
+					<input type="file" name="file3"> <label>상세이미지3</label>
 				</div>
 			</li>
 		</ul>
