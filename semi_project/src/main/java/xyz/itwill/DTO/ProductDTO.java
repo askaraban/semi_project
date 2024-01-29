@@ -1,25 +1,23 @@
 package xyz.itwill.DTO;
 
 /*
-PRODUCTID      NOT NULL NUMBER(10)     
-PRODUCTNAME             VARCHAR2(200)  
-PRODUCTCONTENT          VARCHAR2(1000) 
-PRODUCTPRICE            NUMBER(10)     
-PRODUCTCOM              VARCHAR2(30)   
-PRODUCTCATE             NUMBER(2)      
-PRODUCTREG              DATE           
-PRODUCTSALE             NUMBER(10)     
-PRODUCTDIS              NUMBER(3)      
-PRODUCTIMGPATH          VARCHAR2(50)   
-PRODUCTIMG1             VARCHAR2(50)   
-PRODUCTIMG2             VARCHAR2(50)   
-PRODUCTIMG3             VARCHAR2(50) 
+PRODUCTID      NOT NULL NUMBER(10)     // 제품번호
+PRODUCTNAME             VARCHAR2(200)  // 제품명
+PRODUCTPRICE            NUMBER(10)     // 제품가격
+PRODUCTCOM              VARCHAR2(30)   // 제조사
+PRODUCTCATE             NUMBER(2)      // 유형
+PRODUCTREG              DATE           // 등록일
+PRODUCTSALE             NUMBER(10)     // 판매량
+PRODUCTDIS              NUMBER(3)      // 할인율
+PRODUCTIMGPATH          VARCHAR2(50)   // 제품사진
+PRODUCTIMG1             VARCHAR2(50)   // 상세사진1
+PRODUCTIMG2             VARCHAR2(50)   // 상세사진2
+PRODUCTIMG3             VARCHAR2(50)   // 상세사진3
  */
 
 public class ProductDTO {
 	private int productId;
 	private String productName;
-	private String productContent;
 	private int productPrice;
 	private String productCom;
 	private int productCate;
@@ -42,12 +40,6 @@ public class ProductDTO {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-	public String getProductContent() {
-		return productContent;
-	}
-	public void setProductContent(String productContent) {
-		this.productContent = productContent;
 	}
 	public int getProductPrice() {
 		return productPrice;
@@ -110,4 +102,4 @@ public class ProductDTO {
 		this.productImg3 = productImg3;
 	}
 	
-	
+}	

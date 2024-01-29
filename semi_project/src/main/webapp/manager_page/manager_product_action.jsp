@@ -22,27 +22,16 @@
 	String filetwo = mr.getOriginalFileName("filetwo");
 	
 	// MultipartRequest.getFilesystemName(String name) : 전달파일의 업로드 파일명을 반환하는 메소드
-	String uploadone = mr.getFilesystemName("fileone");
-	String uploadtwo = mr.getFilesystemName("filetwo");
+	String upload_product_img = mr.getFilesystemName("product_img");
+	String upload1 = mr.getFilesystemName("file1");
+	String upload2 = mr.getFilesystemName("file2");
+	String upload3 = mr.getFilesystemName("file3");
 	
 	ProductDTO product = new ProductDTO();
-	product.setProductImgPath(uploadone);
+	product.setProductImgPath(upload_product_img);
+	product.setProductImg1(upload1);
+	product.setProductImg2(upload2);
+	product.setProductImg3(upload3);
 	
-	int rows = ProductDAO.getDAO().uploadFile(product);
+	int rows = ProductDAO.getDAO().insertProduct(product);
 	
-%>
-<!DOCTYPE html>
-<!-- 사용자로부터 값과 파일을 입력받아 처리페이지(upload.itwill)를 POST 방식으로 요청하여
-입력값과 입력파일을 전달하는 HTML 문서 -->
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Servlet</title>
-</head>
-<body>
-	<h1>파일 업로드</h1>
-	<hr>
-	<p>업로더 = <%=uploadone %></p>
-	<p><%=rows %>개 파일 업로드</p>
-	</body>
-</html>
