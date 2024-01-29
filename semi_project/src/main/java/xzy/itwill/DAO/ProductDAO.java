@@ -20,6 +20,7 @@ public class ProductDAO extends JdbcDAO{
 		return _dao;
 	}
 	
+	// 지울예정
 	// 첨부파일에 업로드한 이미지 파일의 경로를 삽입하는 메소드
 	public int uploadFile(ProductDTO product) {
 		Connection con = null;
@@ -71,6 +72,7 @@ public class ProductDAO extends JdbcDAO{
 			close(con, pstmt, rs);
 		} return productList;
 	}
+	
 	
 	/*
 	PRODUCTID      NOT NULL NUMBER(10)     

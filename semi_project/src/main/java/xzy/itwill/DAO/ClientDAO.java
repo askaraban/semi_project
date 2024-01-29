@@ -60,7 +60,7 @@ public class ClientDAO extends JdbcDAO {
 			con=getConnection();
 			
 			String sql="update client set passwd=?,name=?,email=?,mobile=?,zipcode=?"
-					+ ",address1=?,address2=?,update_date=sysdate where client_num=?";
+					+ ",address1=?,address2=?,updateDate=sysdate where clientNum=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, client.getPasswd());
 			pstmt.setString(2, client.getName());
@@ -88,7 +88,7 @@ public class ClientDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="update client set last_login=sysdate where client_num=?";
+			String sql="update client set lastLogin=sysdate where clientNum=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
 			
@@ -109,7 +109,7 @@ public class ClientDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="update client set client_status=? where client_num=?";
+			String sql="update client set clientStatus=? where clientNum=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, client.getClientStatus());
 			pstmt.setInt(2, client.getClientNum());
@@ -132,8 +132,8 @@ public class ClientDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select client_num,id,passwd,name,email,mobile,zipcode,address1,address2"
-					+",join_date,update_date,last_login,client_status from client where client_num=?";
+			String sql="select clientNum,id,passwd,name,email,mobile,zipcode,address1,address2"
+					+",joinDate,updateDate,lastLogin,clientStatus from client where clientNum=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
 			
@@ -141,7 +141,7 @@ public class ClientDAO extends JdbcDAO {
 			
 			if(rs.next()) {
 				client=new ClientDTO();
-				client.setClientNum(rs.getInt("client_num"));
+				client.setClientNum(rs.getInt("clientNum"));
 				client.setId(rs.getString("id"));
 				client.setPasswd(rs.getString("passwd"));
 				client.setName(rs.getString("name"));
@@ -150,10 +150,10 @@ public class ClientDAO extends JdbcDAO {
 				client.setZipcode(rs.getString("zipcode"));
 				client.setAddress1(rs.getString("address1"));
 				client.setAddress2(rs.getString("address2"));
-				client.setJoinDate(rs.getString("join_date"));
-				client.setUpdateDate(rs.getString("update_date"));
-				client.setLastLogin(rs.getString("last_login"));
-				client.setClientStatus(rs.getInt("client_status"));
+				client.setJoinDate(rs.getString("joinDate"));
+				client.setUpdateDate(rs.getString("updateDate"));
+				client.setLastLogin(rs.getString("lastLogin"));
+				client.setClientStatus(rs.getInt("clientStatus"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectClientByNum() 메소드의 SQL 오류 = "+e.getMessage());
@@ -172,8 +172,8 @@ public class ClientDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select client_num,id,passwd,name,email,mobile,zipcode,address1,address2"
-					+",join_date,update_date,last_login,client_status from client where id=?";
+			String sql="select clientNum,id,passwd,name,email,mobile,zipcode,address1,address2"
+					+",joinDate,updateDate,lastLogin,clientStatus from client where id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -181,7 +181,7 @@ public class ClientDAO extends JdbcDAO {
 			
 			if(rs.next()) {
 				client=new ClientDTO();
-				client.setClientNum(rs.getInt("client_num"));
+				client.setClientNum(rs.getInt("clientNum"));
 				client.setId(rs.getString("id"));
 				client.setPasswd(rs.getString("passwd"));
 				client.setName(rs.getString("name"));
@@ -190,10 +190,10 @@ public class ClientDAO extends JdbcDAO {
 				client.setZipcode(rs.getString("zipcode"));
 				client.setAddress1(rs.getString("address1"));
 				client.setAddress2(rs.getString("address2"));
-				client.setJoinDate(rs.getString("join_date"));
-				client.setUpdateDate(rs.getString("update_date"));
-				client.setLastLogin(rs.getString("last_login"));
-				client.setClientStatus(rs.getInt("client_status"));
+				client.setJoinDate(rs.getString("joinDate"));
+				client.setUpdateDate(rs.getString("updateDate"));
+				client.setLastLogin(rs.getString("lastLogin"));
+				client.setClientStatus(rs.getInt("clientStatus"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectClientById() 메소드의 SQL 오류 = "+e.getMessage());

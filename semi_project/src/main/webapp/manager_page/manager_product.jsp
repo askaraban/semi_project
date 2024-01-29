@@ -70,11 +70,6 @@ td {
 				</li>
 				<li>
 					<div class="insert_div">
-						<input type="text"> <label>제품상세내용</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
 						<input type="text"> <label>가격</label>
 					</div>
 				</li>

@@ -15,7 +15,7 @@
 		
 		//request 내장객체의 속성값으로 URL 주소 저장하여 요청 JSP 문서(index.jsp)에서 
 		//URL 주소를 제공받아 클라이언트에게 전달하여 응답
-		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -51,5 +51,5 @@
 	ClientDAO.getDAO().insertClient(client);
 	
 	//페이지 이동
-	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=client_page&worker=client_join");
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=client_page&worker=client_join");
 %>
