@@ -10,7 +10,11 @@
 }
 
 .insert_div {
-	display: none
+	display: none;
+}
+
+#productList_div {
+	display: none;
 }
 
 div ul li {
@@ -29,9 +33,27 @@ div ul li {
 .insert_div_content {
 	border: 1px solid black;
 }
+
+table {
+	margin: 5px auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+th {
+	border: 1px solid black;
+	color: black;
+}
+
+td {
+	border: 1px solid black;
+	text-align: center;
+}
 </style>
 
-<form>
+<form
+	action="<%=request.getContextPath()%>/manager_page/manager?group=manager_page&worker=manager_product_action"
+	method="post" enctype="multipart/form-data" id="uploadForm">
 	<div class="manager_body">
 		<div class="product_Btn">
 			<button type="button" id="listBtn">제품 목록</button>
@@ -80,9 +102,6 @@ div ul li {
 			</ul>
 		</div>
 	</div>
-</form>
-<form action="fileUploadJSP.jsp" method="post"
-	enctype="multipart/form-data">
 	<div class="insert_div_content">
 		<ul>
 			<li>
@@ -112,8 +131,30 @@ div ul li {
 		<button type="reset">다시입력</button>
 	</div>
 </form>
+
+
+
+<div id="productList_div">
+	<table>
+		<tr>
+			<th>제품번호</th>
+			<th>제품명</th>
+			<th>유형</th>
+			<th>가격</th>
+			<th>할인율</th>
+			<th>판매량</th>
+		</tr>
+	</table>
+</div>
 <script type="text/javascript">
 	$("#insertBtn").click(function() {
 		$(".insert_div").css("display", "block");
-	})
+		$("#productList_div").css("display", "none");
+
+	});
+
+	$("#listBtn").click(function() {
+		$("#productList_div").css("display", "block");
+		$(".insert_div").css("display", "none");
+	});
 </script>
