@@ -13,7 +13,7 @@
 					&worker=notice_main">공지사항</a>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=#">회원가입</a>
+					&worker=client_join">회원가입</a>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
 					&worker=login">로그인</a>
