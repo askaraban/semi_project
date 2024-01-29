@@ -12,7 +12,7 @@
 	<!-- => factory 속성값 대신 class 속성의 속성값 속성값(객체를 생성하기 위한 클래스)을 사용하여 객체 생성 가능 -->
 	<!-- type 속성 : 객체의 자료형을 속성값으로 설정 - 객체를 반환받기 위한 자료형(클래스 or 인터페이스) 반환값을 DataSource로 하겠다-->
 	<!-- 객체 생성에 필요한 필드값을 속성(필드명)과 속성값(필드값)을 사용하여 설정 - 필드값 변경 -->
-<!-- 	class="org.apache.tomcat.dbcp.dbcp2.BasicData" 이런 방식도 있음 -->
+<!-- 	class="org.apache.tomcat.dbcp.dbcp2.BasicData" 이런 방식도 있음 ㅇ-->
 	<Resource name="jdbc/oracle" auth="Container"
 		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
 		type="javax.sql.DataSource"
