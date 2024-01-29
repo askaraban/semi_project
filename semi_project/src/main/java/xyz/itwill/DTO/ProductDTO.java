@@ -110,4 +110,4 @@ public class ProductDTO {
 		this.productImg3 = productImg3;
 	}
 	
-	
+}	

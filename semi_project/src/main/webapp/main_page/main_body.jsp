@@ -48,8 +48,8 @@
 			<%for(ProductDTO pro : productList){ %>
 			<li id="anchorBoxId_1" class="xans">
 				<div class="card" style="width: 15rem;">
-					<img src="<%=request.getContextPath() %>/upload/<%=pro.getImagePath()%>" class="card-img-top" alt="...">
-					<%System.out.println(pro.getImagePath()); %>
+					<img src="<%=request.getContextPath() %>/upload/<%=pro.getProductImgPath()%>" class="card-img-top" alt="...">
+					<%System.out.println(pro.getProductImgPath()); %>
 					<%System.out.println(request.getContextPath()); %>
 					<div class="card-body">
 						<h5 class="card-title">Card title</h5>

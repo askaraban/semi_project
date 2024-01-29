@@ -26,7 +26,7 @@
 	String uploadtwo = mr.getFilesystemName("filetwo");
 	
 	ProductDTO product = new ProductDTO();
-	product.setImagePath(uploadone);
+	product.setProductImgPath(uploadone);
 	
 	int rows = ProductDAO.getDAO().uploadFile(product);
 	
