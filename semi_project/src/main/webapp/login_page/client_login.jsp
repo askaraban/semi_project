@@ -98,7 +98,7 @@ a:hover {
 <h1>로그인</h1>
 </div>
 <div id="space"></div>
-<form  action="<%=request.getContextPath() %>/index.jsp?group=member&worker=member_login_action" 
+<form  action="<%=request.getContextPath() %>/main_page/main.jsp?group=login_page&worker=client_login_action" 
 	method="post" id="loginForm" name="loginForm">
 	
 	<ul class="login_tag">
@@ -114,9 +114,9 @@ a:hover {
 	<div id="login_btn">로그인</div>
 </form>
 <div id="search">
-	<a href="<%=request.getContextPath()%>/index.jsp?group=member&worker=search_id">아이디 찾기</a> |
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_id">아이디 찾기</a> |
 	<a href="#">비밀번호 찾기</a> |
-	<a href="#<%=request.getContextPath()%>/index.jsp?group=member&worker=member_join">회원가입</a>
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_join">회원가입</a>
 </div>
 <div id="message"><%=message %></div>
 
