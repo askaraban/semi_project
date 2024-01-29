@@ -96,19 +96,17 @@ public class ProductDAO extends JdbcDAO{
 		
 		try {
 			con=getConnection();
-			String sql = "insert into product_table values (productId.nextval,?,?,?,?,sysdate,?,?,?,?,?,?)";
+			String sql = "insert into product_table values (productId.nextval,?,?,?,?,sysdate,0,null,?,?,?,?)";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());
 			pstmt.setInt(2, product.getProductPrice());
 			pstmt.setString(3, product.getProductCom());
 			pstmt.setInt(4, product.getProductCate());
-			pstmt.setInt(5, product.getProductSale());
-			pstmt.setInt(6, product.getProductDis());
-			pstmt.setString(7, product.getProductImgPath());
-			pstmt.setString(8, product.getProductImg1());
-			pstmt.setString(9, product.getProductImg2());
-			pstmt.setString(10, product.getProductImg3());
+			pstmt.setString(5, product.getProductImgPath());
+			pstmt.setString(6, product.getProductImg1());
+			pstmt.setString(7, product.getProductImg2());
+			pstmt.setString(8, product.getProductImg3());
 			
 			rows=pstmt.executeUpdate();
 			

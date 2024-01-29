@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <div id="profile">
 	<span style="font-weight: bold;">[관리자님, 환영합니다.]</span>&nbsp;&nbsp;	
-	<a href="<%=request.getContextPath()%>/index.jsp?group=member&worker=member_logout_action">로그아웃</a>&nbsp;&nbsp;
-	<a href="<%=request.getContextPath()%>/index.jsp?group=main&worker=main_page">쿠키몰</a>&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_logout_action">로그아웃</a>&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp">쿠키몰</a>&nbsp;&nbsp;
 </div>
 
-<div id="logo"><a href="<%=request.getContextPath()%>/index.jsp?group=admin&worker=admin_main">관리자</a></div>
+<div id="logo"><a href="<%=request.getContextPath()%>/manager_page/manager.jsp">관리자</a></div>
 
 <div id="menu">
 	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product">제품관리</a>
-	<a href="#">제품유형신설</a>
+	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_category">제품유형신설</a>
 	<a href="#">게시글관리</a>
 	<a href="#">주문관리</a>
 </div>  

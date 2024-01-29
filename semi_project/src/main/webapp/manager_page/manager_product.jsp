@@ -31,7 +31,6 @@ div ul li {
 }
 
 .insert_div_content {
-	border: 1px solid black;
 }
 
 table {
@@ -52,7 +51,7 @@ td {
 </style>
 
 <form
-	action="<%=request.getContextPath()%>/manager_page/manager?group=manager_page&worker=manager_product_action"
+	action="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_action"
 	method="post" enctype="multipart/form-data" id="uploadForm">
 	<div class="manager_body">
 		<div class="product_Btn">
@@ -65,33 +64,28 @@ td {
 			<ul>
 				<li>
 					<div class="insert_div">
-						<input type="text"> <label>제품명</label>
+						<input type="text" name="productName"> <label>제품명</label>
 					</div>
 				</li>
 				<li>
 					<div class="insert_div">
-						<input type="text"> <label>가격</label>
+						<input type="text" name="productPrice"> <label>가격</label>
 					</div>
 				</li>
 				<li>
 					<div class="insert_div">
-						<select name="category">
+						<input type="text" name="productCom"> <label>제조사</label>
+					</div>
+				</li>
+				<li>
+					<div class="insert_div">
+						<select name="productCate">
 							<option value="10">&nbsp;스낵&nbsp;</option>
 							<option value="20">&nbsp;파이&쿠키&nbsp;</option>
 							<option value="30">&nbsp;캔디&젤리&nbsp;</option>
 							<option value="40">&nbsp;초콜릿&nbsp;</option>
 							<option value="50">&nbsp;껌&nbsp;</option>
 						</select> <label>유형</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
-						<input type="text"> <label>판매량</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
-						<input type="text"> <label>할인율</label>
 					</div>
 				</li>
 			</ul>
@@ -101,26 +95,27 @@ td {
 		<ul>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="product_img"> <label>제품이미지</label>
+					<input type="file" name="productImgPath"> <label>제품이미지</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="file1"> <label>상세이미지1</label>
+					<input type="file" name="productImg1"> <label>상세이미지1</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="file2"> <label>상세이미지2</label>
+					<input type="file" name="productImg2"> <label>상세이미지2</label>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="file3"> <label>상세이미지3</label>
+					<input type="file" name="productImg3"> <label>상세이미지3</label>
 				</div>
 			</li>
 		</ul>
 	</div>
+	<hr>
 	<div class="insert_div">
 		<button type="submit">제품등록</button>
 		<button type="reset">다시입력</button>
@@ -136,7 +131,7 @@ td {
 			<th>제품명</th>
 			<th>유형</th>
 			<th>가격</th>
-			<th>할인율</th>
+			<th>할인율(%)</th>
 			<th>판매량</th>
 		</tr>
 	</table>

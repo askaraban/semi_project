@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
  	request.setCharacterEncoding("utf-8");
+	String manager_header = "/manager_page/header_admin.jsp";
+	String manager_footer = "/manager_page/manager_footer.jsp";
  	// 작업 폴더명을 반환받아 저장
  	String group = request.getParameter("group");
  	if(group==null){
@@ -28,7 +30,7 @@
 </head>
 <body>
 	<div id="header">
-	<jsp:include page="/manager_page/header_admin.jsp"/>
+	<jsp:include page="<%=manager_header %>"/>
 	</div>
 	<div id="content">
 		<jsp:include page="<%=contentFilePath %>"/>
@@ -39,7 +41,7 @@
 			} %>
 	</div>
 	<div id="footer">
-		<jsp:include page="/manager_page/manager_footer.jsp"/>
+		<jsp:include page="<%=manager_footer %>"/>
 	</div>
 </body>
 </html>

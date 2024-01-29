@@ -13,6 +13,8 @@ productCom varchar2(30), productCate number(2), productReg date, productSale num
 productImgPath varchar2(50), productImg1 varchar(50), productImg2 varchar2(50), productImg3 varchar2(50),
 foreign key (productCate) references category_table(categoryId));
 
+create sequence product_seq;
+
 -- 제품 유형 테이블 --
 create table category_table (categoryId number(2) primary key, categoryName varchar2(30));
 
@@ -21,3 +23,15 @@ increment by 10
 minvalue 10;
 
 commit;
+
+desc product_table;
+desc category_table;
+select * from category_table;
+
+update client set clientstatus=9 where id='administrator';
+
+select * from product_table;
+
+
+
+
