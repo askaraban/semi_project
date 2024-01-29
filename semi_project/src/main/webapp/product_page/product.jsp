@@ -42,7 +42,7 @@ String main_footer = "/main_page/main_footer.jsp";
 	<%-- 바디 --%>
 	<br>
 	<br>
-	<div>
+	<div class="productOrder">
 		<jsp:include page="<%=product_order %>"></jsp:include>
 		<% 
 			String returnURL = (String)request.getAttribute("returnURL");
