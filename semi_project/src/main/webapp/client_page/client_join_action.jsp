@@ -4,7 +4,7 @@
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 회원정보를 전달받아 CLIENT 테이블의 행으로 삽입하고 [/main_page/?????_login.jsp] 문서를
+<%-- 회원정보를 전달받아 CLIENT 테이블의 행으로 삽입하고 [/main_page/client_join.jsp] 문서를
 요청하기 위한 URL 주소를 전달하여 응답하는 JSP 문서 --%>    
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
