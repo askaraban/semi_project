@@ -1,5 +1,5 @@
+<%@page import="xzy.itwill.DAO.ClientDAO"%>
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
-<%@page import="xyz.itwill.DAO.ClientDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 아이디를 전달받아 Client 테이블의 저장된 행의 아이디와 비교하여 중복 결과를 응답하는 JSP 문서 --%>
