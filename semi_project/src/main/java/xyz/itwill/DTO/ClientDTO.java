@@ -12,7 +12,7 @@ create sequence client_seq;
 /*
 이름            널?       유형            
 ------------- -------- ------------- 
-CLIENT_NUM    NOT NULL NUMBER        - 회원번호(PRIMARY KEY) : 시퀸스의 증가값     
+CLIENTNUM    NOT NULL NUMBER        - 회원번호(PRIMARY KEY) : 시퀸스의 증가값     
 ID                     VARCHAR2(30)  - 아이디 : 사용자 입력값  
 PASSWD                 VARCHAR2(200) - 비밀번호 : 사용자 입력값(암호화 처리)
 NAME                   VARCHAR2(30)  - 이름 : 사용자 입력값   
@@ -22,9 +22,9 @@ ZIPCODE                VARCHAR2(10)  - 우편번호 : 사용자 입력값(우편
 ADDRESS1               VARCHAR2(200) - 기본주소 : 사용자 입력값(우편번호 검색서비스)
 ADDRESS2               VARCHAR2(100) - 상세주소 : 사용자 입력값
 JOIN_DATE              DATE          - 회원가입날짜 : 시스템의 현재 날짜와 시간(SYSDATE) 
-UPDATE_DATE            DATE          - 회원변경날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
-LAST_LOGIN             DATE          - 마지막 로그인날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
-CLIENT_STATUS          NUMBER(1)     - 회원상태(권한) : 0(탈퇴회원), 1(일반회원), 9(관리자) 
+UPDATEDATE            DATE          - 회원변경날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
+LASTLOGIN             DATE          - 마지막 로그인날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
+CLIENTSTATUS          NUMBER(1)     - 회원상태(권한) : 0(탈퇴회원), 1(일반회원), 9(관리자) 
 */
 
 public class ClientDTO {

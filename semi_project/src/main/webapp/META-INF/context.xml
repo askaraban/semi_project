@@ -17,6 +17,6 @@
 		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.driver.OracleDriver"
-		url="jdbc:oracle:thin:@localhost:1521:xe" username="scott"
+		url="jdbc:oracle:thin:@www.itwill.xyz:1521:xe" username="scott"
 		password="tiger" initialSize="10" maxIdle="10" maxTotal="15" />
 </Context>
