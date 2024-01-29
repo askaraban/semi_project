@@ -33,27 +33,28 @@ String main_footer = "/main_page/main_footer.jsp";
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	<!--  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-	crossorigin="anonymous">-->
 <link href="<%=request.getContextPath()%>/style/style.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
-
 	<%-- 헤더 --%>
 	<jsp:include page="<%=main_header %>"></jsp:include>
 	<%-- 바디 --%>
 	<br>
 	<br>
-	<jsp:include page="<%=product_order %>"></jsp:include>
-	<% 
-		String returnURL = (String)request.getAttribute("returnURL");
-		if(returnURL!=null) {
-			response.sendRedirect(returnURL);
-			return;
-		}
-	%>
-	<jsp:include page="<%=product_detail %>"></jsp:include>
+	<div>
+		<jsp:include page="<%=product_order %>"></jsp:include>
+		<% 
+			String returnURL = (String)request.getAttribute("returnURL");
+			if(returnURL!=null) {
+				response.sendRedirect(returnURL);
+				return;
+			}
+		%>
+	</div>
+	<div>
+		<jsp:include page="<%=product_detail %>"></jsp:include>
+	</div>
 	<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"></jsp:include>
 	
