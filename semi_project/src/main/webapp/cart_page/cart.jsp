@@ -42,6 +42,27 @@
 					<div class="cart-product-countInner">주문 수량 : 1개</div>
 				</div>
 			</div>
+			
+			<br>
+		</div>
+		<div class="product-info">
+			<div>
+				<div class="check-box-all-inner">
+					<input class="form-check-input" type="checkbox"
+						id="checkboxNoLabel" value="" aria-label="product-check">
+				</div>
+			</div>
+			<div class="product-inner">
+				<div >
+					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/images/snack_ch/ABC.png">
+				</div>
+				<div class="cart-product-infoArea">
+					<div class="cart-product-title">ABC 초콜릿 500g</div>
+					<div class="cart-product-price">가격 : 4,800원</div>
+					<div class="cart-product-countInner">주문 수량 : 1개</div>
+				</div>
+			</div>
+			
 			<br>
 		</div>
 	</div>

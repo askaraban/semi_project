@@ -1,5 +1,13 @@
+<%@page import="xzy.itwill.DAO.ClientDAO"%>
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%
+
+	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
+
+%>
 
 <body>
 	<div id="header">
@@ -11,12 +19,23 @@
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page
 					&worker=notice_main">공지사항</a>
+					<%if(loginClient==null) {%>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
 					&worker=client_join">회원가입</a>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
 					&worker=client_login">로그인</a>
+					<%} else {%>
+					<a class="link-secondary head-right-line"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
+					&worker=client_logout">로그아웃</a>
+						<%if(loginClient.getClientStatus()==9){ %>
+						<a class="link-secondary head-right-line"
+						href="<%=request.getContextPath()%>/manager_page/manager.jsp">관리자</a>
+						<%} %>
+					
+					<%} %>
 					<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
 					&worker=#">마이페이지</a>

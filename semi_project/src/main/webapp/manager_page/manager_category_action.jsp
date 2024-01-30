@@ -16,7 +16,7 @@
 	
 	category.setCategoryName(CategoryName);
 	
-	int rosw=CategoryDAO.getDAO().insertCategory(category);
+	int rows=CategoryDAO.getDAO().insertCategory(category);
 	
 	request.setAttribute("returnURL", request.getContextPath()+"/manager_page/manager.jsp?worker=manager_category");
 %>

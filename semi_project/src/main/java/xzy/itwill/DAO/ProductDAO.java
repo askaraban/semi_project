@@ -74,20 +74,6 @@ public class ProductDAO extends JdbcDAO{
 	}
 	
 	
-	/*
-	PRODUCTID      NOT NULL NUMBER(10)     
-	PRODUCTNAME             VARCHAR2(200)  
-	PRODUCTPRICE            NUMBER(10)     
-	PRODUCTCOM              VARCHAR2(30)   
-	PRODUCTCATE             NUMBER(2)      
-	PRODUCTREG              DATE           
-	PRODUCTSALE             NUMBER(10)     
-	PRODUCTDIS              NUMBER(3)      
-	PRODUCTIMGPATH          VARCHAR2(50)   
-	PRODUCTIMG1             VARCHAR2(50)   
-	PRODUCTIMG2             VARCHAR2(50)   
-	PRODUCTIMG3             VARCHAR2(50) 
-	 */
 	
 	public int insertProduct(ProductDTO product) {
 		Connection con = null;
@@ -96,7 +82,7 @@ public class ProductDAO extends JdbcDAO{
 		
 		try {
 			con=getConnection();
-			String sql = "insert into product_table values (productId.nextval,?,?,?,?,sysdate,0,null,null,?,?,?,?)";
+			String sql = "insert into product_table values (product_seq.nextval,?,?,?,?,sysdate,0,null,null,?,?,?,?)";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());

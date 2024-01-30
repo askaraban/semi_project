@@ -1,5 +1,14 @@
+<%@page import="xzy.itwill.DAO.CategoryDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="xyz.itwill.DTO.CategoryDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+	
+<%
+	List<CategoryDTO> categoryList = new ArrayList<>();
+	categoryList = CategoryDAO.getDAO().selectCategoryList();
+%>
 <style>
 .manager_body {
 	display: block;
@@ -80,11 +89,9 @@ td {
 				<li>
 					<div class="insert_div">
 						<select name="productCate">
-							<option value="10">&nbsp;½º³¼&nbsp;</option>
-							<option value="20">&nbsp;ÆÄÀÌ&ÄíÅ°&nbsp;</option>
-							<option value="30">&nbsp;Äµµð&Á©¸®&nbsp;</option>
-							<option value="40">&nbsp;ÃÊÄÝ¸´&nbsp;</option>
-							<option value="50">&nbsp;²­&nbsp;</option>
+						<% for(CategoryDTO category : categoryList){ %>
+							<option value="<%=category.getCategoryId()%>">&nbsp;<%=category.getCategoryName() %>&nbsp;</option>
+						<%} %>
 						</select> <label>À¯Çü</label>
 					</div>
 				</li>
