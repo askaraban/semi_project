@@ -28,8 +28,8 @@
 					&worker=client_login">로그인</a>
 					<%} else {%>
 					<a class="link-secondary head-right-line"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=client_logout">로그아웃</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
+					&worker=client_logout_action">로그아웃</a>
 						<%if(loginClient.getClientStatus()==9){ %>
 						<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/manager_page/manager.jsp">관리자</a>

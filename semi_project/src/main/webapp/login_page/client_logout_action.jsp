@@ -6,5 +6,5 @@
 	session.removeAttribute("loginClient");
 	//session.invalidate();
 	
-	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=main_page&worker=main");
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp");
 %>
