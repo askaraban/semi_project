@@ -22,7 +22,7 @@ public class ClientDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	//회원정보를 전달받아 CLIENT 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
+	//회원정보를 전달받아 CLIENT 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드d
 	public int insertClient(ClientDTO client) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
