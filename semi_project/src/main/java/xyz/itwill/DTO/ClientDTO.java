@@ -26,7 +26,22 @@ UPDATEDATE            DATE          - 회원변경날짜 : 시스템의 현재 �
 LASTLOGIN             DATE          - 마지막 로그인날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
 CLIENTSTATUS          NUMBER(1)     - 회원상태(권한) : 0(탈퇴회원), 1(일반회원), 9(관리자) 
 */
-
+/*
+------------- -------- ------------- 
+CLIENT_NUM    NOT NULL NUMBER        
+ID                     VARCHAR2(30)  
+PASSWD                 VARCHAR2(200) 
+NAME                   VARCHAR2(30)  
+EMAIL                  VARCHAR2(50)  
+MOBILE                 VARCHAR2(20)  
+ZIPCODE                VARCHAR2(10)  
+ADDRESS1               VARCHAR2(200) 
+ADDRESS2               VARCHAR2(100) 
+JOIN_DATE              DATE          
+UPDATE_DATE            DATE          
+LAST_LOGIN             DATE          
+CLIENT_STATUS          NUMBER(1) 
+*/
 public class ClientDTO {
 	private int clientNum;
 	private String id;

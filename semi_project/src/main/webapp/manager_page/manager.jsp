@@ -1,3 +1,4 @@
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -18,6 +19,8 @@
  	
  	// 전달값을 사용하여 페이지 몸체부에 포함될 JSP 문서의 컨텍스트 경로를 생성하여 저장
  	String contentFilePath="/"+group+"/"+worker+".jsp";
+ 	
+ 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
  %>
 
 <!DOCTYPE html>
@@ -29,6 +32,7 @@
 <link href="<%=request.getContextPath()%>/style/manager_style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+<%if(loginClient!=null && loginClient.getClientStatus()==9){ %>
 	<div id="header">
 	<jsp:include page="<%=manager_header %>"/>
 	</div>
@@ -44,4 +48,7 @@
 		<jsp:include page="<%=manager_footer %>"/>
 	</div>
 </body>
+<%} else{ %>
+	
+<%} %>
 </html>

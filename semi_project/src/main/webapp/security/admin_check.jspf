@@ -10,7 +10,7 @@ JSP 문서를 요청하기 위한 URL 주소를 전달하여 응답하는 코드
 	ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
 
 	//비로그인 상태의 사용자 또는 일반 사용자가 JSP 문서를 요청한 경우에 대한 응답 처리 - 비정상적인 요청 
-	if(loginClient==null || loginClients.getClientStatus()!=9) {
+	if(loginClient==null || loginClient.getClientStatus()!=9) {
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}

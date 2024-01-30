@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <div id="profile">
 	<span style="font-weight: bold;">[관리자님, 환영합니다.]</span>&nbsp;&nbsp;	
-	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_logout_action">로그아웃</a>&nbsp;&nbsp;
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=client_logout_action">로그아웃</a>&nbsp;&nbsp;
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp">쿠키몰</a>&nbsp;&nbsp;
 </div>
 

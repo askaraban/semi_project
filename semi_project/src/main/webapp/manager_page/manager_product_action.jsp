@@ -21,10 +21,24 @@
 	String productCom=mr.getParameter("productCom");
 	int productCate=Integer.parseInt(mr.getParameter("productCate"));
 	// MultipartRequest.getFilesystemName(String name) : 전달파일의 업로드 파일명을 반환하는 메소드
-	String productImgPath = mr.getFilesystemName("productImgPath");
-	String productImg1 = mr.getFilesystemName("productImg1");
-	String productImg2 = mr.getFilesystemName("productImg2");
-	String productImg3 = mr.getFilesystemName("productImg3");
+	String productImgPath=null;
+	String productImg1=null;
+	String productImg2=null;
+	String productImg3=null;
+	
+	if(mr.getFilesystemName("productImgPath")!=null){
+		productImgPath = "/productImg/"+mr.getOriginalFileName("productImgPath");
+	}
+	if(mr.getFilesystemName("productImg1")!=null){
+		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg1");
+	}
+	if(mr.getFilesystemName("productImg2")!=null){
+		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg2");
+	}
+	if(mr.getFilesystemName("productImg3")!=null){
+		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg3");
+	}
+	
 	
 	// 입력된 값 DTO 객체 필드에 저장하기
 	ProductDTO product = new ProductDTO();

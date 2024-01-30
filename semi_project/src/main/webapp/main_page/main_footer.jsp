@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 
-<body>
 	<!-- footer 부분-->
 	<footer id="footer" class="foot_line">
 		<div class="inner_foot">
@@ -25,5 +24,4 @@
 			</div>
 		</div>
 	</footer>
-</body>
 </html>
