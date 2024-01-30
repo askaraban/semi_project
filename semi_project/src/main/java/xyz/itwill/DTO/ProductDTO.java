@@ -9,6 +9,7 @@ PRODUCTCATE             NUMBER(2)      // 유형
 PRODUCTREG              DATE           // 등록일
 PRODUCTSALE             NUMBER(10)     // 판매량
 PRODUCTDIS              NUMBER(3)      // 할인율
+PRODUCTDISCONTENT       VARCHAR2(300)  // 할인내용
 PRODUCTIMGPATH          VARCHAR2(50)   // 제품사진
 PRODUCTIMG1             VARCHAR2(50)   // 상세사진1
 PRODUCTIMG2             VARCHAR2(50)   // 상세사진2
@@ -24,11 +25,18 @@ public class ProductDTO {
 	private String productReg;
 	private int productSale;
 	private int productDis;
+	private String productContent;
 	private String productImgPath;
 	private String productImg1;
 	private String productImg2;
 	private String productImg3;
 	
+	public String getProductContent() {
+		return productContent;
+	}
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
 	public int getProductId() {
 		return productId;
 	}

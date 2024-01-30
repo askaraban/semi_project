@@ -96,7 +96,7 @@ public class ProductDAO extends JdbcDAO{
 		
 		try {
 			con=getConnection();
-			String sql = "insert into product_table values (productId.nextval,?,?,?,?,sysdate,0,null,?,?,?,?)";
+			String sql = "insert into product_table values (productId.nextval,?,?,?,?,sysdate,0,null,null,?,?,?,?)";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());
