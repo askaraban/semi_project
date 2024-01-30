@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="xzy.itwill.DAO.ProductDAO"%>
@@ -7,8 +8,10 @@
 	
 <%
 	List<ProductDTO> productList = new ArrayList<>();
-	productList = ProductDAO.getDAO().fileList();
-
+	productList = ProductDAO.getDAO().selectProductList();
+	
+	
+	DecimalFormat format = new DecimalFormat("###,###,##0");
 
 %>	
 
@@ -47,18 +50,17 @@
 		<ul class="prdList grid3">
 			<%for(ProductDTO pro : productList){ %>
 			<li id="anchorBoxId_1" class="xans">
-				<div class="card" style="width: 15rem;">
-					<img src="<%=request.getContextPath() %>/upload/<%=pro.getProductImgPath()%>" class="card-img-top" alt="...">
-					<%System.out.println(pro.getProductImgPath()); %>
-					<%System.out.println(request.getContextPath()); %>
+				<div class="card border-light" style="width: 14rem;">
+					<a href="#" class="product-a-line">
+					<img src="<%=request.getContextPath() %><%=pro.getProductImgPath()%>" class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">구매하기</a> <a href="#"
-							class="btn btn-primary">장바구니</a>
+						<h5 class="card-title"><%=pro.getProductName() %></h5>
+						<p class="card-text"><%=pro.getProductCom() %></p>
+						<p class="card-text"><%=format.format(pro.getProductPrice()) %>원</p>
 					</div>
+						</a>
 				</div>
+				
 			</li>
 					<%} %>
 		</ul>

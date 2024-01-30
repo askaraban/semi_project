@@ -1,19 +1,19 @@
 package xyz.itwill.DTO;
 
 /*
-PRODUCTID      NOT NULL NUMBER(10)     // 제품번호
-PRODUCTNAME             VARCHAR2(200)  // 제품명
-PRODUCTPRICE            NUMBER(10)     // 제품가격
-PRODUCTCOM              VARCHAR2(30)   // 제조사
-PRODUCTCATE             NUMBER(2)      // 유형
-PRODUCTREG              DATE           // 등록일
-PRODUCTSALE             NUMBER(10)     // 판매량
-PRODUCTDIS              NUMBER(3)      // 할인율
-PRODUCTDISCONTENT       VARCHAR2(300)  // 할인내용
-PRODUCTIMGPATH          VARCHAR2(50)   // 제품사진
-PRODUCTIMG1             VARCHAR2(50)   // 상세사진1
-PRODUCTIMG2             VARCHAR2(50)   // 상세사진2
-PRODUCTIMG3             VARCHAR2(50)   // 상세사진3
+PRODUCT_ID      NOT NULL NUMBER(10)     // 제품번호
+PRODUCT_NAME             VARCHAR2(200)  // 제품명
+PRODUCT_PRICE            NUMBER(10)     // 제품가격
+PRODUCT_COM              VARCHAR2(30)   // 제조사
+PRODUCT_CATE             NUMBER(2)      // 유형
+PRODUCT_REG              DATE           // 등록일
+PRODUCT_SALE             NUMBER(10)     // 판매량
+PRODUCT_DIS              NUMBER(3)      // 할인율
+PRODUCT_DIS_CONTENT       VARCHAR2(300)  // 할인내용
+PRODUCT_IMGPATH          VARCHAR2(50)   // 제품사진
+PRODUCT_IMG1             VARCHAR2(50)   // 상세사진1
+PRODUCT_IMG2             VARCHAR2(50)   // 상세사진2
+PRODUCT_IMG3             VARCHAR2(50)   // 상세사진3
  */
 
 public class ProductDTO {
@@ -25,17 +25,18 @@ public class ProductDTO {
 	private String productReg;
 	private int productSale;
 	private int productDis;
-	private String productContent;
+	private String productDisContent;
 	private String productImgPath;
 	private String productImg1;
 	private String productImg2;
 	private String productImg3;
 	
-	public String getProductContent() {
-		return productContent;
+	
+	public String getProductDisContent() {
+		return productDisContent;
 	}
-	public void setProductContent(String productContent) {
-		this.productContent = productContent;
+	public void setProductDisContent(String productDisContent) {
+		this.productDisContent = productDisContent;
 	}
 	public int getProductId() {
 		return productId;

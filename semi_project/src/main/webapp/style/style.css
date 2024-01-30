@@ -109,11 +109,9 @@ div {
 	display: block;
 	max-width: 1020px;
 	width: 100%;
-	border: 5px solid black;
 	margin: 0 auto;
 }
 .main-img{
-	border: 5px solid red;
 	height: 100%;
 }
 
@@ -132,7 +130,7 @@ div {
 }
 
 .main-prd {
-	border: 5px solid black;
+	padding-top: 40px;
 	max-width: 1020px;
 	width: 100%;
 	margin: 0 auto;
@@ -144,6 +142,15 @@ div {
 	width: 100%;
 	max-width: 1020px;
 	margin: 0 auto;
+}
+
+.product-a-line{
+	text-decoration-line: none;
+	color: black;
+	font-weight: bold;
+}
+.card-title{
+	font-weight: bold;
 }
 
 .prdList>li {

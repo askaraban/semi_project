@@ -20,30 +20,9 @@ public class ProductDAO extends JdbcDAO{
 		return _dao;
 	}
 	
-	// 지울예정
-	// 첨부파일에 업로드한 이미지 파일의 경로를 삽입하는 메소드
-	public int uploadFile(ProductDTO product) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		int rows = 0;
-		
-		try {
-			con=getConnection();
-			String sql = "insert into productList values (product_num.nextval,?)";
-			
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, product.getProductImgPath());
-			
-			rows=pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("[에러]uploadFile() 메소드 오류" + e.getMessage());
-		} finally {
-			close(con, pstmt);
-		} return rows;
-	}
-	
-	// 업로드된 파일을 모두 검색해 가져옴
-	public List<ProductDTO> fileList(){
+
+	// 업로드된 제품을 모두 검색해 가져옴
+	public List<ProductDTO> selectProductList(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -52,7 +31,8 @@ public class ProductDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select productId, productImgPath from productList";
+			String sql = "select product_id, product_name, product_price, product_com, product_cate, product_reg, product_sale"
+					+ ", product_dis, product_dis_content, product_img_path, product_img1, product_img2, product_img3 from product_table";
 			
 			pstmt=con.prepareStatement(sql);
 			
@@ -61,20 +41,32 @@ public class ProductDAO extends JdbcDAO{
 			
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				product.setProductId(rs.getInt("productId"));
-				product.setProductImgPath(rs.getString("productImgPath"));
+				product.setProductId(rs.getInt("product_id"));
+				product.setProductName(rs.getString("product_name"));
+				product.setProductPrice(rs.getInt("product_price"));
+				product.setProductCom(rs.getString("product_com"));
+				product.setProductCate(rs.getInt("product_cate"));
+				product.setProductReg(rs.getString("product_reg"));
+				product.setProductSale(rs.getInt("product_sale"));
+				product.setProductDis(rs.getInt("product_dis"));
+				product.setProductDisContent(rs.getString("product_dis_content"));
+				product.setProductImgPath(rs.getString("product_img_path"));
+				product.setProductImg1(rs.getString("product_img1"));
+				product.setProductImg2(rs.getString("product_img2"));
+				product.setProductImg3(rs.getString("product_img3"));
+				 
 				productList.add(product);
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("[에러]fileList() 메소드 오류" + e.getMessage());
+			System.out.println("[에러]selectProductList() 메소드 오류" + e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		} return productList;
 	}
 	
 	
-	
+	// 제품을 등록하는 메소드
 	public int insertProduct(ProductDTO product) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

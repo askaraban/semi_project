@@ -49,7 +49,7 @@ public class CategoryDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select categoryId, categoryName from category_table";
+			String sql = "select category_id, category_name from category_table";
 			
 			pstmt=con.prepareStatement(sql);
 			
