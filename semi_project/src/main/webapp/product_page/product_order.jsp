@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-sm-3" style="font-size:20px;">상품명</div>
 			<%-- <div class="col-sm-9" style="text-align: left">${productInfo.productName}</div> --%>
-			<div class="col-sm-9" style="text-align:left; padding-left:100px; font-size:20px;"><b>홈런볼</b></div>
+			<div class="col-sm-9" style="text-align:left; padding-left:100px; font-size:20px;"><b>해태 홈런볼 초코 46g [홈런왕]</b></div>
 			
 			<div class="col-sm-3">제조사</div>
 			<div class="col-sm-9" style="text-align:left; padding-left:100px;">해태제과</div>
@@ -19,7 +19,7 @@
 			<div class="col-sm-9" style="text-align:left; padding-left:100px;">상세설명참조</div>
 					
 			<div class="col-sm-3">판매가</div>
-			<div class="col-sm-9" style="text-align:left; padding-left:100px;">1,500 원</div>
+			<div class="col-sm-9" style="text-align:left; padding-left:100px;">1,700 원</div>
 			
 			<div class="col-sm-3">배송비</div>
 			<div class="col-sm-9" style="text-align:left; padding-left:100px;">
@@ -33,16 +33,21 @@
 					<input type="button" onclick="count('minus')" value="-"/>
 						<span id="result">1</span>
 					<input type="button" onclick="count('plus')" value="+"/>
-					<!-- 삭제예정 -->
-					<!-- <a href="#" class="minus"  id="count('plus')"style="text-align:left; padding-left:50px;">-</a>
-						<input type="text" class="inp" value="1" />
-					<a href="#" class="plus" id="count('minus')">+</a> -->
 				</div>
-		    	<div class="col" style="text-align:right;">1700원</div>
+		    	<div class="col" style="text-align:right;">1,700원</div>
 			</div>
+<!-- 			<div class="row">
+		    	<div class="col-sm-3">총 상품금액</div>
+		    	<div class="col" id="totalResult" style="text-align:right; padding-right:10px;">1700원</div>
+			</div> -->
+			
 			<div class="row">
-		    	<div class="col-sm-3">총 금액</div>
-		    	<div class="col" id="totalResult" style="text-align:right;">1700원</div>
+				<table>
+					<tr>
+						<td style="text-align:right; height:50px; font-weight: bold;" width=80%;>총 상품금액 : </td>
+						<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;">1,700원</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -72,15 +77,18 @@ function count(type)  {
 	  // 더하기/빼기
 	  if(type === 'plus') {
 	    number = parseInt(number) + 1;
-	    totalNumber = number * 1700 + "원";
+	    totalNumber = number * 1700;
+	    //alert("plus 자료형 = " + typeof(totalNumber));
 	  } else if(type === 'minus' && number != 0)  {
 	    number = parseInt(number) - 1;
-	    //totalNumber -= (number * 1700);
-	    totalNumber = parseInt(totalNumber) - 1700 + "원";
+	    totalNumber = parseInt(totalNumber) - 1700;
+	    //alert("minus 자료형 = " + typeof(totalNumber));
 	  }
+	  totalNumber = totalNumber.toLocaleString() + "원";
 	  
 	  // 결과 출력
 	  resultElement.innerText = number;
 	  totalResultElement.innerText = totalNumber;
 }
+
 </script>
