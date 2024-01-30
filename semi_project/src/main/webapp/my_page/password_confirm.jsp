@@ -16,17 +16,6 @@ body {
 	width: 100%;
 	max-width: 1020px;
 	margin: 0 auto;
-	/*
-		font-family: var(--bs-body-font-family);
-		font-size: var(--bs-body-font-size);
-		font-weight: var(--bs-body-font-weight);
-		line-height: var(--bs-body-line-height);
-		color: var(--bs-body-color);
-		text-align: var(--bs-body-text-align);
-		background-color: var(--bs-body-bg);
-		-webkit-text-size-adjust: 100%;
-		-webkit-tap-highlight-color: transparent;
-		*/
 	box-sizing: border-box;
 	display: block;
 	text-align: center;
@@ -73,7 +62,14 @@ fieldset {
     border-image: initial;
 }
 
-<%-- 회원탈퇴 버튼 --%>
+.btnWrap {
+	padding: 30px;
+	margin: 10px;
+	
+}
+
+
+<%-- 확인 버튼 --%>
 [class*="btnType3"] {
     height: 50px;
     line-height: 50px;
@@ -84,15 +80,14 @@ fieldset {
     background: #bc6b00;
 }
 
-<%-- 확인 버튼 --%>
-.pwdInputField [class*="btnType3"] {
+.btnWrap [class*="btnType3"] {
     position: absolute;
-    right: 55%;
-    width: 200px;
+    right: 50%;
+    width: 150px;
     margin-left: -100px;
 }
 <%-- 취소 버튼 --%>
-[class*="btnType6l"] {
+[class*="btnType4"] {
     height: 50px;
     line-height: 50px;
     padding: 0 30px;
@@ -103,13 +98,12 @@ fieldset {
 	border: 1px solid black;
 }
 
-.pwdInputField [class*="btnType6l"] {
-    position: relative;
-    left: 55%;
-    width: 200px;
+.btnWrap [class*="btnType4"] {
+    position: absolute;
+    left: 60%;
+    width: 150px;
     margin-left: -100px;
 }
-
 
  <%-- 네비게이션 바 --%>
 #navigation a:hover {
@@ -296,20 +290,16 @@ h3.subTitle2 {
 			<% } %>
 			<div class="pwdInputField">
 				<form method="post" id="passwordForm">
-					<label for="passch" class="titLabel">비밀번호</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="passch" class="titLabel">비밀번호</label>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="password" name="passwd" id="passwd">
 				<p id="message" style="color: red;"><%=message%></p>
 			</div>
-					<input type="password" name="passwd" id="passwd">
-					<div class="btnWrap wL" id="btn">
-						<button type="button" id="submitBtn" class="btnType3">확인</button>
-						<a href="/semi_project_1/main_page/main.jsp" class="btnType6l">취소</a>
-					</div>
-					
+				<div class="btnWrap wL" id="btn">
+				<button type="button" id="submitBtn" class="btnType3m">확인</button>
+				<a href="/semi_project_1/main_page/main.jsp" class="btnType4m">취소</a>
+			</div>
 				</form>
 
-	</div>
-</div>
-</div>
 
 <script type="text/javascript">
 $("#passwd").focus();
@@ -330,4 +320,7 @@ $("#submitBtn").click(function() {
 	$("#passwordForm").submit();
 });
 </script>
+	</div>
+</div>
+</div>
 

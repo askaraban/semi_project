@@ -5,10 +5,14 @@
 <%-- 네비게이션 바 --%>
 <style type="text/css">
 body {
+	width: 100%;
+	max-width: 1020px;
 	margin: 0 auto;
-	width: 95%;		
+	box-sizing: border-box;
+	display: block;
+	text-align: center;
 	font-family: 'Nanum Gothic', sans-serif;
-}
+}}
 
 #navigation a:hover {
     text-align: left;
