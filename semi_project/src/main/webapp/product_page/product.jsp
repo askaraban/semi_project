@@ -5,6 +5,7 @@
 String main_header = "/main_page/main_header.jsp";
 String product_order = "/product_page/product_order.jsp";
 String product_detail = "/product_page/product_detail.jsp";
+String review_list = "/review_page/review_list.jsp";
 String main_footer = "/main_page/main_footer.jsp";
 
 	request.setCharacterEncoding("utf-8");
@@ -54,6 +55,9 @@ String main_footer = "/main_page/main_footer.jsp";
 	</div>
 	<div>
 		<jsp:include page="<%=product_detail %>"></jsp:include>
+	</div>
+	<div>
+		<jsp:include page="<%=review_list %>"></jsp:include>
 	</div>
 	<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"></jsp:include>
