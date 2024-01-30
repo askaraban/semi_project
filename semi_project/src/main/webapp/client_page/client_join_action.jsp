@@ -51,5 +51,5 @@
 	ClientDAO.getDAO().insertClient(client);
 	
 	//페이지 이동
-	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=client_page&worker=client_join");
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=login_page&worker=client_login");
 %>
