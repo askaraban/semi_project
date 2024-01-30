@@ -37,8 +37,8 @@
 					
 					<%} %>
 					<a class="link-secondary head-right-line"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=#">마이페이지</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page
+					&worker=order">마이페이지</a>
 				</div>
 				<div class="col-4 text-center">
 
