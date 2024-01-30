@@ -27,20 +27,22 @@
 		    	도서산간지역 배송비 5,000원 <br>/ 8만원 이상 결제시 무료배송
 			</div>
 			
-			<!-- <div class="col-sm-3">수량</div>
-			<div class="col-sm-9" style="text-align:left; padding-left:100px;">
-				<a href="#" class="minus">-</a>
-				<span id="result">1</span>
-				<a href="#" class="plus">+</a>
-			</div> -->
 			<div class="row">
 		    	<div class="col-sm-3">수량</div>
-				<div class="col">
-					<a href="#" class="minus" style="text-align:left; padding-left:50px;">-</a>
-					<span id="result">1</span>
-					<a href="#" class="plus">+</a>
+				<div class="col" style="text-align:right;">
+					<input type="button" onclick="count('minus')" value="-"/>
+						<span id="result">1</span>
+					<input type="button" onclick="count('plus')" value="+"/>
+					<!-- 삭제예정 -->
+					<!-- <a href="#" class="minus"  id="count('plus')"style="text-align:left; padding-left:50px;">-</a>
+						<input type="text" class="inp" value="1" />
+					<a href="#" class="plus" id="count('minus')">+</a> -->
 				</div>
-		    	<div class="col" style="text-align:right;">1,700원</div>
+		    	<div class="col" style="text-align:right;">1700원</div>
+			</div>
+			<div class="row">
+		    	<div class="col-sm-3">총 금액</div>
+		    	<div class="col" id="totalResult" style="text-align:right;">1700원</div>
 			</div>
 		</div>
 	</div>
@@ -56,3 +58,29 @@
 	</div>
 </body>
 </html>
+
+<script type="text/javascript">
+function count(type)  {
+	  // 결과를 표시할 element
+	  const resultElement = document.getElementById('result');
+	  const totalResultElement = document.getElementById('totalResult');
+	  
+	  // 현재 화면에 표시된 값
+	  let number = resultElement.innerText;
+	  let totalNumber = totalResultElement.innerText;
+	  
+	  // 더하기/빼기
+	  if(type === 'plus') {
+	    number = parseInt(number) + 1;
+	    totalNumber = number * 1700 + "원";
+	  } else if(type === 'minus' && number != 0)  {
+	    number = parseInt(number) - 1;
+	    //totalNumber -= (number * 1700);
+	    totalNumber = parseInt(totalNumber) - 1700 + "원";
+	  }
+	  
+	  // 결과 출력
+	  resultElement.innerText = number;
+	  totalResultElement.innerText = totalNumber;
+}
+</script>

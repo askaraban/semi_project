@@ -62,7 +62,6 @@ String main_footer = "/main_page/main_footer.jsp";
 	<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"></jsp:include>
 	
-	
 	<!-- 부트스트랩 -->
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
 	</script>
