@@ -14,7 +14,18 @@ fieldset {
 legend {
 	font-size: 2em;
 	text-align: center;
+	
 }
+
+class {
+    font-size: 0.3em;
+
+}
+#hclass h3 {
+	font-size: 1em;
+	font-weight: bold;
+}
+
 
 #join label {
 	width: 150px;
@@ -61,7 +72,9 @@ legend {
 	<legend>회원가입</legend>
 	<ul>
 		<li>
-    <h3 class=" ">[기본정보]</h3>
+	<div id="hclass">
+    <h3 class="class">[기본정보]</h3>
+    </div>
 		</li>
 		<li>    
 			<label for="id">아이디</label>
