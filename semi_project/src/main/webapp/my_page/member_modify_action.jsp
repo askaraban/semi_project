@@ -2,9 +2,6 @@
 <%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 회원정보를 전달받아 CLIENT 테이블에 저장된 행을 변경하고 [/my_page/member.jsp]
-문서를 요청하기 위한 URL 주소를 전달하여 응답하는 JSP 문서 --%> 
-<%-- => 로그인 상태의 사용자만 요청 가능한 JSP 문서 --%>
 <%@include file="/security/login_check.jspf" %>  
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
@@ -32,7 +29,7 @@
 	String address1=request.getParameter("address1");
 	String address2=request.getParameter("address2");
 	
-	//MemberDTO 객체를 생성하여 전달값으로 필드값 변경
+	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
 	ClientDTO client=new ClientDTO();
 	client.setClientNum(clientNum);
 	client.setId(id);
@@ -44,11 +41,11 @@
 	client.setAddress1(address1);
 	client.setAddress2(address2);
 	
-	//회원정보를 전달받아 MEMBER 테이블에 저장된 행을 변경하고 변경행의 갯수를 반환하는 
-	//MemberDAO 클래스의 메소드 호출
+	//회원정보를 전달받아 CLIENT 테이블에 저장된 행을 변경하고 변경행의 갯수를 반환하는 
+	//ClientDAO 클래스의 메소드 호출
 	ClientDAO.getDAO().updateClient(client);
 	
-	//session 객체에 저장된 권한 관련 속성값(회원정보 - MemberDTO 객체) 변경
+	//session 객체에 저장된 권한 관련 속성값(회원정보 - ClientDTO 객체) 변경
 	session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(clientNum));
 	
 	//페이지 이동

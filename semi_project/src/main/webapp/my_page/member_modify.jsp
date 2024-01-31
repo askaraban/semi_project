@@ -1,12 +1,6 @@
 <%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 비밀번호를 전달받아 CLIENT 테이블에 저장된 회원정보의 비밀번호와 비교하여 같은 경우 회원정보를
-입력태그의 입력값으로 출력하고 사용자로부터 변경값을 입력받기 위한 JSP 문서 --%>
-<%-- => CLIENT 테이블에서 회원정보를 검색하지 않고 session 객체에 저장된 속성값을 반환받아 사용  --%>
-<%-- => 로그인 상태의 사용자만 요청 가능한 JSP 문서 --%>
-<%-- => [우편번호 검색] 태그를 클릭한 경우 [다음 우편번호 서비스]를 사용하여 입력태그(우편번호와 기본주소)의 입력값 변경 --%>    
-<%-- => [회원변경] 태그를 클릭한 경우 [/my_page/member_modify_action.jsp] 문서를 요청하여 페이지 이동 - 입력값 전달 --%>
 <%@include file="/security/login_check.jspf" %>  
 <%
 	/*
@@ -39,6 +33,7 @@ body {
 	text-align: center;
 	font-family: 'Nanum Gothic', sans-serif;
 }
+
 <%--네비게이션 바 --%>
 #navigation a:hover {
     text-align: left;
@@ -132,8 +127,6 @@ legend {
 	display: none;
 }
 
-
-
 .memberLeave {
     margin: 80px 0 0;
     padding: 40px 0;
@@ -152,10 +145,8 @@ legend {
     padding: 2px 10px;
     border: 1px solid black;
 }
-
-
-
 </style>
+
 <form id="join" action="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=member_modify_action" method="post">
 <input type="hidden" name="clientNum" value="<%=loginClient.getClientNum() %>">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -165,7 +156,6 @@ legend {
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-
 			<div id="navigation">
 				<h1>
 					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
@@ -182,89 +172,79 @@ legend {
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			
-
-
-
-
-
-
-
-
-	<div = class="tableHead">
-	<legend>과자몰 회원정보 수정</legend>
-	<p class="tableHeadTxt">* 이름 변경(개명)의 경우 과자몰 고객상담실(080-XXX-XXXX)로 문의 부탁드립니다.</p>	</div>
-<fieldset class="pwdInputField">
-	<ul>
-		<li>
-			<label for="id">아이디</label>
-			<input type="text" name="id" id="id" value="<%=loginClient.getId() %>" readonly="readonly">
-		</li>
-		<li>
-			<label for="passwd">비밀번호</label>
-			<input type="password" name="passwd" id="passwd">
-			<span style="color: red;">비밀번호를 변경하지 않을 경우 입력하지 마세요.</span>
-			<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
-		</li>
-		<li>
-			<label for="name">이름</label>
-			<input type="text" name="name" id="name"  value="<%=loginClient.getName()%>">
-			<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
-		</li>
-		<li>
-			<label for="email">이메일</label>
-			<input type="text" name="email" id="email" value="<%=loginClient.getEmail()%>">
-			<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
-			<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
-		</li>
-		<li>
-			<% String[] mobile=loginClient.getMobile().split("-"); %>
-			<label for="mobile2">전화번호</label>
-			<select name="mobile1">
-				<option value="010" <% if(mobile[0].equals("010")) { %> selected <% } %>>&nbsp;010&nbsp;</option>
-				<option value="011" <% if(mobile[0].equals("011")) { %> selected <% } %>>&nbsp;011&nbsp;</option>
-				<option value="016" <% if(mobile[0].equals("016")) { %> selected <% } %>>&nbsp;016&nbsp;</option>
-				<option value="017" <% if(mobile[0].equals("017")) { %> selected <% } %>>&nbsp;017&nbsp;</option>
-				<option value="018" <% if(mobile[0].equals("018")) { %> selected <% } %>>&nbsp;018&nbsp;</option>
-				<option value="019" <% if(mobile[0].equals("019")) { %> selected <% } %>>&nbsp;019&nbsp;</option>
-			</select>
-			- <input type="text" name="mobile2" id="mobile2" value="<%=mobile[1]%>" size="4" maxlength="4">
-			- <input type="text" name="mobile3" id="mobile3" value="<%=mobile[2]%>" size="4" maxlength="4">
-			<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
-			<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
-		</li>
-		<li>
-			<label>우편번호</label>
-			<input type="text" name="zipcode" id="zipcode" value="<%=loginClient.getZipcode()%>" size="7" readonly="readonly">
-			<span id="postSearch">우편번호 검색</span>
-			<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
-		</li>
-		<li>
-			<label for="address1">기본주소</label>
-			<input type="text" name="address1" id="address1" value="<%=loginClient.getAddress1()%>" size="50" readonly="readonly">
-			<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
-		</li>
-		<li>
-			<label for="address2">상세주소</label>
-			<input type="text" name="address2" id="address2"  value="<%=loginClient.getAddress2()%>" size="50">
-			<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
-		</li>
-	</ul>
-</fieldset>
-<div id="fs">
-	<button type="submit" class="btn btn-secondary">회원변경</button>
-	<button type="reset" class="btn btn-outline-secondary">다시입력</button>
-</div>
-<div id="link" class="memberLeave">
- 	<p>과자몰 회원에서 탈퇴가 가능합니다.
-	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=remove">[회원탈퇴]</a>
-	</p>
-</div>
+			<div = class="tableHead">
+				<legend>과자몰 회원정보 수정</legend>
+				<p class="tableHeadTxt">* 이름 변경(개명)의 경우 과자몰 고객상담실(080-XXX-XXXX)로 문의 부탁드립니다.</p>
+			</div>
+			<fieldset class="pwdInputField">
+				<ul>
+					<li>
+						<label for="id">아이디</label>
+						<input type="text" name="id" id="id" value="<%=loginClient.getId() %>" readonly="readonly">
+					</li>
+					<li>
+						<label for="passwd">비밀번호</label>
+						<input type="password" name="passwd" id="passwd">
+						<span style="color: red;">비밀번호를 변경하지 않을 경우 입력하지 마세요.</span>
+						<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
+					</li>
+					<li>
+						<label for="name">이름</label>
+						<input type="text" name="name" id="name"  value="<%=loginClient.getName()%>">
+						<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
+					</li>
+					<li>
+						<label for="email">이메일</label>
+						<input type="text" name="email" id="email" value="<%=loginClient.getEmail()%>">
+						<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
+						<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
+					</li>
+					<li>
+						<% String[] mobile=loginClient.getMobile().split("-"); %>
+						<label for="mobile2">전화번호</label>
+						<select name="mobile1">
+							<option value="010" <% if(mobile[0].equals("010")) { %> selected <% } %>>&nbsp;010&nbsp;</option>
+							<option value="011" <% if(mobile[0].equals("011")) { %> selected <% } %>>&nbsp;011&nbsp;</option>
+							<option value="016" <% if(mobile[0].equals("016")) { %> selected <% } %>>&nbsp;016&nbsp;</option>
+							<option value="017" <% if(mobile[0].equals("017")) { %> selected <% } %>>&nbsp;017&nbsp;</option>
+							<option value="018" <% if(mobile[0].equals("018")) { %> selected <% } %>>&nbsp;018&nbsp;</option>
+							<option value="019" <% if(mobile[0].equals("019")) { %> selected <% } %>>&nbsp;019&nbsp;</option>
+						</select>
+						- <input type="text" name="mobile2" id="mobile2" value="<%=mobile[1]%>" size="4" maxlength="4">
+						- <input type="text" name="mobile3" id="mobile3" value="<%=mobile[2]%>" size="4" maxlength="4">
+						<div id="mobileMsg" class="error">전화번호를 입력해 입력해 주세요.</div>
+						<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
+					</li>
+					<li>
+						<label>우편번호</label>
+						<input type="text" name="zipcode" id="zipcode" value="<%=loginClient.getZipcode()%>" size="7" readonly="readonly">
+						<span id="postSearch">우편번호 검색</span>
+						<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
+					</li>
+					<li>
+						<label for="address1">기본주소</label>
+						<input type="text" name="address1" id="address1" value="<%=loginClient.getAddress1()%>" size="50" readonly="readonly">
+						<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
+					</li>
+					<li>
+						<label for="address2">상세주소</label>
+						<input type="text" name="address2" id="address2"  value="<%=loginClient.getAddress2()%>" size="50">
+						<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
+					</li>
+				</ul>
+			</fieldset>
+			<div id="fs">
+				<button type="submit" class="btn btn-secondary">회원변경</button>
+				<button type="reset" class="btn btn-outline-secondary">다시입력</button>
+			</div>
+			<div id="link" class="memberLeave">
+ 				<p>과자몰 회원에서 탈퇴가 가능합니다.
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=remove">[회원탈퇴]</a>
+				</p>
+			</div>
 		</div>
-
 	</div>
 </div>   
-
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">

@@ -51,7 +51,6 @@ body {
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-
 			<div id="navigation">
 				<h1>
 					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
@@ -70,6 +69,5 @@ body {
 		<div class="col col-lg-10">
 			<p>q&a</p>
 		</div>
-
 	</div>
 </div> 

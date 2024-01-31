@@ -43,10 +43,10 @@
 			<%=session.getAttribute("keyword") %>
 	</div>
 	--%>
-	<div class="main-prd">
-		<div>
-		<h2 class="subTitle">베스트 추천 상품</h2>
+		<div class="subTitle">
+		<h2 >베스트 추천 상품</h2>
 		</div>
+	<div class="main-prd">
 		<ul class="prdList grid3">
 			<%for(ProductDTO pro : productList){ %>
 			<li id="anchorBoxId_1" class="xans">
