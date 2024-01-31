@@ -1,11 +1,22 @@
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	List<ProductDTO> productList = new ArrayList<>();
+	productList = ProductDAO.getDAO().selectProductList();
+%>	
+    
 <link href="<%=request.getContextPath()%>/style/product_style.css" type="text/css" rel="stylesheet">
 <body>
 	<!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
 	<div id="imgArea" class="row"">
 		<img src="../images/homerunball.png" style="width:80%; height:80%; margin: auto;">
-		<%-- <img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductImgPath()%>" class="card-img-top" alt="..."> --%>
+		<%-- <img src="<%=request.getContextPath() %>/productImg/<%=productList.getProductImgPath()%>" class="card-img-top" alt="..."> --%>
 	</div>
 	<div id="infoArea" class="row">
 		<div class="row">
@@ -16,7 +27,7 @@
 			<div class="col-sm-3">제조사</div>
 			<div class="col-sm-9" style="text-align:left; padding-left:100px;">해태제과</div>
 			
-			<div class="col-sm-3">원산지</div>
+			<div class="col-sm-3">원산지</div>	
 			<div class="col-sm-9" style="text-align:left; padding-left:100px;">상세설명참조</div>
 					
 			<div class="col-sm-3">판매가</div>

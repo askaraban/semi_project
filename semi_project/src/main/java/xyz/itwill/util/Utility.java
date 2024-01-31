@@ -38,6 +38,7 @@ public class Utility {
 			System.out.println("[에러]잘못된 암호화 알고리즘을 사용 하였습니다.");
 		} 
 		return encryptPasswd;
+		
 	}
 	
 	//문자열을 전달받아 태그 관련 문자열을 모두 제거하여 반환하는 메소드
