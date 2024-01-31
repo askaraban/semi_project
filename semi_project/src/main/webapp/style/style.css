@@ -44,6 +44,10 @@ div {
 .justify-content-between {
 	justify-content: space-between !important;
 }
+.justify-content-between a:hover{
+	color: dodgerblue;
+	font-weight: bold;
+}
 
 /* header 상단 전체*/
 .flex-nowrap {
@@ -152,6 +156,9 @@ div {
 	margin: 30px 0 10px;
 	color: #757575;
 	vertical-align: top;
+}
+.subTitle{
+	padding-left: 35px;
 }
 
 /* footer 스타일*/

@@ -15,30 +15,30 @@
 		<header class="main-header py-3">
 			<div
 				class="row flex-nowrap justify-content-between align-items-center">
-				<div class="col-4 pt-1">
+				<div class="col-4 pt-1" style="font-size: 15px">
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page
-					&worker=notice_main">&nbsp;공지사항&nbsp;</a>
+					&worker=notice_main">공지사항</a>
 					<%if(loginClient==null) {%>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=client_join">&nbsp;회원가입&nbsp;</a>
+					&worker=client_join">&nbsp;회원가입</a>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
-					&worker=client_login">&nbsp;로그인&nbsp;</a>
+					&worker=client_login">&nbsp;로그인</a>
 					<%} else {%>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
-					&worker=client_logout_action">&nbsp;로그아웃&nbsp;</a>
+					&worker=client_logout_action">&nbsp;로그아웃</a>
 						<%if(loginClient.getClientStatus()==9){ %>
 						<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-						href="<%=request.getContextPath()%>/manager_page/manager.jsp">&nbsp;관리자&nbsp;</a>
+						href="<%=request.getContextPath()%>/manager_page/manager.jsp">&nbsp;관리자</a>
 						<%} %>
 					
 					<%} %>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page
-					&worker=order">&nbsp;마이페이지&nbsp;</a>
+					&worker=order">&nbsp;마이페이지</a>
 				</div>
 				<div class="col-4 text-center">
 
