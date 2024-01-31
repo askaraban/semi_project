@@ -5,10 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 	
-<%
-	List<CategoryDTO> categoryList = new ArrayList<>();
-	categoryList = CategoryDAO.getDAO().selectCategoryList();
-%>
+
 <style>
 .manager_body {
 	display: block;
@@ -89,13 +86,11 @@ td {
 				<li>
 					<div class="insert_div">
 						<select name="productCate">
-						<% for(CategoryDTO category : categoryList){ %>
 							<option value="10">&nbsp;½º³¼&nbsp;</option>
 							<option value="20">&nbsp;ÆÄÀÌ&amp;ÄíÅ°&nbsp;</option>
 							<option value="30">&nbsp;Äµµð&amp;Á©¸®&nbsp;</option>
 							<option value="40">&nbsp;ÃÊÄÝ¸´&nbsp;</option>
 							<option value="50">&nbsp;²­&nbsp;</option>
-						<%} %>
 						</select> <label>À¯Çü</label>
 					</div>
 				</li>

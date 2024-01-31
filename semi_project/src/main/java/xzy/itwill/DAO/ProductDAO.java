@@ -31,17 +31,17 @@ public class ProductDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select product_id, product_name, product_price, product_com, product_cate, product_reg, "
-					+ ", product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3 from product_table";
+			String sql = "select product_num, product_name, product_price, product_com, product_cate, product_reg, "
+					+ "product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3 from product_table";
 			
 			pstmt=con.prepareStatement(sql);
 			
 
 			rs=pstmt.executeQuery();
-			
+	
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO();
-				product.setProductId(rs.getInt("product_id"));
+				product.setProductNum(rs.getInt("product_num"));
 				product.setProductName(rs.getString("product_name"));
 				product.setProductPrice(rs.getInt("product_price"));
 				product.setProductCom(rs.getString("product_com"));
@@ -73,7 +73,7 @@ public class ProductDAO extends JdbcDAO{
 		
 		try {
 			con=getConnection();
-			String sql = "insert into product_table values (product_seq.nextval,?,?,?,?,sysdate,0,null,null,?,?,?,?)";
+			String sql = "insert into product_table values (product_seq.nextval,?,?,?,?,sysdate,null,null,?,?,?,?)";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, product.getProductName());

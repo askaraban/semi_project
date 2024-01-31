@@ -51,9 +51,11 @@
 			<%for(ProductDTO pro : productList){ %>
 			<li id="anchorBoxId_1" class="xans">
 				<div class="card border-light" style="width: 14rem;">
+					<div id="inner_img">
 					<a href="#" class="product-a-line">
-					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg()%>" class="card-img-top" alt="...">
+					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
 					</a>
+					</div>
 					<div class="card-body item-box">
 						<h5 class="card-title"><%=pro.getProductName() %></h5>
 						<p class="card-text"><%=pro.getProductCom() %></p>

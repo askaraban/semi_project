@@ -1,7 +1,7 @@
 package xyz.itwill.DTO;
 
 /*
-PRODUCT_ID          NOT NULL NUMBER(10)    // 제품id
+PRODUCT_NUM          NOT NULL NUMBER(10)    // 제품id
 PRODUCT_NAME                 VARCHAR2(200) // 제품명
 PRODUCT_PRICE                NUMBER(10)    // 제품가격
 PRODUCT_COM                  VARCHAR2(30)  // 제조사
@@ -18,7 +18,7 @@ PRODUCT_IMG3                 VARCHAR2(50)   // 상세사진3
  
 
 public class ProductDTO {
-	private int productId;
+	private int productNum;
 	private String productName;
 	private int productPrice;
 	private String productCom;
@@ -31,11 +31,12 @@ public class ProductDTO {
 	private String productImg2;
 	private String productImg3;
 	
-	public int getProductId() {
-		return productId;
+	
+	public int getProductNum() {
+		return productNum;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProductNum(int productNum) {
+		this.productNum = productNum;
 	}
 	public String getProductName() {
 		return productName;

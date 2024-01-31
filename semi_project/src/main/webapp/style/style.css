@@ -160,6 +160,15 @@ div {
 	color: #757575;
 	vertical-align: top;
 }
+.card-img-top{
+	width: 150px;
+	height: 150px;
+	margin: 0 auto;
+	vertical-align: middle;	
+}
+#inner_img{
+	text-align: center;
+}
 #like{
       width: 30px;
       fill: #ddd;
