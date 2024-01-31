@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+pageEncoding="UTF-8"%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    
-<%-- 회원정보변경 또는 회원탈퇴를 위해 사용자로부터 비밀번호를 입력받기 위한 JSP 문서 --%>
-<%-- => 로그인 상태의 사용자만 요청 가능한 JSP 문서 --%>
 <%@include file="/security/login_check.jspf" %>  
-
 <style>
 <style type="text/css">
 * {margin:0;padding:0;}
@@ -68,7 +64,6 @@ fieldset {
 	
 }
 
-
 <%-- 확인 버튼 --%>
 [class*="btnType3"] {
     height: 50px;
@@ -86,6 +81,7 @@ fieldset {
     width: 150px;
     margin-left: -100px;
 }
+
 <%-- 취소 버튼 --%>
 [class*="btnType4"] {
     height: 50px;
@@ -105,7 +101,7 @@ fieldset {
     margin-left: -100px;
 }
 
- <%-- 네비게이션 바 --%>
+<%-- 네비게이션 바 --%>
 #navigation a:hover {
     text-align: left;
 	color: blue;
@@ -150,6 +146,7 @@ fieldset {
 	text-align: center;	
 	
 }
+
 <%-- 회원탈퇴 --%>
 [class*="subTitle4"] {
     margin: 60px 0 24px;
@@ -210,16 +207,11 @@ h3.subTitle2 {
     line-height: 1.55;
     text-align: left;
 }
-
-
-
 </style>
-
 
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-
 			<div id="navigation">
 				<h1>
 					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
@@ -262,30 +254,30 @@ h3.subTitle2 {
 			<% } else { %>
 			<h2 class="subTitle4">회원탈퇴</h2>
 			<div class="mbOutTop">
-						<div id="logo">
-			            	<img alt="로고" src="/semi_project_1/my_page/images/ico_nodate.png">
-		                </div>
-						<p class="tit">과자몰 공식 온라인몰을 이용하는데 불편한 사항이 있으셨나요?</p>
-						<p class="txt">
-							의견을 남겨주시면, 보다 나은 서비스 제공을 위해 참고하겠습니다.<br>
-							회원 탈퇴 전 아래의 사항들을 확인해주세요.
-						</p>
-						<ul class="list">
-							<li>1.과자몰 공식 온라인몰에서 탈퇴시 다음의 정보는 삭제될 수 있습니다.
-								<span class="sub">
-									- 과자몰 공식 온라인몰에서 발행한 쿠폰<br>
-									- 리뷰 프로필, 리뷰 작성 내역, 리뷰관 활동 내역<br>
-									- 1:1 문의 내역 등
-								</span>
-							</li>
-							<li>2. 과자몰 공식 온라인몰에서 탈퇴하면, 즉시 재이용 하실 수 없습니다.
-								<span class="sub">
-									- 과자몰 아이디로 로그인 및 과자몰 서비스 이용약관 동의<br>
-									- 과자몰 아이디로 공식 온라인몰을 이용하셨던 경우, 재가입 시점에 따라 1에서 언급한 정보가 유지될 수 있습니다.
-								</span>
-							</li>
-						</ul>
-					</div>
+				<div id="logo">
+			    	<img alt="로고" src="/semi_project_1/my_page/images/ico_nodate.png">
+		        </div>
+				<p class="tit">과자몰 공식 온라인몰을 이용하는데 불편한 사항이 있으셨나요?</p>
+				<p class="txt">
+					의견을 남겨주시면, 보다 나은 서비스 제공을 위해 참고하겠습니다.<br>
+					회원 탈퇴 전 아래의 사항들을 확인해주세요.
+				</p>
+				<ul class="list">
+					<li>1.과자몰 공식 온라인몰에서 탈퇴시 다음의 정보는 삭제될 수 있습니다.
+						<span class="sub">
+							- 과자몰 공식 온라인몰에서 발행한 쿠폰<br>
+							- 리뷰 프로필, 리뷰 작성 내역, 리뷰관 활동 내역<br>
+							- 1:1 문의 내역 등
+						</span>
+					</li>
+					<li>2. 과자몰 공식 온라인몰에서 탈퇴하면, 즉시 재이용 하실 수 없습니다.
+						<span class="sub">
+							- 과자몰 아이디로 로그인 및 과자몰 서비스 이용약관 동의<br>
+							- 과자몰 아이디로 공식 온라인몰을 이용하셨던 경우, 재가입 시점에 따라 1에서 언급한 정보가 유지될 수 있습니다.
+						</span>
+					</li>
+				</ul>
+			</div>
 			<h3 class="subTitle2">과자몰 온라인 회원탈퇴</h3>
 			<% } %>
 			<div class="pwdInputField">
@@ -293,14 +285,15 @@ h3.subTitle2 {
 				<label for="passch" class="titLabel">비밀번호</label>&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="password" name="passwd" id="passwd">
 				<p id="message" style="color: red;"><%=message%></p>
+				</form>
 			</div>
-				<div class="btnWrap wL" id="btn">
+			<div class="btnWrap wL" id="btn">
 				<button type="button" id="submitBtn" class="btnType3m">확인</button>
 				<a href="/semi_project_1/main_page/main.jsp" class="btnType4m">취소</a>
 			</div>
-				</form>
-
-
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 $("#passwd").focus();
 
@@ -320,7 +313,3 @@ $("#submitBtn").click(function() {
 	$("#passwordForm").submit();
 });
 </script>
-	</div>
-</div>
-</div>
-

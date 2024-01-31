@@ -2,11 +2,6 @@
 <%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 비밀번호를 전달받아 CLIENT 테이블에 저장된 회원정보의 비밀번호와 비교하여 같은 경우 CLIENT
-테이블에 저장된 행의 회원상태를 [0]으로 변경하고 탈퇴 처리하고 [/my_page/member_logout_action.jsp]
-문서를 요청할 수 있는 URL 주소를 전달하여 응답하는 JSP 문서 --%>
-<%-- => CLIENT 테이블에서 회원정보를 검색하지 않고 session 객체에 저장된 속성값을 반환받아 사용  --%>
-<%-- => 로그인 상태의 사용자만 요청 가능한 JSP 문서 --%>
 <%@include file="/security/login_check.jspf" %>  
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
