@@ -36,5 +36,6 @@ public class Utility {
 			System.out.println("[에러]잘못된 암호화 알고리즘을 사용 하였습니다.");
 		} 
 		return encryptPasswd;
+		
 	}
 }
