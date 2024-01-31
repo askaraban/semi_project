@@ -5,7 +5,7 @@
 	<!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
 	<div id="imgArea" class="row"">
 		<img src="../images/homerunball.png" style="width:80%; height:80%; margin: auto;">
-		<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductImgPath()%>" class="card-img-top" alt="...">
+		<%-- <img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductImgPath()%>" class="card-img-top" alt="..."> --%>
 	</div>
 	<div id="infoArea" class="row">
 		<div class="row">
