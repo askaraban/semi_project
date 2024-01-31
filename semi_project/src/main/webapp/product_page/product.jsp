@@ -3,12 +3,10 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String main_header = "/main_page/main_header.jsp";
 	String product_order = "/product_page/product_order.jsp";
 	String product_detail = "/product_page/product_detail.jsp";
 	String review_list = "/review_page/review_list.jsp";
 	String qa_list = "/qa_page/qa_list.jsp";
-String main_footer = "/main_page/main_footer.jsp";
 
 	String group = request.getParameter("group");
 	if(group==null){
@@ -39,8 +37,6 @@ String main_footer = "/main_page/main_footer.jsp";
 </head>
 
 <body>
-	<%-- 헤더 --%>
-	<jsp:include page="<%=main_header %>"></jsp:include>
 	<%-- 바디 --%>
 	<br>
 	<br>
@@ -63,8 +59,6 @@ String main_footer = "/main_page/main_footer.jsp";
 	<div>
 		<jsp:include page="<%=qa_list %>"></jsp:include>
 	</div>
-	<%-- 풋터 --%>
-	<jsp:include page="<%=main_footer %>"></jsp:include>
 	
 	<!-- 부트스트랩 -->
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
