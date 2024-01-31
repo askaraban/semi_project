@@ -65,13 +65,13 @@
 						<img
 						src="<%=request.getContextPath()%>/images/icon/icons8-heart.png"
 						width="25" height="25">
-					</a> <a class="link-secondary head-right-line"
+					</a> &nbsp;&nbsp;&nbsp;<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page
 					&worker=cart">
 						<img
 						src="<%=request.getContextPath()%>/images/icon/icons8-cart.png"
 						width="25" height="25">
-					</a> <span
+					</a> &nbsp;<span
 						class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
 						99+ <span class="visually-hidden">unread messages</span>
 					</span>
