@@ -16,8 +16,8 @@
 	
 	//MemberDTO 객체를 생성하여 전달값으로 필드값 변경
 	ClientDTO client=new ClientDTO();
-	client.setName(name);
-	client.setEmail(email);
+	client.setClientName((name));
+	client.setClientEmail((email));
 	
 	//회원정보를 전달받아 MEMBER 테이블에 저장된 행의 아이디를 검색하여 문자열로 반환하는 
 	//MemberDAO 클래스의 메소드 호출

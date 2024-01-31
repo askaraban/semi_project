@@ -21,22 +21,22 @@
 	String productCom=mr.getParameter("productCom");
 	int productCate=Integer.parseInt(mr.getParameter("productCate"));
 	// MultipartRequest.getFilesystemName(String name) : 전달파일의 업로드 파일명을 반환하는 메소드
-	String productImgPath=null;
+	String productMainImg=null;
 	String productImg1=null;
 	String productImg2=null;
 	String productImg3=null;
 	
-	if(mr.getFilesystemName("productImgPath")!=null){
-		productImgPath = mr.getOriginalFileName("productImgPath");
+	if(mr.getFilesystemName("productMainImg")!=null){
+		productMainImg = mr.getOriginalFileName("productMainImg");
 	}
 	if(mr.getFilesystemName("productImg1")!=null){
-		productImgPath = mr.getOriginalFileName("productImg1");
+		productImg1 = mr.getOriginalFileName("productImg1");
 	}
 	if(mr.getFilesystemName("productImg2")!=null){
-		productImgPath = mr.getOriginalFileName("productImg2");
+		productImg2 = mr.getOriginalFileName("productImg2");
 	}
 	if(mr.getFilesystemName("productImg3")!=null){
-		productImgPath = mr.getOriginalFileName("productImg3");
+		productImg3 = mr.getOriginalFileName("productImg3");
 	}
 	
 	
@@ -48,7 +48,7 @@
 	product.setProductCom(productCom);
 	product.setProductCate(productCate);
 	// 사진 경로 DTO필드에 저장
-	product.setProductImgPath(productImgPath);
+	product.setProductMainImg(productMainImg);
 	product.setProductImg1(productImg1);
 	product.setProductImg2(productImg2);
 	product.setProductImg3(productImg3);

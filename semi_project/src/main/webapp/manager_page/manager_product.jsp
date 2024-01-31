@@ -90,7 +90,11 @@ td {
 					<div class="insert_div">
 						<select name="productCate">
 						<% for(CategoryDTO category : categoryList){ %>
-							<option value="<%=category.getCategoryId()%>">&nbsp;<%=category.getCategoryName() %>&nbsp;</option>
+							<option value="10">&nbsp;스낵&nbsp;</option>
+							<option value="20">&nbsp;파이&amp;쿠키&nbsp;</option>
+							<option value="30">&nbsp;캔디&amp;젤리&nbsp;</option>
+							<option value="40">&nbsp;초콜릿&nbsp;</option>
+							<option value="50">&nbsp;껌&nbsp;</option>
 						<%} %>
 						</select> <label>유형</label>
 					</div>
@@ -102,7 +106,7 @@ td {
 		<ul>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="productImgPath"> <label>제품이미지</label>
+					<input type="file" name="productMainImg"> <label>제품이미지</label>
 				</div>
 			</li>
 			<li>
