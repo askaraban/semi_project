@@ -24,14 +24,13 @@ minvalue 10;
 
 commit;
 
-desc product_table;
-desc category_table;
-select * from category_table;
+-- 구매 테이블 --
+create table order_table (order_num number(5) primary key, order_client_num number(5)
+, order_time varchar2(100), order_date date, order_product_num number(5), order_count number(5), order_status number(1), order_sum number(10),
+order_dis_sum number(10), order_content varchar2(200), foreign key (order_client_num) references client_table(client_num), foreign key (order_product_num) references product_table(product_num));
 
-update client set clientstatus=9 where id='administrator';
+drop table order_table;
 
-select * from product_table;
+commit;
 
-
-
-
+desc order_table;
