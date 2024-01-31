@@ -27,16 +27,16 @@
 	String productImg3=null;
 	
 	if(mr.getFilesystemName("productImgPath")!=null){
-		productImgPath = "/productImg/"+mr.getOriginalFileName("productImgPath");
+		productImgPath = mr.getOriginalFileName("productImgPath");
 	}
 	if(mr.getFilesystemName("productImg1")!=null){
-		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg1");
+		productImgPath = mr.getOriginalFileName("productImg1");
 	}
 	if(mr.getFilesystemName("productImg2")!=null){
-		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg2");
+		productImgPath = mr.getOriginalFileName("productImg2");
 	}
 	if(mr.getFilesystemName("productImg3")!=null){
-		productImgPath = "/productImg/"+mr.getOriginalFileName("productImg3");
+		productImgPath = mr.getOriginalFileName("productImg3");
 	}
 	
 	
