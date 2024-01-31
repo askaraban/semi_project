@@ -31,8 +31,8 @@ public class ProductDAO extends JdbcDAO{
 		try {
 			con = getConnection();
 			
-			String sql = "select product_id, product_name, product_price, product_com, product_cate, product_reg, product_sale"
-					+ ", product_dis, product_dis_content, product_img_path, product_img1, product_img2, product_img3 from product_table";
+			String sql = "select product_id, product_name, product_price, product_com, product_cate, product_reg, "
+					+ ", product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3 from product_table";
 			
 			pstmt=con.prepareStatement(sql);
 			
@@ -47,10 +47,9 @@ public class ProductDAO extends JdbcDAO{
 				product.setProductCom(rs.getString("product_com"));
 				product.setProductCate(rs.getInt("product_cate"));
 				product.setProductReg(rs.getString("product_reg"));
-				product.setProductSale(rs.getInt("product_sale"));
 				product.setProductDis(rs.getInt("product_dis"));
 				product.setProductDisContent(rs.getString("product_dis_content"));
-				product.setProductImgPath(rs.getString("product_img_path"));
+				product.setProductMainImg(rs.getString("product_main_img"));
 				product.setProductImg1(rs.getString("product_img1"));
 				product.setProductImg2(rs.getString("product_img2"));
 				product.setProductImg3(rs.getString("product_img3"));
@@ -81,7 +80,7 @@ public class ProductDAO extends JdbcDAO{
 			pstmt.setInt(2, product.getProductPrice());
 			pstmt.setString(3, product.getProductCom());
 			pstmt.setInt(4, product.getProductCate());
-			pstmt.setString(5, product.getProductImgPath());
+			pstmt.setString(5, product.getProductMainImg());
 			pstmt.setString(6, product.getProductImg1());
 			pstmt.setString(7, product.getProductImg2());
 			pstmt.setString(8, product.getProductImg3());

@@ -1,20 +1,21 @@
 package xyz.itwill.DTO;
 
 /*
-PRODUCT_ID      NOT NULL NUMBER(10)     // 제품번호
-PRODUCT_NAME             VARCHAR2(200)  // 제품명
-PRODUCT_PRICE            NUMBER(10)     // 제품가격
-PRODUCT_COM              VARCHAR2(30)   // 제조사
-PRODUCT_CATE             NUMBER(2)      // 유형
-PRODUCT_REG              DATE           // 등록일
-PRODUCT_SALE             NUMBER(10)     // 판매량
-PRODUCT_DIS              NUMBER(3)      // 할인율
-PRODUCT_DIS_CONTENT       VARCHAR2(300)  // 할인내용
-PRODUCT_IMGPATH          VARCHAR2(50)   // 제품사진
-PRODUCT_IMG1             VARCHAR2(50)   // 상세사진1
-PRODUCT_IMG2             VARCHAR2(50)   // 상세사진2
-PRODUCT_IMG3             VARCHAR2(50)   // 상세사진3
+PRODUCT_ID          NOT NULL NUMBER(10)    // 제품id
+PRODUCT_NAME                 VARCHAR2(200) // 제품명
+PRODUCT_PRICE                NUMBER(10)    // 제품가격
+PRODUCT_COM                  VARCHAR2(30)  // 제조사
+PRODUCT_CATE                 NUMBER(2)     // 유형
+PRODUCT_REG                  DATE          // 등록일
+PRODUCT_DIS                  NUMBER(3)     // 할인율
+PRODUCT_DIS_CONTENT          VARCHAR2(300) // 할인내용
+PRODUCT_MAIN_IMG             VARCHAR2(50)  // 제품이미지
+PRODUCT_IMG1                 VARCHAR2(50)  // 상세사진1
+PRODUCT_IMG2                 VARCHAR2(50)  // 상세사진2
+PRODUCT_IMG3                 VARCHAR2(50)   // 상세사진3
  */
+
+ 
 
 public class ProductDTO {
 	private int productId;
@@ -23,21 +24,13 @@ public class ProductDTO {
 	private String productCom;
 	private int productCate;
 	private String productReg;
-	private int productSale;
 	private int productDis;
 	private String productDisContent;
-	private String productImgPath;
+	private String productMainImg;
 	private String productImg1;
 	private String productImg2;
 	private String productImg3;
 	
-	
-	public String getProductDisContent() {
-		return productDisContent;
-	}
-	public void setProductDisContent(String productDisContent) {
-		this.productDisContent = productDisContent;
-	}
 	public int getProductId() {
 		return productId;
 	}
@@ -74,23 +67,23 @@ public class ProductDTO {
 	public void setProductReg(String productReg) {
 		this.productReg = productReg;
 	}
-	public int getProductSale() {
-		return productSale;
-	}
-	public void setProductSale(int productSale) {
-		this.productSale = productSale;
-	}
 	public int getProductDis() {
 		return productDis;
 	}
 	public void setProductDis(int productDis) {
 		this.productDis = productDis;
 	}
-	public String getProductImgPath() {
-		return productImgPath;
+	public String getProductDisContent() {
+		return productDisContent;
 	}
-	public void setProductImgPath(String productImgPath) {
-		this.productImgPath = productImgPath;
+	public void setProductDisContent(String productDisContent) {
+		this.productDisContent = productDisContent;
+	}
+	public String getProductMainImg() {
+		return productMainImg;
+	}
+	public void setProductMainImg(String productMainImg) {
+		this.productMainImg = productMainImg;
 	}
 	public String getProductImg1() {
 		return productImg1;
@@ -110,5 +103,7 @@ public class ProductDTO {
 	public void setProductImg3(String productImg3) {
 		this.productImg3 = productImg3;
 	}
+	
+	
 	
 }	

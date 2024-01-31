@@ -52,7 +52,7 @@
 			<li id="anchorBoxId_1" class="xans">
 				<div class="card border-light" style="width: 14rem;">
 					<a href="#" class="product-a-line">
-					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductImgPath()%>" class="card-img-top" alt="...">
+					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg()%>" class="card-img-top" alt="...">
 					</a>
 					<div class="card-body item-box">
 						<h5 class="card-title"><%=pro.getProductName() %></h5>
