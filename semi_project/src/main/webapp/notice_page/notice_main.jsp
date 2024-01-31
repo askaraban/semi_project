@@ -138,7 +138,7 @@ td {
 	<table>
 		<tr>
 			<th></th>
-			<th></th>
+			<th></th> 
 			<th></th>
 			<th></th>
 			<th></th>
