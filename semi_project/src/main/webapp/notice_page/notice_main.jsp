@@ -190,6 +190,22 @@ td {
 		
 		
 	</table>
+	<table>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<th width="100">번호</th>
+			<th width="420">제목</th>
+			<th width="150">작성자</th>
+			<th width="150">작성일</th>
+			<th width="80">조회</th>
+		</tr>
+	</table>
 	
 	<%-- 페이지번호 출력 및 링크 제공 - 블럭화 처리(페이지 번호를 하나의 그룹화 시킨다고 생각하기) --%>
 	<%
