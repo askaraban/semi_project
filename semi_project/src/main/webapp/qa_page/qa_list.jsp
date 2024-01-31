@@ -13,9 +13,9 @@
 			</li>
 		</ul>
 	</div>
-	<div id="review_list">
+	<div id="qa_list">
 		<%-- 검색된 게시글 총갯수 출력 --%>
-		<div id="review_title">제품후기목록(갯수)</div>
+		<div id="review_title">Q&A목록(갯수)</div>
 		
 		<div style="text-align: right;">
 			게시글갯수 : 

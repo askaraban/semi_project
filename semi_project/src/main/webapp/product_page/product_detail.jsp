@@ -16,7 +16,7 @@
 				<a href="#review_list">리뷰 3</a>
 			</li>
 			<li>
-				<a href="#">Q&A</a>
+				<a href="#qa_list">Q&A</a>
 			</li>
 		</ul>
 	</div>

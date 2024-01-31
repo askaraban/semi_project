@@ -2,13 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <%
+request.setCharacterEncoding("utf-8");
 String main_header = "/main_page/main_header.jsp";
-String product_order = "/product_page/product_order.jsp";
-String product_detail = "/product_page/product_detail.jsp";
-String review_list = "/review_page/review_list.jsp";
+	String product_order = "/product_page/product_order.jsp";
+	String product_detail = "/product_page/product_detail.jsp";
+	String review_list = "/review_page/review_list.jsp";
+	String qa_list = "/qa_page/qa_list.jsp";
 String main_footer = "/main_page/main_footer.jsp";
 
-	request.setCharacterEncoding("utf-8");
 	String group = request.getParameter("group");
 	if(group==null){
 		group="main_page";
@@ -17,7 +18,7 @@ String main_footer = "/main_page/main_footer.jsp";
 	// 페이지의 몸체부에 포함될 JSP 문서의 파일명을 반환받아 저장
 	String worker=request.getParameter("worker");
 	if(worker==null){
-		worker="product_order";
+		worker="main_body";
 	}
 	
 	// 전달값을 사용하여 페이지 몸체부에 포함될 JSP 문서의 컨텍스트 경로를 생성하여 저장
@@ -58,6 +59,9 @@ String main_footer = "/main_page/main_footer.jsp";
 	</div>
 	<div>
 		<jsp:include page="<%=review_list %>"></jsp:include>
+	</div>
+	<div>
+		<jsp:include page="<%=qa_list %>"></jsp:include>
 	</div>
 	<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"></jsp:include>
