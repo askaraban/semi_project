@@ -16,35 +16,35 @@
 			<div
 				class="row flex-nowrap justify-content-between align-items-center">
 				<div class="col-4 pt-1">
-					<a class="link-secondary head-right-line"
+					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page
-					&worker=notice_main">공지사항</a>
+					&worker=notice_main">&nbsp;공지사항&nbsp;</a>
 					<%if(loginClient==null) {%>
-					<a class="link-secondary head-right-line"
+					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=client_join">회원가입</a>
-					<a class="link-secondary head-right-line"
+					&worker=client_join">&nbsp;회원가입&nbsp;</a>
+					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
-					&worker=client_login">로그인</a>
+					&worker=client_login">&nbsp;로그인&nbsp;</a>
 					<%} else {%>
-					<a class="link-secondary head-right-line"
+					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
-					&worker=client_logout_action">로그아웃</a>
+					&worker=client_logout_action">&nbsp;로그아웃&nbsp;</a>
 						<%if(loginClient.getClientStatus()==9){ %>
-						<a class="link-secondary head-right-line"
-						href="<%=request.getContextPath()%>/manager_page/manager.jsp">관리자</a>
+						<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+						href="<%=request.getContextPath()%>/manager_page/manager.jsp">&nbsp;관리자&nbsp;</a>
 						<%} %>
 					
 					<%} %>
-					<a class="link-secondary head-right-line"
+					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page
-					&worker=order">마이페이지</a>
+					&worker=order">&nbsp;마이페이지&nbsp;</a>
 				</div>
 				<div class="col-4 text-center">
 
 					<a class="blog-header-logo text-dark" href="main.jsp"> <img
-						alt="로고" src="<%=request.getContextPath()%>/images/(nookki)logo.png"
-						width="200">
+						alt="로고" src="<%=request.getContextPath()%>/images/King2.png"
+						width="200" >
 					</a>
 				</div>
 				<div class="col-4 d-flex justify-content-end align-items-center">
@@ -85,25 +85,25 @@
 				<a class="navbar-brand"
 					href="/main_page/main.jsp?group=product_page&worker=#"> <img
 					src="<%=request.getContextPath()%>/images/icon/icons-pretzel.png"
-					width="25">스낵
+					width="25">&nbsp;스낵
 				</a> <a class="navbar-brand"
 					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=#">
 					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-cookie.png"
-					width="25">파이&쿠키
+					width="25">&nbsp;파이&쿠키
 				</a> <a class="navbar-brand"
 					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=#">
 					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-candy.png"
-					width="25">캔디&젤리
+					width="25">&nbsp;캔디&젤리
 				</a> <a class="navbar-brand"
 					href="/main_page/main.jsp?group=product_page&worker=#"> <img
 					src="<%=request.getContextPath()%>/images/icon/icons-chocolate.png"
-					width="25">초콜릿
+					width="25">&nbsp;초콜릿
 				</a> <a class="navbar-brand"
 					href="/main_page/main.jsp?group=product_page&worker=#"> <img
 					src="<%=request.getContextPath()%>/images/icon/icons-chewing-gum.png"
-					width="25">껌
+					width="25">&nbsp;껌
 				</a>
 			</nav>
 			<hr>

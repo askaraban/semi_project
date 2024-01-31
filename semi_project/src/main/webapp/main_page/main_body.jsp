@@ -20,10 +20,10 @@
 	<div id="carouselExample" class="carousel slide">
   <div class="carousel-inner main-img">
     <div class="carousel-item active">
-      <img src="<%=request.getContextPath()%>/images/bestProduct.png" class="img-fluid" class="d-block w-100" alt="saleProduct">
+      <img src="<%=request.getContextPath()%>/images/banner5.png" class="img-fluid" class="d-block w-100" alt="saleProduct">
     </div>
     <div class="carousel-item">
-      <img src="<%=request.getContextPath()%>/images/saleProduct.png" class="img-fluid" class="d-block w-100" alt="bestSaleProduct">
+      <img src="<%=request.getContextPath()%>/images/banner5.png" class="img-fluid" class="d-block w-100" alt="bestSaleProduct">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Gothic&family=Noto+Sans+KR&display=swap');
+
 body {
 	width: 100%;
 	max-width: 1020px;
@@ -57,11 +58,12 @@ div {
 .col-4 {
 	flex: 0 0 auto;
 	width: 33.33333333%;
+	
 }
 
 
 /* 우측 라인*/
-.head-right-line {
+.link-offset-2 {
 	margin-right: 12px;
 	text-align: right;
 }
@@ -74,6 +76,7 @@ div {
 /* 2번째 div*/
 #header_under{
 	text-align: right;
+
 }
 
 /* 네비 라인*/
@@ -110,22 +113,12 @@ div {
 	max-width: 1020px;
 	width: 100%;
 	margin: 0 auto;
-}
-.main-img{
-	height: 100%;
+	border: 5px solid black;
 }
 
-.main-text{
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	width: 100%;
-	transform: translate(-50%, -50%);
-	font-size: 20px;
-	text-align: top;
-}
 .img-fluid{
 	width: 100%;
+	margin: 0 auto;
 	vertical-align: middle;
 }
 
