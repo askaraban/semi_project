@@ -49,6 +49,7 @@ String main_footer = "/main_page/main_footer.jsp";
 	<%-- 바디 --%>
 	<jsp:include page="<%=contentFilePath %>"/>
 	<% String returnURL = (String)request.getAttribute("returnURL");
+	
 			if(returnURL!=null) {
 				response.sendRedirect(returnURL);
 				return;
