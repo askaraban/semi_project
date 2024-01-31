@@ -1,190 +1,139 @@
 package xyz.itwill.DTO;
 
 /*
-create table client(client_num number primary key, id varchar2(30) unique, passwd varchar2(200)
-	    , name varchar2(30), email varchar2(50), mobile varchar2(20), zipcode varchar2(10)
-	    , address1 varchar2(200), address2 varchar2(100), join_date date, update_date date
-	    , last_login date, client_status number(1));
+create table client_table(client_num number primary key, client_id varchar2(30) unique, client_passwd varchar2(200)
+	    , client_name varchar2(30), client_email varchar2(50), client_mobile varchar2(20), client_zipcode varchar2(10)
+	    , client_address1 varchar2(200), client_address2 varchar2(100), client_joinDate date, client_updatedate date
+	    , client_lastLogin date, client_clientStatus number(1));
 	    
-create sequence client_seq;    
+create sequence client_table_seq;    
 */
 
 /*
 이름            널?       유형            
 ------------- -------- ------------- 
-CLIENTNUM    NOT NULL NUMBER        - 회원번호(PRIMARY KEY) : 시퀸스의 증가값     
-ID                     VARCHAR2(30)  - 아이디 : 사용자 입력값  
-PASSWD                 VARCHAR2(200) - 비밀번호 : 사용자 입력값(암호화 처리)
-NAME                   VARCHAR2(30)  - 이름 : 사용자 입력값   
-EMAIL                  VARCHAR2(50)  - 이메일 : 사용자 입력값
-MOBILE                 VARCHAR2(20)  - 전화번호 : 사용자 입력값
-ZIPCODE                VARCHAR2(10)  - 우편번호 : 사용자 입력값(우편번호 검색서비스)
-ADDRESS1               VARCHAR2(200) - 기본주소 : 사용자 입력값(우편번호 검색서비스)
-ADDRESS2               VARCHAR2(100) - 상세주소 : 사용자 입력값
-JOIN_DATE              DATE          - 회원가입날짜 : 시스템의 현재 날짜와 시간(SYSDATE) 
-UPDATEDATE            DATE          - 회원변경날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
-LASTLOGIN             DATE          - 마지막 로그인날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
-CLIENTSTATUS          NUMBER(1)     - 회원상태(권한) : 0(탈퇴회원), 1(일반회원), 9(관리자) 
+CLIENT_NUM    NOT NULL NUMBER        		- 회원번호(PRIMARY KEY) : 시퀸스의 증가값     
+CLIENT_ID                     VARCHAR2(30)  - 아이디 : 사용자 입력값  
+CLIENT_PASSWD                 VARCHAR2(200) - 비밀번호 : 사용자 입력값(암호화 처리)
+CLIENT_NAME                   VARCHAR2(30)  - 이름 : 사용자 입력값   
+CLIENT_EMAIL                  VARCHAR2(50)  - 이메일 : 사용자 입력값
+CLIENT_MOBILE                 VARCHAR2(20)  - 전화번호 : 사용자 입력값
+CLIENT_ZIPCODE                VARCHAR2(10)  - 우편번호 : 사용자 입력값(우편번호 검색서비스)
+CLIENT_ADDRESS1               VARCHAR2(200) - 기본주소 : 사용자 입력값(우편번호 검색서비스)
+CLIENT_ADDRESS2               VARCHAR2(100) - 상세주소 : 사용자 입력값
+CLIENT_JOIN_DATE              DATE          - 회원가입날짜 : 시스템의 현재 날짜와 시간(SYSDATE) 
+CLIENT_UPDATE_DATE             DATE          - 회원변경날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
+CLIENT_LASTLOGIN             DATE          - 마지막 로그인날짜 : 시스템의 현재 날짜와 시간(SYSDATE)
+CLIENT_STATUS         		 NUMBER(1)     - 회원상태(권한) : 0(탈퇴회원), 1(일반회원), 9(관리자) 
+
+CLIENT_NUM          NOT NULL NUMBER        
+CLIENT_ID                    VARCHAR2(30)  
+CLIENT_PASSWD                VARCHAR2(200) 
+CLIENT_NAME                  VARCHAR2(30)  
+CLIENT_EMAIL                 VARCHAR2(50)  
+CLIENT_MOBILE                VARCHAR2(20)  
+CLIENT_ZIPCODE               VARCHAR2(10)  
+CLIENT_ADDRESS1              VARCHAR2(200) 
+CLIENT_ADDRESS2              VARCHAR2(100) 
+CLIENT_JOIN_DATE             DATE          
+CLIENT_UPDATE_DATE           DATE          
+CLIENT_LASTLOGIN             DATE          
+CLIENT_CLIENTSTATUS          NUMBER(1) 
 */
-/*
-------------- -------- ------------- 
-CLIENT_NUM    NOT NULL NUMBER        
-ID                     VARCHAR2(30)  
-PASSWD                 VARCHAR2(200) 
-NAME                   VARCHAR2(30)  
-EMAIL                  VARCHAR2(50)  
-MOBILE                 VARCHAR2(20)  
-ZIPCODE                VARCHAR2(10)  
-ADDRESS1               VARCHAR2(200) 
-ADDRESS2               VARCHAR2(100) 
-JOIN_DATE              DATE          
-UPDATE_DATE            DATE          
-LAST_LOGIN             DATE          
-CLIENT_STATUS          NUMBER(1) 
-*/
+
 public class ClientDTO {
 	private int clientNum;
-	private String id;
-	private String passwd;
-	private String name;
-	private String email;
-	private String mobile;
-	private String zipcode;
-	private String address1;
-	private String address2;
-	private String joinDate;
-	private String updateDate;
-	private String lastLogin;
+	private String clientID;
+	private String clientPasswd;
+	private String clientName;
+	private String clientEmail;
+	private String clientMobile;
+	private String clientZipcode;
+	private String clientAddress1;
+	private String clientAddress2;
+	private String clientJoinDate;
+	private String clientUpdateDate;
+	private String clientLastLogin;
 	private int clientStatus;
 	
-	public ClientDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public ClientDTO(int clientNum, String id, String passwd, String name, String email, String mobile, String zipcode,
-			String address1, String address2, String joinDate, String updateDate, String lastLogin, int clientStatus) {
-		super();
-		this.clientNum = clientNum;
-		this.id = id;
-		this.passwd = passwd;
-		this.name = name;
-		this.email = email;
-		this.mobile = mobile;
-		this.zipcode = zipcode;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.joinDate = joinDate;
-		this.updateDate = updateDate;
-		this.lastLogin = lastLogin;
-		this.clientStatus = clientStatus;
-	}
-
 	public int getClientNum() {
 		return clientNum;
 	}
-
 	public void setClientNum(int clientNum) {
 		this.clientNum = clientNum;
 	}
-
-	public String getId() {
-		return id;
+	public String getClientID() {
+		return clientID;
 	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setClientID(String clientID) {
+		this.clientID = clientID;
 	}
-
-	public String getPasswd() {
-		return passwd;
+	public String getClientPasswd() {
+		return clientPasswd;
 	}
-
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setClientPasswd(String clientPasswd) {
+		this.clientPasswd = clientPasswd;
 	}
-
-	public String getName() {
-		return name;
+	public String getClientName() {
+		return clientName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
-
-	public String getEmail() {
-		return email;
+	public String getClientEmail() {
+		return clientEmail;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setClientEmail(String clientEmail) {
+		this.clientEmail = clientEmail;
 	}
-
-	public String getMobile() {
-		return mobile;
+	public String getClientMobile() {
+		return clientMobile;
 	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setClientMobile(String clientMobile) {
+		this.clientMobile = clientMobile;
 	}
-
-	public String getZipcode() {
-		return zipcode;
+	public String getClientZipcode() {
+		return clientZipcode;
 	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setClientZipcode(String clientZipcode) {
+		this.clientZipcode = clientZipcode;
 	}
-
-	public String getAddress1() {
-		return address1;
+	public String getClientAddress1() {
+		return clientAddress1;
 	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setClientAddress1(String clientAddress1) {
+		this.clientAddress1 = clientAddress1;
 	}
-
-	public String getAddress2() {
-		return address2;
+	public String getClientAddress2() {
+		return clientAddress2;
 	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setClientAddress2(String clientAddress2) {
+		this.clientAddress2 = clientAddress2;
 	}
-
-	public String getJoinDate() {
-		return joinDate;
+	public String getClientJoinDate() {
+		return clientJoinDate;
 	}
-
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
+	public void setClientJoinDate(String clientJoinDate) {
+		this.clientJoinDate = clientJoinDate;
 	}
-
-	public String getUpdateDate() {
-		return updateDate;
+	public String getClientUpdateDate() {
+		return clientUpdateDate;
 	}
-
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
+	public void setClientUpdateDate(String clientUpdateDate) {
+		this.clientUpdateDate = clientUpdateDate;
 	}
-
-	public String getLastLogin() {
-		return lastLogin;
+	public String getClientLastLogin() {
+		return clientLastLogin;
 	}
-
-	public void setLastLogin(String lastLogin) {
-		this.lastLogin = lastLogin;
+	public void setClientLastLogin(String clientLastLogin) {
+		this.clientLastLogin = clientLastLogin;
 	}
-
 	public int getClientStatus() {
 		return clientStatus;
 	}
-
 	public void setClientStatus(int clientStatus) {
 		this.clientStatus = clientStatus;
 	}
-	
-	
-	
+
 	
 }
-	

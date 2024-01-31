@@ -96,7 +96,7 @@ fieldset {
 
 .btnWrap [class*="btnType4"] {
     position: absolute;
-    left: 60%;
+    left: 55%;
     width: 150px;
     margin-left: -100px;
 }
@@ -231,7 +231,7 @@ h3.subTitle2 {
 			<%	String action = request.getParameter("action");
 			//전달값이 업거나 전달값이 잘못된 경우에 대한 응답 처리 - 비정상적인 요청
 			if (action == null || !action.equals("modify") && !action.equals("remove")) {
-				request.setAttribute("returnUrl", request.getContextPath() + "/main_page/main.jsp?group=error&worker=error_400");
+				request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 				return;
 			}
 

@@ -24,27 +24,27 @@
 	//request.setCharacterEncoding("utf-8");
 	
 	//전달값을 반환받아 저장
-	String id=request.getParameter("id");
+	String clientID=request.getParameter("id");
 	//전달받은 비밀번호를 암호화 처리한 후 변수에 저장
-	String passwd=Utility.encrypt(request.getParameter("passwd"));
-	String name=request.getParameter("name");
-	String email=request.getParameter("email");
-	String mobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
+	String clientPasswd=Utility.encrypt(request.getParameter("passwd"));
+	String clientName=request.getParameter("name");
+	String clientEmail=request.getParameter("email");
+	String clientMobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
 		+"-"+request.getParameter("mobile3");
-	String zipcode=request.getParameter("zipcode");
-	String address1=request.getParameter("address1");
-	String address2=request.getParameter("address2");
+	String clientZipcode=request.getParameter("zipcode");
+	String clientAddress1=request.getParameter("address1");
+	String clientAddress2=request.getParameter("address2");
 	
 	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
 	ClientDTO client=new ClientDTO();
-	client.setId(id);
-	client.setPasswd(passwd);
-	client.setName(name);
-	client.setEmail(email);
-	client.setMobile(mobile);
-	client.setZipcode(zipcode);
-	client.setAddress1(address1);
-	client.setAddress2(address2);
+	client.setClientID(clientID);
+	client.setClientPasswd(clientPasswd);
+	client.setClientName(clientName);
+	client.setClientEmail(clientEmail);
+	client.setClientMobile(clientMobile);
+	client.setClientZipcode(clientZipcode);
+	client.setClientAddress1(clientAddress1);
+	client.setClientAddress2(clientAddress2);
 	
 	//회원정보를 전달받아 CLIENT 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 ClientDAO
 	//클래스의 메소드 호출

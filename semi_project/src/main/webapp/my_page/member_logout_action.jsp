@@ -5,5 +5,5 @@
 	session.removeAttribute("loginMember");
 	//session.invalidate();
 	
-	request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=main&worker=main");
+	request.setAttribute("returnURl", request.getContextPath()+"/main_page/main.jsp?group=main&worker=main");
 %>

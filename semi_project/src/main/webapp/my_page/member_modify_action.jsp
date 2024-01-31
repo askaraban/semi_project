@@ -6,7 +6,7 @@
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getMethod().equals("GET")) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -49,6 +49,6 @@
 	session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(clientNum));
 	
 	//페이지 이동
-	request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=my_page&worker=member_modify");
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=my_page&worker=member_modify");
 	
 %> 

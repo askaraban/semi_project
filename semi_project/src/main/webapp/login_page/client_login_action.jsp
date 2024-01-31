@@ -31,7 +31,7 @@
 	
 	//검색된 회원정보가 없거나 검색된 회원정보의 비밀번호가 전달된 비밀번호와 같지 않은 경우 
 	//또는 탈퇴회원인 경우 인증 실패
-	if(client==null || !client.getPasswd().equals(passwd) || client.getClientStatus()==0) {
+	if(client==null || !client.getClientPasswd().equals(passwd) || client.getClientStatus()==0) {
 		session.setAttribute("message", "아이디 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해 주세요.");
 		session.setAttribute("id", id);
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=login_page&worker=client_login&url="

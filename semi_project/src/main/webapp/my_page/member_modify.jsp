@@ -1,24 +1,20 @@
+<%@page import="javax.tools.DocumentationTool.Location"%>
 <%@page import="xyz.itwill.util.Utility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%@include file="/security/login_check.jspf" %>  
 <%
-	/*
-	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
-	if(request.getMethod().equals("GET")) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
-		return;
-	}
-	*/
-
 	//전달값을 반환받아 저장
 	if(request.getParameter("passwd")!=null) {
 		String passwd=Utility.encrypt(request.getParameter("passwd"));
-	
+		
+		
 		//로그인 상태의 사용자 비밀번호와 전달받은 비밀번호를 비교하여 같지 않은 경우에 대한 응답 처리
 		if(!loginClient.getPasswd().equals(passwd)) {
 			session.setAttribute("message", "입력하신 비밀번호가 맞지 않습니다.");	
-			request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify");
+			request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify");
 			return;
 		}
 	}
@@ -71,13 +67,13 @@ body {
 	
 }
 
-fieldset {
+.fieldset {
 	text-align: left;
 	margin: 10px auto;
 	width: 95%;
 }
 
-legend {
+.legend {
 	font-size: 50px;
 	text-align: left;
 	font-weight: 600;
@@ -93,6 +89,7 @@ legend {
     line-height: 1.54em;
     color: #888;
 }
+
 <%-- 회원정보 수정 칸 --%>
 .pwdInputField {
     position: relative;
@@ -149,9 +146,6 @@ legend {
 
 <form id="join" action="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=member_modify_action" method="post">
 <input type="hidden" name="clientNum" value="<%=loginClient.getClientNum() %>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
 <%-- 네이게이션 바 --%>
 <div class="container text-center">
 	<div class="row justify-content-md-center">
@@ -172,7 +166,7 @@ legend {
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			<div = class="tableHead">
+			<div class="tableHead">
 				<legend>과자몰 회원정보 수정</legend>
 				<p class="tableHeadTxt">* 이름 변경(개명)의 경우 과자몰 고객상담실(080-XXX-XXXX)로 문의 부탁드립니다.</p>
 			</div>
