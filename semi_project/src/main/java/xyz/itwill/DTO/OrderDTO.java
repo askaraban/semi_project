@@ -13,6 +13,11 @@ ORDER_STATUS               NUMBER(1)      - 배송상태
 ORDER_SUM                  NUMBER(10)     - 총 금액
 ORDER_DIS_SUM              NUMBER(10)     - 할인된 총 금액
 ORDER_CONTENT              VARCHAR2(200)  - 배송 요청사항
+ORDER_RECEIVER             VARCHAR2(20)   - 받는 사람
+ORDER_ZIPCODE              VARCHAR2(10)   - 우편번호
+ORDER_ADDRESS1             VARCHAR2(200)  - 기본주소
+ORDER_ADDRESS2             VARCHAR2(100)  - 상세주소
+ORDER_MOBILE               VARCHAR2(20)   - 전화번호
 */
 
 public class OrderDTO {
@@ -26,13 +31,19 @@ public class OrderDTO {
 	private int orderSum;
 	private int orderDisSum;
 	private String orderContent;
+	private String orderReceiver;
+	private String orderZipcode;
+	private String orderAddress1;
+	private String orderAddress2;
+	private String orderMobile;
 	
 	public OrderDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public OrderDTO(int orderNum, int orderClientNum, String orderTime, String orderDate, int orderProductNum,
-			int orderCount, int orderStatus, int orderSum, int orderDisSum, String orderContent) {
+			int orderCount, int orderStatus, int orderSum, int orderDisSum, String orderContent, String orderReceiver,
+			String orderZipcode, String orderAddress1, String orderAddress2, String orderMobile) {
 		super();
 		this.orderNum = orderNum;
 		this.orderClientNum = orderClientNum;
@@ -44,6 +55,11 @@ public class OrderDTO {
 		this.orderSum = orderSum;
 		this.orderDisSum = orderDisSum;
 		this.orderContent = orderContent;
+		this.orderReceiver = orderReceiver;
+		this.orderZipcode = orderZipcode;
+		this.orderAddress1 = orderAddress1;
+		this.orderAddress2 = orderAddress2;
+		this.orderMobile = orderMobile;
 	}
 
 	public int getOrderNum() {
@@ -124,6 +140,46 @@ public class OrderDTO {
 
 	public void setOrderContent(String orderContent) {
 		this.orderContent = orderContent;
+	}
+
+	public String getOrderReceiver() {
+		return orderReceiver;
+	}
+
+	public void setOrderReceiver(String orderReceiver) {
+		this.orderReceiver = orderReceiver;
+	}
+
+	public String getOrderZipcode() {
+		return orderZipcode;
+	}
+
+	public void setOrderZipcode(String orderZipcode) {
+		this.orderZipcode = orderZipcode;
+	}
+
+	public String getOrderAddress1() {
+		return orderAddress1;
+	}
+
+	public void setOrderAddress1(String orderAddress1) {
+		this.orderAddress1 = orderAddress1;
+	}
+
+	public String getOrderAddress2() {
+		return orderAddress2;
+	}
+
+	public void setOrderAddress2(String orderAddress2) {
+		this.orderAddress2 = orderAddress2;
+	}
+
+	public String getOrderMobile() {
+		return orderMobile;
+	}
+
+	public void setOrderMobile(String orderMobile) {
+		this.orderMobile = orderMobile;
 	}
 	
 }

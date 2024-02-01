@@ -45,13 +45,19 @@
 		border: 1px solid #333;
     	background: #333;
 	}
+	.btnSubmit {
+		background: pink;
+	}
 </style>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>과자몰</title>
+<!doctype html>
+<html lang="kr">
 
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<title>과자몰</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body id="userStyle">
 	<!-- 상단 영역 -->
@@ -71,27 +77,19 @@
 	<div id="ec-orderform-header-tail"></div>
 	</header>
 	<div id="titleArea" class="titleArea">
-		<h1>주문/결제</h1>	
+		<h1>결제하기</h1>	
 	</div>
-	<form id="frm_order_act" name="frm_order_act" method="post" target="_self" enctype="multipart-form-data">
 	<input id="move_order_after" name="move_order_after" value="/order/order_result.html" type="hidden"  />
 	        
-<div class="billingNshipping">
     <!-- 주문자정보 -->
-    <div id="ec-jigsaw-area-billingInfo" class="ec-base-fold eToggle selected ">
         <div id="ec-jigsaw-title-billingInfo" class="title">
-            <h2>주문 정보</h2>
+            <h2>주문/배송정보</h2>
             <span id="ec-jigsaw-heading-billingInfo" class="txtEm gRight"></span>
         </div>
         <div class="contents ec-shop-ordererForm">
             <div class="ec-base-table typeWrite">
                 <table border="1">
-<caption>주문자 정보 입력</caption>
-                    <colgroup>
-<col style="width:102px">
-<col style="width:auto">
-</colgroup>
-<!-- 국내/해외 주문자 정보 -->
+<!-- 주문자 정보 -->
 <tbody class="address_form ">
 	    <tr>
 		<th scope="row">주문자 <span class="icoRequired">필수</span>
@@ -148,25 +146,92 @@
 			</table>
 		 </div>
      </div>
-</div>
+<h3>배송지 작성</h3>   
+     
+<div class="contents ec-shop-ordererForm">
+            <div class="ec-base-table typeWrite">
+                <table border="1">
+<!-- 주문자 정보 -->
+<tbody class="address_form ">
+	    <tr>
+		<th scope="row">주문자 <span class="icoRequired">필수</span>
+		</th>
+        <td><input id="oname" name="oname" fw-filter="isFill" fw-label="주문자 성명" fw-msg="" class="inputTypeText" placeholder="" size="15" value="" type="text"  />
+        </td>
+        </tr>
+		<tr class="ec-orderform-emailRow ">
+		<th scope="row">이메일 <span class="icoRequired icon_order_email">필수</span>
+		</th>
+        <td>
+                            <div class="ec-base-mail">
+            <input id="oemail1" name="oemail1" class="mailId" value="" type="text"  />
+            <span class="mailAddress"> </span>
+          	</div>
+		</td>
+		</tr>
+       
+		<tr class="">
+		<th scope="row">전화번호<span class="displaynone"><span class="icoRequired">필수</span></span>
+		</th>
+		                        <td><div class="ec-base-mail"><select id="ophone2_1" name="ophone2_[]" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg=""  >
+		<option value="010">010</option>
+		<option value="011">011</option>
+		<option value="016">016</option>
+		<option value="017">017</option>
+		<option value="018">018</option>
+		<option value="019">019</option>
+		</select>-<input id="ophone2_2" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  />-<input id="ophone2_3" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  /></div></td>
+		</tr>
 
-<div class="ec-shippingInfo-shippingMessage segment unique  ">
-	<select id="omessage_select" name="omessage_select" fw-filter="" fw-label="배송 메세지" fw-msg=""  >
-		<option value="oMessage-0" selected="selected">-- 메시지 선택 (선택사항) --</option>
-		<option value="oMessage-1">배송 전에 미리 연락바랍니다.</option>
-		<option value="oMessage-2">부재 시 경비실에 맡겨주세요.</option>
-		<option value="oMessage-3">부재 시 문 앞에 놓아주세요.</option>
-		<option value="oMessage-4">빠른 배송 부탁드립니다.</option>
-		<option value="oMessage-5">택배함에 보관해 주세요.</option>
-		<option value="oMessage-input">직접 입력</option>
-	</select>                <div class="ec-shippingInfo-omessageInput gBlank10" style="display:none;">
-	                    <textarea id="omessage" name="omessage" fw-filter="" fw-label="배송 메세지" fw-msg="" maxlength="255" cols="70" ></textarea>                    
-	<div class="gBlank10 displaynone">
-	   <label><input id="omessage_autosave0" name="omessage_autosave[]" fw-filter="" fw-label="배송 메세지 저장" fw-msg="" value="T" type="checkbox"  /><label for="omessage_autosave0" ></label>[]에 자동 저장</label>
-	                        
-	</div>
-	                </div>
-</div>
+		<tr id="ec-orderer-address">
+		<th scope="row">주소 <span class=""><span class="icoRequired">필수</span></span>
+		</th>
+        	<td>
+                <ul class="ec-address">
+        			<li id="orderer_zipcode_wrap" class="ec-address-zipcode displaynone">
+                	<input id="ozipcode1" name="ozipcode1" placeholder="우편번호" fw-filter="isLengthRange[1][14]" class="inputTypeText displaynone" type="text" maxlength="14"> 
+                	<button id="btn_search_ozipcode" class="btnBasic displaynone" type="button" >우편번호</button>
+            		</li>
+                                                     
+           <li id="orderer_baseAddr_wrap" class="displaynone">
+                <input id="oaddr1" name="oaddr1" placeholder="기본주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="100" >
+           </li>
+        
+           <li id="orderer_detailAddr_wrap" class="displaynone">
+                <input id="oaddr2" name="oaddr2" placeholder="상세 주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="255" >
+           </li>
+        
+                </ul>
+          </td>
+       </tr>
+       
+      <tr>
+		<th scope="row">배송 요청사항</th>
+			<td class="shippingMsg">
+				<div class="selectArea" style="width: 75%;">
+					<div class="shippingMsg">
+							  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							    메세지 직접 입력
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li><a class="dropdown-item" href="#">부재시 경비(관리)실에 맡겨주세요.</a></li>
+							    <li><a class="dropdown-item" href="#">부재시 문앞에 놓아주세요.</a></li>
+							    <li><a class="dropdown-item" href="#">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</a></li>
+							    <li><a class="dropdown-item" href="#">배송전에 연락주세요.</a></li>
+							    <li><a class="dropdown-item" href="#">메시지 직접 입력</a></li>
+							  </ul>
+					</div>
+				</div>
+				<div class="writeMsg noRequest">
+					<input type="text" class="inputTxt" id="dlvReqCntTxt" maxlength="45" style="width: 75%;" placeholder="배송요청사항을 입력해주세요. (최대 45자 까지 입력 가능)">
+				</div>
+			</td>
+		</tr> 
+</tbody>
+			</table>
+		 </div>
+     </div>
+
 		<div class="ec-shippingInfo-newAddress-setMain segment ">
              <input id="set_main_address0" name="set_main_address[]" fw-filter="" fw-label="기본 배송지로 저장" fw-msg="" value="T" type="checkbox"  /><label for="set_main_address0" >기본 배송지로 저장</label>            
         </div>
@@ -215,32 +280,16 @@
             <div class="ec-base-table gCellNarrow">
                 <table border="1">
 
-            <h3 class="heading">최종 결제 금액</h3>
-            <strong class="txtStrong">
-                <span id="payment_total_order_sale_price_view">64,400</span>원     <span class="refer displaynone">(<span id="payment_total_order_sale_price_ref_view"></span>)</span>
-            </strong>
             
-
-        <!-- app tag -->
-        <div id="ec-orderform-payment-tail"></div>
-    </div>
-</div>         
-	</form>
+    <h3 class="heading">최종 결제 금액</h3>
+    <!-- app tag -->
+    <div id="ec-orderform-payment-tail"></div>
 	<div class="ec-base-button gFull" id="orderFixItem">
             <button type="button" class="btnSubmit" id="btn_payment">
-                <span id="total_order_sale_price_view">64,400</span>원 <span class="">결제하기</span>
+                <span id="total_order_sale_price_view">50,500</span>원 <span class="">결제하기</span>
             </button>
     </div>
-    <div class="helpArea">
-            <ul class="ec-base-help typeDash">
-				<li class="displaynone"><span class="txtEm">상기 금액은 결제 시점의 금액과 다를 수 있습니다.</span></li>
-                <li>무이자할부가 적용되지 않은 상품과 무이자할부가 가능한 상품을 동시에 구매할 경우 전체 주문 상품 금액에 대해 무이자할부가 적용되지 않습니다. 
-                무이자할부를 원하시는 경우 장바구니에서 무이자할부 상품만 선택하여 주문하여 주시기 바랍니다.</li>
-                <li>최소 결제 가능 금액은 결제금액에서 배송비를 제외한 금액입니다.</li>
-            </ul>
-	</div>
-
-
+    
 	<!-- 부트스트랩 -->
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
 	</script>
