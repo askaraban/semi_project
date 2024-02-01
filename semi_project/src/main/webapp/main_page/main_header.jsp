@@ -1,12 +1,28 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="xzy.itwill.DAO.CartDAO"%>
+<%@page import="xyz.itwill.DTO.CartDTO"%>
 <%@page import="xzy.itwill.DAO.ClientDAO"%>
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%
-
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
-
+	// 카트 목록을 담기 위한 리스트
+	List<CartDTO> cartList = new ArrayList<>();
+	int count=0; // 카트에 담긴 숫자를 나타내기 위한 변수
+	
+	if(loginClient==null){ // 비회원이라면 카트에 담긴 수는 0
+		count=0;
+	} else { // 회원일 경우 카트에 있는 목록을 모두 구하는 DAO 메소드를 호출해 count로 증감하여 계산
+		cartList = CartDAO.getDAO().selectCartList(loginClient);
+		for(CartDTO cart : cartList){
+			if(cart.getCartNum()!=0){
+				count++;
+			}
+		}
+	}
 %>
 
 <body>
@@ -43,7 +59,7 @@
 				<div class="col-4 text-center">
 
 					<a class="blog-header-logo text-dark" href="main.jsp"> <img
-						alt="로고" src="<%=request.getContextPath()%>/images/King2.png"
+						alt="로고" src="<%=request.getContextPath()%>/images/쿠키4.png"
 						width="200" >
 					</a>
 				</div>
@@ -73,7 +89,7 @@
 						width="25" height="25">
 					</a> &nbsp;<span
 						class="top-0 start-100 translate-middle badge rounded-pill bg-danger">
-						99+ <span class="visually-hidden">unread messages</span>
+						<%=count %> <span class="visually-hidden">unread messages</span>
 					</span>
 				</div>
 			</div>

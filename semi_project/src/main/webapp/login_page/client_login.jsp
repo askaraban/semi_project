@@ -100,7 +100,8 @@ a:hover {
 <div id="space"></div>
 <form action="<%=request.getContextPath() %>/main_page/main.jsp?group=login_page&worker=client_login_action" 
 	method="post" id="loginForm" name="loginForm">
-	
+	<%-- url을 전달하기 위한 hidden input --%>
+	<input type="hidden" value="<%=url%>" name="url"> 
 	<ul class="login_tag">
 		<li>
 			<label for="id" >아이디</label>

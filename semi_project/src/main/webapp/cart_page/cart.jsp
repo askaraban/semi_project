@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@include file="/security/login_url.jspf" %>
 
 <form id="cart" action="<%=request.getContextPath()%>/main_page/main.jsp/group=cart_page&worker=cart_action" method="post">
 <div class="main-body">
@@ -161,8 +162,8 @@ $("#flexCheckDefault").click(function() {
 	}
 });
 
-$("#cartDelete").click(){
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_action&"
-}
+$("#cartDelete").click(()=>{
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action";
+});
 
 </script>
