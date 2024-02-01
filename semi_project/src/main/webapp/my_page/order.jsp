@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/security/login_url.jspf" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<%-- 네비게이션 바 --%>
+<%-- 네비게이션 바 --%> 
 <style type="text/css">
 body {
 	width: 100%;
@@ -47,6 +46,16 @@ body {
 	margin: 5px;
 	height: 50px;
 	text-align: center;	
+}
+<%-- 주문조회 --%>
+[class*="subTitle1"] {
+    margin: 60px 0 24px;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: left;
+}
+
 	
 </style>
 <div class="container text-center">
@@ -68,7 +77,7 @@ body {
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			<p>주문/배송조회</p>
+			<h1 class="subTitle1">주문내역</h1>
 		</div>
 	</div>
 </div>
