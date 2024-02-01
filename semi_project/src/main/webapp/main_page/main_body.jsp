@@ -52,7 +52,13 @@
 			<li id="anchorBoxId_1" class="xans">
 				<div class="card border-light" style="width: 14rem;">
 					<div id="inner_img">
-					<a href="#" class="product-a-line">
+					<%-- 제품이미지 클릭시 제품상세설명으로 이동할 때 넘길 값 --%>
+					<%
+						String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+							+"&productNum="+pro.getProductNum()+"&productMainImg="+pro.getProductMainImg()+"&productName="+pro.getProductName()
+							+"&productCom="+pro.getProductCom()+"&productPrice="+pro.getProductPrice()+"&productImg1="+pro.getProductImg1();
+					%>
+					<a href="<%=url%>" class="product-a-line">
 					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
 					</a>
 					</div>
