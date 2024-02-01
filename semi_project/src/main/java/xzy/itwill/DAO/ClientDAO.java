@@ -128,7 +128,7 @@ public class ClientDAO extends JdbcDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ClientDTO client=null;
+		ClientDTO clientTable=null;
 		try {
 			con=getConnection();
 			
@@ -140,27 +140,27 @@ public class ClientDAO extends JdbcDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				client=new ClientDTO();
-				client.setClientNum(rs.getInt("client_num"));
-				client.setClientID(rs.getString("client_id"));
-				client.setClientPasswd(rs.getString("client_passwd"));
-				client.setClientName(rs.getString("client_name"));
-				client.setClientEmail(rs.getString("client_email"));
-				client.setClientMobile(rs.getString("client_mobile"));
-				client.setClientZipcode(rs.getString("client_zipcode"));
-				client.setClientAddress1(rs.getString("client_address1"));
-				client.setClientAddress2(rs.getString("client_address2"));
-				client.setClientJoinDate(rs.getString("client_join_date"));
-				client.setClientUpdateDate(rs.getString("client_update_date"));
-				client.setClientLastLogin(rs.getString("client_lastlogin"));
-				client.setClientStatus(rs.getInt("client_status"));
+				clientTable=new ClientDTO();
+				clientTable.setClientNum(rs.getInt("client_num"));
+				clientTable.setClientID(rs.getString("client_id"));
+				clientTable.setClientPasswd(rs.getString("client_passwd"));
+				clientTable.setClientName(rs.getString("client_name"));
+				clientTable.setClientEmail(rs.getString("client_email"));
+				clientTable.setClientMobile(rs.getString("client_mobile"));
+				clientTable.setClientZipcode(rs.getString("client_zipcode"));
+				clientTable.setClientAddress1(rs.getString("client_address1"));
+				clientTable.setClientAddress2(rs.getString("client_address2"));
+				clientTable.setClientJoinDate(rs.getString("client_join_date"));
+				clientTable.setClientUpdateDate(rs.getString("client_update_date"));
+				clientTable.setClientLastLogin(rs.getString("client_lastlogin"));
+				clientTable.setClientStatus(rs.getInt("client_status"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectClientByNum() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
-		return client;
+		return clientTable;
 	}
 	
 	//아이디를 전달받아 CLIENT_TABLE 테이블에 저장된 단일행을 검색하여 회원정보를 반환하는 메소드
@@ -168,7 +168,7 @@ public class ClientDAO extends JdbcDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ClientDTO client=null;
+		ClientDTO clientTable=null;
 		try {
 			con=getConnection();
 			
@@ -180,27 +180,27 @@ public class ClientDAO extends JdbcDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				client=new ClientDTO();
-				client.setClientNum(rs.getInt("client_num"));
-				client.setClientID(rs.getString("client_id"));
-				client.setClientPasswd(rs.getString("client_passwd"));
-				client.setClientName(rs.getString("client_name"));
-				client.setClientEmail(rs.getString("client_email"));
-				client.setClientMobile(rs.getString("client_mobile"));
-				client.setClientZipcode(rs.getString("client_zipcode"));
-				client.setClientAddress1(rs.getString("client_address1"));
-				client.setClientAddress2(rs.getString("client_address2"));
-				client.setClientJoinDate(rs.getString("client_join_date"));
-				client.setClientUpdateDate(rs.getString("client_update_date"));
-				client.setClientLastLogin(rs.getString("client_lastlogin"));
-				client.setClientStatus(rs.getInt("client_status"));
+				clientTable=new ClientDTO();
+				clientTable.setClientNum(rs.getInt("client_num"));
+				clientTable.setClientID(rs.getString("client_id"));
+				clientTable.setClientPasswd(rs.getString("client_passwd"));
+				clientTable.setClientName(rs.getString("client_name"));
+				clientTable.setClientEmail(rs.getString("client_email"));
+				clientTable.setClientMobile(rs.getString("client_mobile"));
+				clientTable.setClientZipcode(rs.getString("client_zipcode"));
+				clientTable.setClientAddress1(rs.getString("client_address1"));
+				clientTable.setClientAddress2(rs.getString("client_address2"));
+				clientTable.setClientJoinDate(rs.getString("client_join_date"));
+				clientTable.setClientUpdateDate(rs.getString("client_update_date"));
+				clientTable.setClientLastLogin(rs.getString("client_lastlogin"));
+				clientTable.setClientStatus(rs.getInt("client_status"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectClientById() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
-		return client;
+		return clientTable;
 	}
 	
 

@@ -12,38 +12,38 @@
 
 	//전달값을 반환받아 저장
 	int clientNum=Integer.parseInt(request.getParameter("clientNum"));
-	String id=request.getParameter("id");
-	String passwd=request.getParameter("passwd");
-	if(passwd==null || passwd.equals("")) {//전달값(비밀번호)이 없는 경우
+	String clientID=request.getParameter("clientID");
+	String clientPasswd=request.getParameter("clientPasswd");
+	if(clientPasswd==null || clientPasswd.equals("")) {//전달값(비밀번호)이 없는 경우
 		//현재 로그인 사용자의 비밀번호를 변수에 저장 - 기존 비밀번호 유지
-		passwd=loginClient.getPasswd();
+		clientPasswd=loginClient.getClientPasswd();
 	} else {//전달값(비밀번호)이 있는 경우
 		//전달값을 암호화 처리하여 변수에 저장 - 전달된 비밀번호로 변경
-		passwd=Utility.encrypt(passwd);
+		clientPasswd=Utility.encrypt(clientPasswd);
 	}
-	String name=request.getParameter("name");
-	String email=request.getParameter("email");
-	String mobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
-		+"-"+request.getParameter("mobile3");
-	String zipcode=request.getParameter("zipcode");
-	String address1=request.getParameter("address1");
-	String address2=request.getParameter("address2");
+	String clientName=request.getParameter("clientName");
+	String clientEmail=request.getParameter("clientEmail");
+	String clientMobile=request.getParameter("clientMobile1")+"-"+request.getParameter("clientMobile2")
+		+"-"+request.getParameter("clientMobile3");
+	String clientZipcode=request.getParameter("clientZipcode");
+	String clientAddress1=request.getParameter("clientAddress1");
+	String clientAddress2=request.getParameter("clientAddress2");
 	
 	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
-	ClientDTO client=new ClientDTO();
-	client.setClientNum(clientNum);
-	client.setId(id);
-	client.setPasswd(passwd);
-	client.setName(name);
-	client.setEmail(email);
-	client.setMobile(mobile);
-	client.setZipcode(zipcode);
-	client.setAddress1(address1);
-	client.setAddress2(address2);
+	ClientDTO clientTable=new ClientDTO();
+	clientTable.setClientNum(clientNum);
+	clientTable.setClientID(clientID);
+	clientTable.setClientPasswd(clientPasswd);
+	clientTable.setClientName(clientName);
+	clientTable.setClientEmail(clientEmail);
+	clientTable.setClientMobile(clientMobile);
+	clientTable.setClientZipcode(clientZipcode);
+	clientTable.setClientAddress1(clientAddress1);
+	clientTable.setClientAddress2(clientAddress2);
 	
 	//회원정보를 전달받아 CLIENT 테이블에 저장된 행을 변경하고 변경행의 갯수를 반환하는 
 	//ClientDAO 클래스의 메소드 호출
-	ClientDAO.getDAO().updateClient(client);
+	ClientDAO.getDAO().updateClient(clientTable);
 	
 	//session 객체에 저장된 권한 관련 속성값(회원정보 - ClientDTO 객체) 변경
 	session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(clientNum));

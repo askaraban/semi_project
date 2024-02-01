@@ -283,7 +283,7 @@ h3.subTitle2 {
 			<div class="pwdInputField">
 				<form method="post" id="passwordForm">
 				<label for="passch" class="titLabel">비밀번호</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="password" name="passwd" id="passwd">
+				<input type="password" name="ClientPasswd" id="ClientPasswd">
 				<p id="message" style="color: red;"><%=message%></p>
 				</form>
 			</div>
@@ -295,10 +295,10 @@ h3.subTitle2 {
 	</div>
 </div>
 <script type="text/javascript">
-$("#passwd").focus();
+$("#ClientPasswd").focus();
 
 $("#submitBtn").click(function() {
-	if($("#passwd").val()=="") {
+	if($("#ClientPasswd").val()=="") {
 		$("#message").text("입력 비밀번호와 확인 비밀번호가 불일치 합니다.");
 		return;
 	}

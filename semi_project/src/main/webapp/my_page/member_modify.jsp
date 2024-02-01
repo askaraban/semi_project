@@ -7,12 +7,12 @@ pageEncoding="UTF-8"%>
 <%@include file="/security/login_check.jspf" %>  
 <%
 	//전달값을 반환받아 저장
-	if(request.getParameter("passwd")!=null) {
-		String passwd=Utility.encrypt(request.getParameter("passwd"));
+	if(request.getParameter("ClientPasswd")!=null) {
+		String ClientPasswd=Utility.encrypt(request.getParameter("ClientPasswd"));
 		
 		
 		//로그인 상태의 사용자 비밀번호와 전달받은 비밀번호를 비교하여 같지 않은 경우에 대한 응답 처리
-		if(!loginClient.getPasswd().equals(passwd)) {
+		if(!loginClient.getClientPasswd().equals(ClientPasswd)) {
 			session.setAttribute("message", "입력하신 비밀번호가 맞지 않습니다.");	
 			request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify");
 			return;
@@ -174,7 +174,7 @@ body {
 				<ul>
 					<li>
 						<label for="id">아이디</label>
-						<input type="text" name="id" id="id" value="<%=loginClient.getId() %>" readonly="readonly">
+						<input type="text" name="id" id="id" value="<%=loginClient.getClientID() %>" readonly="readonly">
 					</li>
 					<li>
 						<label for="passwd">비밀번호</label>
@@ -184,17 +184,17 @@ body {
 					</li>
 					<li>
 						<label for="name">이름</label>
-						<input type="text" name="name" id="name"  value="<%=loginClient.getName()%>">
+						<input type="text" name="name" id="name"  value="<%=loginClient.getClientName()%>">
 						<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
 					</li>
 					<li>
 						<label for="email">이메일</label>
-						<input type="text" name="email" id="email" value="<%=loginClient.getEmail()%>">
+						<input type="text" name="email" id="email" value="<%=loginClient.getClientEmail()%>">
 						<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
 						<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 					</li>
 					<li>
-						<% String[] mobile=loginClient.getMobile().split("-"); %>
+						<% String[] mobile=loginClient.getClientMobile().split("-"); %>
 						<label for="mobile2">전화번호</label>
 						<select name="mobile1">
 							<option value="010" <% if(mobile[0].equals("010")) { %> selected <% } %>>&nbsp;010&nbsp;</option>
@@ -211,18 +211,18 @@ body {
 					</li>
 					<li>
 						<label>우편번호</label>
-						<input type="text" name="zipcode" id="zipcode" value="<%=loginClient.getZipcode()%>" size="7" readonly="readonly">
+						<input type="text" name="zipcode" id="zipcode" value="<%=loginClient.getClientZipcode()%>" size="7" readonly="readonly">
 						<span id="postSearch">우편번호 검색</span>
 						<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 					</li>
 					<li>
 						<label for="address1">기본주소</label>
-						<input type="text" name="address1" id="address1" value="<%=loginClient.getAddress1()%>" size="50" readonly="readonly">
+						<input type="text" name="address1" id="address1" value="<%=loginClient.getClientAddress1()%>" size="50" readonly="readonly">
 						<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
 					</li>
 					<li>
 						<label for="address2">상세주소</label>
-						<input type="text" name="address2" id="address2"  value="<%=loginClient.getAddress2()%>" size="50">
+						<input type="text" name="address2" id="address2"  value="<%=loginClient.getClientAddress2()%>" size="50">
 						<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
 					</li>
 				</ul>

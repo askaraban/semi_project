@@ -55,7 +55,7 @@ public class ClientDTO {
 	private String clientUpdateDate;
 	private String clientLastLogin;
 	private int clientStatus;
-	
+
 	public int getClientNum() {
 		return clientNum;
 	}
