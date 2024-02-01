@@ -44,7 +44,7 @@
 	</div>
 	--%>
 		<div class="subTitle">
-		<h2 >베스트 추천 상품</h2>
+		<h2 ><img src="<%=request.getContextPath()%>/images/icon/icons8-crown.png" style="padding-bottom: 18px; width: 50px;">베스트 추천 상품</h2>
 		</div>
 	<div class="main-prd">
 		<ul class="prdList grid3">
