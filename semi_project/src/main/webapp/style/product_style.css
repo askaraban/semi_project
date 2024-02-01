@@ -65,7 +65,7 @@
     font-size: large;
     border-radius: 10px;
 }
-/************ product_detail.jsp 시작 ************/
+/****************** product_detail.jsp 시작 ******************/
 .listArea {
 	width: 100%;
 	height: 80px;
@@ -101,4 +101,4 @@
     text-decoration: none;
     color: gray;
 }
-/************ product_detail.jsp 끝 ************/
+/****************** product_detail.jsp 끝 ******************/

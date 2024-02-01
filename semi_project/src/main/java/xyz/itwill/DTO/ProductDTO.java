@@ -1,7 +1,7 @@
 package xyz.itwill.DTO;
 
 /*
-PRODUCT_NUM          NOT NULL NUMBER(10)    // 제품id
+PRODUCT_NUM          NOT NULL NUMBER(10)    // 제품번호
 PRODUCT_NAME                 VARCHAR2(200) // 제품명
 PRODUCT_PRICE                NUMBER(10)    // 제품가격
 PRODUCT_COM                  VARCHAR2(30)  // 제조사
