@@ -192,13 +192,6 @@ td {
 	</table>
 	<table>
 		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-		<tr>
 			<th width="100">번호</th>
 			<th width="420">제목</th>
 			<th width="150">작성자</th>
@@ -213,7 +206,8 @@ td {
 	%>
 	
 	<div style="text-align: right;" id="notice_write">
-		<button type="button" id="writeBtn">글쓰기</button>
+		<button type="button" id="noticeWriteBtn">공지쓰기</button>
+		<button type="button" id="qaWriteBtn">QA쓰기</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 	
@@ -253,7 +247,10 @@ td {
 
 <script type="text/javascript">
 //전달값 없이 전달
-$("#writeBtn").click(function() {
+$("#noticeWriteBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_write";
+});
+$("#qaWriteBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_write";
 });
 </script>

@@ -1,3 +1,5 @@
+<%@page import="xzy.itwill.DAO.NoticeDAO"%>
+<%@page import="xyz.itwill.DTO.NoticeDTO"%>
 <%@page import="xyz.itwill.dao.NoticeDAO"%>
 <%@page import="xyz.itwill.util.Utility"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -13,7 +15,7 @@
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getMethod().equals("GET")) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/main_page/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -41,17 +43,17 @@
 	//=> 전달값에 포함된 태그 관련 문자열을 제거하여 반환
 	//String reviewSubject=Utility.stripTag(multipartRequest.getParameter("reviewSutbject"));
 	//=> 전달값에 포함된 태그 관련 문자를 회피문자로 변환하여 반환
-	String reviewSubject=Utility.stripTag(multipartRequest.getParameter("reviewSubject"));
+	String noticeSubject=Utility.stripTag(multipartRequest.getParameter("noticeSubject"));
 	
 	int reviewStatus=1; //전달값이 없는 경우 - 일반글
 	if(multipartRequest.getParameter("reviewSecret")!=null) { //전달값이 있는 경우 - 비밀글
-		reviewStatus=Integer.parseInt(multipartRequest.getParameter("reviewSecret"));
+		reviewStatus=Integer.parseInt(multipartRequest.getParameter("noticeSecret"));
 	}
-	String reviewContent=multipartRequest.getParameter("reviewContent");
+	String noticeContent=multipartRequest.getParameter("noticeContent");
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로 저장
-	String reviewImage=null;
+	String noticeImage=null;
 	if(multipartRequest.getFilesystemName("reviewImage")!=null) { //업로드 파일이 있는 경우
-		reviewImage="/review_images/"+multipartRequest.getFilesystemName("reviewImage");
+		noticeImage="/images/"+multipartRequest.getFilesystemName("noticeImage");
 		//String reviewImage=request.getContextPath()+"/review_images/"+multipartRequest.getFilesystemName("reviewImage"); //URL 주소 저장 방법
 	}
 	
@@ -64,47 +66,19 @@
 	//32Bit 형식(IPV4)의 IP 주소를 제공받을 수 있도록 이클립스에 등록된 WAS 프로그램의 환경 설정 변경
 	//=> Run >> Run Configurations... >> Apache Tomcat >> 사용중인 Apache Tomcat 선택
 	// >> Arguments >> VM Arguments >> [-Djava.net.preferIPv4Stack=true] 추가 >> Apply
-	String reviewIp=request.getRemoteAddr();
+	String noticeIp=request.getRemoteAddr();
 	//System.out.println("reviewIp = "+reviewIp);
 	
-	//새글과 답글을 구분하여 REVIEW 테이블에 컬럼값으로 저장될 변수값 변경
-	//=> [review_write.jsp] 문서에서 hidden 타입의 전달값을 저장한 ref, restep, relevel 변수값 변경
-	//=> 새글인 경우 변수에 [0]이 저장되어 있고, 답글인 경우 변수에 부모글의 전달값이 저장
-	if(ref==0) { //새글인 경우
-		//REVIEW 테이블의 REVIEW_REF 컬럼에는 시퀀스의 다음값(nextNum 변수값)을 저장하고
-		// REVIEW_RESTEP 컬럼과 REVIEW_RELEVEL 컬럼에는 restep 변수값(0)과 relevel 변수값(0) 저장
-		ref=nextNum;
-	} else { //답글인 경우
-		//REVIEW 테이블에 저장된 게시글 중 REVIEW_REF 컬럼값이 ref 변수값(부모글)과 같은
-		// 게시글에서 REVIEW_RESTEP 컬럼값이 restep 변수값(부모글)보다 큰 게시글의 REVIEW_RESTEP
-		// 컬럼값이 1 증가되도록 변경 처리
-		//=> 새로운 답글이 기존 답글보다 먼저 검색되도록 기존 답글순서를 증가
-		//부모글 관련 정보(ref 변수값과 restep)을 전달받아 REVIEW 테이블에 저장된 행에서 REVIEW_REF 컬럼값과
-		// REVIEW_RESTEP 컬럼값을 비교하여 REVIEW_RESTEP 컬럼값이 1 증가되도록 변경하고 변경행의 갯수를 반환하는
-		// ReviewDAO 클래스의 메소드 호출
-		ReviewDAO.getDAO().updateReviewReStep(ref, restep);
-		
-		//REVIEW 테이블의 REVIEW_REF 컬럼값에는 ref 변수값(부모글)을 저장하고 REVIEW_RESTEP 컬럼과
-		// REVIEW_RELEVEL 컬럼에는 restep 변수값(부모글)과 relevel 변수값(부모글)을 1 증가하여 저장
-		restep++;
-		relevel++;
-	}
 	
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값을 저장
-	ReviewDTO review=new ReviewDTO();
-	review.setReviewNum(nextNum); //시퀀스 객체의 다음값으로 필드값 변경
-	review.setReviewMember(loginMember.getMemberNum()); //로그인 회원정보(작성자)의 회원번호로 필드값 변경
-	review.setReviewSubject(reviewSubject);
-	review.setReviewContent(reviewContent);
-	review.setReviewImage(reviewImage);
-	review.setReviewRef(ref);
-	review.setReviewRestep(restep);
-	review.setReviewRelevel(relevel);
-	review.setReviewIp(reviewIp);
-	review.setReviewStatus(reviewStatus);
+	NoticeDTO notice=new NoticeDTO();
+	notice.setNoticeNum(nextNum); //시퀀스 객체의 다음값으로 필드값 변경
+	notice.setNoticeTitle(noticeTitle);
+	notice.setNoticeContent(noticeContent);
+	notice.setNoticeImage(noticeImage);
 	
 	//게시글을 전달받아 REVIEW 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 ReviewDAO 클래스의 메소드
-	ReviewDAO.getDAO().insertReview(review);
+	NoticeDAO.getDAO().insertReview(notice);
 	
 	//페이지 이동 - 검색 및 페이징 처리 관련 값 전달
 	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=review&worker=review_list"

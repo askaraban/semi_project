@@ -55,7 +55,7 @@ td {
 		<tr>
 			<th>제목</th>
 			<td>
-				<input type="text" name="reviewSubject" id="noticeSubject" size="40">
+				<input type="text" name="noticeSubject" id="noticeSubject" size="40">
 			</td>					
 		</tr>	
 		<tr>
@@ -67,7 +67,7 @@ td {
 		<tr>
 			<th>이미지파일</th>
 			<td>
-				<input type="file" name="reviewImage">
+				<input type="file" name="noticeImage">
 			</td>
 		</tr>
 		<tr>
@@ -81,7 +81,7 @@ td {
 <div id="message" style="color: red;"></div>
 
 <script type="text/javascript">
-$("#reviewSubject").focus();
+$("#noticeSubject").focus();
 
 $("#noticeForm").submit(function() {
 	if($("#noticeSubject").val()=="") {
