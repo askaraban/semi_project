@@ -98,7 +98,7 @@ a:hover {
 <h1>로그인</h1>
 </div>
 <div id="space"></div>
-<form  action="<%=request.getContextPath() %>/main_page/main.jsp?group=login_page&worker=client_login_action" 
+<form action="<%=request.getContextPath() %>/main_page/main.jsp?group=login_page&worker=client_login_action" 
 	method="post" id="loginForm" name="loginForm">
 	
 	<ul class="login_tag">
