@@ -9,7 +9,7 @@ import java.util.List;
 
 import xyz.itwill.DTO.ProductDTO;
 
-public class ProductDAO extends JdbcDAO{
+public class ProductDAO extends JdbcDAO{	
 	private static ProductDAO _dao;
 	
 	static {
@@ -92,5 +92,45 @@ public class ProductDAO extends JdbcDAO{
 		} finally {
 			close(con, pstmt);
 		} return rows;
+	}
+	
+	// 제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을 반환하는 메소드
+	public ProductDTO selectProductByNum(int productNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ProductDTO product=null;
+		try {
+			con=getConnection();
+			
+			String sql="select product_num,product_name,product_price,product_com,product_cate"
+					+ ",product_reg,product_dis,product_dis_content,product_main_img"
+					+ ",product_img1,product_img2,product_img3 from product_table where product_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, productNum);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				product=new ProductDTO();
+				product.setProductNum(rs.getInt("product_num"));
+				product.setProductName(rs.getString("product_name"));
+				product.setProductPrice(rs.getInt("product_price"));
+				product.setProductCom(rs.getString("product_com"));
+				product.setProductCate(rs.getInt("product_cate"));
+				product.setProductReg(rs.getString("product_reg"));
+				product.setProductDis(rs.getInt("product_dis"));
+				product.setProductDisContent(rs.getString("product_dis_content"));
+				product.setProductMainImg(rs.getString("product_main_img"));
+				product.setProductImg1(rs.getString("product_img1"));
+				product.setProductImg2(rs.getString("product_img2"));
+				product.setProductImg3(rs.getString("product_img3"));
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectProductByNum() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return product;
 	}
 }
