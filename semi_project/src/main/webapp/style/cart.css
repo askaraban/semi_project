@@ -4,16 +4,22 @@
 	text-align: left;
 }
 
-/* cart 페이지 스타일*/
+/* cart 체크박스 div*/
 .check-box-all-inner {
 	display: inline-block;
 	float: left;
+}
+.check-box-select{
+	position: relative;
+	top: 30px;
 }
 
 /* cart 페이지 바디 부모*/
 .cart-body {
 	padding-left: 32px;
 	padding-right: 32px;
+	padding-bottom: 32px;
+	padding-top: 20px;
 	background-color: #f4f4f4;
 }
 
@@ -69,13 +75,15 @@
 }
 
 .product-info {
-	position: relative;
+	display: flex;
 	padding-left: 30px;
 	padding-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid lightgray;
 }
 
 .product-inner {
-	display: flex;
+	display: flex ;
 	position: relative;
 }
 
@@ -90,11 +98,13 @@
 }
 
 .cart-product-infoArea {
-	-webkit-box-flex: 1;
-	-ms-flex-positive: 1;
-	flex-grow: 1;
 	min-width: 0;
 	padding-left: 12px;
+	
+}
+.second-inner{
+	border-right: 1px solid lightgray;
+	border-left: 1px solid lightgray;
 }
 
 .cart-product-title {
@@ -121,16 +131,33 @@
 	text-align: left;
 }
 
-.cart-product-count {
-	position: relative;
-	padding: 0 12px 12px;
-	background-color: #f6f7f8;
-	border-radius: 3px;
-}
+/* 카트쪽 바깥 색상은 여기서 조절*/
 .cart-product-countInner{
 	
 	margin-top: 3px;
     color: #222;
     letter-spacing: -0.5px;
     text-align: left;
+}
+.cart-select-product-content{
+	width: 200px; height: 100px; padding-top: 20px;
+}
+.cart-minus-content{
+	width: 50px; height: 100px; padding-top: 10px; font-size: 50px; color: rgb(199,199,199);
+}
+.cart-result-content{
+	width: 50px; height: 100px; padding-top: 10px; font-size: 50px; color: rgb(199,199,199);
+}
+.cart-order-btn{
+	border-radius: 10px; width: 200px; height: 50px; background-color: pink;
+	border: none; font-weight: bold; color: white;
+}
+.result-word{
+	font-weight: bold;
+	font-size: 13px;;
+}
+.result-count{
+	font-weight: bold;
+	font-size: 20px;;
+	
 }
