@@ -63,11 +63,11 @@
 	<!-- 상단 영역 -->
 	<header id="header">
 	<div id="ec-orderform-header-head"></div>
-	<div class="header">
+		<div class="header">
 		<h1 class="logotop"><a href="/main_page/main.jsp">과자몰</a></h1>
 		</div>
 	<div class="headerMenu gLeft"><span class="backBtn"><a href="cart.jsp">::before"뒤로가기"</a></span>::after
-		</div>
+	</div>
 	<div class="headerMenu gRight"><span class="cartBtn"><a href="cart.jsp">"장바구니"<span class="count EC-Layout-Basket-count-display"><span class="EC-Layout-Basket-count">2</span></span></a></span>
 	<a href="mypage.jsp" class="mypageBtn">마이페이지</a>
 	::after
@@ -146,7 +146,8 @@
 			</table>
 		 </div>
      </div>
-<h3>배송지 작성</h3>   
+<section>     
+	<h3 class="subtitle3">배송지 작성</h3>   
      
 <div class="contents ec-shop-ordererForm">
             <div class="ec-base-table typeWrite">
@@ -205,36 +206,33 @@
           </td>
        </tr>
        
-      <tr>
+      <tr class="addrMsg">
 		<th scope="row">배송 요청사항</th>
 			<td class="shippingMsg">
 				<div class="selectArea" style="width: 75%;">
-					<div class="shippingMsg">
-							  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-							    메세지 직접 입력
-							  </button>
-							  <ul class="dropdown-menu">
-							    <li><a class="dropdown-item" href="#">부재시 경비(관리)실에 맡겨주세요.</a></li>
-							    <li><a class="dropdown-item" href="#">부재시 문앞에 놓아주세요.</a></li>
-							    <li><a class="dropdown-item" href="#">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</a></li>
-							    <li><a class="dropdown-item" href="#">배송전에 연락주세요.</a></li>
-							    <li><a class="dropdown-item" href="#">메시지 직접 입력</a></li>
-							  </ul>
-					</div>
+					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					    배송 요청사항을 선택해 주세요.
+					</button>    
+					    <ul class="helpArea">
+						    <li><a class="dropdown-item" href="#">부재시 경비(관리)실에 맡겨주세요.</a></li>
+						    <li><a class="dropdown-item" href="#">부재시 문앞에 놓아주세요.</a></li>
+						    <li><a class="dropdown-item" href="#">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</a></li>
+						    <li><a class="dropdown-item" href="#">배송전에 연락주세요.</a></li>
+						    <li><a class="dropdown-item" href="#">메시지 직접 입력</a></li>
+					  	</ul>
 				</div>
-				<div class="writeMsg noRequest">
+					
+				<div class="writeMsg request" style="display: none;">
 					<input type="text" class="inputTxt" id="dlvReqCntTxt" maxlength="45" style="width: 75%;" placeholder="배송요청사항을 입력해주세요. (최대 45자 까지 입력 가능)">
 				</div>
-			</td>
-		</tr> 
-</tbody>
-			</table>
-		 </div>
-     </div>
-
-		<div class="ec-shippingInfo-newAddress-setMain segment ">
-             <input id="set_main_address0" name="set_main_address[]" fw-filter="" fw-label="기본 배송지로 저장" fw-msg="" value="T" type="checkbox"  /><label for="set_main_address0" >기본 배송지로 저장</label>            
-        </div>
+				</td>
+			</tr> 
+	   </tbody>
+	</table>
+   </div>
+</section>
+							  
+		
                 
 <div id="ec-jigsaw-area-orderProduct" class="ec-base-fold eToggle">
     <div id="ec-jigsaw-title-orderProduct" class="title">
