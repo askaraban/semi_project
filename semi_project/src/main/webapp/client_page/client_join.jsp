@@ -138,11 +138,12 @@ class {
 			<input type="text" name="address2" id="address2" size="50">
 			<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
 		</li>
-	</ul>
+	</ul>	
 </fieldset>
 <div id="fs">
 	<button type="submit" >회원가입</button>
 	<button type="reset" >다시입력</button>
+	
 </div>
 </form>
 
