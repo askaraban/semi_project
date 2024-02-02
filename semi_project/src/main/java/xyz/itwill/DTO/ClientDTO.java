@@ -55,6 +55,29 @@ public class ClientDTO {
 	private String clientUpdateDate;
 	private String clientLastLogin;
 	private int clientStatus;
+	
+	public ClientDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ClientDTO(int clientNum, String clientID, String clientPasswd, String clientName, String clientEmail,
+			String clientMobile, String clientZipcode, String clientAddress1, String clientAddress2,
+			String clientJoinDate, String clientUpdateDate, String clientLastLogin, int clientStatus) {
+		super();
+		this.clientNum = clientNum;
+		this.clientID = clientID;
+		this.clientPasswd = clientPasswd;
+		this.clientName = clientName;
+		this.clientEmail = clientEmail;
+		this.clientMobile = clientMobile;
+		this.clientZipcode = clientZipcode;
+		this.clientAddress1 = clientAddress1;
+		this.clientAddress2 = clientAddress2;
+		this.clientJoinDate = clientJoinDate;
+		this.clientUpdateDate = clientUpdateDate;
+		this.clientLastLogin = clientLastLogin;
+		this.clientStatus = clientStatus;
+	}
 
 	public int getClientNum() {
 		return clientNum;

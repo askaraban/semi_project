@@ -139,7 +139,7 @@ a {
 			<h1 class="subTitle1">리뷰</h1>
 			<div class="tabType">
 				<ul class="item2">
-					<li class="active"><a href="/kr/ko/MypageCounselWrite.do"><span>작성 가능한 리뷰</span></a></li>
+					<li class="active"><a href="/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
 					<li class="active1"><a href="/kr/ko/MypageCounselList.do"><span>내가 작성한 리뷰</span></a></li>
 				</ul>
 			</div>

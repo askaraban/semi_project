@@ -44,59 +44,59 @@
 %>   
 
 <link href="<%=request.getContextPath()%>/style/product_style.css" type="text/css" rel="stylesheet">
-<form id="cart" action="<%=request.getContextPath() %>/main_page/main.jsp?group=cart_page&worker=cart_action" method="post">
-<body>
-   <!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
-   <div id="imgArea" class="row"">
-         <img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>" class="card-img-top" >
-   </div>
-   <div id="infoArea" class="row">
+<form
+	action="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_action"
+	method="post" enctype="multipart/form-data" id="uploadForm">
+<!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
+<div id="imgArea" class="row">
+      <img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>">
+</div>
+<div id="infoArea" class="row">
+   <div class="row">
+      <div class="col-sm-3" style="font-size:20px;">상품명</div>
+      <div class="col-sm-9" style="text-align:left; padding-left:100px; font-size:20px;"><b><%=product.getProductName()%></b></div>
+      
+      <div class="col-sm-3">제조사</div>
+      <div class="col-sm-9" style="text-align:left; padding-left:100px;"><%=product.getProductCom()%></div>
+      
+      <div class="col-sm-3">원산지</div>   
+      <div class="col-sm-9" style="text-align:left; padding-left:100px;">상세설명참조</div>
+            
+      <div class="col-sm-3">판매가</div>
+      <div class="col-sm-9" style="text-align:left; padding-left:100px;" id="price"><%=format.format(product.getProductPrice()) %> 원</div>
+      
+      <div class="col-sm-3">배송비</div>
+      <div class="col-sm-9" style="text-align:left; padding-left:100px;">무료배송</div>
+      
       <div class="row">
-         <div class="col-sm-3" style="font-size:20px;">상품명</div>
-         <div class="col-sm-9" style="text-align:left; padding-left:100px; font-size:20px;"><b><%=product.getProductName()%></b></div>
-         
-         <div class="col-sm-3">제조사</div>
-         <div class="col-sm-9" style="text-align:left; padding-left:100px;"><%=product.getProductCom()%></div>
-         
-         <div class="col-sm-3">원산지</div>   
-         <div class="col-sm-9" style="text-align:left; padding-left:100px;">상세설명참조</div>
-               
-         <div class="col-sm-3">판매가</div>
-         <div class="col-sm-9" style="text-align:left; padding-left:100px;" id="price"><%=format.format(product.getProductPrice()) %> 원</div>
-         
-         <div class="col-sm-3">배송비</div>
-         <div class="col-sm-9" style="text-align:left; padding-left:100px;">무료배송</div>
-         
-         <div class="row">
-             <div class="col-sm-3">수량</div>
-            <div class="col" style="text-align:right;">
-               <input id="countBtn" type="button" onclick="count('minus')" value="-"/>
-                  <span id="result">1</span>
-               <input id="countBtn" type="button" onclick="count('plus')" value="+"/>
-            </div>
-         </div>
-         
-         <div class="row">
-            <table>
-               <tr>
-                  <td style="text-align:right; height:50px; font-weight: bold;" width=80%;>총 상품금액 : </td> 
-                  <td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(product.getProductPrice()) %> 원</td>
-               </tr>
-            </table>
+          <div class="col-sm-3">수량</div>
+         <div class="col" style="text-align:right;">
+            <input id="countBtn" type="button" onclick="count('minus')" value="-"/>
+               <span id="result" name="count">1</span>
+            <input id="countBtn" type="button" onclick="count('plus')" value="+"/>
          </div>
       </div>
-   </div>
-   
-   <div id="infoBtnArea" class="row productInfo">
-      <div class="d-grid gap-2">
-         <button class="nowOrderBtn" type="button">바로 구매하기</button>
+      
+      <div class="row">
+         <table>
+            <tr>
+               <td style="text-align:right; height:50px; font-weight: bold;" width=80%;>총 상품금액 : </td> 
+               <td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(product.getProductPrice()) %> 원</td>
+            </tr>
+         </table>
       </div>
-      <div class="d-grid gap-2 d-md-block">
-         <button class="orderBtn" type="button">장바구니 담기</button>
-         <button class="JjimBtn" type="button">관심상품 등록</button>
-      </div>
    </div>
-</body>
+</div>
+
+<div id="infoBtnArea" class="row productInfo">
+   <div class="d-grid gap-2">
+      <button class="nowOrderBtn" type="button">바로 구매하기</button>
+   </div>
+   <div class="d-grid gap-2 d-md-block">
+  	 <button class="orderBtn" id="cartInsertBtn" type="submit">장바구니 담기</button>
+      <button class="JjimBtn" type="button">관심상품 등록</button>
+   </div>
+</div>
 </form>
 </html>
 
@@ -126,4 +126,10 @@ function count(type)  {
    resultElement.innerText = number;
    totalResultElement.innerText = totalNumber;
 }
+
+$("#cartInsertBtn").click(function() {
+	$(".insert_div").css("display", "block");
+	$("#productList_div").css("display", "none");
+
+});
 </script>
