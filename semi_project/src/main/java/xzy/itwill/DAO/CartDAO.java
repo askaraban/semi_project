@@ -21,7 +21,7 @@ public class CartDAO extends JdbcDAO{
 		return _dao;
 	}
 	
-	public int insertCart(int clientNum, int productNum, int count) {
+	public int insertCart(CartDTO cartTable) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
@@ -31,9 +31,9 @@ public class CartDAO extends JdbcDAO{
 			String sql = "insert into cart_table values (cart_seq.nextval,?,?,?)";
 			
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, clientNum);
-			pstmt.setInt(2, productNum);
-			pstmt.setInt(3, count);
+			pstmt.setInt(1, cartTable.getCartClientNum());
+			pstmt.setInt(2, cartTable.getProductNum());
+			pstmt.setInt(3, cartTable.getCartCount());
 			
 			rows=pstmt.executeUpdate();
 			
