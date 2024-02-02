@@ -2,9 +2,13 @@
 
 #imgArea {
 	float:left; 
-	/*text-align: right;*/ 
+	/*text-align: center;*/
 	width:50%;
 	height: 80%;
+}
+
+#mainImage {
+	width:80%;
 }
 
 .nowOrderBtn {
