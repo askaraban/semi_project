@@ -22,7 +22,9 @@
 	padding-top: 20px;
 	background-color: #f4f4f4;
 }
-
+.button{
+	background-color: transparent;
+}
 /* cart 전체선택 부분*/
 .cart-store {
 	padding: 0 15px;
@@ -100,6 +102,7 @@
 .cart-product-infoArea {
 	min-width: 0;
 	padding-left: 12px;
+	padding-top: 10px;
 	
 }
 .second-inner{
