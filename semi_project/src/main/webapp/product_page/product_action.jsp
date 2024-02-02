@@ -13,26 +13,27 @@
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
- 	request.setCharacterEncoding("utf-8");
 	
-	String saveDirectory = request.getServletContext().getRealPath("/productImg");
-	MultipartRequest mr = new MultipartRequest(request, saveDirectory, 20*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+ 	//String saveDirectory = request.getServletContext().getRealPath("/productImg");
+	//MultipartRequest mr = new MultipartRequest(request, saveDirectory, 20*1024*1024, "utf-8", new DefaultFileRenamePolicy()); 
 
 	//전달값을 반환받아 저장
-	String id=request.getParameter("id");
+	//String id=request.getParameter("id");
 	
 	//회원정보를 전달받아 CLIENT 테이블에 저장된 단일행을 검색하여 ClientDTO 객체로 반환하는
 	//MemberDAO 클래스의 메소드 호출
-	ClientDTO client=ClientDAO.getDAO().selectClientById(id);
+	//ClientDTO client=ClientDAO.getDAO().selectClientById(id);
 	
 	// 전달된 값 가져오기
-	//int getClientNum=Integer.parseInt(mr.getParameter("getClientNum"));
-	session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(client.getClientNum()));	// 회원번호	// 세션으로 가져오기_액션에서
-	int productNum=Integer.parseInt(mr.getParameter("productNum"));
-	int count=Integer.parseInt(mr.getParameter("count"));
+	//session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(client.getClientNum()));	// 회원번호	// 세션으로 가져오기_액션에서 get
+	Integer cartClientNum=(Integer)session.getAttribute("cartClientNum");			// 회원번호	// 세션으로 가져오기_액션에서 get
+	int productNum=Integer.parseInt(request.getParameter("productNum"));
+	int count=Integer.parseInt(request.getParameter("count"));
 	
 	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
 	CartDTO cartTable=new CartDTO();
+	//ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
+	cartTable.setCartClientNum(cartClientNum);
 	cartTable.setCartProductNum(productNum);
 	cartTable.setCartCount(count);
 	

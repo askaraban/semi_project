@@ -14,18 +14,18 @@
       return;
    }
    //전달값을 반환받아 저장
-   int productNum=Integer.parseInt(request.getParameter("productNum"));       // 제품번호
-   String productName=request.getParameter("productName");                    // 제품명
-   int productPrice=Integer.parseInt(request.getParameter("productPrice"));   // 제품가격
-   String productCom=request.getParameter("productCom");                      // 제조사
-   //int productCate=Integer.parseInt(request.getParameter("productCate"));     // 유형
-   String productReg=request.getParameter("productReg");                      // 등록일
-   //int productDis=Integer.parseInt(request.getParameter("productDis"));       // 할인율
-   String productDisContent=request.getParameter("productDisContent");        // 할인내용
-   String productMainImg=request.getParameter("productMainImg");              // 제품이미지
-   String productImg1=request.getParameter("productImg1");                    // 상세사진1
-   String productImg2=request.getParameter("productImg2");                    // 상세사진2
-   String productImg3=request.getParameter("productImg3");                    // 상세사진3
+   int productNum=Integer.parseInt(request.getParameter("productNum"));			// 제품번호
+   String productName=request.getParameter("productName");						// 제품명
+   int productPrice=Integer.parseInt(request.getParameter("productPrice"));		// 제품가격
+   String productCom=request.getParameter("productCom");						// 제조사
+   //int productCate=Integer.parseInt(request.getParameter("productCate"));		// 유형
+   String productReg=request.getParameter("productReg");						// 등록일
+   //int productDis=Integer.parseInt(request.getParameter("productDis"));		// 할인율
+   String productDisContent=request.getParameter("productDisContent");			// 할인내용
+   String productMainImg=request.getParameter("productMainImg");				// 제품이미지
+   String productImg1=request.getParameter("productImg1");						// 상세사진1
+   String productImg2=request.getParameter("productImg2");						// 상세사진2
+   String productImg3=request.getParameter("productImg3");						// 상세사진3
    
    //제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
    //ProductDAO 클래스의 메소드 호출
@@ -46,7 +46,7 @@
 <link href="<%=request.getContextPath()%>/style/product_style.css" type="text/css" rel="stylesheet">
 <form
 	action="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_action"
-	method="post" enctype="multipart/form-data" id="uploadForm">
+	method="post" id="uploadForm">
 <!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
 <div id="imgArea" class="row">
       <img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>">
@@ -72,7 +72,8 @@
           <div class="col-sm-3">수량</div>
          <div class="col" style="text-align:right;">
             <input id="countBtn" type="button" onclick="count('minus')" value="-"/>
-               <span id="result" name="count">1</span>
+               <span id="result" name="count">1</span>		<!-- span은 값을 넘기지 못함 / input 태그나 span을 사용하려면 hidden으로 보내야함 -->
+               <!-- <input type="hidden" value=""> -->
             <input id="countBtn" type="button" onclick="count('plus')" value="+"/>
          </div>
       </div>
