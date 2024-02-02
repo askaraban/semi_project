@@ -78,7 +78,7 @@ body {
 		</div>
 		
 		<div class="col col-lg-10">
-			<h1 class="subTitle1">주문내역</h1>		
+			<h1 class="subTitle1">Q&A</h1>		
 		</div>
 	</div>
 </div> 
