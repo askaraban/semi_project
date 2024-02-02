@@ -1,4 +1,5 @@
 <%@page import="java.text.DecimalFormat"%>
+<%@page import="xyz.itwill.DTO.CartDTO"%>
 <%@page import="xyz.itwill.DTO.ProductDTO"%>
 <%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -47,6 +48,7 @@
 <form
 	action="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_action"
 	method="post" id="uploadForm">
+<input type="hidden" id="productNum" name="productNum" style="width: 50px;" value="<%=product.getProductNum() %>" type="number" min="1">
 <!-- 상품명 ~ 주문하기/위시리스트/장바구니 버튼까지 -->
 <div id="imgArea" class="row">
       <img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>">
@@ -73,7 +75,7 @@
          <div class="col" style="text-align:right;">
             <input id="countBtn" type="button" onclick="count('minus')" value="-"/>
                <span id="result" name="count">1</span>		<!-- span은 값을 넘기지 못함 / input 태그나 span을 사용하려면 hidden으로 보내야함 -->
-               <!-- <input type="hidden" value=""> -->
+               <input type="hidden" name="count" id="count" value="count">
             <input id="countBtn" type="button" onclick="count('plus')" value="+"/>
          </div>
       </div>
@@ -126,11 +128,6 @@ function count(type)  {
    // 결과 출력
    resultElement.innerText = number;
    totalResultElement.innerText = totalNumber;
+   //alert(number);
 }
-
-$("#cartInsertBtn").click(function() {
-	$(".insert_div").css("display", "block");
-	$("#productList_div").css("display", "none");
-
-});
 </script>

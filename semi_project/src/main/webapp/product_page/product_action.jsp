@@ -25,10 +25,13 @@
 	//ClientDTO client=ClientDAO.getDAO().selectClientById(id);
 	
 	// 전달된 값 가져오기
-	//session.setAttribute("loginClient", ClientDAO.getDAO().selectClientByNum(client.getClientNum()));	// 회원번호	// 세션으로 가져오기_액션에서 get
+	//session.setAttribute("cartClientNum", ClientDAO.getDAO().selectClientByNum(client.getClientNum()));	// 회원번호	// 세션으로 가져오기_액션에서 get
 	Integer cartClientNum=(Integer)session.getAttribute("cartClientNum");			// 회원번호	// 세션으로 가져오기_액션에서 get
+	System.out.println("cartClientNum = " + cartClientNum);
 	int productNum=Integer.parseInt(request.getParameter("productNum"));
+	System.out.println("productNum = " + productNum);
 	int count=Integer.parseInt(request.getParameter("count"));
+	System.out.println("count = " + count);
 	
 	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
 	CartDTO cartTable=new CartDTO();
