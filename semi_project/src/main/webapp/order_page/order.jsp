@@ -83,7 +83,7 @@
 	        
     <!-- 주문자정보 -->
         <div id="ec-jigsaw-title-billingInfo" class="title">
-            <h2>주문/배송정보</h2>
+            <h2>주문자 정보</h2>
             <span id="ec-jigsaw-heading-billingInfo" class="txtEm gRight"></span>
         </div>
         <div class="contents ec-shop-ordererForm">
@@ -209,18 +209,19 @@
       <tr class="addrMsg">
 		<th scope="row">배송 요청사항</th>
 			<td class="shippingMsg">
-				<div class="selectArea" style="width: 75%;">
-					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					    배송 요청사항을 선택해 주세요.
-					</button>    
-					    <ul class="helpArea">
-						    <li><a class="dropdown-item" href="#">부재시 경비(관리)실에 맡겨주세요.</a></li>
-						    <li><a class="dropdown-item" href="#">부재시 문앞에 놓아주세요.</a></li>
-						    <li><a class="dropdown-item" href="#">파손의 위험이 있는 상품이 있으니, 배송에 주의해주세요.</a></li>
-						    <li><a class="dropdown-item" href="#">배송전에 연락주세요.</a></li>
-						    <li><a class="dropdown-item" href="#">메시지 직접 입력</a></li>
-					  	</ul>
-				</div>
+				<div class="dropdown">
+					  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  --메세지 선택(선택사항)--
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" href="#">배송 전에 미리 연락바랍니다.</a></li>
+					    <li><a class="dropdown-item" href="#">부재 시 경비실에 맡겨주세요.</a></li>
+					    <li><a class="dropdown-item" href="#">부재 시 문 앞에 놓아주세요.</a></li>
+					    <li><a class="dropdown-item" href="#">빠른 배송 부탁드립니다.</a></li>
+					    <li><a class="dropdown-item" href="#">택배 함에 보관해 주세요.</a></li>
+					    <li><a class="dropdown-item" href="#">직접 입력</a></li>
+					  </ul>
+					</div>
 					
 				<div class="writeMsg request" style="display: none;">
 					<input type="text" class="inputTxt" id="dlvReqCntTxt" maxlength="45" style="width: 75%;" placeholder="배송요청사항을 입력해주세요. (최대 45자 까지 입력 가능)">
