@@ -158,7 +158,7 @@ body {
 					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
+					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&amp;A</a>
 				</h3>
 				<h4>
 					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
@@ -239,7 +239,7 @@ body {
 		</div>
 	</div>
 </div>   
-
+</form>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(".btn-secondary").click(function(){		  

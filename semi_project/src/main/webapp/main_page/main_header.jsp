@@ -59,7 +59,7 @@
 				<div class="col-4 text-center">
 
 					<a class="blog-header-logo text-dark" href="main.jsp"> <img
-						alt="로고" src="<%=request.getContextPath()%>/images/쿠키4.png"
+						alt="로고" src="<%=request.getContextPath()%>/images/King2.png"
 						width="200" >
 					</a>
 				</div>

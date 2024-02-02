@@ -3,6 +3,7 @@
 
 <%@include file="/security/login_url.jspf" %>
 
+
 <form id="cart" action="<%=request.getContextPath()%>/main_page/main.jsp/group=cart_page&worker=cart_action" method="post">
 <div class="main-body">
 	<h2 class="titleArea"

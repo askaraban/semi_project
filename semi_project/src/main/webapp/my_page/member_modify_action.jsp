@@ -12,8 +12,8 @@
 
 	//전달값을 반환받아 저장
 	int clientNum=Integer.parseInt(request.getParameter("clientNum"));
-	String clientID=request.getParameter("clientID");
-	String clientPasswd=request.getParameter("clientPasswd");
+	String clientID=request.getParameter("id");
+	String clientPasswd=request.getParameter("passwd");
 	if(clientPasswd==null || clientPasswd.equals("")) {//전달값(비밀번호)이 없는 경우
 		//현재 로그인 사용자의 비밀번호를 변수에 저장 - 기존 비밀번호 유지
 		clientPasswd=loginClient.getClientPasswd();
@@ -21,13 +21,13 @@
 		//전달값을 암호화 처리하여 변수에 저장 - 전달된 비밀번호로 변경
 		clientPasswd=Utility.encrypt(clientPasswd);
 	}
-	String clientName=request.getParameter("clientName");
-	String clientEmail=request.getParameter("clientEmail");
-	String clientMobile=request.getParameter("clientMobile1")+"-"+request.getParameter("clientMobile2")
-		+"-"+request.getParameter("clientMobile3");
-	String clientZipcode=request.getParameter("clientZipcode");
-	String clientAddress1=request.getParameter("clientAddress1");
-	String clientAddress2=request.getParameter("clientAddress2");
+	String clientName=request.getParameter("name");
+	String clientEmail=request.getParameter("email");
+	String clientMobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
+		+"-"+request.getParameter("mobile3");
+	String clientZipcode=request.getParameter("zipcode");
+	String clientAddress1=request.getParameter("address1");
+	String clientAddress2=request.getParameter("address2");
 	
 	//ClientDTO 객체를 생성하여 전달값으로 필드값 변경
 	ClientDTO clientTable=new ClientDTO();

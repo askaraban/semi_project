@@ -10,4 +10,6 @@
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
+
+	
 %>
