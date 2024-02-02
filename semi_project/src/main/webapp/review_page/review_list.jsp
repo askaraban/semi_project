@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 	<div class="listArea">
 		<ul class="menu">
-			<li class="selected">
-				<a href="#homerunball_detail">상세정보</a>
-			</li>
 			<li>
+				<a href="#productDetailImg">상세정보</a>
+			</li>
+			<li class="selected">
 				<a href="#review_list">리뷰 3</a>
 			</li>
 			<li>
