@@ -12,10 +12,8 @@
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	int productPrice = 0;
 	int totalPrice = 0;
+	int changeCount = 0;
 	int totalCount = 0;
-	
-	CartDTO cartCount = new CartDTO();
-	int content_count = 0;
 %>
 
 <form id="cart" action="<%=request.getContextPath()%>/main_page/main.jsp/group=cart_page&worker=cart_action" method="post">
@@ -27,7 +25,7 @@
 	<div class="form-check cart-store">
 		<div class="check-box-all">
 			<div class="check-box-all-inner">
-				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="checked">
 				<label class="form-check-label" for="flexCheckDefault"> 전체 선택 </label>
 			</div>
 			<div class="checkBtn">
@@ -43,12 +41,12 @@
 		</div>
 <%-- --------------여기부터 제품에 대한 div ------------------------%>
 		<%for(CartDTO cart : cartList) {%>
-		
 		<div class="product-info">
 			<div>
 				<div class="check-box-select">
 					<%-- 제품 각각에 대한 체크박스 --%>
-					<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="product-check">
+					<input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="<%=cart.getCartProductNum() %>" 
+						aria-label="product-check" checked="checked">
 				</div>
 			</div>
 			<div class="product-inner">
@@ -64,27 +62,13 @@
 				</div>
 			</div>
 			<div class="cart-product-infoArea second-inner" style="width: 250px; text-align: left;">
-				<span>상품 주문 수량</span>
-				<div style="display: block;">
-					<div class="quantity"
-						style="display: inline-block; vertical-align: middle;">
-						<input id="quantity" name="quantity_opt[]" style="width: 50px;" value="<%=cart.getCartCount() %>" type="text">
-					</div>
-					<div style="display: inline-block; vertical-align: middle;">
-						<div style="height: 17px;">
-							<button type="button" style="border: 0px">
-							<img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_up.gif" alt="수량증가"  id="content_plus"/>
-							</button>
-						</div>
-						<div>
-							<button type="button" style="border: 0px;">
-							<img src="//img.echosting.cafe24.com/skin/base_ko_KR/product/btn_count_down.gif" alt="수량감소" >
-							</button>
-						</div>
-					</div>
-				</div>
+				<span>상품 주문 수량 : </span>
+					<%-- 주문 수량을 조절하는 input 태그 --%>
+				<input id="cartCount" name="cartCount" style="width: 50px;" value="<%=cart.getCartCount() %>" type="number" min="1">&nbsp;&nbsp;
+				<button type="button" id="changeBtn" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
+					font-weight: bold; color: white; height: 30px;">변경</button>
 			</div>
-			<input type="hidden" value="<%=cart.getCartProductNum()%>" name="cartProductNum" id="cartProductNum">
+			<input type="hidden" value="<%=changeCount%>" name="changeCount" id="changeCount">
 			<input type="hidden" value="<%=productPrice=cart.getProductPrice()*cart.getCartCount()%>" name="productPrice">
 			<input type="hidden" value="<%=totalPrice+=productPrice%>" name="totalPrice">
 			<input type="hidden" value="<%=totalCount+=cart.getCartCount()%>" name="totalCount">
@@ -129,7 +113,7 @@
 
 <script type="text/javascript">
 
-
+<%-- 전체 선택 시 모든 체크박스 선택되는 메소드 --%>
 $("#flexCheckDefault").click(function() {
 	let isChecked = $("#flexCheckDefault").is(':checked');
 	
@@ -139,12 +123,22 @@ $("#flexCheckDefault").click(function() {
 		$('input:checkbox').prop('checked',false);
 	}
 });
-
+<%-- 개별선택 시 전체 체크박스 해제되는 메소드 --%>
+$("#checkboxNoLabel").click(function() {
+	let isChecked = $("#checkboxNoLabel").is(':checked');
+	
+	if(!isChecked){
+		$("#flexCheckDefault").prop('checked',false);
+	}
+})
+<%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
 $("#cartDelete").click(()=>{
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action";
 });
 
-$("#content_plus").click(function() {
-	
+$("#changeBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_action";
+	$("#changeBtn").submit();
 })
+
 </script>

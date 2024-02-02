@@ -72,7 +72,7 @@ public class CartDAO extends JdbcDAO{
 				cart.setCartNum(rs.getInt("cart_num"));
 				cart.setCartClientNum(rs.getInt("cart_client_num"));
 				cart.setCartProductNum(rs.getInt("cart_product_num"));
-				cart.setCartProductNum(rs.getInt("cart_count"));
+				cart.setCartCount(rs.getInt("cart_count"));
 				cart.setProductName(rs.getString("product_name"));
 				cart.setProductPrice(rs.getInt("product_price"));
 				cart.setProductCom(rs.getString("product_com"));

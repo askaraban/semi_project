@@ -11,5 +11,7 @@
 		return;
 	}
 
+	int cartCount = Integer.parseInt(request.getParameter("cartCount"));
+	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
 	
 %>
