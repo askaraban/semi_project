@@ -16,7 +16,19 @@
 	int totalCount = 0;
 	int cnt=0;
 %>
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+/* Firefox  */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+</style>
 <form id="cart" action="<%=request.getContextPath()%>/main_page/main.jsp/group=cart_page&worker=cart_action" method="post">
 <div class="main-body">
 	<h2 class="titleArea"
@@ -66,17 +78,16 @@
 				<span>상품 주문 수량   </span>
 					<%-- 주문 수량을 조절하는 input 태그 --%>
 					<br><br>
-				<input class="contentCountBtn" type="button" value="-" />&nbsp;
-				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount" value="<%=cart.getCartCount() %>" type="text" pattern="[0-9]">&nbsp;
-				<input class="contentCountBtn" type="button" value="+" style="margin-right: 10px;"/>
+				<input class="contentCountBtn" id="minusBtn<%=cnt %>" type="button" value="-" />&nbsp;
+				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount" value="<%=cart.getCartCount() %>" type="number" min="1">&nbsp;
+				<input class="contentCountBtn" id="plusBtn<%=cnt %>" type="button" value="+" style="margin-right: 10px;"/>
 				<button type="button" id="countChangeBtn" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
 					font-weight: bold; color: white; height: 30px;">변경</button>
 			</div>
 			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
 			<input type="hidden" value="<%=totalPrice+=cart.getProductPrice()*cart.getCartCount()%>" name="totalPrice">
 			<input type="hidden" value="<%=totalCount+=cart.getCartCount()%>" name="totalCount">
-			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>%>">
-			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>%>">
+			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>%>" id="cartNum<%=cnt%>">
 			
 			<input type="hidden" value="<%=cnt++ %>" name="cnt">
 			<div class="cart-product-infoArea third-inner" style="width: 250px;">
@@ -168,16 +179,8 @@ $(document).ready(function() {
 	});
 });
 
-<%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
-$("#cartDelete").click(()=>{
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action";
-});
-
-$("#changeBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart&worker=cart_action";
-	$("#changeBtn").submit();
-})
-
+<%-- 제품 각각의 체크박스에 대한 자바스크립트
+	체크박스 선택 시 가격이 변경되도록 구성 --%>
 function calPrice() {
 	let cbArray = document.getElementsByName("contentCheck");
 	let totalPrice = 0;
@@ -193,4 +196,41 @@ function calPrice() {
 	document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
 	document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
 }
+
+<%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
+$("#cartDelete").click(()=>{
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action";
+});
+
+<%-- 수량변경에 대한 메소드 --%>
+for(let i=0;i<<%=cnt%>;i++){
+	<%-- 음수값을 입력하지 못하도록 제약조건 설정 --%>
+	let contentInput = document.getElementById("cartCount"+[i]+"");
+	contentInput.onkeydown = function(e) {
+        if(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
+            return false;
+        }
+    }
+	<%-- + 버튼 눌렀을 때 증가되도록 함 --%>
+	if($("#plusBtn"+[i]+"").click){
+		$("#plusBtn"+[i]+"").click(function() {
+			let count = Number(document.getElementById("cartCount"+[i]+"").value);
+			document.getElementById("cartCount"+[i]+"").value=count+1;
+		});
+	} 
+	if($("#minusBtn"+[i]+"").click){
+		$("#minusBtn"+[i]+"").click(function() {
+			let count = Number(document.getElementById("cartCount"+[i]+"").value);
+			<%-- 0일 때 버튼 비활성화 --%>
+			if(count==1 || count<=0){ 
+				document.getElementById("cartCount"+[i]+"").value=1;
+				document.getElementById("cartCount"+[i]+"").target.disabled=true;
+			}
+			document.getElementById("cartCount"+[i]+"").value=count-1;
+		});
+	}
+};
+	
+
+
 </script>
