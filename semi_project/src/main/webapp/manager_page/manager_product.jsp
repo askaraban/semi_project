@@ -1,3 +1,4 @@
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="xzy.itwill.DAO.CategoryDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="xyz.itwill.DTO.CategoryDTO"%>
@@ -27,6 +28,27 @@
 	}
 	
 	// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
+	int totalProduct = ProductDAO.getDAO().searchProductList(keyword, search);
+	
+	// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
+	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
+	
+	// 전달받은 페이지 수가 비정상적인 경우 
+	if(pageNum<0 || pageNum>totalPage ){
+		pageNum=1;
+	}
+	// 페이지 번호에 대한 페이지의 시작번호를 저장하기 위한 변수 - 10의 간격으로 시작하도록 하시오
+	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+	int startNum = (pageNum-1)*pageSize + 1;
+	
+	// 페이지 번호에 대한 페이지의 끝번호를 저장하기 위한 변수
+	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+	int endNum = pageNum * pageSize;
+	
+	if(endNum>totalProduct){
+		endNum=totalProduct;
+	}
+	
 	
 %>
 
