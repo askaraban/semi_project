@@ -4,7 +4,31 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%
+	// 검색기능에 필요한 전달값을 저장하기 위한 변수 ex) 제품번호, 제품명, 유형 카테고리 선택
+	String search = (String)request.getParameter("search");
+	if(search==null){
+		search="";
+	}
+	// 검색하려는 단어를 찾아 저장하기 위한 변수명
+	String keyword = (String)request.getParameter("keyword");
+	if(keyword==null){
+		keyword="";
+	}
+	// 페이징 처리를 위한 변수- 시작페이지 1페이지
+	int pageNum = 1;
+	if(request.getParameter("pageNum")!=null){
+		pageNum=Integer.parseInt(request.getParameter("pageNum")); 
+	}
+	// 넘길 수 있는 최대 페이지 수를 저장하기 위한 변수 - 보여지는 페이지 수 10페이지
+	int pageSize = 10;
+	if(request.getParameter("pageSize")!=null){
+		pageSize = Integer.parseInt(request.getParameter("pageSize"));
+	}
 	
+	// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
+	
+%>
 
 <style>
 .manager_body {

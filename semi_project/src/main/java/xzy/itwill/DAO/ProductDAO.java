@@ -133,4 +133,39 @@ public class ProductDAO extends JdbcDAO{
 		}
 		return product;
 	}
+	
+	// 검색대상과 검색단어를 매개변수로 전달받아 검색대상과 검색단어에 해당되는 제품의 수를 반환하는 메소드
+		public int searchProductList(String keyword, String search){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalCount = 0;
+			
+			try {
+				con = getConnection();
+				
+				if(keyword.equals("")) {
+					String sql = "select count(*) from product_table";
+					pstmt=con.prepareStatement(sql);
+					
+				} else if(search.equals("제품번호")){
+					String sql = "select count(*) from product_table where where number("+keyword+")=product_num";
+					pstmt=con.prepareStatement(sql);
+				} else {
+					String sql = "select count(*) from product_table where where"+search+" like '%'||?||'%'";
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setString(1, keyword);
+				}
+				rs= pstmt.executeQuery();
+				if(rs.next()) {
+					totalCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]searchProductList() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			} return totalCount;
+		}
 }
