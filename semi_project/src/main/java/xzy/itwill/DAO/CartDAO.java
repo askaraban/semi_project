@@ -21,6 +21,7 @@ public class CartDAO extends JdbcDAO{
       return _dao;
    }
    
+   // 회원번호,제품번호,제품수량을 전달받아 CART_TABLE 에 추가하는 메소드 
    public int insertCart(int clientNum, int productNum, int count) {
       Connection con = null;
       PreparedStatement pstmt = null;
@@ -43,6 +44,55 @@ public class CartDAO extends JdbcDAO{
          close(con, pstmt);
       } return rows;
    }
+   
+   // 회원번호와 제품번호를 전달받아 CART_TABLE 에 cart_product_num의 유무를 검색하는 메소드
+   public int selectProductCount(int clientNum, int productNum) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+         ResultSet rs = null;
+         int rows = 0;
+        
+        try {
+           con=getConnection();
+           String sql = "select count(cart_product_num) as cart_product_num from cart_table where cart_client_num=? and cart_product_num=?";
+           pstmt=con.prepareStatement(sql);
+           pstmt.setInt(1, clientNum);
+            pstmt.setInt(2, productNum);
+           
+            rs = pstmt.executeQuery();
+
+          if(rs.next()) {
+             rows = rs.getInt("cart_product_num");
+          }
+        } catch (SQLException e) {
+           System.out.println("[에러]selectProductCount() 메소드 오류" + e.getMessage());
+        } finally {
+           close(con, pstmt);
+        } return rows;
+   }
+   
+   // 장바구니에 같은 productNum이 이미 있을 경우 기존 상품 주문 수량을 업데이트 하는 메소드
+   public int updateCart(int clientNum, int productNum, int count) {
+     Connection con = null;
+     PreparedStatement pstmt = null;
+     int rows = 0;
+     
+     try {
+        con=getConnection();
+        String sql = "update cart_table set cart_count=cart_count+? where cart_product_num=? and cart_client_num=? ";
+        pstmt=con.prepareStatement(sql);
+         pstmt.setInt(1, count);
+         pstmt.setInt(2, productNum);
+         pstmt.setInt(3, clientNum);
+        
+        rows=pstmt.executeUpdate();
+        
+     } catch (SQLException e) {
+        System.out.println("[에러]updateCart() 메소드 오류" + e.getMessage());
+         } finally {
+            close(con, pstmt);
+         } return rows;
+     }
    
    // 회원번호를 검색해 회원번호에 해당하는 cart_table에 있는 모든 cart를 가져옴
    // 가져온 cart _table에서 product_table과 조인하여 product_table의 제품정보를 가져옴
@@ -88,28 +138,28 @@ public class CartDAO extends JdbcDAO{
       } return cartList;
    }
    
-   // cart_table에 해당되는 회원번호와 제품번호를 검색해 수량을 변경하는 메소드
-   public int updateCart(CartDTO cart) {
-      Connection con = null;
-      PreparedStatement pstmt = null;
-      int rows = 0;
-      
-      try {
-         con=getConnection();
-         String sql = "update cart_table set cart_count=? where cart_client_num=? and cart_product_num=?";
-         
-         pstmt=con.prepareStatement(sql);
-         
-         pstmt.setInt(1, cart.getCartCount());
-         pstmt.setInt(2, cart.getCartClientNum());
-         pstmt.setInt(3, cart.getCartProductNum());
-         
-         rows=pstmt.executeUpdate();
-         
-      } catch (SQLException e) {
-         System.out.println("[에러]updateCart() 메소드 오류" + e.getMessage());
-      } finally {
-         close(con, pstmt);
-      } return rows;
-   }
+//   // cart_table에 해당되는 회원번호와 제품번호를 검색해 수량을 변경하는 메소드
+//   public int updateCart(CartDTO cart) {
+//      Connection con = null;
+//      PreparedStatement pstmt = null;
+//      int rows = 0;
+//      
+//      try {
+//         con=getConnection();
+//         String sql = "update cart_table set cart_count=? where cart_client_num=? and cart_product_num=?";
+//         
+//         pstmt=con.prepareStatement(sql);
+//         
+//         pstmt.setInt(1, cart.getCartCount());
+//         pstmt.setInt(2, cart.getCartClientNum());
+//         pstmt.setInt(3, cart.getCartProductNum());
+//         
+//         rows=pstmt.executeUpdate();
+//         
+//      } catch (SQLException e) {
+//         System.out.println("[에러]updateCart() 메소드 오류" + e.getMessage());
+//      } finally {
+//         close(con, pstmt);
+//      } return rows;
+//   }
 }
