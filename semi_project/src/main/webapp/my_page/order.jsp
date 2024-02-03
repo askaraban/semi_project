@@ -17,7 +17,7 @@ body {
 
 #navigation a:hover {
     text-align: left;
-	color: blue;
+	color: #F5A9D0;
 	font-size: 1.5em;
 }
 
@@ -106,12 +106,21 @@ body {
     border: none;
     font-weight: 600;
     color: #fff;
-    background: #00BC70;
+    background: #F5A9D0;
 }
 .btnType7m {
     height: 40px;
     line-height: 38px;
     padding: 0 16px;
+}
+
+<%-- 총 --%>
+.tableListLength {
+    margin: 0 0 20px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.29em;
+    text-align: left;
 }
 
 <%-- 주문창 테이블 --%>
@@ -144,7 +153,13 @@ body {
     text-align: left;
 }
 
-<%-- 하단 그림 부분 --%>
+<%-- 1234 --%>
+[class*="tableType"] + .paging, .helpWrap + .paging {
+    margin-top: 30px;
+    padding: 0px 0px 30px;
+}
+
+<%-- 하단 이미지 부분 --%>
 .iconProcess {
     display: flex;
     text-align: center;
@@ -165,6 +180,8 @@ body {
     border-right: 1px solid #eee;
 }
 
+
+
 .iconProcess .tit {
     display: block;
     margin: 0 0 10px;
@@ -175,28 +192,42 @@ body {
     color: #333;
 }
 
+[class*="bulListType"] > li:first-child {
+    margin-top: 0;
+}
+
+
 li {
     list-style: none;
 }
 
+
+.iconProcess li:last-child {
+    margin-right: 0;
+    background: none;
+}
+
+
+<%-- 하단 이미지 --%>
 .iconProcess .icon1 .tit {
-    background: url(../my_page/images/icon_process1.png) no-repeat 50% 100%;
+    background: url(../my_page/images/icon_process1.png) no-repeat 50% 100%; background-size: 50px;
+
 }
 
 .iconProcess .icon2 .tit {
-    background: url(../my_page/images/icon_process2.png) no-repeat 50% 100%;
+    background: url(../my_page/images/icon_process2.png) no-repeat 50% 100%; background-size: 50px;
 }
 
 .iconProcess .icon3 .tit {
-    background: url(../my_page/images/icon_process3.png) no-repeat 50% 100%;
+    background: url(../my_page/images/icon_process3.png) no-repeat 50% 100%; background-size: 50px;
 }
 
 .iconProcess .icon4 .tit {
-    background: url(../my_page/images/icon_process4.png) no-repeat 50% 100%;
+    background: url(../my_page/images/icon_process4.png) no-repeat 50% 100%; background-size: 50px;
 }
 
 .iconProcess .icon5 .tit {
-    background: url(../my_page/images/icon_process5.png) no-repeat 50% 100%;
+    background: url(../my_page/images/icon_process5.png) no-repeat 50% 100%; background-size: 50px;
 }
 
 
@@ -348,7 +379,6 @@ li {
 		</span>
 		
 		
-}
 	</li>
 	<li class="icon2">
 		<span class="box">
@@ -374,8 +404,8 @@ li {
 			<strong class="tit">배송중</strong>
 			<span>
 				제품을 포장 후 배송중입니다.<br>
-				송장번호를 통해 현 배송상태를<br>
-				확인하실 수 있습니다.
+				송장번호를 통해 현 배송상태<br>
+				를 확인하실 수 있습니다.
 			</span>
 		</span>
 	</li>

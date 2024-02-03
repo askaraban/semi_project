@@ -72,7 +72,7 @@ fieldset {
     font-weight: 600;
     color: #fff;
     text-align: center;
-    background: #bc6b00;
+    background: #F5A9D0;
 }
 
 .btnWrap [class*="btnType3"] {
@@ -96,7 +96,7 @@ fieldset {
 
 .btnWrap [class*="btnType4"] {
     position: absolute;
-    left: 55%;
+    left: 60%;
     width: 150px;
     margin-left: -100px;
 }
@@ -104,7 +104,7 @@ fieldset {
 <%-- 네비게이션 바 --%>
 #navigation a:hover {
     text-align: left;
-	color: blue;
+	color: #F5A9D0;
 	font-size: 1.5em;
 }
 

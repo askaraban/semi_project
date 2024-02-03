@@ -16,7 +16,7 @@ body {
 
 #navigation a:hover {
     text-align: left;
-	color: blue;
+	color: #F5A9D0;
 	font-size: 1.5em;
 }
 
