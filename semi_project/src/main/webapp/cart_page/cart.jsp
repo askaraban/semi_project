@@ -26,7 +26,7 @@
 	<div class="form-check cart-store">
 		<div class="check-box-all">
 			<div class="check-box-all-inner">
-				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="checked">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="checked" style="background-color: pink; border-color: pink;">
 				<label class="form-check-label" for="flexCheckDefault"> 전체 선택 </label>
 			</div>
 			<div class="checkBtn">
@@ -47,7 +47,7 @@
 				<div class="check-box-select">
 					<%-- 제품 각각에 대한 체크박스 --%>
 					<input class="form-check-input" type="checkbox" id="contentCheck" value="<%=cart.getCartProductNum() %>" 
-						 aria-label="product-check" checked="checked" name="contentCheck" onclick="calPrice()">
+						 aria-label="product-check" checked="checked" name="contentCheck" onclick="calPrice()" style="background-color: pink; border-color: pink;">
 				</div>
 			</div>
 			<div class="product-inner">
@@ -62,11 +62,14 @@
 					<div class="cart-product-price" style="padding-top: 10px;">가격 : <%=format.format(cart.getProductPrice()) %>원</div>
 				</div>
 			</div>
-			<div class="cart-product-infoArea second-inner" style="width: 250px; text-align: left;">
-				<span>상품 주문 수량 : </span>
+			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
+				<span>상품 주문 수량   </span>
 					<%-- 주문 수량을 조절하는 input 태그 --%>
-				<input id="cartCount<%=cnt %>" name="cartCount" style="width: 50px;" value="<%=cart.getCartCount() %>" type="number" min="1">&nbsp;&nbsp;
-				<button type="button" id="changeBtn" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
+					<br><br>
+				<input class="contentCountBtn" type="button" value="-" />&nbsp;
+				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount" value="<%=cart.getCartCount() %>" type="text" pattern="[0-9]">&nbsp;
+				<input class="contentCountBtn" type="button" value="+" style="margin-right: 10px;"/>
+				<button type="button" id="countChangeBtn" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
 					font-weight: bold; color: white; height: 30px;">변경</button>
 			</div>
 			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
@@ -76,7 +79,7 @@
 			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>%>">
 			
 			<input type="hidden" value="<%=cnt++ %>" name="cnt">
-			<div class="cart-product-infoArea third-inner" style="width: 270px;">
+			<div class="cart-product-infoArea third-inner" style="width: 250px;">
 				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br>
 				<span><strong style="font-weight: bold; font-size: 20px;">
 					<em><%=format.format(cart.getCartCount()*cart.getProductPrice()) %>원</em>
@@ -105,7 +108,7 @@
 			<div style="width: 300px; height: 100px; padding-top: 20px;">
 				<span class="result-word">주문금액</span>
 				<br>
-				<span class="result-count"><%=format.format(totalPrice) %>원</span>
+				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 			</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px;">
 				<button type="button" class="cart-order-btn"><%=totalCount %>건 주문하기</button>
@@ -137,6 +140,7 @@ $(document).ready(function() {
 				}
 			}
 		document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
+		document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
 		} else {
 			$("input[name=contentCheck]").prop("checked",false);
 			for(let i=0;i<cbArray.length;i++){
@@ -149,6 +153,7 @@ $(document).ready(function() {
 				}
 			}
 		document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
+		document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
 		}
 	});
 	$("input[name=contentCheck]").click(function() {
@@ -186,5 +191,6 @@ function calPrice() {
 		}
 	}
 	document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
+	document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
 }
 </script>

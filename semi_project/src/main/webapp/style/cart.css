@@ -162,5 +162,19 @@
 .result-count{
 	font-weight: bold;
 	font-size: 20px;;
-	
+}
+
+.contentCountBtn {
+	width: 30px;
+	height: 30px;
+	background-color: pink;
+	border: 1px solid lightgray;
+	color: white;
+    font-size: large;
+    border-radius: 10px;
+}
+.cartCount{
+	padding-left: 12px;
+	margin: 0 auto;
+	width: 40px
 }
