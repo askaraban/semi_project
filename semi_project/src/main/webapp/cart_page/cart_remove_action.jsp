@@ -15,19 +15,22 @@
 		return;
 	}
 		
+	List<CartDTO> cartArray = new ArrayList<>();
+	int cnt=0;
+	
+	while(true){
 		CartDTO cart = new CartDTO();
-		int cnt =  Integer.parseInt(request.getParameter("cnt"));
-		
-		
-		for(int i=0;i<cnt;i++){
-			String contentCheck =  (String)(request.getParameter("contentCheck")); 
-			int deleteCheck =  Integer.parseInt(request.getParameter("contentCheck"));
-			if(contentCheck!=null){
-				CartDAO.getDAO().deleteCart(deleteCheck);
-			System.out.println(deleteCheck);
-			}
-			
+		if(request.getParameter("contentCheck"+cnt+"")==null){
+			break;
 		}
+		int contentCheck =  Integer.parseInt(request.getParameter("contentCheck"+cnt+"")); 
+		cart.setCartNum(contentCheck);
+		cartArray.add(cart);
+		cnt++;
+	}
+	for(CartDTO cartList : cartArray){
+		CartDAO.getDAO().deleteCart(cartList);
+	}
 		
 		
 		

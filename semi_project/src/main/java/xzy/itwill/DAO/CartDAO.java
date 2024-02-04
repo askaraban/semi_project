@@ -166,7 +166,7 @@ public class CartDAO extends JdbcDAO {
 		return cartList;
 	}
 
-	public int deleteCart(int cartNum) {
+	public int deleteCart(CartDTO cartNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
@@ -175,7 +175,7 @@ public class CartDAO extends JdbcDAO {
 			con = getConnection();
 			String sql = "delete from cart_table where cart_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cartNum);
+			pstmt.setInt(1, cartNum.getCartNum());
 
 			rows = pstmt.executeUpdate();
 

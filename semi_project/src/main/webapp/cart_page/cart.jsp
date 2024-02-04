@@ -58,7 +58,7 @@ input[type='number'] {
 				<div class="check-box-select">
 					<%-- 제품 각각에 대한 체크박스 --%>
 					<input class="form-check-input selectCheck" type="checkbox" value="<%=cart.getCartNum() %>" 
-						 aria-label="product-check" checked="checked" name="contentCheck" onclick="calPrice()" style="background-color: pink; border-color: pink;">
+						 aria-label="product-check" checked="checked" name="contentCheck<%=cnt %>" onclick="calPrice()" style="background-color: pink; border-color: pink;">
 				</div>
 				
 			</div>
@@ -88,7 +88,7 @@ input[type='number'] {
 			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
 			<input type="hidden" value="<%=totalPrice+=cart.getProductPrice()*cart.getCartCount()%>" name="totalPrice">
 			<input type="hidden" value="<%=totalCount+=cart.getCartCount()%>" name="totalCount">
-			<input type="hidden" value="cartNum<%=cnt%>" name="cartNum<%=cnt%>" >
+			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>" >
 			<input type="hidden" value="<%=cnt++ %>" name="cnt">
 			
 			<div class="cart-product-infoArea third-inner" style="width: 250px;">
@@ -136,10 +136,10 @@ input[type='number'] {
 <%--전체선택과 부분선택에 대한 메소드--%>
 $(document).ready(function() {
 	$("#flexCheckDefault").click(function() {
-		let cbArray = document.getElementsByName("contentCheck");
+		let cbArray = document.getElementsByClassName("selectCheck");
 		let totalPrice = 0;
 		if($("#flexCheckDefault").is(":checked")){
-			$("input[name=contentCheck]").prop("checked",true);
+			$("input").filter(".selectCheck").prop("checked",true);
 			for(let i=0;i<cbArray.length;i++){
 				if(cbArray[i].checked==true){
 					let p1 = "cartProductPrice"+[i];
@@ -152,7 +152,7 @@ $(document).ready(function() {
 			}
 		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 		} else {
-			$("input[name=contentCheck]").prop("checked",false);
+			$("input").filter(".selectCheck").prop("checked",false);
 			for(let i=0;i<cbArray.length;i++){
 				if(cbArray[i].checked==true){
 					let p1 = "cartProductPrice"+[i];
@@ -165,9 +165,9 @@ $(document).ready(function() {
 		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 		}
 	});
-	$("input[name=contentCheck]").click(function() {
-		var totalCheck = $("input[name=contentCheck]").length;
-		var checked = $("input[name=contentCheck]:checked").length;
+	$("input").filter(".selectCheck").click(function() {
+		var totalCheck = $("input").filter(".selectCheck").length;
+		var checked = $("input").filter(".selectCheck:checked").length;
 		
 		if(totalCheck!=checked){
 			$("#flexCheckDefault").prop("checked",false);
@@ -180,7 +180,7 @@ $(document).ready(function() {
 <%-- 제품 각각의 체크박스에 대한 자바스크립트
 	체크박스 선택 시 가격이 변경되도록 구성 --%>
 function calPrice() {
-	let cbArray = document.getElementsByName("contentCheck");
+	let cbArray = document.getElementsByClassName("selectCheck");
 	let totalPrice = 0;
 	for(let i=0;i<cbArray.length;i++){
 		if(cbArray[i].checked==true){

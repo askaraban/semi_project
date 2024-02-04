@@ -19,13 +19,11 @@
 	
 	while(true){
 		CartDTO cart = new CartDTO();
-			System.out.println(cnt);
 		if(request.getParameter("cartNum"+cnt+"")==null){
 			break;
 		}
 		int cartCount =  Integer.parseInt(request.getParameter("cartCount"+cnt+"")); 
 		int cartNum =  Integer.parseInt(request.getParameter("cartNum"+cnt+"")); 
-		System.out.println(cartCount);
 		cart.setCartCount(cartCount);
 		cart.setCartNum(cartNum);
 		cart.setCartClientNum(loginClient.getClientNum());
