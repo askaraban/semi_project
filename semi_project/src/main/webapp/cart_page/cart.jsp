@@ -49,7 +49,7 @@ input[type='number'] {
 		</div>
 		<div class="form-check cart-inner-check"></div>
 		<div class="cart-logo">
-			<span>과자몰</span>
+			<span>쿠키킹</span>
 		</div>
 <%-- --------------여기부터 제품에 대한 div ------------------------%>
 		<%for(CartDTO cart : cartList) {%>
@@ -88,6 +88,7 @@ input[type='number'] {
 			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
 			<input type="hidden" value="<%=totalPrice+=cart.getProductPrice()*cart.getCartCount()%>" name="totalPrice">
 			<input type="hidden" value="<%=totalCount+=cart.getCartCount()%>" name="totalCount">
+			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
 			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>" >
 			<input type="hidden" value="<%=cnt++ %>" name="cnt">
 			
@@ -123,7 +124,7 @@ input[type='number'] {
 				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 			</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px;">
-				<button type="submit" id="cartOrderBtn" class="cart-order-btn"><%=cnt %>건 주문하기</button>
+				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value=""><%=cnt %>건 주문하기</button>
 			</div>
 		</div>
 	</div>
@@ -151,6 +152,7 @@ $(document).ready(function() {
 				}
 			}
 		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
 		} else {
 			$("input").filter(".selectCheck").prop("checked",false);
 			for(let i=0;i<cbArray.length;i++){
@@ -163,6 +165,7 @@ $(document).ready(function() {
 				}
 			}
 		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
 		}
 	});
 	$("input").filter(".selectCheck").click(function() {
@@ -192,6 +195,7 @@ function calPrice() {
 		}
 	}
 	$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
 }
 
 <%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
@@ -215,6 +219,7 @@ for(let i=0;i<<%=cnt%>;i++){
 			document.getElementById("cartCount"+[i]+"").value=count+1;
 		});
 	} 
+	<%-- - 버튼 눌렀을 때 증가되도록 함 --%>
 	if($("#minusBtn"+[i]+"").click){
 		$("#minusBtn"+[i]+"").click(function() {
 			let count = Number(document.getElementById("cartCount"+[i]+"").value);
@@ -236,11 +241,17 @@ for(let i=0;i<<%=cnt%>;i++){
 
 <%-- 주문페이지로 이동하는 메소드 --%>
 $("#cartOrderBtn").click(function() {
+	if($("#selectedPrice2").text()=="0원"){
+		alert("주문할 제품을 선택해주세요.");
+		return;
+	}
 	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order");
 });
 <%-- 선택된 체크박스를 삭제하는 메소드 --%>
 $("#cartDelete").click(function(){
-	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action&cnt=<%=cnt%>");
+	var checked = $("input").filter(".selectCheck").length;
+	$("#plzCheck").attr("value", checked);
+	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action");
 });
 	
 

@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="xyz.itwill.DTO.CartDTO"%>
@@ -16,30 +17,24 @@
 	}
 		
 	List<CartDTO> cartArray = new ArrayList<>();
-	int cnt=0;
-	
-	while(true){
+	// 장바구니에 있는 총 개수를 전달받음
+	int plzCheck = Integer.parseInt(request.getParameter("plzCheck"));
+	// 장바구니에 있는거 중에서 null이 아닌것이 check 된 것이므로 check된것만 삭제하는 for문
+	for(int i=0;i<plzCheck;i++){
 		CartDTO cart = new CartDTO();
-		if(request.getParameter("contentCheck"+cnt+"")==null){
-			break;
+		if(request.getParameter("contentCheck"+i+"")==null){
+			continue;
 		}
-		int contentCheck =  Integer.parseInt(request.getParameter("contentCheck"+cnt+"")); 
+		int contentCheck =  Integer.parseInt(request.getParameter("contentCheck"+i+"")); 
 		cart.setCartNum(contentCheck);
 		cartArray.add(cart);
-		cnt++;
+		
 	}
+		
 	for(CartDTO cartList : cartArray){
 		CartDAO.getDAO().deleteCart(cartList);
 	}
-		
-		
-		
-		
-	/*
-	for(CartDTO cartList : cartArray){
-		CartDAO.getDAO().deleteCart(cartList.getCartNum());
-	}
-	*/
+
 	request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=cart_page&worker=cart");
 		
 %>
