@@ -15,8 +15,7 @@
    }
 
    ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
-   int clientNum = loginClient.getClientNum();
-   //System.out.println("clientNum = " + clientNum);
+   //System.out.println("loginClient = " + loginClient);
    int productNum=Integer.parseInt(request.getParameter("productNum"));
    //System.out.println("productNum = " + productNum);
    int count=Integer.parseInt(request.getParameter("totCount"));
@@ -29,8 +28,10 @@
       /* request 내장 객체의 getHeader()를 이용해서 이전 페이지의 URL 을 알 수 있다.
       request.getHeader("referer"); */
    } else {// 회원일 경우
-         int productCount = CartDAO.getDAO().selectProductCount(clientNum,productNum);
-       System.out.println("productCount = " + productCount);
+	   int clientNum = loginClient.getClientNum();
+	   //System.out.println("clientNum = " + clientNum);
+       int productCount = CartDAO.getDAO().selectProductCount(clientNum,productNum);
+       //System.out.println("productCount = " + productCount);
       if(productCount>=1) {//장바구니에 같은 productNum이 이미 있을 경우
            CartDAO.getDAO().updateCart(clientNum,productNum,count);
       } else {//장바구니에 같은 productNum이 없을 경우
