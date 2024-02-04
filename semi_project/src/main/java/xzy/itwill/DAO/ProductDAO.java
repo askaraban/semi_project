@@ -133,4 +133,95 @@ public class ProductDAO extends JdbcDAO{
 		}
 		return product;
 	}
+	
+	// 검색대상과 검색단어를 매개변수로 전달받아 검색대상과 검색단어에 해당되는 제품의 수를 반환하는 메소드
+		public int searchTotalList(String keyword, String search){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int totalCount = 0;
+			
+			try {
+				con = getConnection();
+				
+				if(keyword.equals("")) {
+					String sql = "select count(*) from product_table";
+					pstmt=con.prepareStatement(sql);
+					
+				} else if(search.equals("제품번호")){
+					String sql = "select count(*) from product_table where where number("+keyword+")=product_num";
+					pstmt=con.prepareStatement(sql);
+				} else {
+					String sql = "select count(*) from product_table where where"+search+" like '%'||?||'%'";
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setString(1, keyword);
+				}
+				rs= pstmt.executeQuery();
+				if(rs.next()) {
+					totalCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]searchProductList() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			} return totalCount;
+		}
+		
+		public List<ProductDTO> searchProductList(String search, String keyword, int startNum, int endNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			List<ProductDTO> productList = new ArrayList<>();
+			try {
+				con=getConnection();
+				
+				if(keyword.equals("")) {
+					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
+							+ " from product_table where startNum=? and endNum=?";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setInt(1, startNum);
+					pstmt.setInt(2, endNum);
+					
+					
+				} else if(keyword.equals("제품번호")){
+					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
+							+ " from product_table where " +search+"=number(?) and startNum=? and endNum=?";
+					
+					pstmt=con.prepareStatement(sql);
+					
+					pstmt.setString(1,keyword);
+					pstmt.setInt(2, startNum);
+					pstmt.setInt(3, endNum);
+				} else {
+					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
+							+ " from product_table where " +search+" like '%'||?||'%' and startNum=? and endNum=?";
+					pstmt.setString(1,keyword);
+					pstmt.setInt(2, startNum);
+					pstmt.setInt(3, endNum);
+				}
+				
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					ProductDTO product=new ProductDTO();
+					product.setProductNum(rs.getInt("product_num"));
+					product.setProductName(rs.getString("product_name"));
+					product.setProductPrice(rs.getInt("product_price"));
+					product.setProductCom(rs.getString("product_com"));
+					product.setProductCate(rs.getInt("product_cate"));
+					product.setProductDis(rs.getInt("product_dis"));
+					product.setProductDisContent(rs.getString("product_dis_content"));
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]searchProductList() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return productList;
+		}
 }

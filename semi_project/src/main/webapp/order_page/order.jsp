@@ -1,25 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-	#order_info {
-	text-align: left;
-	margin: 10px auto;
-	width: 1100px;
+	tr {
+		display: table-row;
+		vertical-align: inherit;
+		border-color: inherit;
+	}
+	
+	table {
+		border-collapse: collapse;
+		text-indent: initial;
+		border-spacing: 2px;
+	}
+	
+	.tableTypeWrite {
+		border-top: 2px solid #000;
+	}
+	
+	body {
+		overflow-x: hidden;
+		height: 100%;
+		color: #000000;
+		font: 16px/1.5, '맑은 고딕', '돋움', sans-serif;
+		letter-spacing: -0.01em;
+		-webkit-text-size-adjust: none;
+	}
+	
+	.tableTypeWrite.payTable.required {
+		margin: 0;
+	}
+	
+	.tableTypeWrite .required {
+		font-size: 0;
+	}
+	
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	
+	.tableTypeWrite th {
+		padding: 24px 30px;
+		border-bottom: 1px solid #F5F5F5;
+		text-align: left;
+		color: #333;
+		vertical-align: top;
+	}
+	
+	th {
+		font-weight: normal;
+		font-family: 'Pretendard','SDNeoM','notoM';
+	}
+	
+	.tableTypeWrite .required:after {
+		content: "*";
+		display:inline-block;
+		color: red;
+		font-size: 16px;
+		vertical-align: -3px;
+	}
+	
+	.tableTypeWrite th {
+		padding: 24px 30px;
+		border-bottom: 1px solid #F5F5F5;
+		text-align: left;
+		vertical-align: top;
+	}
+	
+	
+	.btnSubmit {
+		background: pink;
+		border: 1px solid pink;
+		font-weight: bold;
+		color: white;
+	}
+	
+	.prdBox {
+		display: flex;
+	
 	}	
 	
-	
-	#join label {
-		width: 150px;
-		text-align: right;
-		float: left;
-		margin-right: 10px;
+	td ul {
+		list-style: none;
+		padding: 0;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+	    text-align: left;    
 	}
-	
-	#join ul li {
-		list-style-type: none;
-		margin: 15px 0;
-	}
-	
 	
 	#postSearch {
 		font-size: 12px;
@@ -29,25 +95,128 @@
 		padding: 2px 10px;
 		border: 1px solid black;
 	}
-	
-    #postSearch:hover {
+
+	#postSearch:hover {
 		background: black;
 		color: white;
 	}
 	
-	.helpArea {
-		margin: 0;
-		background-color: white;
+	li {
+		list-style: none;
 	}
 	
-	.btnSubmit {
-		
-		border: 1px solid #333;
-    	background: #333;
+	.cartList {
+		border-top: 2px solid #000;
+		border-bottom: 1px solid #eee;
 	}
-	.btnSubmit {
-		background: pink;
+	
+	div {
+		display: block;
 	}
+	
+	ul {
+	    display: block;
+	    list-style-type: disc;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 40px;
+	}
+	
+	.pdtRow {
+		display: flex;
+		position: relative;
+	}
+	
+	.pdtImg {
+	 	position: relative;
+	 	flex: none;
+	 	width: 100px;
+	 	height: 133px;
+	}
+	
+	.cell {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	
+	
+	a {
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		letter-spacing: -0.01em;
+		color: inherit;
+		text-decoration: none;
+		outline: none;
+	}	
+	
+	img {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		vertical-align: top;
+	}
+	
+	.pdtInfo {
+		flex: 1;
+		justify-content: start;
+		padding: 0 50px 0 20px;
+	}
+	
+	.pdtName {
+	 	margin: 0 0 10px;
+	 	font-size: 16px;
+	 	line-height: 1.25;
+	 	color: #000;
+	}
+	
+	.pdtOpt {
+	 	display: flex;
+	 	font-size: 14px;
+	 	line-height: 18px;
+	 	color: #888;
+	}
+	
+	.pdtPirce {
+		justify-content: center;
+		margin-left: 14px;
+		width: 113px;
+		text-align: right;
+	}
+	
+	.price {
+		display: block;
+		font-weight: 500;
+		font-size: 14px;
+	}
+	
+	.num {
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 1.33;
+	}
+	
+	#orderFixItem.ec-base-button.gFull [class*="btn"] {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 400;
+		height: 50px;
+		line-height: 50px;
+		color: #fff;
+		width: 100%;
+	}
+	
+	button {
+	 	overflow: visible;
+	 	outline: 0;
+	 	cursor: pointer;
+	 	
+	}
+	
+	
 </style>
 <!doctype html>
 <html lang="kr">
@@ -60,237 +229,301 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body id="userStyle">
-	<!-- 상단 영역 -->
-	<header id="header">
-	<div id="ec-orderform-header-head"></div>
-		<div class="header">
-		<h1 class="logotop"><a href="/main_page/main.jsp">과자몰</a></h1>
-		</div>
-	<div class="headerMenu gLeft"><span class="backBtn"><a href="cart.jsp">::before"뒤로가기"</a></span>::after
-	</div>
-	<div class="headerMenu gRight"><span class="cartBtn"><a href="cart.jsp">"장바구니"<span class="count EC-Layout-Basket-count-display"><span class="EC-Layout-Basket-count">2</span></span></a></span>
-	<a href="mypage.jsp" class="mypageBtn">마이페이지</a>
-	::after
-	</div>
-	
-	<!-- app tag -->
-	<div id="ec-orderform-header-tail"></div>
-	</header>
+	<!-- 사용자 영역 -->
 	<div id="titleArea" class="titleArea">
-		<h1>결제하기</h1>	
+		<h2>결제하기</h2>	
 	</div>
-	<input id="move_order_after" name="move_order_after" value="/order/order_result.html" type="hidden"  />
-	        
+	<br>
+	<br>    	          
     <!-- 주문자정보 -->
-        <div id="ec-jigsaw-title-billingInfo" class="title">
-            <h2>주문자 정보</h2>
-            <span id="ec-jigsaw-heading-billingInfo" class="txtEm gRight"></span>
-        </div>
-        <div class="contents ec-shop-ordererForm">
-            <div class="ec-base-table typeWrite">
-                <table border="1">
-<!-- 주문자 정보 -->
-<tbody class="address_form ">
-	    <tr>
-		<th scope="row">주문자 <span class="icoRequired">필수</span>
-		</th>
-        <td><input id="oname" name="oname" fw-filter="isFill" fw-label="주문자 성명" fw-msg="" class="inputTypeText" placeholder="" size="15" value="" type="text"  />
-        </td>
-        </tr>
-		<tr class="ec-orderform-emailRow ">
-		<th scope="row">이메일 <span class="icoRequired icon_order_email">필수</span>
-		</th>
-        <td>
-                            <div class="ec-base-mail">
-            <input id="oemail1" name="oemail1" class="mailId" value="" type="text"  />
-            <span class="mailAddress"> </span>
-          	</div>
-		</td>
-		</tr>
-       
-		<tr class="">
-		<th scope="row">전화번호<span class="displaynone"><span class="icoRequired">필수</span></span>
-		</th>
-		                        <td><div class="ec-base-mail"><select id="ophone2_1" name="ophone2_[]" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg=""  >
-		<option value="010">010</option>
-		<option value="011">011</option>
-		<option value="016">016</option>
-		<option value="017">017</option>
-		<option value="018">018</option>
-		<option value="019">019</option>
-		</select>-<input id="ophone2_2" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  />-<input id="ophone2_3" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  /></div></td>
-		</tr>
-
-		<tr id="ec-orderer-address">
-		<th scope="row">주소 <span class=""><span class="icoRequired">필수</span></span>
-		</th>
-        	<td>
-                <ul class="ec-address">
-        			<li id="orderer_zipcode_wrap" class="ec-address-zipcode displaynone">
-                	<input id="ozipcode1" name="ozipcode1" placeholder="우편번호" fw-filter="isLengthRange[1][14]" class="inputTypeText displaynone" type="text" maxlength="14"> 
-                	<button id="btn_search_ozipcode" class="btnBasic displaynone" type="button" >우편번호</button>
-            		</li>
-                                                     
-           <li id="orderer_baseAddr_wrap" class="displaynone">
-                <input id="oaddr1" name="oaddr1" placeholder="기본주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="100" >
-           </li>
-        
-           <li id="orderer_detailAddr_wrap" class="displaynone">
-                <input id="oaddr2" name="oaddr2" placeholder="상세 주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="255" >
-           </li>
-        
-                </ul>
-          </td>
-       </tr>
-</tbody>
+    <section style="display=block;">
+    <div id="ec-jigsaw-title-billingInfo" class="title">
+       <h5>주문자 정보</h5>
+    </div>
+    
+    <form id="orderInfoForm" name="orderInfoForm" method="POST">
+	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
+	    <div class="tableTypeWrite payTable">
+    	<table>
+			    <colgroup>
+			    	<col style="width: 214px;">
+			    	<col>
+			    </colgroup>
+			 <tbody>
+			 	<tr>
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		주문자
+					</th>
+					<td>
+						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
+						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="">
+						<p class="inputAlt"></p>
+					</td>
+				</tr>
+				<tr class="">
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		연락처
+			 		</th>
+					<td>
+						<select name="mobile1">
+							<option value="010" selected>&nbsp;010&nbsp;</option>
+							<option value="011">&nbsp;011&nbsp;</option>
+							<option value="016">&nbsp;016&nbsp;</option>
+							<option value="017">&nbsp;017&nbsp;</option>
+							<option value="018">&nbsp;018&nbsp;</option>
+							<option value="019">&nbsp;019&nbsp;</option>
+						</select>
+						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
+						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
+					<p class="inputAlt"></p>
+					</td>
+				</tr>
+				<tr class="deliveryEmailWrap">
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		이메일
+			 		</th>
+			 		<td>
+			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
+			 			title="이메일 입력" style="width:90 %;" value="">
+			 			<p class="inputAlt"></p>
+			 		</td>
+				   </tr>
+			  </tbody>
 			</table>
-		 </div>
-     </div>
-<section>     
-	<h3 class="subtitle3">배송지 작성</h3>   
-     
-<div class="contents ec-shop-ordererForm">
-            <div class="ec-base-table typeWrite">
-                <table border="1">
-<!-- 주문자 정보 -->
-<tbody class="address_form ">
-	    <tr>
-		<th scope="row">주문자 <span class="icoRequired">필수</span>
-		</th>
-        <td><input id="oname" name="oname" fw-filter="isFill" fw-label="주문자 성명" fw-msg="" class="inputTypeText" placeholder="" size="15" value="" type="text"  />
-        </td>
-        </tr>
-		<tr class="ec-orderform-emailRow ">
-		<th scope="row">이메일 <span class="icoRequired icon_order_email">필수</span>
-		</th>
-        <td>
-                            <div class="ec-base-mail">
-            <input id="oemail1" name="oemail1" class="mailId" value="" type="text"  />
-            <span class="mailAddress"> </span>
-          	</div>
-		</td>
-		</tr>
-       
-		<tr class="">
-		<th scope="row">전화번호<span class="displaynone"><span class="icoRequired">필수</span></span>
-		</th>
-		                        <td><div class="ec-base-mail"><select id="ophone2_1" name="ophone2_[]" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg=""  >
-		<option value="010">010</option>
-		<option value="011">011</option>
-		<option value="016">016</option>
-		<option value="017">017</option>
-		<option value="018">018</option>
-		<option value="019">019</option>
-		</select>-<input id="ophone2_2" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  />-<input id="ophone2_3" name="ophone2_[]" maxlength="4" fw-filter="isNumber" fw-label="주문자 핸드폰번호" fw-alone="N" fw-msg="" placeholder="" size="4" value="" type="text"  /></div></td>
-		</tr>
-
-		<tr id="ec-orderer-address">
-		<th scope="row">주소 <span class=""><span class="icoRequired">필수</span></span>
-		</th>
-        	<td>
-                <ul class="ec-address">
-        			<li id="orderer_zipcode_wrap" class="ec-address-zipcode displaynone">
-                	<input id="ozipcode1" name="ozipcode1" placeholder="우편번호" fw-filter="isLengthRange[1][14]" class="inputTypeText displaynone" type="text" maxlength="14"> 
-                	<button id="btn_search_ozipcode" class="btnBasic displaynone" type="button" >우편번호</button>
-            		</li>
-                                                     
-           <li id="orderer_baseAddr_wrap" class="displaynone">
-                <input id="oaddr1" name="oaddr1" placeholder="기본주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="100" >
-           </li>
-        
-           <li id="orderer_detailAddr_wrap" class="displaynone">
-                <input id="oaddr2" name="oaddr2" placeholder="상세 주소" fw-filter="isFill" class="inputTypeText displaynone" type="text" size="60" maxlength="255" >
-           </li>
-        
-                </ul>
-          </td>
-       </tr>
-       
-      <tr class="addrMsg">
-		<th scope="row">배송 요청사항</th>
-			<td class="shippingMsg">
-				<div class="dropdown">
-					  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  --메세지 선택(선택사항)--
-					  </button>
-					  <ul class="dropdown-menu">
-					    <li><a class="dropdown-item" href="#">배송 전에 미리 연락바랍니다.</a></li>
-					    <li><a class="dropdown-item" href="#">부재 시 경비실에 맡겨주세요.</a></li>
-					    <li><a class="dropdown-item" href="#">부재 시 문 앞에 놓아주세요.</a></li>
-					    <li><a class="dropdown-item" href="#">빠른 배송 부탁드립니다.</a></li>
-					    <li><a class="dropdown-item" href="#">택배 함에 보관해 주세요.</a></li>
-					    <li><a class="dropdown-item" href="#">직접 입력</a></li>
-					  </ul>
-					</div>
-					
-				<div class="writeMsg request" style="display: none;">
-					<input type="text" class="inputTxt" id="dlvReqCntTxt" maxlength="45" style="width: 75%;" placeholder="배송요청사항을 입력해주세요. (최대 45자 까지 입력 가능)">
-				</div>
-				</td>
-			</tr> 
-	   </tbody>
-	</table>
-   </div>
+		</div>
+	</form>
 </section>
-							  
+	<br>
+	<br>
+	
+<section style="display=block;">							
+ <!-- 배송지 작성 -->    
+ <h5 class="subtitle3">배송지 작성</h5>  
+   	    <div class="segment ec-shippingInfo-sameaddr ">
+	      <input id="sameaddr0" name="sameaddr"  value="T" type="radio" ><label for="sameaddr0" >주문자 정보와 동일</label>
+	      <input id="sameaddr1" name="sameaddr" value="F" type="radio" ><label for="sameaddr1" >새로운 배송지</label>                    
+	    </div>	    
+	    	<form id="orderInfoForm" name="orderInfoForm" method="POST">
+	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
+	    <div class="tableTypeWrite payTable">
+    	<table>
+			    <colgroup>
+			    	<col style="width: 214px;">
+			    	<col>
+			    </colgroup>
+			 <tbody>
+			 	<tr>
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		받는 사람 
+					</th>
+					<td>
+						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
+						class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
+						<p class="inputAlt"></p>
+					</td>
+				</tr>
+				<tr class="">
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		연락처
+			 		</th>
+					<td>
+						<select name="mobile1">
+							<option value="010" selected>&nbsp;010&nbsp;</option>
+							<option value="011">&nbsp;011&nbsp;</option>
+							<option value="016">&nbsp;016&nbsp;</option>
+							<option value="017">&nbsp;017&nbsp;</option>
+							<option value="018">&nbsp;018&nbsp;</option>
+							<option value="019">&nbsp;019&nbsp;</option>
+						</select>
+						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
+						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
+					<p class="inputAlt"></p>
+					</td>
+				</tr>
+				<tr class="deliveryEmailWrap">
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		이메일
+			 		</th>
+			 		<td>
+			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
+			 			title="이메일 입력" style="width:90 %;" value="">
+			 			<p class="inputAlt"></p>
+			 		</td>
+				   </tr>
+				   <tr class="address">
+				   		<th scope="row"> 
+			 			<span class="required" aria-required="true">
+			 			필수입력
+			 			::after
+			 			</span>
+			 			배송지
+			 			</th>
+			 			<td>
+			 				<ul>
+			 				<li>
+							<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
+							<span id="postSearch">우편번호 검색</span>
+							</li>
+							<li>
+							<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
+							</li>
+							<li>
+							<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
+							</li>
+							</ul>
+			 			<p class="inputAlt"></p>
+			 			</td>
+				   </tr>
+				   <tr class="shippingMsg">
+			 		<th scope="row"> 
+			 		<span class="required" aria-required="true">
+			 		필수입력
+			 		::after
+			 		</span>
+			 		배송 요청사항
+			 		</th>
+			 		<td>
+						<textarea rows="5" cols="80" name="shippingMsg" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+			 			<p class="inputAlt"></p>
+			 		</td>
+				   </tr>
+			  </tbody>
+			</table>
+		</div>
+	</form>
+	<br>
+</section>		
+<br>		                                               	
+<br>
+
+<!-- 주문 상품 정보 -->
+    
+    <form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
+    <section id="orderChk" style="display: block;">
+    	<input type="hidden" id="#" name="#" value="#">
+    <div id="orderProduct" class="title">
+        <h5>주문 상품 정보</h5>  
+    </div>	
+    <div class="cartList">
+    	<ul>
+    		<script>
+    		</script>
+    		<li>
+			    <div class="pdtRow">
+			    	<div class="cell pdtImg">
+			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
+			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
+			   		</a>
+			    </div>
+			    <div class="cell pdtInfo">
+			    	<div class="pdtName"> <!-- 품명 -->
+			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
+			    	</div>
+			    	<div class="pdtOpt"> <!-- 수량 -->
+			    		<span class="pdtCount">1개</span>
+			    	</div>
+			    </div>
+			   	<div class="cell pdtPrice">
+			   		<span class="price">
+			   			<span class="num">54,000</span>
+			   			원 
+			   		</span>
+			   	  </div>
+			   	</div>
+	   	    </li>
+	   	  </ul>
+	   	<ul>
+    		<script>
+    		</script>
+    		<li>
+			    <div class="pdtRow">
+			    	<div class="cell pdtImg">
+			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
+			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
+			   		</a>
+			    </div>
+			    <div class="cell pdtInfo">
+			    	<div class="pdtName"> <!-- 품명 -->
+			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
+			    	</div>
+			    	<div class="pdtOpt"> <!-- 수량 -->
+			    		<span class="pdtCount">1개</span>
+			    	</div>
+			    </div>
+			   	<div class="cell pdtPrice">
+			   		<span class="price">
+			   			<span class="num">54,000</span>
+			   			원 
+			   		</span>
+			   	  </div>
+			   	</div>
+			  </li>
+   		  </ul>
+     </div>	
+  </section>	
+ </form>
+  				
+	<form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
+    <section id="orderChk" style="display: block;">
+    	<input type="hidden" id="#" name="#" value="#">
+    <div id="orderProduct" class="title">
+        <h5>총 결제금액</h5>  
+    </div>
+    	<div class="ec-base-button gFull" id="orderFixItem">
+    	<button type="button" class="btnSubmit" id="btn_payment">
+    	<span id="total_order_sale_price_view">54,000</span>
+    	원 
+    	<span class>결제하기</span>
+    	</button>
+    	</div>
+    	</section>
+    	</form>
+    				      
+                           
+                  					
+     
+							
 		
-                
-<div id="ec-jigsaw-area-orderProduct" class="ec-base-fold eToggle">
-    <div id="ec-jigsaw-title-orderProduct" class="title">
-        <h2>주문상품</h2>
-    </div>
-    <div class="contents">
-        <!-- app tag -->
-        <div id="ec-orderform-orderProduct-head"></div>
 
-        <!-- 국내배송상품 주문내역 -->
-        <div class="orderArea ">
- <!-- 기본배송 -->
-<div class="xans-element- xans-order xans-order-normallist">
- <div class="ec-base-prdInfo xans-record-">
-           <div class="prdBox">
-                        <div class="thumbnail"><a href="/product/detail.html?product_no=2527&cate_no=1"><img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="" width="90" height="90"></a></div>
-                        <div class="description">
-                            <strong class="prdName" title="상품명"> <a href = "/product/오리온-촉촉한-초코칩-실속형-560g-빅싸이즈/2527/category/1/" class="ec-product-name" >오리온 촉촉한 초코칩 실속형 560g [빅싸이즈]</a></strong>
-                            <ul class="info">
-                                <li title="옵션">
-                                    <p class="option ">[옵션: 촉촉한 초코칩 실속형 560g x 6ea(BOX) (+42,000)]</p>
-                                    </li>
-                                <li>수량: 1개</li>
-                                <li id="" class="displaynone">
-                                    가격: 50,500원</li>
-                            </ul>
-                        </div>						
-                 <button type="button" class="btnRemove " id="btn_product_one_delete_id0" prd="2527:000B:F:61937" set_prd_type="">삭제</button>
-           </div>
-    </div>
-</div>
-            
-
-<div id="ec-jigsaw-area-payment" class="ec-base-fold eToggle selected">
-    <div id="ec-jigsaw-title-payment" class="title">
-        <h2>결제정보</h2>
-    </div>
-    <div class="contents">
-        <!-- app tag -->
-        <div id="ec-orderform-payment-head"></div>
-
-        <div class="segment">
-            <div class="ec-base-table gCellNarrow">
-                <table border="1">
-
-            
-    <h3 class="heading">최종 결제 금액</h3>
-    <!-- app tag -->
-    <div id="ec-orderform-payment-tail"></div>
-	<div class="ec-base-button gFull" id="orderFixItem">
-            <button type="button" class="btnSubmit" id="btn_payment">
-                <span id="total_order_sale_price_view">50,500</span>원 <span class="">결제하기</span>
-            </button>
-    </div>
+    
     
 	<!-- 부트스트랩 -->
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
+	</script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	$("#postSearch").click(function() {
+		new daum.Postcode({
+			oncomplete: function(data) {
+				$("#zipcode").val(data.zonecode);
+				$("#address1").val(data.address);
+			} 
+		}).open();
+	});
 	</script>
 </body>
 </html>

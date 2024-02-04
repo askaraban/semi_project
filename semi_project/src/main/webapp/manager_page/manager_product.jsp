@@ -1,10 +1,56 @@
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="xzy.itwill.DAO.CategoryDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="xyz.itwill.DTO.CategoryDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%
+	// 검색기능에 필요한 전달값을 저장하기 위한 변수 ex) 제품번호, 제품명, 유형 카테고리 선택
+	String search = (String)request.getParameter("search");
+	if(search==null){
+		search="";
+	}
+	// 검색하려는 단어를 찾아 저장하기 위한 변수명
+	String keyword = (String)request.getParameter("keyword");
+	if(keyword==null){
+		keyword="";
+	}
+	// 페이징 처리를 위한 변수- 시작페이지 1페이지
+	int pageNum = 1;
+	if(request.getParameter("pageNum")!=null){
+		pageNum=Integer.parseInt(request.getParameter("pageNum")); 
+	}
+	// 넘길 수 있는 최대 페이지 수를 저장하기 위한 변수 - 보여지는 페이지 수 10페이지
+	int pageSize = 10;
+	if(request.getParameter("pageSize")!=null){
+		pageSize = Integer.parseInt(request.getParameter("pageSize"));
+	}
 	
+	// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
+	int totalProduct = ProductDAO.getDAO().searchProductList(keyword, search);
+	
+	// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
+	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
+	
+	// 전달받은 페이지 수가 비정상적인 경우 
+	if(pageNum<0 || pageNum>totalPage ){
+		pageNum=1;
+	}
+	// 페이지 번호에 대한 페이지의 시작번호를 저장하기 위한 변수 - 10의 간격으로 시작하도록 하시오
+	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+	int startNum = (pageNum-1)*pageSize + 1;
+	
+	// 페이지 번호에 대한 페이지의 끝번호를 저장하기 위한 변수
+	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+	int endNum = pageNum * pageSize;
+	
+	if(endNum>totalProduct){
+		endNum=totalProduct;
+	}
+	
+	
+%>
 
 <style>
 .manager_body {
