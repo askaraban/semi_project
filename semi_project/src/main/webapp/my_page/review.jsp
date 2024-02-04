@@ -110,7 +110,13 @@ a {
 	background:#000;
 }
 
-
+.myReview_new .inProgress .sel_area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    margin-top: 30px;
+}
 
 
 
@@ -139,8 +145,49 @@ a {
 			<h1 class="subTitle1">리뷰</h1>
 			<div class="tabType">
 				<ul class="item2">
-					<li class="active"><a href="/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
-					<li class="active1"><a href="/kr/ko/MypageCounselList.do"><span>내가 작성한 리뷰</span></a></li>
+					<li class="active"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
+					<li class="active1"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_list"><span>내가 작성한 리뷰</span></a></li>
+					
+					<div class="sel_area">
+										<!-- 리뷰 포인트 혜택 -->
+										<div class="left_side">
+											<a href="javascript:;" onclick="layerOpen('reviewReword');" style="display: inline;">리뷰 포인트 혜택</a>
+										</div>
+									
+										<div class="right_side">
+											<!-- 리뷰 운영정책 -->
+											<div class="noteTxt" style="">
+												<a href="#" onclick="layerOpen('reviewTerms')">리뷰운영정책</a>
+											</div>
+											<!-- 작성 가능한 리뷰 sorting -->
+											<div class="selectArea">
+												<button type="button" class="selTit" onclick="selActive();">전체</button>
+												<ul class="selList" style="display: none;">
+													<li>
+														<input type="radio" id="srchInmRvTypeCd1" name="srchInmRvTypeCd" value="" checked="checked" data-gtm-form-interact-field-id="2">
+														<label for="srchInmRvTypeCd1">전체</label>
+													</li>
+													<li>
+														<input type="radio" id="srchInmRvTypeCd2" name="srchInmRvTypeCd" value="N" data-gtm-form-interact-field-id="0">
+														<label for="srchInmRvTypeCd2">일반</label>
+													</li>
+													<li>
+														<input type="radio" id="srchInmRvTypeCd3" name="srchInmRvTypeCd" value="M">
+														<label for="srchInmRvTypeCd3">한달사용</label>
+													</li>
+													<li>
+														<input type="radio" id="srchInmRvTypeCd4" name="srchInmRvTypeCd" value="E" data-gtm-form-interact-field-id="1">
+														<label for="srchInmRvTypeCd4">체험리뷰</label>
+													</li>
+													<li>
+														<input type="radio" id="srchInmRvTypeCd5" name="srchInmRvTypeCd" value="S">
+														<label for="srchInmRvTypeCd5">샘플마켓</label>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+					
 				</ul>
 			</div>
 		</div>
