@@ -53,6 +53,8 @@
 	font-size: 14px;
 }
 
+
+
 /* cart 상품 삭제버튼*/
 .btn-light {
 	border-radius: 15px;
@@ -102,7 +104,7 @@
 .cart-product-infoArea {
 	min-width: 0;
 	padding-left: 12px;
-	padding-top: 10px;
+	padding-top: 5px;
 	
 }
 .second-inner{
@@ -159,7 +161,8 @@
 	font-weight: bold;
 	font-size: 13px;;
 }
-.result-count{
+
+.result-count {
 	font-weight: bold;
 	font-size: 20px;;
 }
@@ -173,8 +176,4 @@
     font-size: large;
     border-radius: 10px;
 }
-.cartCount{
-	padding-left: 12px;
-	margin: 0 auto;
-	width: 40px
-}
+

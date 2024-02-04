@@ -12,7 +12,6 @@
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	int contentProductPrice = 0;
 	int totalPrice = 0;
-	int changeCount = 0;
 	int totalCount = 0;
 	int cnt=0;
 %>
@@ -29,7 +28,7 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 </style>
-<form id="cart" action="<%=request.getContextPath()%>/main_page/main.jsp/group=cart_page&worker=cart_action" method="post">
+<form id="cart" method="post" action="">
 <div class="main-body">
 	<h2 class="titleArea"
 		style="text-align: left; padding-left: 10px; padding-bottom: 5px;">장바구니</h2>
@@ -43,7 +42,7 @@ input[type='number'] {
 			</div>
 			<div class="checkBtn">
 			<%-- 선택 삭제하는 버튼 --%>
-				<button id="cartDelete" type="button" class="btn btn-light">
+				<button id="cartDelete" type="submit" class="btn btn-light">
 					<img id="checkDel" alt="x" src="<%=request.getContextPath()%>/images/icon/icons8-x.png">선택 삭제
 				</button>
 			</div>
@@ -58,9 +57,10 @@ input[type='number'] {
 			<div>
 				<div class="check-box-select">
 					<%-- 제품 각각에 대한 체크박스 --%>
-					<input class="form-check-input" type="checkbox" id="contentCheck" value="<%=cart.getCartProductNum() %>" 
+					<input class="form-check-input selectCheck" type="checkbox" value="<%=cart.getCartNum() %>" 
 						 aria-label="product-check" checked="checked" name="contentCheck" onclick="calPrice()" style="background-color: pink; border-color: pink;">
 				</div>
+				
 			</div>
 			<div class="product-inner">
 				<div>
@@ -79,17 +79,18 @@ input[type='number'] {
 					<%-- 주문 수량을 조절하는 input 태그 --%>
 					<br><br>
 				<input class="contentCountBtn" id="minusBtn<%=cnt %>" type="button" value="-" />&nbsp;
-				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount" value="<%=cart.getCartCount() %>" type="number" min="1">&nbsp;
+				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount<%=cnt %>" value="<%=cart.getCartCount() %>" 
+					type="number" min="1" style="width: 70px; text-align: center; padding-right: 10px;">&nbsp;
 				<input class="contentCountBtn" id="plusBtn<%=cnt %>" type="button" value="+" style="margin-right: 10px;"/>
-				<button type="button" id="countChangeBtn" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
+				<button type="submit" id="countChangeBtn<%=cnt %>" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
 					font-weight: bold; color: white; height: 30px;">변경</button>
 			</div>
 			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
 			<input type="hidden" value="<%=totalPrice+=cart.getProductPrice()*cart.getCartCount()%>" name="totalPrice">
 			<input type="hidden" value="<%=totalCount+=cart.getCartCount()%>" name="totalCount">
-			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>%>" id="cartNum<%=cnt%>">
-			
+			<input type="hidden" value="cartNum<%=cnt%>" name="cartNum<%=cnt%>" >
 			<input type="hidden" value="<%=cnt++ %>" name="cnt">
+			
 			<div class="cart-product-infoArea third-inner" style="width: 250px;">
 				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br>
 				<span><strong style="font-weight: bold; font-size: 20px;">
@@ -98,8 +99,8 @@ input[type='number'] {
 			</div>
 			<br>
 		</div>
-		
 		<% } %>
+
 <%----------------------------- 여기까지가 제품에 대한 div -------------------%>
 
 <%-- *******************결제창으로 가기 위한 최종 결제금액div *********************************** --%>
@@ -113,7 +114,7 @@ input[type='number'] {
 			<div style="width: 200px; height: 100px; padding-top: 20px;">
 				<span class="result-word">즉시할인예상금액</span>
 				<br>
-				<span class="result-count">0원</span>
+				<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
 			</div>
 			<div class="cart-result-content">=</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px;">
@@ -122,10 +123,9 @@ input[type='number'] {
 				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 			</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px;">
-				<button type="button" class="cart-order-btn"><%=totalCount %>건 주문하기</button>
+				<button type="submit" id="cartOrderBtn" class="cart-order-btn"><%=cnt %>건 주문하기</button>
 			</div>
 		</div>
-
 	</div>
 </div>
 </form>
@@ -150,8 +150,7 @@ $(document).ready(function() {
 					
 				}
 			}
-		document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
-		document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
+		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 		} else {
 			$("input[name=contentCheck]").prop("checked",false);
 			for(let i=0;i<cbArray.length;i++){
@@ -163,8 +162,7 @@ $(document).ready(function() {
 					totalPrice -= productPrice*productCount;
 				}
 			}
-		document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
-		document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
+		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 		}
 	});
 	$("input[name=contentCheck]").click(function() {
@@ -193,8 +191,7 @@ function calPrice() {
 			totalPrice += productPrice*productCount;
 		}
 	}
-	document.getElementById("selectedPrice").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원";
-	document.getElementById("selectedPrice2").innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원"; //10,000
+	$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 }
 
 <%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
@@ -229,7 +226,22 @@ for(let i=0;i<<%=cnt%>;i++){
 			document.getElementById("cartCount"+[i]+"").value=count-1;
 		});
 	}
+	<%-- 수량 변경버튼을 눌렀을 때 동작되는 메소드 --%>
+	if($("#countChangeBtn"+[i]+"").click){
+		$("#countChangeBtn"+[i]+"").click(function() {
+			$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_update_action");
+		});
+	}
 };
+
+<%-- 주문페이지로 이동하는 메소드 --%>
+$("#cartOrderBtn").click(function() {
+	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order");
+});
+<%-- 선택된 체크박스를 삭제하는 메소드 --%>
+$("#cartDelete").click(function(){
+	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action&cnt=<%=cnt%>");
+});
 	
 
 
