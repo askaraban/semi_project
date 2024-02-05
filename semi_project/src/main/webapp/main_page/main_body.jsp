@@ -120,6 +120,7 @@ $("img").filter(".wishHeart").click(function() {
 		document.getElementById(productNum).setAttribute("src", "<%=request.getContextPath()%>/images/icon/heart-red.png");
 		document.getElementById(productNum).setAttribute('title','on');
 	}
+	
 	$.ajax({
 		type: "get",
 	    url : "<%=request.getContextPath()%>/main_page/main_like_action.jsp?productNum="+productNum,
