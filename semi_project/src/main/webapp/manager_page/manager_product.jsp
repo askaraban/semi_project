@@ -28,7 +28,7 @@
 	}
 	
 	// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
-	int totalProduct = ProductDAO.getDAO().searchProductList(keyword, search);
+	int totalProduct = ProductDAO.getDAO().searchTotalList(keyword, search);
 	
 	// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
 	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
