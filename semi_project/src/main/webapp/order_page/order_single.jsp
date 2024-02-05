@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%-- 제품 상세에서 구매 페이지로 --%>
 <style>
 	tr {
 		display: table-row;
