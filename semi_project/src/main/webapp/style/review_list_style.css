@@ -2,6 +2,14 @@
 
 #review_list {
 	width: 1000px;
+	height:400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#qa_list {
+	width: 1000px;
+	height:400px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -11,21 +19,22 @@
 	font-weight: bold;
 }
 
-table {
+table .nolist{
 	margin: 5px auto;
-	border: 1px solid black;
+	border: 1px solid gray;
 	border-collapse: collapse;
 }
 
 th {
-	border: 1px solid black;
-	background: black;
-	color: white;
+	border: 1px solid gray;
+	background: pink;
+	color: black;
 }
 
-td {
+#nolist {
 	border: 1px solid black;
 	text-align: center;	
+	height: 200px;
 }
 
 .subject {

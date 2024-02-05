@@ -11,6 +11,12 @@
 	width:80%;
 }
 
+#totalPrice {
+	text-align:right; 
+	height:50px; 
+	font-weight: bold;
+}
+
 .nowOrderBtn {
 	height: 50px;
 	margin-bottom: 10px;

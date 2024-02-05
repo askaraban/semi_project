@@ -82,8 +82,8 @@
       
          <div class="row">
             <table>
-               <tr>
-                     <td style="text-align:right; height:50px; font-weight: bold;" width=80%;>총 상품금액 : </td> 
+               <tr id="totalPrice">
+                     <td width=80%;>총 상품금액 : </td> 
                      <td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(product.getProductPrice()) %> 원</td>
                </tr>
             </table>
