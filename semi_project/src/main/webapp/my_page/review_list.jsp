@@ -136,11 +136,13 @@ a {
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			<h1 class="subTitle1">리뷰1</h1>
+			<h1 class="subTitle1">내가 작성한 리뷰</h1>
 			<div class="tabType">
 				<ul class="item2">
 					<li class="active"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
 					<li class="active1"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_list"><span>내가 작성한 리뷰</span></a></li>
+					
+					
 					
 					
 					

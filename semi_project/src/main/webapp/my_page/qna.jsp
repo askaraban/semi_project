@@ -56,14 +56,13 @@ body {
     text-align: left;
 }
 
-<%-- 총 --%>
-.tableListLength {
-    margin: 0 0 20px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.29em;
-    text-align: left;
+<%-- Q&A 목록 --%>
+#review_title {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 60px;
 }
+
 
 <%-- 주문창 테이블 --%>
 .tableType {
@@ -134,80 +133,52 @@ body {
 				</h4>
 			</div>
 		</div>
-		
 		<div class="col col-lg-10">
 			<h1 class="subTitle1">Q&A</h1>	
-			
-			
-			
-			<div id="listArea">
-			
-			<div id="review_title">Q&A목록</div>
-
-<div id="review_list">
-	<div style="text-align: right;">
-		게시글갯수 : 
-		<select id="reviewCount">
-			<option value="10" <%  { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
-			<option value="20" <%  { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
-			<option value="50" <%  { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
-			<option value="100" <% { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
-		</select>
-		&nbsp;&nbsp;&nbsp;
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-<div class="tableType">
-	<table>
-		<colgroup>
-			<col style="width:150px;">
-			<col style="width:350px;">
-			<col style="width:150px;">
-			<col style="width:150px;">
-		</colgroup>
-		<thead>
-			<tr>
-				<th scope="col">글번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">작성자</th>
-				<th scope="col">작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-			
-			
-			
-						
-			<tr>
-				<td>2023.11.15</td>
-				<td>
-					<a href="javascript:void(0)" onclick="goOrderDetail('20691308', '000', 'N')">
-						20691308
-						
-						
-					</a>				
-				</td>
-				<td class="left">
-										
-					<a href="javascript:void(0)" onclick="goOrderDetail('20691308', '000', 'N')">
-					
-						비자 트러블 토너 외1건
-					</a>				
-				</td>
-				<td>66,500원</td>
-			</tr>
+		<div id="listArea">
+		<div id="review_title">Q&A목록()</div>
+		<div id="review_list">
+			<div style="text-align: right;">
+				게시글갯수 : 
+				<select id="reviewCount">
+					<option value="10" <%  { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
+					<option value="20" <%  { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
+					<option value="50" <%  { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
+					<option value="100" <% { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
+				</select>
+				&nbsp;&nbsp;&nbsp;
+			</div>
+			<div class="tableType">
+				<table>
+					<colgroup>
+						<col style="width:150px;">
+						<col style="width:350px;">
+						<col style="width:150px;">
+						<col style="width:200px;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">글번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성자</th>
+							<th scope="col">작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td>2023.11.15</td>
+						<td>
+							<a href="javascript:void(0)" onclick="goOrderDetail('20691308', '000', 'N')">
+								20691308
+							</a>				
+						</td>
+						<td class="left">
+							<a href="javascript:void(0)" onclick="goOrderDetail('20691308', '000', 'N')">
+								비자 트러블 토너 외1건
+							</a>				
+						</td>
+						<td>66,500원</td>
+						</tr>
 			
 			
 		</tbody>

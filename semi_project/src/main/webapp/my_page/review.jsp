@@ -118,8 +118,71 @@ a {
     margin-top: 30px;
 }
 
+<%-- 리뷰 목록 --%>
+#review_title {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 60px;
+}
 
 
+
+
+
+
+<%-- 라인 --%>
+.mbOutTop {
+    padding: 70px 0 0;
+    border-top: 3px solid #000;
+}
+
+
+.nonList:not(td) {
+    justify-content: center;
+    margin: 130px 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25em;
+    color: #000000;
+}
+
+
+
+.nonList:not(td):before {
+    display: block;
+    content: '';
+    flex: none;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border-radius: 100px;
+    background: url(../my_page/images/ico_nodate.png) no-repeat 50% 50%;
+}
+
+
+.btnWrap {
+    display: flex;
+    gap: 0 10px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+[class*="btnType3"] {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 30px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    background: #F5A9D0;
+}
+
+.btnWrap a {
+	color: white;
+	
+}
 
 
 </style>
@@ -147,49 +210,60 @@ a {
 				<ul class="item2">
 					<li class="active"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
 					<li class="active1"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_list"><span>내가 작성한 리뷰</span></a></li>
-					
-					<div class="sel_area">
-										<!-- 리뷰 포인트 혜택 -->
-										<div class="left_side">
-											<a href="javascript:;" onclick="layerOpen('reviewReword');" style="display: inline;">리뷰 포인트 혜택</a>
-										</div>
-									
-										<div class="right_side">
-											<!-- 리뷰 운영정책 -->
-											<div class="noteTxt" style="">
-												<a href="#" onclick="layerOpen('reviewTerms')">리뷰운영정책</a>
-											</div>
-											<!-- 작성 가능한 리뷰 sorting -->
-											<div class="selectArea">
-												<button type="button" class="selTit" onclick="selActive();">전체</button>
-												<ul class="selList" style="display: none;">
-													<li>
-														<input type="radio" id="srchInmRvTypeCd1" name="srchInmRvTypeCd" value="" checked="checked" data-gtm-form-interact-field-id="2">
-														<label for="srchInmRvTypeCd1">전체</label>
-													</li>
-													<li>
-														<input type="radio" id="srchInmRvTypeCd2" name="srchInmRvTypeCd" value="N" data-gtm-form-interact-field-id="0">
-														<label for="srchInmRvTypeCd2">일반</label>
-													</li>
-													<li>
-														<input type="radio" id="srchInmRvTypeCd3" name="srchInmRvTypeCd" value="M">
-														<label for="srchInmRvTypeCd3">한달사용</label>
-													</li>
-													<li>
-														<input type="radio" id="srchInmRvTypeCd4" name="srchInmRvTypeCd" value="E" data-gtm-form-interact-field-id="1">
-														<label for="srchInmRvTypeCd4">체험리뷰</label>
-													</li>
-													<li>
-														<input type="radio" id="srchInmRvTypeCd5" name="srchInmRvTypeCd" value="S">
-														<label for="srchInmRvTypeCd5">샘플마켓</label>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-					
 				</ul>
 			</div>
+					
+		
+					<div id="review_title">리뷰 목록</div>
+
+	<div style="text-align: right;">
+		게시글갯수 : 
+		<select id="reviewCount">
+			<option value="10" <%  { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
+			<option value="20" <%  { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
+			<option value="50" <%  { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
+			<option value="100" <% { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
+		</select>
+		&nbsp;&nbsp;&nbsp;
+		
+		
+		
+		
+	<div class="mbOutTop">	
+<div class="tableType tb_review" id="reviewArea">
+
+  
+
+
+
+
+
+<script>
+$("#reviewArea").removeClass();
+$("#reviewArea").addClass('tableType tb_review');
+</script>
+
+
+	<div class="tableType tb_review">
+		<!-- 리뷰 없을때 -->
+		<div class="nonList">
+			구매하신 제품이 있을 경우에만<br>
+			리뷰 작성이 가능합니다.
+		</div>
+	</div>
+	<!-- 리뷰 없을때 -->						
+
+
+				</div>
+		</div>
+		
+		
+		<div class="btnWrap">
+		<div class="btnType3l">
+						<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">리뷰 쓰기</a>
+					</div>
+					</div>
+					
 		</div>
 	</div>
 </div>  
