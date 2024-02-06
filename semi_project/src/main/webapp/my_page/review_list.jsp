@@ -47,6 +47,12 @@ body {
 	height: 50px;
 	text-align: center;	
 }
+
+#navigation {
+	position: absolute;
+}
+
+
 <%-- 리뷰 --%>
 [class*="subTitle1"] {
     margin: 60px 0 24px;
@@ -107,11 +113,55 @@ a {
 .tabType li.active a {
 	font-weight:600;
 	color:#fff;
-	background:#000;
+	background:#F5A9D0;;
+}
+
+<%-- 라인 --%>
+.mbOutTop {
+    padding: 70px 0 0;
+    border-top: 3px solid #000;
+}
+
+<%-- 리뷰 목록 --%>
+#review_title {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 60px;
+}
+
+<%-- 수정 삭제 --%>
+.userIntro .n2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+<%-- 아이디 작성자 날짜 --%>
+.userIntro .n2 .left {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: -0.01em;
 }
 
 
 
+
+
+
+.myReview_new .endProgress .summary {
+    display: flex;
+    align-items: center;
+    padding: 40px 0 30px;
+}
+
+.userIntro .n2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 
 
 
@@ -141,14 +191,121 @@ a {
 				<ul class="item2">
 					<li class="active"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
 					<li class="active1"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_list"><span>내가 작성한 리뷰</span></a></li>
-					
-					
-					
-					
-					
-					
 				</ul>
 			</div>
+					
+					
+										<div id="review_title">리뷰 목록</div>
+
+	<div style="text-align: right;">
+		게시글갯수 : 
+		<select id="reviewCount">
+			<option value="10" <%  { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
+			<option value="20" <%  { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
+			<option value="50" <%  { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
+			<option value="100" <% { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
+		</select>
+		&nbsp;&nbsp;&nbsp;
+		
+		
+		
+		
+	<div class="mbOutTop">	
+	<div class="tableType tb_review" id="reviewArea">
+					
+					
+					
 		</div>
+		
+<li>
+					<!-- 상단 프로필과 제품 -->
+					<div class="summary">
+						<!-- 프로필 -->						
+						<div class="userIntro">
+							
+								
+								
+									<div class="n2">
+										<!-- 좌 -->
+										<div class="left">
+											<span class="name">kmi*******</span>
+                                            <div class="age">홍길동</div>
+                                            <div class="gomin">남성
+	                                            
+											</div>
+                                            <!-- 날짜 FO 개선 : 위치변경 -->
+                                            <span class="date">2023.05.03</span>
+										</div>
+										
+										<!-- 우 -->
+										<div class="right">
+											<div class="btn_wrap">						
+                                                <button type="button" class="mod" onclick="modifyProductReview('1946335')">수정</button>
+                                                <button type="button" class="del" onclick="deleteProductReview('1946335', 'N')">삭제</button>
+                                            </div>
+										</div>
+									</div>
+								
+								
+						</div>
+					</div>
+					
+					<!-- 포토 리스트 -->
+					
+						<div class="list_photo">							
+							<ul>
+								
+									
+										
+																													
+												
+													<li>
+														<div class="pImg">
+															<a href="#" onclick="openProductReviewView('1946335','N')">
+																<img src="https://images.innisfree.co.kr/upload/productReview/128665434382134310.jpeg" onerror="this.src='/kr/ko/resources/error/img/140x186.png'" alt="">
+															</a>	
+															
+														</div>																			
+													</li>
+																						
+											
+										
+										
+									
+														
+							</ul>
+						</div>
+					
+					
+					<!-- 리뷰 텍스트 내용 -->					
+					<div class="reviewCnt">
+	                    <p class="rcTxt">
+	                    	
+								
+								
+									
+									
+									
+								
+							
+							<!-- 20201027 미구매 리뷰 노출키워드 추가-->
+							
+							너무 좋아서 또 구입 했네요!! 여드름 직방
+						</p>
+                	</div>
+
+					<!-- 제품-->
+					<div class="vwProduct">
+						<div class="reviewPro">
+							
+								
+								
+										
+								
+						</div>
+					</div>
+				</li>
+                	
+                	
 	</div>
 </div>  

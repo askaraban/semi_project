@@ -112,7 +112,7 @@ a {
 .tabType li.active a {
 	font-weight:600;
 	color:#fff;
-	background:#F5A9D0;;
+	background:#F5A9D0;
 }
 
 .myReview_new .inProgress .sel_area {
@@ -125,7 +125,15 @@ a {
 
 
 
-
+.mpCounselInfo {
+    margin: 50px 0 0px;
+    padding: 100px 0 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.36em;
+    color: #666;
+    background: url(../my_page/images/icon_counsel.png) no-repeat 50% 0%; background-size: 50px;
+}
 
 
 
@@ -137,28 +145,7 @@ a {
 }
 
 
-.nonList:not(td) {
-    justify-content: center;
-    margin: 130px 0;
-    text-align: center;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.25em;
-    color: #000000;
-}
 
-
-
-.nonList:not(td):before {
-    display: block;
-    content: '';
-    flex: none;
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 20px;
-    border-radius: 100px;
-    background: url(../my_page/images/ico_nodate.png) no-repeat 50% 50%;
-}
 
 
 .btnWrap {
@@ -184,6 +171,34 @@ a {
 	
 }
 
+<%-- 입력칸 --%>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 0;
+    table-layout: fixed;
+}
+
+.tableTypeWrite th {
+    padding: 24px 30px;
+    border-bottom: 1px solid #F5F5F5;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    vertical-align: top;
+}
+
+.tableTypeWrite td {
+    padding: 20px 0;
+    font-weight: 500;
+    font-size: 16px;
+    border-bottom: 1px solid #F5F5F5;
+    color: #000;
+}
+
+td {
+	text-align: left;
+}
 
 </style>
 <div class="container text-center">
@@ -205,7 +220,7 @@ a {
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			<h1 class="subTitle1">리뷰</h1>
+			<h1 class="subTitle1">작성 가능한 리뷰</h1>
 			<div class="tabType">
 				<ul class="item2">
 					<li class="active"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review"><span>작성 가능한 리뷰</span></a></li>
@@ -213,12 +228,9 @@ a {
 				</ul>
 			</div>
 					
-		
+		<div class="mpCounselInfo"></div>
 
 	<div style="text-align: right;">
-		
-		
-		
 		
 	<div class="mbOutTop">	
 <div class="tableType tb_review" id="reviewArea">
@@ -236,19 +248,77 @@ $("#reviewArea").addClass('tableType tb_review');
 
 
 	<div class="tableType tb_review">
-		<!-- 리뷰 없을때 -->
-		<div class="nonList">
-			구매하신 제품이 있을 경우에만<br>
-			리뷰 작성이 가능합니다.
-		</div>
 	</div>
-	<!-- 리뷰 없을때 -->						
 
 
 				</div>
 		</div>
 		
-		
+		<form id="writeform" name="writeform" method="post" action="/kr/ko/MypageCounselWriteProc.do" novalidate="novalidate">
+						<input type="hidden" name="uppSeq" value="0">
+						<input type="hidden" name="depth" value="0">
+						<input type="hidden" name="subCd" value="">
+						<input type="hidden" id="email" name="email" value="">
+						<input type="hidden" id="mblNo" name="mblNo" value="">
+						<input type="hidden" name="imgUrl" id="imgUrl" value="">
+						<div class="tableTypeWrite">
+							<table>
+								<colgroup>
+									<col style="width: 170px">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="col">이름</th>
+										<td class="ftColor2">김민준</td>
+									</tr>
+									<tr>
+										<th scope="col">ID</th>
+									</tr>
+									<tr>
+										<th scope="col">제목</th>
+										<td>
+											<input type="text" class="inputTxt" id="ttl" name="ttl" maxlength="30" placeholder="최대 30자 이내" style="width:70%;" title="상담 제목 입력">
+										</td>
+									</tr>
+									<tr>
+										<th scope="col">내용</th>
+										<td>
+											<!-- editor 영역 -->
+											
+											<textarea placeholder="상담내용 본문에는 개인정보를 입력하지 말아주세요. 
+고객정보보호를 위해 마스킹 처리될 수 있습니다. 
+(예 : 성명, 연락처, 이메일주소, 계좌번호 등)" name="cnt" id="cnt" style="width:70%; height:200px;"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<th scope="col">첨부파일</th>
+<!-- 									    <td class="orderSearchTd"> -->
+<!-- 									    	<button type="button" class="btnType7m" onclick="attachFileClick();">사진첨부(최대 5개)</button> -->
+<!-- 											<div class="prd"> -->
+<!-- 				                                <ul class="pics"> -->
+<!-- 				                                </ul> -->
+<!-- 				                            </div> -->
+<!-- 										</td> -->
+										
+										<td class="orderSearchTd">
+											<label>
+												<button type="button" class="btnType7m" onclick="attachFileClick();">사진첨부(최대 5개)</button>
+											</label>
+											<span id="file-name"></span>
+											<span id="preview"></span>
+											<span id="delete-file" style="color:red; margin-left:20px;">
+												<i class="fas fa-times font-img"></i>
+											</span>
+										</td>
+			                       </tr>
+									
+								</tbody>
+							</table>
+						</div>
+						
+						
+					</form>
 		<div class="btnWrap">
 		<div class="btnType3l">
 						<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_write">리뷰 쓰기</a>

@@ -47,6 +47,11 @@ body {
 	height: 50px;
 	text-align: center;	
 }
+
+#navigation {
+	position: absolute;
+}
+
 <%-- qna --%>
 [class*="subTitle1"] {
     margin: 60px 0 24px;

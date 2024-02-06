@@ -48,6 +48,11 @@ body {
 	height: 50px;
 	text-align: center;	
 }
+
+#navigation {
+	position: absolute;
+}
+
 <%-- 주문조회 --%>
 [class*="subTitle1"] {
     margin: 60px 0 24px;

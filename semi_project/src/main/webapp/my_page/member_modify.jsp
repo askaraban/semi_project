@@ -67,6 +67,10 @@ body {
 	
 }
 
+#navigation {
+	position: absolute;
+}
+
 .fieldset {
 	text-align: left;
 	margin: 10px auto;

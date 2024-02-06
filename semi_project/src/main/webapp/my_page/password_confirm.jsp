@@ -147,6 +147,10 @@ fieldset {
 	
 }
 
+#navigation {
+	position: absolute;
+}
+
 <%-- 회원탈퇴 --%>
 [class*="subTitle4"] {
     margin: 60px 0 24px;
