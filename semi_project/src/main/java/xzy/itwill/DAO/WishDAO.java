@@ -49,7 +49,7 @@ public class WishDAO extends JdbcDAO{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
-		List<WishDTO> wisiList = new ArrayList<>();
+		List<WishDTO> wishList = new ArrayList<>();
 		try {
 			con=getConnection();
 			
@@ -63,15 +63,42 @@ public class WishDAO extends JdbcDAO{
 				WishDTO wish=new WishDTO();
 				wish.setWishNum(rs.getInt("wish_num"));
 				wish.setWishProductNum(rs.getInt("wish_product_num"));
-				wisiList.add(wish);
+				wishList.add(wish);
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectWishList() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
-		return wisiList;
+		return wishList;
 	}
+	
+	// 회원번호와 제품번호를 전달받아 좋아요 번호를 가져오는 메소드;
+		public Integer selectWish(int productNum, int clientNum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs=null;
+			Integer wishProductNum=0;
+			try {
+				con=getConnection();
+				
+				String sql="select wish_product_num from wishList_table where wish_product_num=? and wish_client_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, productNum);
+				pstmt.setInt(2, clientNum);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					wishProductNum=(rs.getInt("wish_product_num"));
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]selectWish() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return wishProductNum;
+		}
 	
 	public int deleteWish(int clientNum, int productNum) {
 		Connection con = null;
@@ -80,7 +107,7 @@ public class WishDAO extends JdbcDAO{
 		
 		try {
 			con=getConnection();
-			String sql = "delete from wishList_table where wish_client_num=?,wish_product_num=?";
+			String sql = "delete from wishList_table where wish_client_num=? and wish_product_num=?";
 			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
@@ -95,5 +122,5 @@ public class WishDAO extends JdbcDAO{
 		} return rows;
 	}
 	
-	
+		
 }

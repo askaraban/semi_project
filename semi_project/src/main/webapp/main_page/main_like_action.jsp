@@ -8,25 +8,36 @@
 <%
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
 	
-
-	
 	String productNum = request.getParameter("productNum"); 
-	System.out.println(productNum);
-	
-	int num =Integer.parseInt(productNum.substring(10)); 
-	System.out.println(num);
-	
+	String title = request.getParameter("title"); 
 	WishDTO wish = new WishDTO();
+	//System.out.println(productNum);
+	//System.out.println(title);
+	//System.out.println(wish);
+	int num =Integer.parseInt(productNum.substring(10));
 	
-	wish.setWishClientNum(loginClient.getClientNum());
-	wish.setWishProductNum(num);
-	
-	int id=WishDAO.getDAO().insertWish(wish);
-	
-	List<WishDTO> wishList = WishDAO.getDAO().selectWishList(loginClient.getClientNum());
+	if(loginClient.getClientNum()>0){
+		
+		wish.setWishClientNum(loginClient.getClientNum());
+		wish.setWishProductNum(num);
+		
+		if(title.equals("on")){
+			WishDAO.getDAO().deleteWish(wish.getWishClientNum(), wish.getWishProductNum());
+		} else if(title.equals("off")){
+			WishDAO.getDAO().insertWish(wish);
+		}		
+	} else{
+		return;
+	}
 	
 %>
+
 <result>
+	<%if(title.equals("off")){%>
 	<code>success</code>
-	<id><%=wishList%></id>
+	<title>on</title>
+	<%} else {%>
+	<code>fail</code>
+	<title>off</title>
+	<%}%>
 </result>

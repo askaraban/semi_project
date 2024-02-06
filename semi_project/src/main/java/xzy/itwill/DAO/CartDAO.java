@@ -188,27 +188,3 @@ public class CartDAO extends JdbcDAO {
 	}
 
 }
-//   // cart_table에 해당되는 회원번호와 제품번호를 검색해 수량을 변경하는 메소드
-//   public int updateCart(CartDTO cart) {
-//      Connection con = null;
-//      PreparedStatement pstmt = null;
-//      int rows = 0;
-//      
-//      try {
-//         con=getConnection();
-//         String sql = "update cart_table set cart_count=? where cart_client_num=? and cart_product_num=?";
-//         
-//         pstmt=con.prepareStatement(sql);
-//         
-//         pstmt.setInt(1, cart.getCartCount());
-//         pstmt.setInt(2, cart.getCartClientNum());
-//         pstmt.setInt(3, cart.getCartProductNum());
-//         
-//         rows=pstmt.executeUpdate();
-//         
-//      } catch (SQLException e) {
-//         System.out.println("[에러]updateCart() 메소드 오류" + e.getMessage());
-//      } finally {
-//         close(con, pstmt);
-//      } return rows;
-//   }
