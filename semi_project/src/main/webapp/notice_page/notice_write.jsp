@@ -55,7 +55,7 @@ td {
 		<tr>
 			<th>제목</th>
 			<td>
-				<input type="text" name="noticeSubject" id="noticeSubject" size="40">
+				<input type="text" name="noticeTitle" id="noticeTitle" size="40">
 			</td>					
 		</tr>	
 		<tr>
@@ -84,9 +84,9 @@ td {
 $("#noticeSubject").focus();
 
 $("#noticeForm").submit(function() {
-	if($("#noticeSubject").val()=="") {
+	if($("#noticeTitle").val()=="") {
 		$("#message").text("제목을 입력해 주세요.");
-		$("#noticeSubject").focus();
+		$("#noticeTitle").focus();
 		return false;
 	}
 	
@@ -98,7 +98,7 @@ $("#noticeForm").submit(function() {
 });
 
 $("#resetBtn").click(function() {
-	$("#noticeSubject").focus();
+	$("#noticeTitle").focus();
 	$("#message").text("");
 });
 </script>

@@ -165,7 +165,7 @@ td {
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String url=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail";
+						String URL=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail";
 						
 					%>
 							

@@ -124,4 +124,38 @@ public class NoticeDAO extends JdbcDAO {
 		return rows;
 	}
 	
+	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+	public NoticeDTO selectNoticeByNum(int noticeNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		NoticeDTO notice=null;
+		try {
+			con=getConnection();
+			
+			String sql="select notice_num,notice_title,notice_content,notice_image,notice_date"
+					+ ",notice_update,notice_count from notice_table where notice_num=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, noticeNum);
+					
+					rs=pstmt.executeQuery();
+					
+					if(rs.next()) {
+						notice=new NoticeDTO();
+						notice.setNoticeNum(rs.getInt("notice_num"));
+						notice.setNoticeTitle(rs.getString("notice_title"));
+						notice.setNoticeContent(rs.getString("notice_content"));
+						notice.setNoticeImage(rs.getString("notice_image"));
+						notice.setNoticeDate(rs.getString("notice_date"));
+						notice.setNoticeUpdate(rs.getString("notice_update"));
+						notice.setNoticeCount(rs.getInt("notice_count"));
+					}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectNoticeByNum() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return notice;
+	}
+	
 }
