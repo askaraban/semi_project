@@ -88,17 +88,21 @@
 						<p class="card-text" ><%=pro.getProductCom() %></p>
 						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
 						<p>
+							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>
 							<%if(loginClient==null) {%>
-								<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
+								<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
+								class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
+							<%-- 로그인이 되어 있다면, 회원번호와 제품번호를 매개변수로 전달받아 제품번호를 전달받는 dao 메소드 호출 --%>	
 							<% } else if(loginClient!=null){%>
 								<%
 									wishProductNum=WishDAO.getDAO().selectWish(pro.getProductNum(),loginClientNum);
 								%>
-								
-								<%if(wishProductNum==pro.getProductNum()){%> <%-- 제품 번호가 같은 애들을 찾아 --%>
-									<img src="<%=request.getContextPath()%>/images/icon/heart-red.png" class="wishHeart" alt="좋아요" title="on"  id="productNum<%=pro.getProductNum()%>">
+								<%if(wishProductNum==pro.getProductNum()){%> 
+									<img src="<%=request.getContextPath()%>/images/icon/heart-red.png" 
+									class="wishHeart" alt="좋아요" title="on"  id="productNum<%=pro.getProductNum()%>">
 								<%} else {%>
-									<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
+									<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
+									class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
 								<%} %>
 							<%} %>								
 						</p>
@@ -112,37 +116,8 @@
 	<hr>
 	<script type="text/javascript">
 
-  
- <%-- 좋아요// 하트를 누를 때 on <-> title off --%>
-<%--
-$("img").filter(".wishHeart").click(function() {
-	var productNum = $(this).attr("id");
-	var isHeart=document.querySelector("img[title=on]");
-	if(isHeart){
-		document.getElementById(productNum).setAttribute('src', "<%=request.getContextPath()%>/images/icon/heart-black.png");
-		document.getElementById(productNum).setAttribute('title','off');
-	} else {
-		document.getElementById(productNum).setAttribute("src", "<%=request.getContextPath()%>/images/icon/heart-red.png");
-		document.getElementById(productNum).setAttribute('title','on');
-	}
-	
-	$.ajax({
-		type: "get",
-	    url : "<%=request.getContextPath()%>/main_page/main_like_action.jsp?productNum="+productNum,
-	    dataType : "xml",
-	    success:function(xmlDoc){
-	    	var id = $("xmlDoc").find("id").text();
-	    	alert(id);
-	    },
-	    error:function(xhr){
-	    	alert("[에러] = "+xhr.status);
-	    }
-	});
-})
---%>
 
-
-
+<%-- 하트 이미지 클릭 시 발생되는 이벤트 함수 --%>
 $("img").filter(".wishHeart").click(function() {
 	var productNum = $(this).attr("id");
 	var title = $(this).attr("title");
