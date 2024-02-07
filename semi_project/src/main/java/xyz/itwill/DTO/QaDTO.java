@@ -34,7 +34,7 @@ public class QaDTO {
 		return qaNum;
 	}
 
-	public void setQaNum(int qaNum) {
+	public void setQaNum(int qaNum) { 
 		this.qaNum = qaNum;
 	}
 
