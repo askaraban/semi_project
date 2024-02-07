@@ -12,14 +12,33 @@
 }
 
 #totalPrice {
+	width:100px;
 	text-align:right; 
-	height:50px; 
 	font-weight: bold;
 }
 
+.moveBtn {
+	width: 70%;
+	height: 80px;
+	margin-top: 10px;
+}
+
+.orderBtn {
+	display: inline;
+	width: 45%;
+	height: 100%;
+	margin-right: 25px;
+	background-color: white;
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
 .nowOrderBtn {
-	height: 50px;
-	margin-bottom: 10px;
+	display: inline;
+	width: 45%;
+	height: 100%;
 	background-color: pink;
  	color: white;
  	font-weight: bold;
@@ -28,26 +47,12 @@
  	border: 1px solid gray;
 }
 
-.orderBtn {
- 	float: left;
-	height: 50px;
- 	width: 49%;
-	background-color: white;
- 	color: black;
- 	font-weight: bold;
- 	border-radius: 5px;
- 	border: 1px solid gray;
-}
-
-.JjimBtn {
- 	float: right;
- 	height: 50px;
- 	width: 49%;
- 	color: black;
- 	font-weight: bold;
-	background-color: white;
- 	border-radius: 5px;
-	border: 1px solid gray;
+.ProductWish {
+	width: 50px;
+	position: absolute;
+    top: 810px;
+    left: 1340px;
+	opacity: 0.7;
 }
 
 .productOrder {
@@ -62,6 +67,7 @@
 #infoBtnArea {
 	float: right; 
 	width:50%;
+	height: 50px;
 }
 
 #countBtn {
