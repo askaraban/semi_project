@@ -8,8 +8,7 @@ ORDER_CLIENT_NUM           NUMBER(5)      - 회원번호(FK)
 ORDER_TIME                 VARCHAR2(100)  - 결제번호
 ORDER_DATE                 DATE           - 주문일자
 ORDER_PRODUCT_NUM          NUMBER(5)      - 제품번호(FK)
-ORDER_COUNT                NUMBER(5)      - 수량
-ORDER_STATUS               NUMBER(1)      - 배송상태
+ORDER_STATUS               NUMBER(1)      - 배송상태(0 : 배송전 1 : 배송 후)
 ORDER_SUM                  NUMBER(10)     - 총 금액
 ORDER_DIS_SUM              NUMBER(10)     - 할인된 총 금액
 ORDER_CONTENT              VARCHAR2(200)  - 배송 요청사항
@@ -18,6 +17,7 @@ ORDER_ZIPCODE              VARCHAR2(10)   - 우편번호
 ORDER_ADDRESS1             VARCHAR2(200)  - 기본주소
 ORDER_ADDRESS2             VARCHAR2(100)  - 상세주소
 ORDER_MOBILE               VARCHAR2(20)   - 전화번호
+ORDER_COUNT				   NUMBER(5)	  - 구매수량 
 */
 
 public class OrderDTO {
@@ -26,7 +26,7 @@ public class OrderDTO {
 	private String orderTime;
 	private String orderDate;
 	private int orderProductNum;
-	private int orderCount;
+	private int orderCount; 
 	private int orderStatus;
 	private int orderSum;
 	private int orderDisSum;

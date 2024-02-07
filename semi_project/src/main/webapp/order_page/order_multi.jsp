@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="/security/login_check.jspf" %>    
 <%-- 장바구니 페이지에서 구매페이지로  --%>
 <style>
 	tr {
@@ -261,7 +262,7 @@
 					</th>
 					<td>
 						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
-						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="">
+						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="<%=loginClient.getClientName()%>">
 						<p class="inputAlt"></p>
 					</td>
 				</tr>
@@ -282,8 +283,8 @@
 							<option value="018">&nbsp;018&nbsp;</option>
 							<option value="019">&nbsp;019&nbsp;</option>
 						</select>
-						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
-						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
+						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>">
+						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>">
 					<p class="inputAlt"></p>
 					</td>
 				</tr>
@@ -297,7 +298,7 @@
 			 		</th>
 			 		<td>
 			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
-			 			title="이메일 입력" style="width:90 %;" value="">
+			 			title="이메일 입력" style="width:90 %;" value="value="<%=loginClient.getClientEmail()%>">
 			 			<p class="inputAlt"></p>
 			 		</td>
 				   </tr>

@@ -472,7 +472,7 @@
 			    </div>
 			    <div class="cell pdtInfo">
 			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
+			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">씨드</a>
 			    	</div>
 			    	<div class="pdtOpt"> <!-- 수량 -->
 			    		<span class="pdtCount">1개</span>
@@ -504,15 +504,11 @@
     	<span class>결제하기</span>
     	</button>
     	</div>
-    	</section>
-    	</form>
+    </section>
+ </form>
     				      
                            
                   					
-     
-							
-		
-
     
     
 	<!-- 부트스트랩 -->

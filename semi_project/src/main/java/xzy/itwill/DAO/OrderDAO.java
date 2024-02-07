@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import xyz.itwill.DTO.CartDTO;
 import xyz.itwill.DTO.ClientDTO;
+import xyz.itwill.DTO.OrderDTO;
 
 public class OrderDAO extends JdbcDAO {
 	private static OrderDAO _dao;
@@ -22,8 +23,6 @@ public class OrderDAO extends JdbcDAO {
 	public static OrderDAO getDAO() {
 		return _dao;
 	}
-	
-	
 	
 	//회원번호를 검색해서 회원번호에 해당하는 회원이 구매하기 버튼을 눌렀을 때 
 	//해당제품에 대한 제품정보와 수량을 가져옴 (제품 테이블과 장바구니 테이블을 조인)
@@ -69,22 +68,62 @@ public class OrderDAO extends JdbcDAO {
 		return cart;
 	}
 	
-	//회원번호를 전달받아  테이블에 저장된 단일행을 검색하여 회원정보를 반환하는 메소드
-	//주문자의 이름, 전화번호, 이메일 
-	//public ClientDTO selectClientByNum(int clientNum)  -> ClientDAO 사용
 	
-	
-	//단일행 검색  
-	//배송지 작성 -> 주문자 정보와 동일 누를 경우 이름 연락처 이메일 주소 자동 입력 +
-	//배송 요청사항 INSERT
-	
-	
-	//새로운 배송지 버튼 누르면 입력창 초기화, 받는 사람 연락처 이메일 주소 배송요청사항을 전달받아
-	//주문 테이블에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드 
-	
-	//결제하기 버튼을 누르면 TIMESTAMP 객체 만들어서 데이터 삽입 
-	
-	
-	 
-	
+		//주문정보를 전달받아 ORDER 테이블에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
+		public int insertOrder(OrderDTO order) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			int rows=0;
+			try {
+				con=getConnection();
+				
+				String sql="insert into order_table values(order_seq.nextval,?,?,sysdate,?,0,?,?,?,?,?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, order.getOrderClientNum());
+				pstmt.setString(2, order.getOrderTime());
+				pstmt.setInt(3, order.getOrderProductNum());
+				pstmt.setInt(4, order.getOrderSum());
+				pstmt.setInt(5, order.getOrderDisSum());
+				pstmt.setString(6, order.getOrderContent());
+				pstmt.setString(7, order.getOrderReceiver());
+				pstmt.setString(8, order.getOrderZipcode());
+				pstmt.setString(9, order.getOrderAddress1());
+				pstmt.setString(10, order.getOrderAddress2());
+				pstmt.setString(11, order.getOrderMobile());
+				pstmt.setInt(12, order.getOrderCount());
+						
+				rows=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("[에러]insertOrder() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
+		}
+		
+		
+		
+		//제품번호와 수량을 전달받아서 주문테이블의 행에 추가하는 메소드
+		public int insertSingleOrder(int productNum, int count) {
+			Connection con=null;
+			
+			
+			PreparedStatement pstmt=null;
+			int rows=0;
+			try {
+				con=getConnection();
+				
+				String sql="insert into order_table values(?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, productNum);
+				pstmt.setInt(2, count);
+				
+				rows=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("[에러]insertSingleOrder() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
+		}
 }
