@@ -151,10 +151,6 @@ div {
 .card-title{
 	font-weight: bold;
 }
-.card-title>a{
-	
-}
-a:link { color:pink; }
 .prdList>li {
 	position: relative;
 	display: inline-block;

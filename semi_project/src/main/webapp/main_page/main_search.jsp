@@ -56,7 +56,7 @@
 					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
 					</a>
 					</div>
-					<div class="card-body item-box" >
+					<div class="card-body item-box"  style="text-align: left;">
 						<h5 class="card-title" ><%=pro.getProductName() %></h5>
 						<p class="card-text" ><%=pro.getProductCom() %></p>
 						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
