@@ -12,6 +12,10 @@ import xyz.itwill.DTO.CategoryDTO;
 public class CategoryDAO extends JdbcDAO{
 	private static CategoryDAO _dao;
 	
+	private CategoryDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	static {
 		_dao = new CategoryDAO();
 	}

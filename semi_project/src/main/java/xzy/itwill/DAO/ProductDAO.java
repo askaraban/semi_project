@@ -12,6 +12,10 @@ import xyz.itwill.DTO.ProductDTO;
 public class ProductDAO extends JdbcDAO{	
 	private static ProductDAO _dao;
 	
+	private ProductDAO() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	static {
 		_dao = new ProductDAO();
 	}

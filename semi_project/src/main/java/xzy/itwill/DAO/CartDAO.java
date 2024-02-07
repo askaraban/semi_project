@@ -12,6 +12,10 @@ import xyz.itwill.DTO.ClientDTO;
 
 public class CartDAO extends JdbcDAO {
 	private static CartDAO _dao;
+	
+	private CartDAO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	static {
 		_dao = new CartDAO();

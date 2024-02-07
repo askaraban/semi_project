@@ -12,6 +12,10 @@ import xyz.itwill.DTO.WishDTO;
 
 public class WishDAO extends JdbcDAO{
 	private static WishDAO _dao;
+	
+	private WishDAO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	static {
 		_dao = new WishDAO();
