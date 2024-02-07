@@ -70,7 +70,7 @@
 							method="post">
 							<input class=search-input type="text" placeholder="검색어 입력"
 								name="keyword" id="keyword"> <input type="image" id="image"
-								class=search-img
+								class=search-img onkeyup="enterkey()"
 								src="<%=request.getContextPath()%>/images/icon/icons8-search.png"
 								width="25" height="25">
 						</form>
@@ -133,5 +133,20 @@
 		$("#image").click(function() {
 			$("#searching").submit();
 		})
+		function enterkey() {
+			if (window.event.keyCode == 13) {
+		    	// 엔터키가 눌렸을 때 검색되도록 함수 등록
+		    }
+		}
+		<%-- div 밑으로 내리는거 모르겠음... 검색기능 일단 보류..
+		$("#keyword").keyup(function() {
+			var keyword = $("#keyword").val();
+			$.ajax({
+				type : "post",
+				url : "<%=request.getContextPath()%>/main_page/main.jsp?group=main_page&worker=main_search",
+				data : {"keyword" : keyword},
+			})
+		})
+		--%>
 	</script>
 </body>

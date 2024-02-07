@@ -136,4 +136,3 @@ $("img").filter(".wishHeart").click(function() {
 
 </script>
 </body>
-</html>

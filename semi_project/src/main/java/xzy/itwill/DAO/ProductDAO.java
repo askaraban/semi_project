@@ -229,6 +229,7 @@ public class ProductDAO extends JdbcDAO{
 			return productList;
 		}
 		
+		// 유형값을 전달받아 유형에 해당하는 제품목록을 나열하는 메소드
 		public List<ProductDTO> searchCateProductList(int category) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
@@ -269,4 +270,47 @@ public class ProductDAO extends JdbcDAO{
 				close(con, pstmt, rs);
 			} return productList;
 		} 
+		
+		// 검색단어를 전달받아 해당 단어에 해당되는 제품목록을 출력해주는 메소드
+				public List<ProductDTO> searchKeywordProductList(String keyword) {
+					Connection con=null;
+					PreparedStatement pstmt=null;
+					ResultSet rs=null;
+					List<ProductDTO> productList = new ArrayList<>();
+					try {
+						con=getConnection();
+						
+						String sql="select rownum, temp.* from (select product_num, product_name, product_price, product_com, product_cate, product_reg"
+								+ ", product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+								+ " from product_table where upper(product_name) like '%'||upper(?)||'%' order by product_name) "
+								+ " temp where rownum <= 10";
+						
+						pstmt=con.prepareStatement(sql);
+						
+						pstmt.setString(1, keyword);
+						
+						rs=pstmt.executeQuery();
+						
+						while(rs.next()) {
+							ProductDTO product = new ProductDTO();
+							product.setProductNum(rs.getInt("product_num"));
+							product.setProductName(rs.getString("product_name"));
+							product.setProductPrice(rs.getInt("product_price"));
+							product.setProductCom(rs.getString("product_com"));
+							product.setProductCate(rs.getInt("product_cate"));
+							product.setProductReg(rs.getString("product_reg"));
+							product.setProductDis(rs.getInt("product_dis"));
+							product.setProductDisContent(rs.getString("product_dis_content"));
+							product.setProductMainImg(rs.getString("product_main_img"));
+							product.setProductImg1(rs.getString("product_img1"));
+							product.setProductImg2(rs.getString("product_img2"));
+							product.setProductImg3(rs.getString("product_img3"));
+							productList.add(product);
+						}
+					} catch (SQLException e) {
+						System.out.println("[에러]searchKeywordProductList() 메소드의 SQL 오류 = "+e.getMessage());
+					} finally {
+						close(con, pstmt, rs);
+					} return productList;
+				} 
 }

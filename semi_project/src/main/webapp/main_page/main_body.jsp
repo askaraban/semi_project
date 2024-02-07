@@ -84,7 +84,7 @@
 					</a>
 					</div>
 					<div class="card-body item-box">
-						<h5 class="card-title" ><%=pro.getProductName() %></h5>
+						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black;" ><%=pro.getProductName() %></a></h5>
 						<p class="card-text" ><%=pro.getProductCom() %></p>
 						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
 						<p>
