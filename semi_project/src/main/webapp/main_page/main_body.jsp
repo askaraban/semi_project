@@ -125,28 +125,30 @@ $("img").filter(".wishHeart").click(function() {
 	<%-- 로그인 하지 않았을 시 로그인 페이지로 이동--%>
 	if(<%=login%>==0){
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=client_login";
+	} else {
+		<%-- 로그인 시 좋아요 눌렀을 시 동작되는 ajax--%>
+		$.ajax({
+			type: "get",
+		    url : "<%=request.getContextPath()%>/main_page/main_like_action.jsp?productNum="+productNum+"&title="+title,
+		    dataType : "xml",
+		    success:function(xmlDoc){
+		    	var code = $(xmlDoc).find("code").text();
+		    	if(code=="success"){
+		    		var titleName = $(xmlDoc).find("title").text();
+		    		$("#"+productNum).attr("src", "<%=request.getContextPath()%>/images/icon/heart-red.png")
+		    		$("#"+productNum).attr("title", titleName);
+		    	} else{
+		    		var titleName = $(xmlDoc).find("title").text();
+		    		$("#"+productNum).attr("src", "<%=request.getContextPath()%>/images/icon/heart-black.png")
+		    		$("#"+productNum).attr("title", titleName);
+		    	}
+		    },
+		    error:function(xhr){
+		    	alert("[에러] = "+xhr.status);
+		    }
+		});
 	}
-	<%-- 로그인 시 좋아요 눌렀을 시 동작되는 ajax--%>
-	$.ajax({
-		type: "get",
-	    url : "<%=request.getContextPath()%>/main_page/main_like_action.jsp?productNum="+productNum+"&title="+title,
-	    dataType : "xml",
-	    success:function(xmlDoc){
-	    	var code = $(xmlDoc).find("code").text();
-	    	if(code=="success"){
-	    		var titleName = $(xmlDoc).find("title").text();
-	    		$("#"+productNum).attr("src", "<%=request.getContextPath()%>/images/icon/heart-red.png")
-	    		$("#"+productNum).attr("title", titleName);
-	    	} else{
-	    		var titleName = $(xmlDoc).find("title").text();
-	    		$("#"+productNum).attr("src", "<%=request.getContextPath()%>/images/icon/heart-black.png")
-	    		$("#"+productNum).attr("title", titleName);
-	    	}
-	    },
-	    error:function(xhr){
-	    	alert("[에러] = "+xhr.status);
-	    }
-	});
+	
 	
 	
 })
