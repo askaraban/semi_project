@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<link href="<%=request.getContextPath()%>/style/review_list_style.css" type="text/css" rel="stylesheet">
 <%
 	
 	String search=request.getParameter("search");
@@ -61,7 +61,9 @@
 	
 	//int displayNum=totalNotice-(pageNum-1)*pageSize;
 %>
+
 <style type="text/css">
+<%-- 사용 안하지만 혹시 몰라서 제거 안했음
 #notice_list {
 	width: 1000px;
 	margin: 0 auto;
@@ -122,11 +124,25 @@ td {
 #page_list a:hover {
 	font-size: 1.3em;
 }
+--%>
+
+#noticeWriteBtn {
+	border: 1px solid gray;
+	background: pink;
+	color: black;
+}
+
+#qaWriteBtn {
+	border: 1px solid gray;
+	background: pink;
+	color: black;
+}
 
 </style>
 
 <h2>고객센터</h2>
 <div id="notice_list">
+	<div id="review_title">공지사항/Q&A</div>
 	<br>
 	<div id="notice_title"></div>
 	
@@ -136,19 +152,13 @@ td {
 		<div></div>
 	</table>
 	<table>
+
 		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-		<tr>
-			<th width="100">번호</th>
-			<th width="420">제목</th>
-			<th width="150">작성자</th>
-			<th width="150">작성일</th>
-			<th width="80">조회</th>
+			<th width="100">글번호</th>
+			<th width="500">제목</th>
+			<th width="100">작성자</th>
+			<th width="100">조회수</th>
+			<th width="200">작성일</th>
 		</tr>
 		
 		
@@ -192,11 +202,14 @@ td {
 	</table>
 	<table>
 		<tr>
-			<th width="100">번호</th>
-			<th width="420">제목</th>
-			<th width="150">작성자</th>
-			<th width="150">작성일</th>
-			<th width="80">조회</th>
+			<th width="100"></th>
+			<th width="500"></th>
+			<th width="100"></th>
+			<th width="100"></th>
+			<th width="200"></th>
+		</tr>
+		<tr id="nolist">
+			<td colspan="5">검색된 게시글이 없습니다.</td>
 		</tr>
 	</table>
 	
@@ -208,7 +221,7 @@ td {
 	<div style="text-align: right;" id="notice_write">
 		<button type="button" id="noticeWriteBtn">공지쓰기</button>
 		<button type="button" id="qaWriteBtn">QA쓰기</button>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;
 	</div>
 	
 	
@@ -218,18 +231,18 @@ td {
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		
 			
-			<a><</a>
+			[이전]
 		
 			
 		
 		
 		
 			<%-- 요청 페이지번호와 출력된 페이지번호가 같지 않은 경우에만 링크 제공 --%>
-			
+			<a href="#">[i]</a>
 	
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		
-			<a>></a>
+			<a href="">[다음]</a>
 		
 		
 		
