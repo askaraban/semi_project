@@ -1,3 +1,5 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
 <%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="xzy.itwill.DAO.CategoryDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,6 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%
+
+	DecimalFormat format = new DecimalFormat("###,###,##0");
 	// 검색기능에 필요한 전달값을 저장하기 위한 변수 ex) 제품번호, 제품명, 유형 카테고리 선택
 	String search = (String)request.getParameter("search");
 	if(search==null){
@@ -34,21 +38,27 @@
 	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
 	
 	// 전달받은 페이지 수가 비정상적인 경우 
-	if(pageNum<0 || pageNum>totalPage ){
+	if(pageNum<=0 || pageNum>totalPage ){
 		pageNum=1;
 	}
+
 	// 페이지 번호에 대한 페이지의 시작번호를 저장하기 위한 변수 - 10의 간격으로 시작하도록 하시오
 	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
-	int startNum = (pageNum-1)*pageSize + 1;
-	
+	int startRow = (pageNum-1)*pageSize + 1;
+
 	// 페이지 번호에 대한 페이지의 끝번호를 저장하기 위한 변수
 	// ex) 1) 1~10 2) 11~20 3) 21~30 ...
-	int endNum = pageNum * pageSize;
+	int endRow = pageNum * pageSize;
 	
-	if(endNum>totalProduct){
-		endNum=totalProduct;
+	if(endRow>totalProduct){
+		endRow=totalProduct;
 	}
+	List<ProductDTO> productList = ProductDAO.getDAO().searchProductList(search, keyword, startRow, endRow);
+	// 페이지에 출력될 제품들의 일련번호 시작값을 계산하여 저장
+	// => 검색된 제품의 총 개수 : 91 >> 1Page : 91 ~ 82 , 2Page: 81 ~ 3Page : 71 
+	int displayNum = totalProduct - (pageNum-1) * pageSize;
 	
+	ProductDTO updateProduct = new ProductDTO();
 	
 %>
 
@@ -59,14 +69,6 @@
 
 .product_Btn {
 	display: inline-block;
-}
-
-.insert_div {
-	display: none;
-}
-
-#productList_div {
-	display: none;
 }
 
 div ul li {
@@ -101,93 +103,63 @@ td {
 	text-align: center;
 }
 </style>
-
-<form
-	action="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_action"
-	method="post" enctype="multipart/form-data" id="uploadForm">
-	<div class="manager_body">
-		<div class="product_Btn">
-			<button type="button" id="listBtn">제품 목록</button>
-		</div>
-		<div class="product_Btn">
-			<button type="button" id="insertBtn">제품 추가</button>
-		</div>
-		<div class="insert_div_content">
-			<ul>
-				<li>
-					<div class="insert_div">
-						<input type="text" name="productName"> <label>제품명</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
-						<input type="text" name="productPrice"> <label>가격</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
-						<input type="text" name="productCom"> <label>제조사</label>
-					</div>
-				</li>
-				<li>
-					<div class="insert_div">
-						<select name="productCate">
-							<option value="10">&nbsp;스낵&nbsp;</option>
-							<option value="20">&nbsp;파이&amp;쿠키&nbsp;</option>
-							<option value="30">&nbsp;캔디&amp;젤리&nbsp;</option>
-							<option value="40">&nbsp;초콜릿&nbsp;</option>
-							<option value="50">&nbsp;껌&nbsp;</option>
-						</select> <label>유형</label>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="insert_div_content">
-		<ul>
-			<li>
-				<div class="insert_div">
-					<input type="file" name="productMainImg"> <label>제품이미지</label>
-				</div>
-			</li>
-			<li>
-				<div class="insert_div">
-					<input type="file" name="productImg1"> <label>상세이미지1</label>
-				</div>
-			</li>
-			<li>
-				<div class="insert_div">
-					<input type="file" name="productImg2"> <label>상세이미지2</label>
-				</div>
-			</li>
-			<li>
-				<div class="insert_div">
-					<input type="file" name="productImg3"> <label>상세이미지3</label>
-				</div>
-			</li>
-		</ul>
-	</div>
-	<hr>
-	<div class="insert_div">
-		<button type="submit">제품등록</button>
-		<button type="reset">다시입력</button>
-	</div>
-</form>
-
-
-
 <div id="productList_div">
 	<table>
 		<tr>
+			<th>번호</th>
 			<th>제품번호</th>
 			<th>제품명</th>
 			<th>유형</th>
 			<th>가격</th>
 			<th>할인율(%)</th>
-			<th>판매량</th>
+			<th>할인내용</th>
 		</tr>
+		
+		<%if(totalProduct==0){%>
+		<tr>
+			<td colspan="6">검색된 제품이 없습니다.</td>
+		</tr>
+		<%} else { %>
+			<%for(ProductDTO pro : productList) {%>
+				<tr>
+					<% String url = request.getContextPath()+"/manager_page/manager.jsp?group=manager_page&worker=manager_product_update"
+						+"&productNum="+pro.getProductNum()+"&productName="+pro.getProductName()+"&productPrice="+pro.getProductPrice()+"&productCom="
+						+pro.getProductCom()+"&productCate="+pro.getProductCate()+"&productDis="+pro.getProductDis()+"&productDisContent="
+						+pro.getProductDisContent()+"&productImg1="+pro.getProductImg1()+"&productImg2="+pro.getProductImg2()+"&productImg3="
+						+pro.getProductImg3()+"&productMainImg="+pro.getProductMainImg(); 
+						
+					%>
+					<td><%=displayNum %></td>
+					<%displayNum--; // 제품 게시물들의 번호를 1씩 감소시킴  %>
+					<td>&nbsp;<%=pro.getProductNum() %>&nbsp;</td>
+					<td>&nbsp;<a href="<%=request.getContextPath()+"/manager_page/manager.jsp?group=manager_page&worker=manager_product_update"%>"><%=pro.getProductName() %></a>&nbsp;</td>
+					<td>&nbsp;<%=pro.getProductCate() %>&nbsp;</td>
+					<td>&nbsp;<%=format.format(pro.getProductPrice()) %>원&nbsp;</td>
+					<td>&nbsp;<%=pro.getProductDis() %>&nbsp;</td>
+					<%if(pro.getProductDisContent()==null) { %>
+						<td> </td>
+					<%} else {%>
+					<td>&nbsp;<%=pro.getProductDisContent() %>&nbsp;</td>
+					<%} %>
+				</tr>
+			<%} %>
+		<%} %>
 	</table>
+	<div>
+	<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
+	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post">
+		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정 --%>
+		<select name="search">
+			<option value="product_num" <%if(search.equals("product_num")) {%> selected<%} %>>&nbsp;제품번호&nbsp;</option>
+			<option value="product_name" <%if(search.equals("product_name")) {%> selected<%} %>>&nbsp;제품이름&nbsp;</option>
+			<option value="product_cate" <%if(search.equals("product_cate")) {%> selected<%} %>>&nbsp;유형&nbsp;</option>
+		</select>
+		<input type="text" name="keyword" value="<%=keyword%>">
+		<button type="button" id="searchBtn">검색</button>
+	</form>
+	</div>
 </div>
+
 <script type="text/javascript">
 	$("#insertBtn").click(function() {
 		$(".insert_div").css("display", "block");
@@ -199,4 +171,9 @@ td {
 		$("#productList_div").css("display", "block");
 		$(".insert_div").css("display", "none");
 	});
+	
+	$("#searchBtn").click(function() {
+		$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/manager_page/manager.jsp?group=cart_page&worker=cart_remove_action");
+	})
+	
 </script>

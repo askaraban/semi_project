@@ -20,11 +20,18 @@
 	int productPrice=Integer.parseInt(mr.getParameter("productPrice"));
 	String productCom=mr.getParameter("productCom");
 	int productCate=Integer.parseInt(mr.getParameter("productCate"));
+	int productDis=Integer.parseInt(mr.getParameter("productDis"));
+	
+	String productDisContent=null;
 	// MultipartRequest.getFilesystemName(String name) : 전달파일의 업로드 파일명을 반환하는 메소드
 	String productMainImg=null;
 	String productImg1=null;
 	String productImg2=null;
 	String productImg3=null;
+	
+	if(mr.getFilesystemName("productDisContent")!=null) {
+		productDisContent=mr.getParameter("productDisContent");
+	}
 	
 	if(mr.getFilesystemName("productMainImg")!=null){
 		productMainImg = mr.getOriginalFileName("productMainImg");
@@ -52,10 +59,11 @@
 	product.setProductImg1(productImg1);
 	product.setProductImg2(productImg2);
 	product.setProductImg3(productImg3);
+	product.setProductDis(productDis);
+	product.setProductDisContent(productDisContent);
 	
 	
-	
-	int rows = ProductDAO.getDAO().insertProduct(product);
+	int rows = ProductDAO.getDAO().updateProduct(product);
 	
 	request.setAttribute("returnURL", request.getContextPath()+"/manager_page/manager.jsp?worker=manager_product");
 %>

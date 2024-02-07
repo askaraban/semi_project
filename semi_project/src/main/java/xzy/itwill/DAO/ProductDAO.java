@@ -98,6 +98,38 @@ public class ProductDAO extends JdbcDAO{
 		} return rows;
 	}
 	
+	// 제품을 등록하는 메소드
+		public int updateProduct(ProductDTO product) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			int rows = 0;
+			
+			try {
+				con=getConnection();
+				String sql = "update set product_table product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+						+ ", product_dis_content=?, product_main_img=?, product_img1, product_img2, product_img3";
+				
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, product.getProductName());
+				pstmt.setInt(2, product.getProductPrice());
+				pstmt.setString(3, product.getProductCom());
+				pstmt.setInt(4, product.getProductCate());
+				pstmt.setInt(5, product.getProductDis());
+				pstmt.setString(6, product.getProductDisContent());
+				pstmt.setString(7, product.getProductMainImg());
+				pstmt.setString(8, product.getProductImg1());
+				pstmt.setString(9, product.getProductImg2());
+				pstmt.setString(10, product.getProductImg3());
+				
+				rows=pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]insertProduct() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt);
+			} return rows;
+		}
+	
 	// 제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을 반환하는 메소드
 	public ProductDTO selectProductByNum(int productNum) {
 		Connection con=null;
@@ -151,12 +183,9 @@ public class ProductDAO extends JdbcDAO{
 				if(keyword.equals("")) {
 					String sql = "select count(*) from product_table";
 					pstmt=con.prepareStatement(sql);
-					
-				} else if(search.equals("제품번호")){
-					String sql = "select count(*) from product_table where where number("+keyword+")=product_num";
-					pstmt=con.prepareStatement(sql);
+
 				} else {
-					String sql = "select count(*) from product_table where where"+search+" like '%'||?||'%'";
+					String sql = "select count(*) from product_table where where "+search+" like '%'||?||'%'";
 					pstmt=con.prepareStatement(sql);
 					
 					pstmt.setString(1, keyword);
@@ -172,7 +201,7 @@ public class ProductDAO extends JdbcDAO{
 				close(con, pstmt, rs);
 			} return totalCount;
 		}
-		// 페이지 만들라고 만든 dao인데 보류...
+		// 페이지 만들기
 		public List<ProductDTO> searchProductList(String search, String keyword, int startNum, int endNum) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
@@ -182,32 +211,25 @@ public class ProductDAO extends JdbcDAO{
 				con=getConnection();
 				
 				if(keyword.equals("")) {
-					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
-							+ " from product_table where startNum=? and endNum=?";
+					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
+							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+							+ " from product_table order by product_num desc) temp) where rn between ? and ?";
 					
 					pstmt=con.prepareStatement(sql);
 					
 					pstmt.setInt(1, startNum);
 					pstmt.setInt(2, endNum);
 					
-					
-				} else if(keyword.equals("제품번호")){
-					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
-							+ " from product_table where " +search+"=number(?) and startNum=? and endNum=?";
-					
+				} else {
+					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com"
+							+ ", product_cate, product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+							+ " from product_table where "+search+" like '%'||?||'%' order by product_num desc) temp) where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					
 					pstmt.setString(1,keyword);
 					pstmt.setInt(2, startNum);
 					pstmt.setInt(3, endNum);
-				} else {
-					String sql="select produc_num, product_name,product_com, product_cate, product_price, product_dis, product_dis_content"
-							+ " from product_table where " +search+" like '%'||?||'%' and startNum=? and endNum=?";
-					pstmt.setString(1,keyword);
-					pstmt.setInt(2, startNum);
-					pstmt.setInt(3, endNum);
 				}
-				
 				
 				rs=pstmt.executeQuery();
 				
@@ -220,6 +242,11 @@ public class ProductDAO extends JdbcDAO{
 					product.setProductCate(rs.getInt("product_cate"));
 					product.setProductDis(rs.getInt("product_dis"));
 					product.setProductDisContent(rs.getString("product_dis_content"));
+					product.setProductMainImg(rs.getString("product_main_img"));
+					product.setProductImg1(rs.getString("product_img1"));
+					product.setProductImg2(rs.getString("product_img2"));
+					product.setProductImg3(rs.getString("product_img3"));
+					productList.add(product);
 				}
 			} catch (SQLException e) {
 				System.out.println("[에러]searchProductList() 메소드의 SQL 오류 = "+e.getMessage());
