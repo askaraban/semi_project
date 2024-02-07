@@ -98,26 +98,29 @@
 		<hr>
 		<div class="nav-scroller py-1 mb-2">
 			<nav class="nav d-flex justify-content-between">
-				<a class="navbar-brand"
-					href="/main_page/main.jsp?group=product_page&worker=#"> <img
+				<a class="navbar-brand" 
+					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_cate&category=10">
+					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-pretzel.png"
 					width="25">&nbsp;스낵
 				</a> <a class="navbar-brand"
-					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=#">
+					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_cate&category=20">
 					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-cookie.png"
-					width="25">&nbsp;파이&쿠키
-				</a> <a class="navbar-brand"
-					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=#">
+					width="25">&nbsp;파이&amp;쿠키
+				</a> <a class="navbar-brand" 
+					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_cate&category=30">
 					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-candy.png"
-					width="25">&nbsp;캔디&젤리
-				</a> <a class="navbar-brand"
-					href="/main_page/main.jsp?group=product_page&worker=#"> <img
+					width="25">&nbsp;캔디&amp;젤리
+				</a> <a class="navbar-brand" 
+					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_cate&category=40">
+					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-chocolate.png"
 					width="25">&nbsp;초콜릿
-				</a> <a class="navbar-brand"
-					href="/main_page/main.jsp?group=product_page&worker=#"> <img
+				</a> <a class="navbar-brand" 
+					href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_cate&category=50">
+					<img
 					src="<%=request.getContextPath()%>/images/icon/icons-chewing-gum.png"
 					width="25">&nbsp;껌
 				</a>
