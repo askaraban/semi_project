@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import xyz.itwill.DTO.NoticeDTO;
+import xyz.itwill.DTO.QaDTO;
 
 public class NoticeDAO extends JdbcDAO {
 	private static NoticeDAO _dao;
@@ -157,5 +160,93 @@ public class NoticeDAO extends JdbcDAO {
 		}
 		return notice;
 	}
+	
+	//검색정보(검색대상과 검색단어)를 전달받아 REVIEW 테이블에 저장된 게시글 중 검색대상의 
+	//컬럼에 검색단어가 포함된 게시글의 갯수를 검색하여 반환하는 메소드
+	// => 검색 기능을 사용하지 않을 경우 REVIEW 테이블에 저장된 모든 게시글의 갯수를 검색하여 반환
+	public int selectTotalNotice(String search, String keyword) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int totalCount=0;
+		try {
+			con=getConnection();
+			
+			if(keyword=="") {
+				String sql="select count(*) from notice_table";
+				pstmt=con.prepareStatement(sql);
+			} else {
+				String sql="select count(*) from notice_table where "+search+" like '%'||?||'%'";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			}
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCount=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectTotalNotice() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return totalCount;
+	}
+	
+	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
+		//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 메소드
+		public List<NoticeDTO> selectNoticeList(int startRow, int endRow, String search, String keyword) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			List<NoticeDTO> qaList=new ArrayList<NoticeDTO>();
+			try {
+				con=getConnection();
+				
+				if(keyword.equals("")) { //검색 기능을 사용하지 않는 경우
+					String sql="select * from (select rownum rn, temp.* from (select notice_num"
+							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
+							+ ", notice_count from notice_table join client_table"
+							+ " on qa_member=client_num order by qa_register desc) temp)"
+							+ "where rn between ? and ?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, startRow);
+					pstmt.setInt(2, endRow);
+				} else { //검색 기능을 사용한 경우
+					String sql="select * from (select rownum rn, temp.* from (select qa_num"
+							+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
+							+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
+							+ " on qa_member=client_num where "+search+" like '%'||?||'%'"
+							+ " order by qa_register desc)temp)where rn between ? and ?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, keyword);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
+				}
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					QaDTO qa=new QaDTO();
+					qa.setQaNum(rs.getInt("qa_num"));
+					qa.setQaMember(rs.getInt("qa_member"));
+					qa.setQaSubject(rs.getString("qa_subject"));
+					qa.setQaContent(rs.getString("qa_content"));
+					qa.setQaImage(rs.getString("qa_image"));
+					qa.setQaRegister(rs.getString("qa_register"));
+					qa.setQaUpdate(rs.getString("qa_update"));
+					qa.setQaReadCount(rs.getInt("qa_readcount"));
+					qa.setQaReplay(rs.getInt("qa_replay"));
+					
+					qaList.add(qa);
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return qaList;
+		}
 	
 }
