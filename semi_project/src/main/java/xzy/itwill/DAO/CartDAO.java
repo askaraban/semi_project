@@ -76,6 +76,32 @@ public class CartDAO extends JdbcDAO {
 		}
 		return rows;
 	}
+	
+	// 카트번호를 전달받아 CART_TABLE 에 cart_product_num의 유무를 검색하는 메소드
+	public int selectProductCount(int cartNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int rows = 0;
+
+		try {
+			con = getConnection();
+			String sql = "select count(cart_product_num) as cart_product_num from cart_table where cart_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cartNum);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				rows = rs.getInt("cart_product_num");
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectProductCount() 메소드 오류" + e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
 
 	// 장바구니에 같은 productNum이 이미 있을 경우 기존 상품 주문 수량을 업데이트 하는 메소드
 	public int updateCart(int clientNum, int productNum, int count) {
@@ -170,7 +196,7 @@ public class CartDAO extends JdbcDAO {
 		return cartList;
 	}
 
-	public int deleteCart(CartDTO cartNum) {
+	public int deleteCart(int cartNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
@@ -179,7 +205,7 @@ public class CartDAO extends JdbcDAO {
 			con = getConnection();
 			String sql = "delete from cart_table where cart_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cartNum.getCartNum());
+			pstmt.setInt(1, cartNum);
 
 			rows = pstmt.executeUpdate();
 

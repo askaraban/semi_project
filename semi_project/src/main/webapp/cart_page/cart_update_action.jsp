@@ -11,28 +11,19 @@
 		request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
+
+	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient"); //회원번호를 session으로 전달받음
+	String[] cartNum = request.getParameterValues("countChangeBtn"); // sumit 버튼의 name으로 전달받은 값 - 제품번호
+	// 제품번호를 연결시켜 전달받으면 수량값을 전달받을 수 있음
+	String productCount = request.getParameter("productCount_"+cartNum[0]); 
 	
-	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
+	int num = Integer.parseInt(cartNum[0]);
 	
-	List<CartDTO> cartArray = new ArrayList<>();
-	int cnt=0;
+	CartDTO cart = new CartDTO();
+	cart.setCartClientNum(loginClient.getClientNum());
+	cart.setCartNum(num);
+	cart.setCartCount(Integer.parseInt(productCount));
 	
-	while(true){
-		CartDTO cart = new CartDTO();
-		if(request.getParameter("cartNum"+cnt+"")==null){
-			break;
-		}
-		int cartCount =  Integer.parseInt(request.getParameter("cartCount"+cnt+"")); 
-		int cartNum =  Integer.parseInt(request.getParameter("cartNum"+cnt+"")); 
-		cart.setCartCount(cartCount);
-		cart.setCartNum(cartNum);
-		cart.setCartClientNum(loginClient.getClientNum());
-		cartArray.add(cart);
-		cnt++;
-	}
-	for(CartDTO cartList : cartArray){
-		CartDAO.getDAO().updateCartPageContent(cartList);
-	}
-	
+	CartDAO.getDAO().updateCartPageContent(cart);
 	request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=cart_page&worker=cart");
 %>

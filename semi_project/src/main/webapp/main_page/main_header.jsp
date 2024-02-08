@@ -27,7 +27,7 @@
 
 <body>
 	<div id="header">
-		<!-- 최상단 메뉴d-->
+		<!-- 최상단 메뉴-->
 		<header class="main-header py-3">
 			<div
 				class="row flex-nowrap justify-content-between align-items-center">
@@ -138,15 +138,5 @@
 		    	// 엔터키가 눌렸을 때 검색되도록 함수 등록
 		    }
 		}
-		<%-- div 밑으로 내리는거 모르겠음... 검색기능 일단 보류..
-		$("#keyword").keyup(function() {
-			var keyword = $("#keyword").val();
-			$.ajax({
-				type : "post",
-				url : "<%=request.getContextPath()%>/main_page/main.jsp?group=main_page&worker=main_search",
-				data : {"keyword" : keyword},
-			})
-		})
-		--%>
 	</script>
 </body>
