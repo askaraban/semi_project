@@ -205,9 +205,9 @@ public class NoticeDAO extends JdbcDAO {
 				con=getConnection();
 				
 				if(keyword.equals("")) { //검색 기능을 사용하지 않는 경우
-					String sql="select * from (select rownum rn, temp.* from (select qa_num"
-							+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
-							+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
+					String sql="select * from (select rownum rn, temp.* from (select notice_num"
+							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
+							+ ", notice_count from notice_table join client_table"
 							+ " on qa_member=client_num order by qa_register desc) temp)"
 							+ "where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
