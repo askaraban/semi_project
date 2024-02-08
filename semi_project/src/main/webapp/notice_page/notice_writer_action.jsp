@@ -85,6 +85,6 @@
 	NoticeDAO.getDAO().insertNotice(notice);
 	
 	//페이지 이동 - 검색 및 페이징 처리 관련 값 전달
-	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail"
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_main"
 		+"&pageNum="+pageNum+"&pageSize="+pageSize+"&search="+search+"&keyword="+keyword);
 %>
