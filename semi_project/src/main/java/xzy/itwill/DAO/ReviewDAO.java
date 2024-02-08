@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.itwill.DTO.QaDTO;
 import xyz.itwill.DTO.ReviewDTO;
 
 public class ReviewDAO extends JdbcDAO {
@@ -36,19 +35,6 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
          
-//			if(keyword=="") {
-//				String sql="select count(*) from review_table";
-//				pstmt=con.prepareStatement(sql);
-//			} else {
-//				String sql="select count(*) from review_table";
-//				pstmt=con.prepareStatement(sql);
-//			} else {
-//				String sql="select count(*) from review_table where "+search+" like '%'||?||'%'";
-//				pstmt=con.prepareStatement(sql);
-//				pstmt.setString(1, keyword);
-//			}
-			// # ↑ 첫번째와 두번째가 겹치고 문법이 잘못되어서 수정했습니당 
-			// # ↓ 이게 맞다면 위에껀 삭제해주세욥
 			if(keyword=="") {
 				String sql="select count(*) from review_table";
 				pstmt=con.prepareStatement(sql);
@@ -111,19 +97,19 @@ public class ReviewDAO extends JdbcDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-	            ReviewDTO reviewTable = new ReviewDTO();
-	            reviewTable.setReviewNum(rs.getInt("review_num"));
-	            reviewTable.setReviewMemberNum(rs.getInt("review_member_num"));
-	            reviewTable.setReviewName(rs.getString("name"));
-	            reviewTable.setReviewSubject(rs.getString("review_subject"));
-	            reviewTable.setReviewContent(rs.getString("review_content"));
-	            reviewTable.setReviewImage(rs.getString("review_image"));
-	            reviewTable.setReviewRegister(rs.getString("review_register"));
-	            reviewTable.setReviewUpdate(rs.getString("review_update"));
-	            reviewTable.setReviewReadcount(rs.getInt("review_readcount"));
-	            reviewTable.setReviewReplay(rs.getInt("review_replay"));
+	            ReviewDTO review = new ReviewDTO();
+	            review.setReviewNum(rs.getInt("review_num"));
+	            review.setReviewMemberNum(rs.getInt("review_member_num"));
+	            review.setReviewName(rs.getString("name"));
+	            review.setReviewSubject(rs.getString("review_subject"));
+	            review.setReviewContent(rs.getString("review_content"));
+	            review.setReviewImage(rs.getString("review_image"));
+	            review.setReviewRegister(rs.getString("review_register"));
+	            review.setReviewUpdate(rs.getString("review_update"));
+	            review.setReviewReadcount(rs.getInt("review_readcount"));
+	            review.setReviewReplay(rs.getInt("review_replay"));
 
-	            reviewList.add(reviewTable);
+	            reviewList.add(review);
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectReviewList() 메소드의 SQL 오류 = " + e.getMessage());
@@ -134,7 +120,7 @@ public class ReviewDAO extends JdbcDAO {
 	}
    
 	// REVIEW_SEQ 시퀸스의 다음값(정수값)을 검색하여 반환하는 메소드
-	public int selectReivewNextNum() {
+	public int selectReivewTanleNextNum() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -159,34 +145,7 @@ public class ReviewDAO extends JdbcDAO {
 	}
    
 	//게시글을 전달받아 REVIEW_TABLE에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
-	public int insertReview(ReviewDTO reviewTable) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		int rows=0;
-		try {
-			con=getConnection();
-			
-			String sql="insert into review_table values(?,?,?,?,?,sysdate,null,0,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, reviewTable.getReviewNum());
-			pstmt.setInt(2, reviewTable.getReviewMemberNum());
-			pstmt.setString(3, reviewTable.getReviewSubject());
-			pstmt.setString(4, reviewTable.getReviewContent());
-			pstmt.setString(5, reviewTable.getReviewImage());
-			pstmt.setInt(6, reviewTable.getReviewReplay());
-			
-			rows=pstmt.executeUpdate();
-		} catch (SQLException e) {
-		System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
-		} finally {
-		close(con, pstmt);
-		}
-		return rows;
-	}
-
-	// # 이름 중복떠서 임의로 이름에 ~~Two 붙여놨습니당
-	// # 수정 완료되시면 이름도 수정 부탁드려요
-	public int insertReviewTwo(ReviewDTO review) {	
+	public int insertReview(ReviewDTO review) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		int rows=0;
@@ -204,14 +163,14 @@ public class ReviewDAO extends JdbcDAO {
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
+		System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
-			close(con, pstmt);
+		close(con, pstmt);
 		}
 		return rows;
 	}
-	
-	// 제품번호를 전달받아 REVIEW 테이블의 제품별 리뷰를 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+
+	// 제품번호를 전달받아 REVIEWTABLE의 제품별 리뷰를 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
 	public ReviewDTO selectReviewByProductNum(int reviewProductNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -252,11 +211,11 @@ public class ReviewDAO extends JdbcDAO {
 
 	
 	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
-	public ReviewDTO selectRebiewdByNum(int reviewNum) {
+	public ReviewDTO selectRebiewTabledByNum(int reviewNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ReviewDTO qa=null;
+		ReviewDTO review=null;
 		try {
 			con=getConnection();
 			
@@ -270,79 +229,79 @@ public class ReviewDAO extends JdbcDAO {
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				qa=new ReviewDTO();
-				qa.setReviewNum(rs.getInt("review_num"));
-				qa.setReviewMemberNum(rs.getInt("review_member"));
-				qa.setReviewName(rs.getString("review_name"));
-				qa.setReviewSubject(rs.getString("review_subject"));
-				qa.setReviewContent(rs.getString("review_content"));
-				qa.setReviewImage(rs.getString("review_image"));
-				qa.setReviewRegister(rs.getString("review_register"));
-				qa.setReviewUpdate(rs.getString("review_update"));
-				qa.setReviewReadcount(rs.getInt("review_readcount"));
-				qa.setReviewReplay(rs.getInt("review_replay"));
+				review=new ReviewDTO();
+				review.setReviewNum(rs.getInt("review_num"));
+				review.setReviewMemberNum(rs.getInt("review_member_num"));
+				review.setReviewName(rs.getString("review_name"));
+				review.setReviewSubject(rs.getString("review_subject"));
+				review.setReviewContent(rs.getString("review_content"));
+				review.setReviewImage(rs.getString("review_image"));
+				review.setReviewRegister(rs.getString("review_register"));
+				review.setReviewUpdate(rs.getString("review_update"));
+				review.setReviewReadcount(rs.getInt("review_readcount"));
+				review.setReviewReplay(rs.getInt("review_replay"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
-		return qa;
+		return review;
 		//return rows;
 		// # rows -> qa 로 변경 (row가 정의되어있지 않아 오류발생하길래 수정했습니당)
 	}   
 
-	//글번호를 전달받아 QA 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
-	public QaDTO selectQaByNum(int qaNum) {
+	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+	public ReviewDTO selectRebiewTableByNum(int reviewNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		QaDTO qa=null;
+		ReviewDTO review=null;
 		try {
 			con=getConnection();
 			
-			String sql="select qa_num,qa_member,name qa_name,qa_subject,qa_content,qa_image"
-				+ ",qa_register,qa_update,qa_readcount,qa_replay from qa_table join"
-				+ " client_table on qa_table.qa_member=client_table.client_num"
-				+ " where qa_num=?";
+			String sql="select review_num,review_member_num,name review_name,review_subject,review_content,review_image"
+				+ ",review_register,review_update,review_readcount,review_replay from review_table join"
+				+ " client_table on review_table.teview_member_num=client_table.client_num"
+				+ " where review_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, qaNum);
+			pstmt.setInt(1, reviewNum);
 			
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				qa=new QaDTO();
-				qa.setQaNum(rs.getInt("qa_num"));
-				qa.setQaMember(rs.getInt("qa_member"));
-				qa.setQaName(rs.getString("qa_name"));
-				qa.setQaSubject(rs.getString("qa_subject"));
-				qa.setQaContent(rs.getString("qa_content"));
-				qa.setQaImage(rs.getString("qa_image"));
-				qa.setQaRegister(rs.getString("qa_register"));
-				qa.setQaUpdate(rs.getString("qa_update"));
-				qa.setQaReadCount(rs.getInt("qa_readCount"));
-				qa.setQaReplay(rs.getInt("qa_replay"));
+				review=new ReviewDTO();
+				review.setReviewNum(rs.getInt("review_num"));
+				review.setReviewMemberNum(rs.getInt("review_member_num"));
+				review.setReviewName(rs.getString("review_name"));
+				review.setReviewSubject(rs.getString("review_subject"));
+				review.setReviewContent(rs.getString("review_content"));
+				review.setReviewImage(rs.getString("review_image"));
+				review.setReviewRegister(rs.getString("review_register"));
+				review.setReviewUpdate(rs.getString("review_update"));
+				review.setReviewReadcount(rs.getInt("review_readcount"));
+				review.setReviewReplay(rs.getInt("review_replay"));
 			}
 	   } catch (SQLException e) {
 	      System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
 	   } finally {
 	      close(con, pstmt, rs);
 	   }
-	   return qa;
+	   return review;
 	}
    
-	//글번호를 전달받아 QA 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
+	//글번호를 전달받아 REVIEWTABLE 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 메소드
-	public int updateQaReadCount(int QaNum) {
+	public int updateReviewReadCount(int ReviewNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		int rows=0;
 		try {
 			con=getConnection();
 			
-			String sql="update qa_table set qa_readcount=qa_readcount+1 where qa_num=?";
+			String sql="update review_table set review_readcount=review_readcount+1 where review_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, QaNum);
+			pstmt.setInt(1, ReviewNum);
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -353,17 +312,17 @@ public class ReviewDAO extends JdbcDAO {
 		return rows;
 	}
 
-	//게시글을 전달받아 QA 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
-	public int deleteQa(int qaNum) {
+	//게시글을 전달받아 REVEIEWTABLE의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
+	public int deleteReview(int reviewNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		int rows=0;
 		try {
 			con=getConnection();
 			
-			String sql="delete from qa_table where qa_num=?";
+			String sql="delete from review_table where review_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, qaNum); 
+			pstmt.setInt(1, reviewNum); 
 		} catch (SQLException e) {
 			System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
