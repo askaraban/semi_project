@@ -31,7 +31,6 @@
 	}  else{
 		login=0;
 	}
-	
 %>	
 
 <body>
@@ -83,7 +82,18 @@
 					<div class="card-body item-box">
 						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
 						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
-						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
+						<%if(pro.getProductDis()!=0){ %>
+						<%
+						// 할인가를 나타내기 위한 변수
+						int discount =  (int)Math.floor(((double)(pro.getProductPrice())*(100-pro.getProductDis())/100)/10)*10;
+						%>
+						<p class="card-text" ><%=format.format(discount) %>원
+						<span class="discount" style="font-size: 10px;"><%=format.format(pro.getProductPrice()) %>원</span>
+						<%} else{%>
+						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원
+						<%} %>
+						</p>
+						
 						<p>
 							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>
 							<%if(loginClient==null) {%>
