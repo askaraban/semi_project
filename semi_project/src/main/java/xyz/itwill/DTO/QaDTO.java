@@ -3,15 +3,15 @@ package xyz.itwill.DTO;
 /*
 이름           널?       유형             
 ------------ -------- -------------- 
-QA_NUM       NOT NULL NUMBER         
-QA_MEMBER             NUMBER         
-QA_SUBJECT            VARCHAR2(500)  
-QA_CONTENT            VARCHAR2(4000) 
-QA_IMAGE              VARCHAR2(100)  
-QA_REGISTER           DATE           
-QA_UPDATE             DATE           
-QA_READCOUNT          NUMBER         
-QA_REPLAY             NUMBER      
+QA_NUM       NOT NULL NUMBER        	- 글번호
+QA_MEMBER             NUMBER        	- 작성자
+QA_SUBJECT            VARCHAR2(500) 	- 제목
+QA_CONTENT            VARCHAR2(4000)	- 내용
+QA_IMAGE              VARCHAR2(100) 	- 이미지 파일 경로
+QA_REGISTER           DATE          	- 작성날짜
+QA_UPDATE             DATE          	- 변경날짜
+QA_READCOUNT          NUMBER        	- 조회수
+QA_REPLAY             NUMBER 	        - 답글    
 */
 
 public class QaDTO {

@@ -12,6 +12,7 @@ REVIEW_REGISTER            DATE           - 작성날짜
 REVIEW_UPDATE              DATE           - 변경날짜
 REVIEW_READCOUNT           NUMBER(30)     - 조회수
 REVIEW_REPLAY              NUMBER(30)  	  - 답글
+REVIEW_PRODUCT_NUM         NUMBER(10)     - 제품번호
 */
 
 public class ReviewDTO {
@@ -25,13 +26,16 @@ public class ReviewDTO {
 	private String reviewUpdate;
 	private int  reviewReadcount;
 	private int reviewReplay;
+	private int reviewproductNum;
+
 
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public ReviewDTO(int reviewNum, int reviewMemberNum, String reviewName, String reviewSubject, String reviewContent,
-			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, int reviewReplay) {
+			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, int reviewReplay,
+			int reviewproductNum) {
 		super();
 		this.reviewNum = reviewNum;
 		this.reviewMemberNum = reviewMemberNum;
@@ -43,6 +47,7 @@ public class ReviewDTO {
 		this.reviewUpdate = reviewUpdate;
 		this.reviewReadcount = reviewReadcount;
 		this.reviewReplay = reviewReplay;
+		this.reviewproductNum = reviewproductNum;
 	}
 
 	public int getReviewNum() {
@@ -124,6 +129,12 @@ public class ReviewDTO {
 	public void setReviewReplay(int reviewReplay) {
 		this.reviewReplay = reviewReplay;
 	}
-	
-	
+
+	public int getReviewproductNum() {
+		return reviewproductNum;
+	}
+
+	public void setReviewproductNum(int reviewproductNum) {
+		this.reviewproductNum = reviewproductNum;
+	}
 }

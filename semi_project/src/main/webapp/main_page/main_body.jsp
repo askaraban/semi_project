@@ -74,18 +74,15 @@
 					<%-- 제품이미지 클릭시 제품상세설명으로 이동할 때 넘길 값 --%>
 					<%
 					String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-							   +"&productNum="+pro.getProductNum()+"&productName="+pro.getProductName()+"&productPrice="+pro.getProductPrice()
-							   +"&productCom="+pro.getProductCom()+"&productCate="+pro.getProductCate()+"&productReg="+pro.getProductReg()
-							   +"&productDis="+pro.getProductDis()+"&productDisContent="+pro.getProductDisContent()+"&productMainImg="+pro.getProductMainImg()
-							   +"&productImg1="+pro.getProductImg1()+"&productImg2="+pro.getProductImg2()+"&productImg3="+pro.getProductImg3();
+							   +"&productNum="+pro.getProductNum();
 					%>
 					<a href="<%=url%>" class="product-a-line">
 					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
 					</a>
 					</div>
 					<div class="card-body item-box">
-						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black;" ><%=pro.getProductName() %></a></h5>
-						<p class="card-text" ><%=pro.getProductCom() %></p>
+						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
+						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
 						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
 						<p>
 							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>

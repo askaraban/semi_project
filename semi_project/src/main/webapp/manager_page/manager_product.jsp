@@ -26,7 +26,7 @@
 		pageNum=Integer.parseInt(request.getParameter("pageNum")); 
 	}
 	// 넘길 수 있는 최대 페이지 수를 저장하기 위한 변수 - 보여지는 페이지 수 10페이지
-	int pageSize = 10;
+	int pageSize = 20;
 	if(request.getParameter("pageSize")!=null){
 		pageSize = Integer.parseInt(request.getParameter("pageSize"));
 	}
@@ -59,6 +59,8 @@
 	int displayNum = totalProduct - (pageNum-1) * pageSize;
 	
 	ProductDTO updateProduct = new ProductDTO();
+	
+	String url="";
 	
 %>
 
@@ -122,17 +124,11 @@ td {
 		<%} else { %>
 			<%for(ProductDTO pro : productList) {%>
 				<tr>
-					<% String url = request.getContextPath()+"/manager_page/manager.jsp?group=manager_page&worker=manager_product_update"
-						+"&productNum="+pro.getProductNum()+"&productName="+pro.getProductName()+"&productPrice="+pro.getProductPrice()+"&productCom="
-						+pro.getProductCom()+"&productCate="+pro.getProductCate()+"&productDis="+pro.getProductDis()+"&productDisContent="
-						+pro.getProductDisContent()+"&productImg1="+pro.getProductImg1()+"&productImg2="+pro.getProductImg2()+"&productImg3="
-						+pro.getProductImg3()+"&productMainImg="+pro.getProductMainImg(); 
-						
-					%>
 					<td><%=displayNum %></td>
 					<%displayNum--; // 제품 게시물들의 번호를 1씩 감소시킴  %>
 					<td>&nbsp;<%=pro.getProductNum() %>&nbsp;</td>
-					<td>&nbsp;<a href="<%=request.getContextPath()+"/manager_page/manager.jsp?group=manager_page&worker=manager_product_update"%>"><%=pro.getProductName() %></a>&nbsp;</td>
+					<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
+					<%=pro.getProductName() %></a>&nbsp;</td>
 					<td>&nbsp;<%=pro.getProductCate() %>&nbsp;</td>
 					<td>&nbsp;<%=format.format(pro.getProductPrice()) %>원&nbsp;</td>
 					<td>&nbsp;<%=pro.getProductDis() %>&nbsp;</td>
@@ -145,6 +141,48 @@ td {
 			<%} %>
 		<%} %>
 	</table>
+	<%-- 페이지 번호 출력 및 링크 제공 - 블럭화 처리 --%>
+	<%
+		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
+		int blockSize=5;
+	
+		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
+		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
+		int startPage=(pageNum-1)/blockSize*blockSize+1;
+		
+		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
+		// ex) 1블럭 : 5, 2블럭 : 10
+		int endPage=startPage+blockSize-1;
+		
+		// 토탈페이지보다 종료페이지보다 크다면
+		if(totalPage<endPage){
+			endPage=totalPage;
+		}
+	%>
+	
+	<div id="page_list">
+		<%
+			String responseList="";
+		%>
+		
+		<%if(startPage>blockSize){%>
+			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>		
+		<%} else {%>
+			[이전]
+		<%} %>
+		<% for(int i=startPage;i<=endPage;i++){ %>
+			<%if(pageNum !=i) {%>
+				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=i%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i %>]</a>
+			<%}else{  %>
+				[<%=i %>]
+			<%} %>
+		<%} %>
+			<%if(endPage!=totalPage){ %>
+				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
+			<%}else{  %>
+				[다음]
+			<%} %>
+	</div>
 	<div>
 	<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
 	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post">
@@ -155,25 +193,16 @@ td {
 			<option value="product_cate" <%if(search.equals("product_cate")) {%> selected<%} %>>&nbsp;유형&nbsp;</option>
 		</select>
 		<input type="text" name="keyword" value="<%=keyword%>">
-		<button type="button" id="searchBtn">검색</button>
+		<button type="submit" id="searchBtn">검색</button>
 	</form>
 	</div>
 </div>
 
 <script type="text/javascript">
-	$("#insertBtn").click(function() {
-		$(".insert_div").css("display", "block");
-		$("#productList_div").css("display", "none");
 
-	});
-
-	$("#listBtn").click(function() {
-		$("#productList_div").css("display", "block");
-		$(".insert_div").css("display", "none");
-	});
-	
 	$("#searchBtn").click(function() {
 		$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/manager_page/manager.jsp?group=cart_page&worker=cart_remove_action");
 	})
+	
 	
 </script>
