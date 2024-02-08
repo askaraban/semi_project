@@ -2,9 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/security/login_check.jspf" %>
+<%--ffdf --%>
 <style type="text/css">
 	
-	
+
 	.tableTypeWrite {
 		border-top: 2px solid #000;
 	}
