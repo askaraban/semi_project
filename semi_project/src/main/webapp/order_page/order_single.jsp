@@ -2,9 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/security/login_check.jspf" %>
-<%-- 제품 상세에서 구매 페이지로 --%>
-<style>
-	tr {
+<style type="text/css">
+		tr {
 		display: table-row;
 		vertical-align: inherit;
 		border-color: inherit;
@@ -218,9 +217,17 @@
 	 	cursor: pointer;
 	 	
 	}
-	
-	
 </style>
+<%-- 제품 상세에서 구매 페이지로 제품번호와 수량을 전달받아 반환
+	 DB랑 연결해서 삽입할 데이터 처리 DAO 메소드 호출  
+	 구매 정보 삽입하고 결제완료 표시하는 문서를 하나로 통합 --%>
+	 
+<%--  
+int count=Integer.parseInt(request.getParameter("totCount"));
+참고하시면 됩니당--%>
+	 
+	 
+
 <!doctype html>
 <html lang="kr">
 
@@ -314,11 +321,7 @@
 	
 <section style="display=block;">							
  <!-- 배송지 작성 -->    
- <h5 class="subtitle3">배송지 작성</h5>  
-   	    <div class="segment ec-shippingInfo-sameaddr ">
-	      <input id="sameaddr0" name="sameaddr"  value="T" type="radio" ><label for="sameaddr0" >주문자 정보와 동일</label>
-	      <input id="sameaddr1" name="sameaddr" value="F" type="radio" ><label for="sameaddr1" >새로운 배송지</label>                    
-	    </div>	    
+ <h5 class="subtitle3">배송지 작성</h5>      
 	    	<form id="orderInfoForm" name="orderInfoForm" method="POST">
 	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
 	    <div class="tableTypeWrite payTable">
@@ -508,8 +511,7 @@
  </form>
     				      
                            
-                  					
-    
+                  				  
     
 	<!-- 부트스트랩 -->
  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">

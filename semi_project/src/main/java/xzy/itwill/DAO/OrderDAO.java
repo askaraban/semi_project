@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import xyz.itwill.DTO.CartDTO;
 import xyz.itwill.DTO.ClientDTO;
 import xyz.itwill.DTO.OrderDTO;
+import xyz.itwill.DTO.ProductDTO;
 
 public class OrderDAO extends JdbcDAO {
 	private static OrderDAO _dao;
@@ -103,10 +104,10 @@ public class OrderDAO extends JdbcDAO {
 		
 		
 		
-		//제품번호와 수량을 전달받아서 주문테이블의 행에 추가하는 메소드
-		public int insertSingleOrder(int productNum, int count) {
+		//제품번호와 수량을 전달받아서 주문테이블에 행으로 삽입하는 메소드  
+		public ProductDTO selectSingleOrder(int productNum, int count) {
 			Connection con=null;
-			
+			ProductDTO product=null;
 			
 			PreparedStatement pstmt=null;
 			int rows=0;
@@ -120,10 +121,13 @@ public class OrderDAO extends JdbcDAO {
 				
 				rows=pstmt.executeUpdate();
 			} catch (SQLException e) {
-				System.out.println("[에러]insertSingleOrder() 메소드의 SQL 오류 = "+e.getMessage());
+				System.out.println("[에러]selectSingleOrder() 메소드의 SQL 오류 = "+e.getMessage());
 			} finally {
 				close(con, pstmt);
 			}
-			return rows;
+			return product;
 		}
+		
+		//
+		
 }

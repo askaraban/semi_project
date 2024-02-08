@@ -1,225 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/security/login_check.jspf" %>    
 <%-- 장바구니 페이지에서 구매페이지로  --%>
-<style>
-	tr {
-		display: table-row;
-		vertical-align: inherit;
-		border-color: inherit;
-	}
-	
-	table {
-		border-collapse: collapse;
-		text-indent: initial;
-		border-spacing: 2px;
-	}
-	
-	.tableTypeWrite {
-		border-top: 2px solid #000;
-	}
-	
-	body {
-		overflow-x: hidden;
-		height: 100%;
-		color: #000000;
-		font: 16px/1.5, '맑은 고딕', '돋움', sans-serif;
-		letter-spacing: -0.01em;
-		-webkit-text-size-adjust: none;
-	}
-	
-	.tableTypeWrite.payTable.required {
-		margin: 0;
-	}
-	
-	.tableTypeWrite .required {
-		font-size: 0;
-	}
-	
-	* {
-		padding: 0;
-		margin: 0;
-	}
-	
-	.tableTypeWrite th {
-		padding: 24px 30px;
-		border-bottom: 1px solid #F5F5F5;
-		text-align: left;
-		color: #333;
-		vertical-align: top;
-	}
-	
-	th {
-		font-weight: normal;
-		font-family: 'Pretendard','SDNeoM','notoM';
-	}
-	
-	.tableTypeWrite .required:after {
-		content: "*";
-		display:inline-block;
-		color: red;
-		font-size: 16px;
-		vertical-align: -3px;
-	}
-	
-	.tableTypeWrite th {
-		padding: 24px 30px;
-		border-bottom: 1px solid #F5F5F5;
-		text-align: left;
-		vertical-align: top;
-	}
-	
-	
-	.btnSubmit {
-		background: pink;
-		border: 1px solid pink;
-		font-weight: bold;
-		color: white;
-	}
-	
-	.prdBox {
-		display: flex;
-	
-	}	
-	
-	td ul {
-		list-style: none;
-		padding: 0;
-		-webkit-tap-highlight-color: rgba(0,0,0,0);
-	    text-align: left;    
-	}
-	
-	#postSearch {
-		font-size: 12px;
-		font-weight: bold;
-		cursor: pointer;
-		margin-left: 10px;
-		padding: 2px 10px;
-		border: 1px solid black;
-	}
 
-	#postSearch:hover {
-		background: black;
-		color: white;
-	}
-	
-	li {
-		list-style: none;
-	}
-	
-	.cartList {
-		border-top: 2px solid #000;
-		border-bottom: 1px solid #eee;
-	}
-	
-	div {
-		display: block;
-	}
-	
-	ul {
-	    display: block;
-	    list-style-type: disc;
-	    margin-block-start: 1em;
-	    margin-block-end: 1em;
-	    margin-inline-start: 0px;
-	    margin-inline-end: 0px;
-	    padding-inline-start: 40px;
-	}
-	
-	.pdtRow {
-		display: flex;
-		position: relative;
-	}
-	
-	.pdtImg {
-	 	position: relative;
-	 	flex: none;
-	 	width: 100px;
-	 	height: 133px;
-	}
-	
-	.cell {
-		display: flex;
-		flex-direction: column;
-	}
-	
-	
-	
-	a {
-		font-family: inherit;
-		font-size: inherit;
-		line-height: inherit;
-		letter-spacing: -0.01em;
-		color: inherit;
-		text-decoration: none;
-		outline: none;
-	}	
-	
-	img {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		vertical-align: top;
-	}
-	
-	.pdtInfo {
-		flex: 1;
-		justify-content: start;
-		padding: 0 50px 0 20px;
-	}
-	
-	.pdtName {
-	 	margin: 0 0 10px;
-	 	font-size: 16px;
-	 	line-height: 1.25;
-	 	color: #000;
-	}
-	
-	.pdtOpt {
-	 	display: flex;
-	 	font-size: 14px;
-	 	line-height: 18px;
-	 	color: #888;
-	}
-	
-	.pdtPirce {
-		justify-content: center;
-		margin-left: 14px;
-		width: 113px;
-		text-align: right;
-	}
-	
-	.price {
-		display: block;
-		font-weight: 500;
-		font-size: 14px;
-	}
-	
-	.num {
-		font-weight: 700;
-		font-size: 18px;
-		line-height: 1.33;
-	}
-	
-	#orderFixItem.ec-base-button.gFull [class*="btn"] {
-		margin: 0;
-		font-size: 18px;
-		font-weight: 400;
-		height: 50px;
-		line-height: 50px;
-		color: #fff;
-		width: 100%;
-	}
-	
-	button {
-	 	overflow: visible;
-	 	outline: 0;
-	 	cursor: pointer;
-	 	
-	}
-	
-	
-</style>
+<link href="<%=request.getContextPath()%>/style/order_style.css" type="text/css" rel="stylesheet">
 <!doctype html>
 <html lang="kr">
 
@@ -262,7 +45,7 @@
 					</th>
 					<td>
 						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
-						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="<%=loginClient.getClientName()%>">
+						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="">
 						<p class="inputAlt"></p>
 					</td>
 				</tr>
@@ -283,8 +66,8 @@
 							<option value="018">&nbsp;018&nbsp;</option>
 							<option value="019">&nbsp;019&nbsp;</option>
 						</select>
-						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>">
-						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>">
+						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="">
+						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="">
 					<p class="inputAlt"></p>
 					</td>
 				</tr>
@@ -298,7 +81,7 @@
 			 		</th>
 			 		<td>
 			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
-			 			title="이메일 입력" style="width:90 %;" value="value="<%=loginClient.getClientEmail()%>">
+			 			title="이메일 입력" style="width:90 %;" value="value="">
 			 			<p class="inputAlt"></p>
 			 		</td>
 				   </tr>
@@ -432,8 +215,6 @@
     </div>	
     <div class="cartList">
     	<ul>
-    		<script>
-    		</script>
     		<li>
 			    <div class="pdtRow">
 			    	<div class="cell pdtImg">
@@ -506,11 +287,9 @@
     	</form>
     				      
                            
-                  					
+          					
      
 							
-		
-
     
     
 	<!-- 부트스트랩 -->
