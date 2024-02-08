@@ -192,30 +192,8 @@ let cbArray = document.getElementsByClassName("selectCheck"); // 개별 체크�
 			} 
 		}
 	}
-	console.log(totalPrice);
-	<%--$("input[type=checkbox]").find(".selectCheck").prop("checked", false);
-		$("#selectedPrice").text(totalPrice);
-	
-	<%--
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
-		if(cbArray[i].checked==false){ // 모든 체크박스가 해제되었다면
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice-=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		}
-	}	
-	
-	
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
-		if(cbArray[i].checked==true){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice+=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		}
-	}
-	--%>
+	$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	console.log("전체 선택 총 금액 = " + totalPrice);
 });
 
 <%-- 개별 체크박스 선택 시 변동되는 함수--%>
@@ -224,19 +202,15 @@ $("input[type=checkbox]").filter(".selectCheck").click(function() { // .selectCh
 	var checked = $(this).attr("id");
 	var num_price = checked.split("_");
 	if($("#"+checked).is(":checked")){
-		console.log(num_price[0] + "번호");
-		console.log(num_price[1] + "가격");
-		console.log(num_price[2] + "수량");
-		console.log(totalPrice+=Number(num_price[1]*num_price[2]));
+		console.log(num_price[0] + "번호 "+num_price[1] + " 가격 " + num_price[2] + " 수량");
+		console.log("체크시 가격 = " + Number(num_price[1]*num_price[2]));
 		totalPrice+=Number(num_price[1]*num_price[2]);
-		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		
-		
+		$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
 		
 	} else{
 		totalPrice-=Number(num_price[1]*num_price[2]);
-		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		console.log(totalPrice-=Number(num_price[1]*num_price[2]));
+		$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		console.log("체크해제시 가격 = " + Number(num_price[1]*num_price[2]));
 	}
 	// 전체 체크박스 체크 선택/해제 되도록 조건 설정
 	if(checkLength!=$("input[type=checkbox]").filter(".selectCheck:checked").length){
