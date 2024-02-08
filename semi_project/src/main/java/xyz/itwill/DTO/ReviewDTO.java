@@ -26,7 +26,7 @@ public class ReviewDTO {
 	private String reviewUpdate;
 	private int  reviewReadcount;
 	private int reviewReplay;
-	private int reviewproductNum;
+	private int reviewProductNum;
 
 
 	public ReviewDTO() {
@@ -35,7 +35,7 @@ public class ReviewDTO {
 
 	public ReviewDTO(int reviewNum, int reviewMemberNum, String reviewName, String reviewSubject, String reviewContent,
 			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, int reviewReplay,
-			int reviewproductNum) {
+			int reviewProductNum) {
 		super();
 		this.reviewNum = reviewNum;
 		this.reviewMemberNum = reviewMemberNum;
@@ -47,7 +47,7 @@ public class ReviewDTO {
 		this.reviewUpdate = reviewUpdate;
 		this.reviewReadcount = reviewReadcount;
 		this.reviewReplay = reviewReplay;
-		this.reviewproductNum = reviewproductNum;
+		this.reviewProductNum = reviewProductNum;
 	}
 
 	public int getReviewNum() {
@@ -130,11 +130,11 @@ public class ReviewDTO {
 		this.reviewReplay = reviewReplay;
 	}
 
-	public int getReviewproductNum() {
-		return reviewproductNum;
+	public int getReviewProductNum() {
+		return reviewProductNum;
 	}
 
-	public void setReviewproductNum(int reviewproductNum) {
-		this.reviewproductNum = reviewproductNum;
+	public void setReviewProductNum(int reviewProductNum) {
+		this.reviewProductNum = reviewProductNum;
 	}
 }
