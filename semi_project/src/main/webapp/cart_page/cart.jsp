@@ -268,7 +268,7 @@ $("#cartOrderBtn").click(function() {
 		alert("주문할 제품을 선택해주세요.");
 		return;
 	}
-	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=testPage");
+	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_multi");
 <%--	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order"); --%>
 });
 <%-- 선택된 체크박스를 삭제하는 메소드 --%>
