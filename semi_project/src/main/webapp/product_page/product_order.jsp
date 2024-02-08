@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%--     <%@include file="/security/login_url.jspf" %> --%>
 <%
 
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
@@ -81,8 +82,8 @@
 			<div class="col" style="text-align:right;">
 			<input id="countBtn" type="button" onclick="count('minus')" value="-"/>
 				<span id="result">1</span>                           <!-- span은 값을 넘기지 못함 / input 태그나 span을 사용하려면 hidden으로 보내야함 -->
-           <input type="hidden" name="totCount" id="totCount" value="1">
-           <input id="countBtn" type="button" onclick="count('plus')" value="+"/>
+			<input type="hidden" name="totCount" id="totCount" value="1">
+			<input id="countBtn" type="button" onclick="count('plus')" value="+"/>
 		</div>
 		</div>
       
@@ -119,7 +120,12 @@
 	</p>
 	<p class="moveBtn">
 		<button class="orderBtn" id="cartInsertBtn" type="submit">장바구니 담기</button>
-		<button class="nowOrderBtn" type="button">바로 구매하기</button>
+		<%-- 바로 구매하기 버튼 클릭시 결제하기 창으로 이동할 때 넘길 값 --%>
+		<%
+			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=order_single"
+					   +"&productNum="+product.getProductNum();
+		%>
+		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button">바로 구매하기</button >
 	</p>
 </div>
 </form>
