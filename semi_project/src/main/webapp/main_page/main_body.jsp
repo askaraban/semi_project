@@ -81,8 +81,8 @@
 					</a>
 					</div>
 					<div class="card-body item-box">
-						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black;" ><%=pro.getProductName() %></a></h5>
-						<p class="card-text" ><%=pro.getProductCom() %></p>
+						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
+						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
 						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
 						<p>
 							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>
