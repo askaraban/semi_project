@@ -64,9 +64,12 @@ input[type='number'] {
 			</div>
 			<div class="product-inner">
 				<div>
-					<img class="cart-product-img" alt="thumb" 
-						<%-- 장바구니에 있는 모든 제품을 가져오는 DAO 메소드를 호출하여 for문으로 사진과 가격 수량 할인가를 넣기--%>
-						src="<%=request.getContextPath()%>/productImg/<%=cart.getProductMainImg()%>">
+					<%-- 장바구니에 있는 모든 제품을 가져오는 DAO 메소드를 호출하여 for문으로 사진과 가격 수량 할인가를 넣기--%>
+					<%
+					// 할인가를 나타내기 위한 변수
+					int discount =  (int)Math.floor(((double)(cart.getProductPrice())*(100-cart.getProductDis())/100)/10)*10;
+					%>
+					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=cart.getProductMainImg()%>">
 				</div>
 				<div class="cart-product-infoArea"
 					style="width: 250px; margin-left: 15px;">
