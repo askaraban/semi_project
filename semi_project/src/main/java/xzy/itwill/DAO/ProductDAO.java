@@ -105,22 +105,69 @@ public class ProductDAO extends JdbcDAO{
 			int rows = 0;
 			
 			try {
-				con=getConnection();
-				String sql = "update set product_table product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
-						+ ", product_dis_content=?, product_main_img=?, product_img1, product_img2, product_img3";
+					con=getConnection();
 				
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, product.getProductName());
-				pstmt.setInt(2, product.getProductPrice());
-				pstmt.setString(3, product.getProductCom());
-				pstmt.setInt(4, product.getProductCate());
-				pstmt.setInt(5, product.getProductDis());
-				pstmt.setString(6, product.getProductDisContent());
-				pstmt.setString(7, product.getProductMainImg());
-				pstmt.setString(8, product.getProductImg1());
-				pstmt.setString(9, product.getProductImg2());
-				pstmt.setString(10, product.getProductImg3());
-				
+				if(product.getProductMainImg()!=null) {
+					
+					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+							+ ", product_dis_content=?, product_main_img=? where product_num=?";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, product.getProductName());
+					pstmt.setInt(2, product.getProductPrice());
+					pstmt.setString(3, product.getProductCom());
+					pstmt.setInt(4, product.getProductCate());
+					pstmt.setInt(5, product.getProductDis());
+					pstmt.setString(6, product.getProductDisContent());
+					pstmt.setString(7, product.getProductMainImg());
+					pstmt.setInt(8, product.getProductNum());
+				} else if(product.getProductImg1()!=null) {
+					
+					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+							+ ", product_dis_content=?, product_img1=? where product_num=?";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, product.getProductName());
+					pstmt.setInt(2, product.getProductPrice());
+					pstmt.setString(3, product.getProductCom());
+					pstmt.setInt(4, product.getProductCate());
+					pstmt.setInt(5, product.getProductDis());
+					pstmt.setString(6, product.getProductDisContent());
+					pstmt.setString(7, product.getProductImg1());
+					pstmt.setInt(8, product.getProductNum());
+					
+				} else if(product.getProductMainImg()!=null && product.getProductImg1()!=null) {
+					
+					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+							+ ", product_dis_content=?, product_main_img=?, product_img1=? where product_num=?";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, product.getProductName());
+					pstmt.setInt(2, product.getProductPrice());
+					pstmt.setString(3, product.getProductCom());
+					pstmt.setInt(4, product.getProductCate());
+					pstmt.setInt(5, product.getProductDis());
+					pstmt.setString(6, product.getProductDisContent());
+					pstmt.setString(7, product.getProductMainImg());
+					pstmt.setString(8, product.getProductImg1());
+					pstmt.setInt(9, product.getProductNum());
+					
+				} else if(product.getProductMainImg()==null && product.getProductImg1()==null){
+					
+					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+							+ ", product_dis_content=?, product_img2=?, product_img3=? where product_num=?";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, product.getProductName());
+					pstmt.setInt(2, product.getProductPrice());
+					pstmt.setString(3, product.getProductCom());
+					pstmt.setInt(4, product.getProductCate());
+					pstmt.setInt(5, product.getProductDis());
+					pstmt.setString(6, product.getProductDisContent());
+					pstmt.setString(7, product.getProductMainImg());
+					pstmt.setString(8, product.getProductImg1());
+					pstmt.setInt(9, product.getProductNum());
+				}
 				rows=pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -185,7 +232,7 @@ public class ProductDAO extends JdbcDAO{
 					pstmt=con.prepareStatement(sql);
 
 				} else {
-					String sql = "select count(*) from product_table where where "+search+" like '%'||?||'%'";
+					String sql = "select count(*) from product_table where "+search+" like '%'||?||'%'";
 					pstmt=con.prepareStatement(sql);
 					
 					pstmt.setString(1, keyword);
@@ -196,7 +243,7 @@ public class ProductDAO extends JdbcDAO{
 				}
 				
 			} catch (SQLException e) {
-				System.out.println("[에러]searchProductList() 메소드 오류" + e.getMessage());
+				System.out.println("[에러]searchTotalList() 메소드 오류" + e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			} return totalCount;
@@ -221,8 +268,8 @@ public class ProductDAO extends JdbcDAO{
 					pstmt.setInt(2, endNum);
 					
 				} else {
-					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com"
-							+ ", product_cate, product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
+							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
 							+ " from product_table where "+search+" like '%'||?||'%' order by product_num desc) temp) where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					

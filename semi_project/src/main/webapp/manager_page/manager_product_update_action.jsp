@@ -16,6 +16,7 @@
 	MultipartRequest mr = new MultipartRequest(request, saveDirectory, 20*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 	
 	// 입력된 값 가져오기
+	int productNum=Integer.parseInt(mr.getParameter("productNum"));
 	String productName=mr.getParameter("productName");
 	int productPrice=Integer.parseInt(mr.getParameter("productPrice"));
 	String productCom=mr.getParameter("productCom");
@@ -49,7 +50,8 @@
 	
 	// 입력된 값 DTO 객체 필드에 저장하기
 	ProductDTO product = new ProductDTO();
-	
+
+	product.setProductNum(productNum);
 	product.setProductName(productName);
 	product.setProductPrice(productPrice);
 	product.setProductCom(productCom);
