@@ -10,7 +10,6 @@ import java.util.List;
 import xyz.itwill.DTO.QaDTO;
 import xyz.itwill.DTO.ReviewDTO;
 
-
 public class ReviewDAO extends JdbcDAO {
 	private static ReviewDAO _dao;
 	
@@ -26,8 +25,6 @@ public class ReviewDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	
-	
 	//검색정보(검색대상과 검색단어)를 전달받아 REVIEW_TABLE에 저장된 게시글 중 검색대상의 
 	//컬럼에 검색단어가 포함된 게시글의 갯수를 검색하여 반환하는 메소드
 	// => 검색 기능을 사용하지 않을 경우 REVIEW_TABLE에 저장된 모든 게시글의 갯수를 검색하여 반환
@@ -39,13 +36,23 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			if(keyword=="") {
+/*			if(keyword=="") {
 				String sql="select count(*) from review_table";
 				pstmt=con.prepareStatement(sql);
 				
 			} else {
 				String sql="select count(*) from review_table";
 				pstmt=con.prepareStatement(sql);
+			} else {
+				String sql="select count(*) from review_table where "+search+" like '%'||?||'%'";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+			}*/
+			
+			if(keyword=="") {
+				String sql="select count(*) from review_table";
+				pstmt=con.prepareStatement(sql);
+				
 			} else {
 				String sql="select count(*) from review_table where "+search+" like '%'||?||'%'";
 				pstmt=con.prepareStatement(sql);
@@ -64,7 +71,6 @@ public class ReviewDAO extends JdbcDAO {
 		}
 		return totalCount;
 	}
-	
 	
 	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	// 검색단어)를 전달받아 REVIEW_TANLE에 저장된 행을 검색하여 게시글 목록을 반환하는 메소드
@@ -152,122 +158,113 @@ public class ReviewDAO extends JdbcDAO {
 		return nextNum;
 	}
 	
-	
 	//게시글을 전달받아 REVIEW_TABLE에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
-		public int insertReview(ReviewDTO review) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			int rows=0;
-			try {
-				con=getConnection();
-				
-				String sql="insert into review_table values(?,?,?,?,?,sysdate,null,0,?)";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, review.getReviewNum());
-				pstmt.setInt(2, review.getReviewMemberNum());
-				pstmt.setString(3, review.getReviewSubject());
-				pstmt.setString(4, review.getReviewContent());
-				pstmt.setString(5, review.getReviewImage());
-				pstmt.setInt(6, review.getReviewReplay());
-				
-				rows=pstmt.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt);
-			}
-			return rows;
+	public int insertReview(ReviewDTO review) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="insert into review_table values(?,?,?,?,?,sysdate,null,0,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, review.getReviewNum());
+			pstmt.setInt(2, review.getReviewMemberNum());
+			pstmt.setString(3, review.getReviewSubject());
+			pstmt.setString(4, review.getReviewContent());
+			pstmt.setString(5, review.getReviewImage());
+			pstmt.setInt(6, review.getReviewReplay());
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
 		}
-		
-		
-		
-		
-		
-		
-		
-		//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
-		public QaDTO selectQaByNum(int qaNum) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			ResultSet rs=null;
-			QaDTO qa=null;
-			try {
-				con=getConnection();
-				
-				String sql="select qa_num,qa_member,name qa_name,qa_subject,qa_content,qa_image"
-						+ ",qa_register,qa_update,qa_readcount,qa_replay from qa_table join"
-						+ " client_table on qa_table.qa_member=client_table.client_num"
-						+ " where qa_num=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, qaNum);
-				
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					qa=new QaDTO();
-					qa.setQaNum(rs.getInt("qa_num"));
-					qa.setQaMember(rs.getInt("qa_member"));
-					qa.setQaName(rs.getString("qa_name"));
-					qa.setQaSubject(rs.getString("qa_subject"));
-					qa.setQaContent(rs.getString("qa_content"));
-					qa.setQaImage(rs.getString("qa_image"));
-					qa.setQaRegister(rs.getString("qa_register"));
-					qa.setQaUpdate(rs.getString("qa_update"));
-					qa.setQaReadCount(rs.getInt("qa_readCount"));
-					qa.setQaReplay(rs.getInt("qa_replay"));
-				}
-			} catch (SQLException e) {
-				System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt, rs);
+		return rows;
+	}
+	
+
+	//글번호를 전달받아 QA 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+	public QaDTO selectQaByNum(int qaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		QaDTO qa=null;
+		try {
+			con=getConnection();
+			
+			String sql="select qa_num,qa_member,name qa_name,qa_subject,qa_content,qa_image"
+					+ ",qa_register,qa_update,qa_readcount,qa_replay from qa_table join"
+					+ " client_table on qa_table.qa_member=client_table.client_num"
+					+ " where qa_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qaNum);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				qa=new QaDTO();
+				qa.setQaNum(rs.getInt("qa_num"));
+				qa.setQaMember(rs.getInt("qa_member"));
+				qa.setQaName(rs.getString("qa_name"));
+				qa.setQaSubject(rs.getString("qa_subject"));
+				qa.setQaContent(rs.getString("qa_content"));
+				qa.setQaImage(rs.getString("qa_image"));
+				qa.setQaRegister(rs.getString("qa_register"));
+				qa.setQaUpdate(rs.getString("qa_update"));
+				qa.setQaReadCount(rs.getInt("qa_readCount"));
+				qa.setQaReplay(rs.getInt("qa_replay"));
 			}
-			return qa;
+		} catch (SQLException e) {
+			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
 		}
-		
-		//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
-		//변경행의 갯수를 반환하는 메소드
-		public int updateQaReadCount(int QaNum) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			int rows=0;
-			try {
-				con=getConnection();
-				
-				String sql="update qa_table set qa_readcount=qa_readcount+1 where qa_num=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, QaNum);
-				
-				rows=pstmt.executeUpdate();
-			} catch (SQLException e) {
-				System.out.println("[에러]updateQaReadCount() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt);
-			}
-			return rows;
+		return qa;
+	}
+	
+	//글번호를 전달받아 QA 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
+	//변경행의 갯수를 반환하는 메소드
+	public int updateQaReadCount(int QaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="update qa_table set qa_readcount=qa_readcount+1 where qa_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, QaNum);
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateQaReadCount() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
 		}
-		
-		//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
-		public int deleteQa(int qaNum) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			int rows=0;
-			try {
-				con=getConnection();
-				
-				String sql="delete from qa_table where qa_num=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, qaNum); 
-			} catch (SQLException e) {
-				System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt);
-			}
-			return rows;
+		return rows;
+	}
+	
+	//게시글을 전달받아 QA 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
+	public int deleteQa(int qaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="delete from qa_table where qa_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qaNum); 
+		} catch (SQLException e) {
+			System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
 		}
+		return rows;
 	}
 }
-
-
 
 
 
