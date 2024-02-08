@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.itwill.DTO.QaDTO;
 import xyz.itwill.DTO.ReviewDTO;
 
 public class ReviewDAO extends JdbcDAO {
@@ -84,7 +83,7 @@ public class ReviewDAO extends JdbcDAO {
 
 			if (keyword.equals("")) {// 검색 기능을 사용하지 않은 경우
 				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, client_name, review_subject, review_content, review_image"
+						+ ", review_member_num, name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay"
 						+ ", from review_table join client_table"
 						+ " on review_member_num=client_num order by review_register desc) temp)"
@@ -94,7 +93,7 @@ public class ReviewDAO extends JdbcDAO {
 				pstmt.setInt(2, endRow);
 			} else {// 검색 기능을 사용한 경우
 				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, client_name, review_subject, review_content, review_image"
+						+ ", review_member_num, name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay"
 						+ ", from review_table join client_table"
 						+ " on review_member_num=client_num where " + search + " like '%'||?||'%'"
@@ -114,7 +113,7 @@ public class ReviewDAO extends JdbcDAO {
 				ReviewDTO reviewTable = new ReviewDTO();
 				reviewTable.setReviewNum(rs.getInt("review_num"));
 				reviewTable.setReviewMemberNum(rs.getInt("review_member_num"));
-				reviewTable.setReviewName(rs.getString("review_name"));
+				reviewTable.setReviewName(rs.getString("name"));
 				reviewTable.setReviewSubject(rs.getString("review_subject"));
 				reviewTable.setReviewContent(rs.getString("review_content"));
 				reviewTable.setReviewImage(rs.getString("review_image"));
@@ -159,6 +158,31 @@ public class ReviewDAO extends JdbcDAO {
 	}
 	
 	//게시글을 전달받아 REVIEW_TABLE에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
+<<<<<<< HEAD
+		public int insertReview(ReviewDTO reviewTable) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			int rows=0;
+			try {
+				con=getConnection();
+				
+				String sql="insert into review_table values(?,?,?,?,?,sysdate,null,0,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, reviewTable.getReviewNum());
+				pstmt.setInt(2, reviewTable.getReviewMemberNum());
+				pstmt.setString(3, reviewTable.getReviewSubject());
+				pstmt.setString(4, reviewTable.getReviewContent());
+				pstmt.setString(5, reviewTable.getReviewImage());
+				pstmt.setInt(6, reviewTable.getReviewReplay());
+				
+				rows=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
+=======
 	public int insertReview(ReviewDTO review) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -180,7 +204,52 @@ public class ReviewDAO extends JdbcDAO {
 			System.out.println("[에러]insertReview() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt);
+>>>>>>> branch 'main' of https://github.com/askaraban/semi_project.git
 		}
+<<<<<<< HEAD
+		
+		
+		
+		
+		
+		
+		
+		//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+		public ReviewDTO selectRebiewdByNum(int reviewNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			ReviewDTO qa=null;
+			try {
+				con=getConnection();
+				
+				String sql="select review_num,review_member_num,name review_name,review_subject,review_content,review_image"
+						+ ",review_register,review_update,review_readcount,review_replay from review_table join"
+						+ " client_table on review_table.review_member_num=client_table.client_num"
+						+ " where review_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, reviewNum);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					qa=new ReviewDTO();
+					qa.setReviewNum(rs.getInt("review_num"));
+					qa.setReviewMemberNum(rs.getInt("review_member"));
+					qa.setReviewName(rs.getString("review_name"));
+					qa.setReviewSubject(rs.getString("review_subject"));
+					qa.setReviewContent(rs.getString("review_content"));
+					qa.setReviewImage(rs.getString("review_image"));
+					qa.setReviewRegister(rs.getString("review_register"));
+					qa.setReviewUpdate(rs.getString("review_update"));
+					qa.setReviewReadcount(rs.getInt("review_readcount"));
+					qa.setReviewReplay(rs.getInt("review_replay"));
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+=======
 		return rows;
 	}
 	
@@ -215,6 +284,7 @@ public class ReviewDAO extends JdbcDAO {
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readCount"));
 				qa.setQaReplay(rs.getInt("qa_replay"));
+>>>>>>> branch 'main' of https://github.com/askaraban/semi_project.git
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
