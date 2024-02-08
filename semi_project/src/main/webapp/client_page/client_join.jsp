@@ -9,6 +9,7 @@ fieldset {
 	text-align: left;
 	margin: 10px auto;
 	width: 1100px;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 legend {
