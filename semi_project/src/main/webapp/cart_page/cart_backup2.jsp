@@ -35,7 +35,7 @@ input[type='number'] {
 	<div class="form-check cart-store">
 		<div class="check-box-all">
 			<div class="check-box-all-inner">
-				<input class="form-check-input" type="checkbox" value="" id="allCheck" checked="checked" style="background-color: pink; border-color: pink;">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked="checked" style="background-color: pink; border-color: pink;">
 				<label class="form-check-label" for="flexCheckDefault"> 전체 선택 </label>
 			</div>
 			<div class="checkBtn">
@@ -51,79 +51,57 @@ input[type='number'] {
 		</div>
 <%-- --------------여기부터 제품에 대한 div ------------------------%>
 		<%for(CartDTO cart : cartList) {%>
-		<%
-		int discount =  (int)Math.floor(((double)(cart.getProductPrice())*(100-cart.getProductDis())/100)/10)*10;
-		if(cart.getProductDis()==0){
-			totalPrice += cart.getCartCount() * cart.getProductPrice();
-		} else {
-			totalPrice += cart.getCartCount() * discount;
-		}
-		
-		System.out.println(totalPrice);
-		// 할인가를 나타내기 위한 변수
-		%>
-		
 		<div class="product-info">
 			<div>
 				<div class="check-box-select">
 					<%-- 제품 각각에 대한 체크박스 --%>
 					<input class="form-check-input selectCheck" type="checkbox" value="<%=cart.getCartNum() %>" 
-						 aria-label="product-check" 
-						 checked="checked" 
-						 name="cartNum"
-						 <%if(cart.getProductDis()==0){ %>
-						 id="<%=cart.getCartNum() %>_<%=cart.getProductPrice() %>_<%=cart.getCartCount() %>" 
-						 <%} else { %>
-						 id="<%=cart.getCartNum() %>_<%=discount%>_<%=cart.getCartCount() %>" 
-						 <%} %> 
-						 style="background-color: pink; border-color: pink;">
+						 aria-label="product-check" checked="checked" name="contentCheck<%=cnt %>" onclick="calPrice()" style="background-color: pink; border-color: pink;">
 				</div>
 				
 			</div>
 			<div class="product-inner">
 				<div>
 					<%-- 장바구니에 있는 모든 제품을 가져오는 DAO 메소드를 호출하여 for문으로 사진과 가격 수량 할인가를 넣기--%>
-					
+					<%
+					// 할인가를 나타내기 위한 변수
+					int discount =  (int)Math.floor(((double)(cart.getProductPrice())*(100-cart.getProductDis())/100)/10)*10;
+					%>
 					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=cart.getProductMainImg()%>">
 				</div>
 				<div class="cart-product-infoArea"
 					style="width: 250px; margin-left: 15px;">
 					<div class="cart-product-title" style="font-weight: bold;"><%=cart.getProductName() %></div>
 					<%if(cart.getProductDis()!=0) {%>
-					<div class="cart-product-price" id="select_price_<%=cart.getProductPrice() %>" style="padding-top: 10px;">가격 : <%=format.format(discount) %>원
+					<div class="cart-product-price" style="padding-top: 10px;">가격 : <%=format.format(discount) %>원
 					<span class="discount" style="font-size: 10px;"><%=format.format(cart.getProductPrice()) %>원</span>
 					</div>
 					<%} else {%>
-					<div class="cart-product-price" id="select_price_<%=cart.getProductPrice() %>" style="padding-top: 10px;">가격 : <%=format.format(cart.getProductPrice()) %>원</div>
+					<div class="cart-product-price" style="padding-top: 10px;">가격 : <%=format.format(cart.getProductPrice()) %>원</div>
 					<%} %>
 				</div>
 			</div>
-			
 			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
 				<span>상품 주문 수량   </span>
 					<%-- 주문 수량을 조절하는 input 태그 --%>
 					<br><br>
 				<input class="contentCountBtn" id="minusBtn<%=cnt %>" type="button" value="-" />&nbsp;
-				
 				<input id="cartCount<%=cnt %>" class="cartCount" name="cartCount<%=cnt %>" value="<%=cart.getCartCount() %>" 
 					type="number" min="1" style="width: 70px; text-align: center; padding-right: 10px;">&nbsp;
-					
 				<input class="contentCountBtn" id="plusBtn<%=cnt %>" type="button" value="+" style="margin-right: 10px;"/>
-				
 				<button type="submit" id="countChangeBtn<%=cnt %>" style="border: 1px solid pink; background-color: pink; border-radius: 5px; 
 					font-weight: bold; color: white; height: 30px;">변경</button>
 			</div>
-			
+			<input type="hidden" value="<%=cart.getProductPrice()%>" name="cartProductPrice" id="cartProductPrice<%=cnt%>">
+			<input type="hidden" value="<%=totalPrice+=cart.getProductPrice()*cart.getCartCount()%>" name="totalPrice">
 			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
+			<input type="hidden" value="<%=cart.getCartNum() %>" name="cartNum<%=cnt%>" >
+			<input type="hidden" value="<%=cnt++ %>" name="cnt">
+			
 			<div class="cart-product-infoArea third-inner" style="width: 250px;">
 				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br>
 				<span><strong style="font-weight: bold; font-size: 20px;">
-				
-					<%if(cart.getProductDis()!=0) {%>
-					<em><%=format.format(discount) %>원</em>
-					<%} else {%>
 					<em><%=format.format(cart.getCartCount()*cart.getProductPrice()) %>원</em>
-					<%} %>
 				</strong>&nbsp;(<%=cart.getCartCount() %>개)</span>
 			</div>
 			<br>
@@ -135,7 +113,7 @@ input[type='number'] {
 <%-- *******************결제창으로 가기 위한 최종 결제금액div *********************************** --%>
 		<div style="display: flex;">
 			<div class="cart-select-product-content">
-				<span class="result-word" >선택상품금액</span>
+				<span class="result-word">선택상품금액</span>
 				<br>
 				<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
 			</div>
@@ -163,89 +141,68 @@ input[type='number'] {
 
 
 <%--전체선택과 부분선택에 대한 메소드--%>
-<%-- 1. 전체선택 클릭하였 때 개별상품이 변동되도록 하는 이벤트 함수 --%>
+$(document).ready(function() {
+	$("#flexCheckDefault").click(function() {
+		let cbArray = document.getElementsByClassName("selectCheck");
+		let totalPrice = 0;
+		if($("#flexCheckDefault").is(":checked")){
+			$("input").filter(".selectCheck").prop("checked",true);
+			for(let i=0;i<cbArray.length;i++){
+				if(cbArray[i].checked==true){
+					let p1 = "cartProductPrice"+[i];
+					let p2 = "cartCount"+[i];
+					let productPrice = Number(document.getElementById(p1).value);
+					let productCount = Number(document.getElementById(p2).value);
+					totalPrice += productPrice*productCount;
+					
+				}
+			}
+		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
+		} else {
+			$("input").filter(".selectCheck").prop("checked",false);
+			for(let i=0;i<cbArray.length;i++){
+				if(cbArray[i].checked==true){
+					let p1 = "cartProductPrice"+[i];
+					let p2 = "cartCount"+[i];
+					let productPrice = Number(document.getElementById(p1).value);
+					let productCount = Number(document.getElementById(p2).value);
+					totalPrice -= productPrice*productCount;
+				}
+			}
+		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
+		}
+	});
+	$("input").filter(".selectCheck").click(function() {
+		var totalCheck = $("input").filter(".selectCheck").length;
+		var checked = $("input").filter(".selectCheck:checked").length;
+		
+		if(totalCheck!=checked){
+			$("#flexCheckDefault").prop("checked",false);
+		} else {
+			$("#flexCheckDefault").prop("checked",true);
+		}
+	});
+});
 
-var checkLength = $(".selectCheck").length; // 장바구니에 들어간 제품의 수
-var checkedProduct = ""; // 선택된 제품의 수
-var totalPrice = <%=totalPrice%>;
-
-$("#allCheck").click(function() {
-let cbArray = document.getElementsByClassName("selectCheck"); // 개별 체크박스의 배열을 획득
-	if($("#allCheck").is(":checked")){ // 전체선택 체크박스 클릭 시 - 모든 제품 체크 및 해제
-		for(let i=0;i<cbArray.length;i++){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			
-			if(cbArray[i].checked==false){
-				totalPrice+=Number(num_price[1]*num_price[2]); // 가격 * 수량
-				$(cbArray[i]).prop("checked", true);
-			} 
-		}
-	} else {
-		for(let i=0;i<cbArray.length;i++){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			
-			if(cbArray[i].checked==true){
-				totalPrice-=Number(num_price[1]*num_price[2]); // 가격 * 수량
-				$(cbArray[i]).prop("checked", false);
-			} 
-		}
-	}
-	console.log(totalPrice);
-	<%--$("input[type=checkbox]").find(".selectCheck").prop("checked", false);
-		$("#selectedPrice").text(totalPrice);
-	
-	<%--
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
-		if(cbArray[i].checked==false){ // 모든 체크박스가 해제되었다면
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice-=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		}
-	}	
-	
-	
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
+<%-- 제품 각각의 체크박스에 대한 자바스크립트
+	체크박스 선택 시 가격이 변경되도록 구성 --%>
+function calPrice() {
+	let cbArray = document.getElementsByClassName("selectCheck");
+	let totalPrice = 0;
+	for(let i=0;i<cbArray.length;i++){
 		if(cbArray[i].checked==true){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice+=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+			let p1 = "cartProductPrice"+[i];
+			let p2 = "cartCount"+[i];
+			let productPrice = Number(document.getElementById(p1).value);
+			let productCount = Number(document.getElementById(p2).value);
+			totalPrice += productPrice*productCount;
 		}
 	}
-	--%>
-});
-
-<%-- 개별 체크박스 선택 시 변동되는 함수--%>
-$("input[type=checkbox]").filter(".selectCheck").click(function() { // .selectCheck 체크박스 클래스 중 하나가 클릭 되었을 때,
-	
-	var checked = $(this).attr("id");
-	var num_price = checked.split("_");
-	if($("#"+checked).is(":checked")){
-		console.log(num_price[0] + "번호");
-		console.log(num_price[1] + "가격");
-		console.log(num_price[2] + "수량");
-		console.log(totalPrice+=Number(num_price[1]*num_price[2]));
-		totalPrice+=Number(num_price[1]*num_price[2]);
-		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		
-		
-		
-	} else{
-		totalPrice-=Number(num_price[1]*num_price[2]);
-		$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		console.log(totalPrice-=Number(num_price[1]*num_price[2]));
-	}
-	// 전체 체크박스 체크 선택/해제 되도록 조건 설정
-	if(checkLength!=$("input[type=checkbox]").filter(".selectCheck:checked").length){
-		$("#allCheck").prop("checked", false);
-	} else {
-		$("#allCheck").prop("checked", true);
-	}
-});
-
+	$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	$("#cartOrderBtn").html(($("input").filter(".selectCheck:checked").length) + "건 주문하기");
+}
 
 <%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
 $("#cartDelete").click(()=>{
@@ -294,8 +251,7 @@ $("#cartOrderBtn").click(function() {
 		alert("주문할 제품을 선택해주세요.");
 		return;
 	}
-	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=testPage");
-<%--	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order"); --%>
+	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order");
 });
 <%-- 선택된 체크박스를 삭제하는 메소드 --%>
 $("#cartDelete").click(function(){
