@@ -168,54 +168,14 @@ input[type='number'] {
 var checkLength = $(".selectCheck").length; // 장바구니에 들어간 제품의 수
 var checkedProduct = ""; // 선택된 제품의 수
 var totalPrice = <%=totalPrice%>;
-
 $("#allCheck").click(function() {
-let cbArray = document.getElementsByClassName("selectCheck"); // 개별 체크박스의 배열을 획득
 	if($("#allCheck").is(":checked")){ // 전체선택 체크박스 클릭 시 - 모든 제품 체크 및 해제
-		for(let i=0;i<cbArray.length;i++){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			
-			if(cbArray[i].checked==false){
-				totalPrice+=Number(num_price[1]*num_price[2]); // 가격 * 수량
-				$(cbArray[i]).prop("checked", true);
-			} 
-		}
+		$("input[type=checkbox]").prop("checked", true);
+		$("#selectedPrice").text("<%=format.format(totalPrice) %>원");
 	} else {
-		for(let i=0;i<cbArray.length;i++){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			
-			if(cbArray[i].checked==true){
-				totalPrice-=Number(num_price[1]*num_price[2]); // 가격 * 수량
-				$(cbArray[i]).prop("checked", false);
-			} 
-		}
+		$("input[type=checkbox]").prop("checked", false);
+		$("#selectedPrice").text("0원");
 	}
-	console.log(totalPrice);
-	<%--$("input[type=checkbox]").find(".selectCheck").prop("checked", false);
-		$("#selectedPrice").text(totalPrice);
-	
-	<%--
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
-		if(cbArray[i].checked==false){ // 모든 체크박스가 해제되었다면
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice-=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		}
-	}	
-	
-	
-	for(let i=0;i<cbArray.length;i++){ // 체크박스 길이만큼 반복문
-		if(cbArray[i].checked==true){
-			var checked = $(cbArray[i]).attr("id");
-			var num_price = checked.split("_");
-			totalPrice+=Number(num_price[1]*num_price[2]); // 가격 * 수량
-			$(".result-count").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		}
-	}
-	--%>
 });
 
 <%-- 개별 체크박스 선택 시 변동되는 함수--%>
