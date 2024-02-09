@@ -35,15 +35,25 @@
 <body>
 	<div class="subTitle" style="text-align: center;">
 	<% if(category==10) {%>
-	<h2 style="font-weight: bold; text-align: center;"><img src="<%=request.getContextPath()%>/images/icon/icons-pretzel.png" style="padding-bottom: 5px; width: 40px;">&nbsp;스낵</h2>
+	<h2 style="font-weight: bold; text-align: center;">
+	<img src="<%=request.getContextPath()%>/images/icon/icons-pretzel.png" style="padding-bottom: 5px; width: 40px;">
+	&nbsp;스낵</h2>
 	<%} else if (category==20) {%>
-	<h2 style="font-weight: bold; text-align: center;"><img src="<%=request.getContextPath()%>/images/icon/icons-cookie.png" style="padding-bottom: 5px; width: 40px;">&nbsp;파이&amp;쿠키</h2>
+	<h2 style="font-weight: bold; text-align: center;">
+	<img src="<%=request.getContextPath()%>/images/icon/icons-cookie.png" style="padding-bottom: 5px; width: 40px;">
+	&nbsp;파이&amp;쿠키</h2>
 	<%} else if (category==30) {%>
-	<h2 style="font-weight: bold; text-align: center;"><img src="<%=request.getContextPath()%>/images/icon/icons-candy.png" style="padding-bottom: 5px; width: 40px;">&nbsp;캔디&amp;젤리</h2>
+	<h2 style="font-weight: bold; text-align: center;">
+	<img src="<%=request.getContextPath()%>/images/icon/icons-candy.png" style="padding-bottom: 5px; width: 40px;">
+	&nbsp;캔디&amp;젤리</h2>
 	<%} else if (category==40) {%>
-	<h2 style="font-weight: bold; text-align: center;"><img src="<%=request.getContextPath()%>/images/icon/icons-chocolate.png" style="padding-bottom: 5px; width: 40px;">&nbsp;초콜릿</h2>
+	<h2 style="font-weight: bold; text-align: center;">
+	<img src="<%=request.getContextPath()%>/images/icon/icons-chocolate.png" style="padding-bottom: 5px; width: 40px;">
+	&nbsp;초콜릿</h2>
 	<%} else if (category==50) {%>
-	<h2 style="font-weight: bold; text-align: center;"><img src="<%=request.getContextPath()%>/images/icon/icons-chewing-gum.png" style="padding-bottom: 5px; width: 40px;">&nbsp;껌</h2>
+	<h2 style="font-weight: bold; text-align: center;">
+	<img src="<%=request.getContextPath()%>/images/icon/icons-chewing-gum.png" style="padding-bottom: 5px; width: 40px;">
+	&nbsp;껌</h2>
 	<%} %>
 	</div>
 	<div class="main-prd">
@@ -62,7 +72,9 @@
 					</a>
 					</div>
 					<div class="card-body item-box">
-						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
+						<h5 class="card-title">
+						<a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a>
+						</h5>
 						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
 						<%if(pro.getProductDis()!=0){ %>
 						<%

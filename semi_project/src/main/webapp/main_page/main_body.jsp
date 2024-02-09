@@ -80,7 +80,9 @@
 					</a>
 					</div>
 					<div class="card-body item-box">
-						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
+						<h5 class="card-title">
+						<a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a>
+						</h5>
 						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
 						<%if(pro.getProductDis()!=0){ %>
 						<%
