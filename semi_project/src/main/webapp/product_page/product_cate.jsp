@@ -61,15 +61,26 @@
 					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
 					</a>
 					</div>
-					<div class="card-body item-box" >
-						<h5 class="card-title" ><%=pro.getProductName() %></h5>
-						<p class="card-text" ><%=pro.getProductCom() %></p>
-						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원</p>
+					<div class="card-body item-box">
+						<h5 class="card-title"><a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a></h5>
+						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
+						<%if(pro.getProductDis()!=0){ %>
+						<%
+						// 할인가를 나타내기 위한 변수
+						int discount =  (int)Math.floor(((double)(pro.getProductPrice())*(100-pro.getProductDis())/100)/10)*10;
+						%>
+						<p class="card-text" ><%=format.format(discount) %>원
+						<span class="discount" style="font-size: 10px;"><%=format.format(pro.getProductPrice()) %>원</span>
+						<%} else{%>
+						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원
+						<%} %>
+						</p>
+						
 						<p>
 							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>
 							<%if(loginClient==null) {%>
 								<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
-								class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>"  >
+								class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
 							<%-- 로그인이 되어 있다면, 회원번호와 제품번호를 매개변수로 전달받아 제품번호를 전달받는 dao 메소드 호출 --%>	
 							<% } else if(loginClient!=null){%>
 								<%

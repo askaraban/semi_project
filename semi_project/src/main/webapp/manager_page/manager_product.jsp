@@ -188,8 +188,8 @@ td {
 	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post">
 		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정 --%>
 		<select name="search">
-			<option value="product_num" <%if(search.equals("product_num")) {%> selected<%} %>>&nbsp;제품번호&nbsp;</option>
 			<option value="product_name" <%if(search.equals("product_name")) {%> selected<%} %>>&nbsp;제품이름&nbsp;</option>
+			<option value="product_num" <%if(search.equals("product_num")) {%> selected<%} %>>&nbsp;제품번호&nbsp;</option>
 			<option value="product_cate" <%if(search.equals("product_cate")) {%> selected<%} %>>&nbsp;유형&nbsp;</option>
 		</select>
 		<input type="text" name="keyword" value="<%=keyword%>">

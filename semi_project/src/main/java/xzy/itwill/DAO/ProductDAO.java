@@ -106,8 +106,23 @@ public class ProductDAO extends JdbcDAO{
 			
 			try {
 					con=getConnection();
-				
-				if(product.getProductMainImg()!=null) {
+				if(product.getProductMainImg()!=null && product.getProductImg1()!=null) {
+					
+					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
+							+ ", product_dis_content=?, product_main_img=?, product_img1=? where product_num=?";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1, product.getProductName());
+					pstmt.setInt(2, product.getProductPrice());
+					pstmt.setString(3, product.getProductCom());
+					pstmt.setInt(4, product.getProductCate());
+					pstmt.setInt(5, product.getProductDis());
+					pstmt.setString(6, product.getProductDisContent());
+					pstmt.setString(7, product.getProductMainImg());
+					pstmt.setString(8, product.getProductImg1());
+					pstmt.setInt(9, product.getProductNum());
+					
+				} else if(product.getProductMainImg()!=null) {
 					
 					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
 							+ ", product_dis_content=?, product_main_img=? where product_num=?";
@@ -135,22 +150,6 @@ public class ProductDAO extends JdbcDAO{
 					pstmt.setString(6, product.getProductDisContent());
 					pstmt.setString(7, product.getProductImg1());
 					pstmt.setInt(8, product.getProductNum());
-					
-				} else if(product.getProductMainImg()!=null && product.getProductImg1()!=null) {
-					
-					String sql = "update product_table set product_name=?,product_price=?,product_com=?,product_cate=?,product_dis=?"
-							+ ", product_dis_content=?, product_main_img=?, product_img1=? where product_num=?";
-					
-					pstmt=con.prepareStatement(sql);
-					pstmt.setString(1, product.getProductName());
-					pstmt.setInt(2, product.getProductPrice());
-					pstmt.setString(3, product.getProductCom());
-					pstmt.setInt(4, product.getProductCate());
-					pstmt.setInt(5, product.getProductDis());
-					pstmt.setString(6, product.getProductDisContent());
-					pstmt.setString(7, product.getProductMainImg());
-					pstmt.setString(8, product.getProductImg1());
-					pstmt.setInt(9, product.getProductNum());
 					
 				} else if(product.getProductMainImg()==null && product.getProductImg1()==null){
 					
