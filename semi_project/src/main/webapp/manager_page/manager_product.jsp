@@ -161,9 +161,6 @@ td {
 	%>
 	
 	<div id="page_list">
-		<%
-			String responseList="";
-		%>
 		
 		<%if(startPage>blockSize){%>
 			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[ÀÌÀü]</a>		

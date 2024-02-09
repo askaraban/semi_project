@@ -247,7 +247,7 @@ public class ProductDAO extends JdbcDAO{
 				close(con, pstmt, rs);
 			} return totalCount;
 		}
-		// 페이지 만들기
+		// 관리자 제품목록에 대해 페이지 수를 만들기 위한 메소드
 		public List<ProductDTO> searchProductList(String search, String keyword, int startNum, int endNum) {
 			Connection con=null;
 			PreparedStatement pstmt=null;
@@ -295,7 +295,79 @@ public class ProductDAO extends JdbcDAO{
 					productList.add(product);
 				}
 			} catch (SQLException e) {
-				System.out.println("[에러]searchProductList() 메소드의 SQL 오류 = "+e.getMessage());
+				System.out.println("[에러]searchProductList-1() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return productList;
+		}
+		
+		// 오버로딩 - 모든 제품의 수를 반환하는 메소드
+				public int searchTotalList(int category){
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					int totalCount = 0;
+					
+					try {
+						con = getConnection();
+						
+						String sql = "select count(*) from product_table where product_cate=?";
+						pstmt=con.prepareStatement(sql);
+						
+						pstmt.setInt(1, category);
+
+						rs= pstmt.executeQuery();
+						if(rs.next()) {
+							totalCount = rs.getInt(1);
+						}
+						
+					} catch (SQLException e) {
+						System.out.println("[에러]searchTotalList() 메소드 오류" + e.getMessage());
+					} finally {
+						close(con, pstmt, rs);
+					} return totalCount;
+				}
+		
+		// 오버로딩 - 카테고리별 제품목록, 또는 검색된 제품목록에 대한 페이지를 만들기 위한 메소드
+		public List<ProductDTO> searchProductList(int category, int startNum, int endNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			List<ProductDTO> productList = new ArrayList<>();
+			try {
+				con=getConnection();
+			
+				String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
+						+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+						+ " from product_table where product_cate=? order by product_num desc) temp) where rn between ? and ?";
+				
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1, category);
+				pstmt.setInt(2, startNum);
+				pstmt.setInt(3, endNum);
+				
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					ProductDTO product=new ProductDTO();
+					product.setProductNum(rs.getInt("product_num"));
+					product.setProductName(rs.getString("product_name"));
+					product.setProductPrice(rs.getInt("product_price"));
+					product.setProductCom(rs.getString("product_com"));
+					product.setProductCate(rs.getInt("product_cate"));
+					product.setProductDis(rs.getInt("product_dis"));
+					product.setProductDisContent(rs.getString("product_dis_content"));
+					product.setProductMainImg(rs.getString("product_main_img"));
+					product.setProductImg1(rs.getString("product_img1"));
+					product.setProductImg2(rs.getString("product_img2"));
+					product.setProductImg3(rs.getString("product_img3"));
+					productList.add(product);
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]searchProductList-2() 메소드의 SQL 오류 = "+e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}
