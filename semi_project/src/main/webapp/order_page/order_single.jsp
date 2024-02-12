@@ -463,9 +463,16 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 			    </div>
 			   	<div class="cell pdtPrice">
 			   		<span class="price">
-			   			<span class="num"><%=format.format(product.getProductPrice()) %> </span>
-			   		원
+			   		<% if(product.getProductDis()!=0){ %>
+			   		<%
+			   			// 할인가를 나타내기 위한 변수
+						int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+			   		%>
+			   			<span class="num"><%=format.format(discount) %> 원 </span>
+			   		<% } else { %>
+			   			<span class="num"><%=format.format(product.getProductPrice()) %> 원</span>
 			   		</span>
+			   		<%} %>
 			   	  </div>
 			   	</div>
 	   	    </li>
@@ -483,7 +490,12 @@ int count=Integer.parseInt(request.getParameter("totCount"));
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem">
     	<button type="button" class="btnSubmit" id="btn_payment">
-    	<span id="total_order_sale_price_view"><%=format.format(product.getProductPrice()) %> 원</span>
+    	<%
+					// 할인가를 나타내기 위한 변수
+		   int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+		%>
+    	<span id="total_order_sale_price_view"><%=format.format(discount) %> 원</span>
+    	
     	<span class="payment">결제하기</span>
     	</button>
     	</div>
