@@ -1,19 +1,15 @@
+<%@page import="xzy.itwill.DAO.ReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="<%=request.getContextPath()%>/style/review_list_style.css" type="text/css" rel="stylesheet">
-<div class="listArea">
-	<ul class="menu">
-		<li>
-			<a href="#productDetailImg">상세정보</a>
-		</li>
-		<li>
-			<a href="#review_list">리뷰 3</a>
-		</li>
-		<li class="selected">
-			<a href="#qa_list">Q&A</a>
-		</li>
-	</ul>
-</div>
+<%
+	// 제품번호 가져옴
+	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
+
+	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
+	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
+%>
+<%@include file="/product_page/product_listArea.jspf" %>
 <div id="qa_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
 	<div id="review_title">Q&A목록(갯수)</div>

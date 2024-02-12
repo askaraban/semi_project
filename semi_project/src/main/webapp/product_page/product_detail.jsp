@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 </head>
 <%
+	// 제품번호 가져옴
+	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
+
 	//제품번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("productNum")==null) {
 		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
@@ -54,22 +57,12 @@
 		//검색단어가 포함된 게시글의 갯수를 검색하여 반환하는 ReviewDAO 클래스의 메서드 호출
 		// => 검색 기능을 사용하지 않을 경우 REVIEW 테이블에 저장된 모든 게시글의 갯수를 반환
 		int totalReview=ReviewDAO.getDAO().selectTotalReview(search, keyword);//검색된 게시글의 총갯수
+		
+		// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
+		int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
 %>
 <body>	
-	<div class="listArea">
-		<ul class="menu">
-			<li class="selected">
-				<a href="#productDetailImg">상세정보</a>
-			</li>
-			<li>
-				<a href="#review_list">리뷰 <%=totalReview %></a>
-			</li>
-			<li>
-				<a href="#qa_list">Q&A</a>
-			</li>
-		</ul>
-	</div>
-	
+	<%@include file="/product_page/product_listArea.jspf" %>
 	<div>
 		<img src="<%=request.getContextPath() %>/product_detail_img/<%=product.getProductImg1() %>" style="width: 100%; height: 100%; 
 			object-fit:cover;" id="productDetailImg" class="card-img-top" >

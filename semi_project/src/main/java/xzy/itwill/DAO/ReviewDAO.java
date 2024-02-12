@@ -211,7 +211,33 @@ public class ReviewDAO extends JdbcDAO {
 		}
 		return reviewList;
 	}	
+	
+	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드
+		public int selectReviewCountByProductNum(int reviewProductNum) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			int reviewCount=0;
+			try {
+				con=getConnection();
+				
+				String sql="select count(*) from review_table where review_product_num=?";
 
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, reviewProductNum);
+				
+				rs=pstmt.executeQuery();
+	         
+				if(rs.next()) {
+					reviewCount=rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]selectReviewCountByProductNum() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return reviewCount;
+		}
 	
 	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
 	public ReviewDTO selectRebiewTabledByNum(int reviewNum) {

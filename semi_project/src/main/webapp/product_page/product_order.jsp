@@ -72,8 +72,17 @@
         <div class="col-sm-9" style="text-align:left; padding-left:100px;">상세설명참조</div>
             
         <div class="col-sm-3">판매가</div>
-        <div class="col-sm-9" style="text-align:left; padding-left:100px;" id="price"><%=format.format(product.getProductPrice()) %> 원</div>
-      
+        <% if(product.getProductDis()!=0){ %>
+    	<%
+			// 할인가를 나타내기 위한 변수
+			int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+		%>
+		<div class="col-sm-9" style="text-align:left; padding-left:100px; font-weight: bold;"><%=format.format(discount) %> 원
+			<span class=col-sm-3 style="text-align:left; font-size: 10px; text-decoration:line-through;"><%=format.format(product.getProductPrice()) %> 원</span>
+        </div>
+        <% } else { %>
+       		<span class="col-sm-9" style="text-align:left; padding-left:100px; font-weight: bold;" id="price"><%=format.format(product.getProductPrice()) %> 원</span>
+		<%} %>
         <div class="col-sm-3">배송비</div>
         <div class="col-sm-9" style="text-align:left; padding-left:100px;">무료배송</div>
       
@@ -91,7 +100,12 @@
 		<table>
 			<tr id="totalPrice">
 				<td width=80%;>총 상품금액 : </td> 
-				<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(product.getProductPrice()) %> 원</td>
+				<%
+					// 할인가를 나타내기 위한 변수
+					int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+				%>
+				<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(discount) %> 원</td>
+				<%-- <% System.out.println("discount = " + discount); %> --%><!-- 할인가 적용시 count, totalResult 안됨 -> 수정 필요 	-->
 			</tr>
 		</table>
 		</div>

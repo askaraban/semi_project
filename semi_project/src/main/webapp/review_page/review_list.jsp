@@ -38,9 +38,12 @@
 	// => 검색 기능을 사용하지 않을 경우 REVIEW 테이블에 저장된 모든 게시글의 갯수를 반환
 	int totalReview=ReviewDAO.getDAO().selectTotalReview(search, keyword);//검색된 게시글의 총갯수
 	
+	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
+	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
+	
 	//전체 페이지의 총갯수를 계산하여 저장
 	//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
-	int totalPage=(int)Math.ceil((double)totalReview/pageSize);//페이지의 총갯수
+	int totalPage=(int)Math.ceil((double)productReview/pageSize);//페이지의 총갯수
 
 	//전달받은 페이지번호가 비정상적인 경우
 	if(pageNum<=0 || pageNum>totalPage) {
@@ -56,8 +59,8 @@
 	int endRow=pageNum*pageSize;
 	
 	//마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
-	if(endRow>totalReview) {
-		endRow=totalReview;
+	if(endRow>productReview) {
+		endRow=productReview;
 	}
 	
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
@@ -76,24 +79,12 @@
 	
 	//페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 	// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-	int displayNum=totalReview-(pageNum-1)*pageSize;
+	int displayNum=productReview-(pageNum-1)*pageSize;
 %>
-<div class="listArea">
-	<ul class="menu">
-		<li>
-			<a href="#productDetailImg">상세정보</a>
-		</li>
-		<li class="selected">
-			<a href="#review_list">리뷰 <%=totalReview %></a>
-		</li>
-		<li>
-			<a href="#qa_list">Q&A</a>
-		</li>
-	</ul>
-</div>
+<%@include file="/product_page/product_listArea.jspf" %>
 <div id="review_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
-	<div id="review_title">제품후기목록(<%=totalReview %>)</div>
+	<div id="review_title">제품후기목록(<%=productReview %>)</div>
 	
 	<div style="text-align: right;">
 		게시글갯수 : 
@@ -116,12 +107,11 @@
 			<th width="100">조회수</th>
 			<th width="200">작성일</th>
 		</tr>
-		<% if(totalReview==0) {//검색된 게시글이 없는 경우 %>
+		<% if(productReview==0) {//검색된 게시글이 없는 경우 %>
 			<tr id="nolist">
 				<td colspan="5">검색된 게시글이 없습니다.</td>
 			</tr>
 		<% } else {//검색된 게시글이 있는 경우 %>
-		<%-- 	<%System.out.println("리뷰있어용"); %> --%>
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
 			<% for(ReviewDTO review : reviewList) { %>
 			<tr>
@@ -144,10 +134,12 @@
 							+"&search="+search+"&keyword="+keyword;
 					%>
 					<a href="<%=url%>"><%=review.getReviewSubject() %></a>
+					<%-- <% System.out.println(review.getReviewSubject()); %> --%>
+					
 				</td>
 				
 				<%-- 작성자(회원이름) 출력 --%>
-				<td><%=review.getReviewName() %></td>
+				<td><%= review.getReviewName() %></td>
 							
 				<%-- 조회수 출력 --%>
 				<td><%=review.getReviewReadcount() %></td>
@@ -159,7 +151,7 @@
 					<% if(currentDate.equals(review.getReviewRegister().substring(0, 10))) { %>
 						<%=review.getReviewRegister().substring(11) %>
 					<% } else { %>
-						<%=review.getReviewRegister() %>
+						<%=review.getReviewRegister().substring(0, 10) %>
 					<% } %>
 				</td>		
 			</tr>	
