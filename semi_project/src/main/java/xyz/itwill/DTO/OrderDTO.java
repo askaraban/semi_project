@@ -37,13 +37,28 @@ public class OrderDTO {
 	private String orderAddress2;
 	private String orderMobile;
 	
-	public OrderDTO() {
-		// TODO Auto-generated constructor stub
+	//join 할 필드명
+	private int productNum;
+	private String productName;
+	private int productPrice; 
+	private int productDis;
+	
+	
+	public int getProductPrice() {
+		return productPrice;
 	}
 
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	private String productMainImg;
+	
 	public OrderDTO(int orderNum, int orderClientNum, String orderTime, String orderDate, int orderProductNum,
 			int orderCount, int orderStatus, int orderSum, int orderDisSum, String orderContent, String orderReceiver,
-			String orderZipcode, String orderAddress1, String orderAddress2, String orderMobile) {
+			String orderZipcode, String orderAddress1, String orderAddress2, String orderMobile, int productNum,
+			String productName, int productPrice, int productDis, String productMainImg) {
 		super();
 		this.orderNum = orderNum;
 		this.orderClientNum = orderClientNum;
@@ -60,7 +75,50 @@ public class OrderDTO {
 		this.orderAddress1 = orderAddress1;
 		this.orderAddress2 = orderAddress2;
 		this.orderMobile = orderMobile;
+		this.productNum = productNum;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productDis = productDis;
+		this.productMainImg = productMainImg;
 	}
+
+
+	public int getProductNum() {
+		return productNum;
+	}
+
+	public void setProductNum(int productNum) {
+		this.productNum = productNum;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public int getProductDis() {
+		return productDis;
+	}
+
+	public void setProductDis(int productDis) {
+		this.productDis = productDis;
+	}
+
+	public String getProductMainImg() {
+		return productMainImg;
+	}
+
+	public void setProductMainImg(String productMainImg) {
+		this.productMainImg = productMainImg;
+	}
+
+	public OrderDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public int getOrderNum() {
 		return orderNum;

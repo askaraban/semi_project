@@ -9,6 +9,7 @@ import xyz.itwill.DTO.CartDTO;
 import xyz.itwill.DTO.ClientDTO;
 import xyz.itwill.DTO.OrderDTO;
 import xyz.itwill.DTO.ProductDTO;
+import xyz.itwill.dto.ReviewDTO;
 
 public class OrderDAO extends JdbcDAO {
 	private static OrderDAO _dao;
@@ -25,51 +26,6 @@ public class OrderDAO extends JdbcDAO {
 		return _dao;
 	}
 	
-	//회원번호를 검색해서 회원번호에 해당하는 회원이 구매하기 버튼을 눌렀을 때 
-	//해당제품에 대한 제품정보와 수량을 가져옴 (제품 테이블과 장바구니 테이블을 조인)
-	
-	public CartDTO selectCartByClientNum(ClientDTO client) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		CartDTO cart=null;
-
-		try {
-
-			con = getConnection();
-
-			String sql = "select cart_num, cart_client_num, cart_product_num, cart_count, product_name, product_price, product_com, "
-					+ "product_dis, product_main_img from cart_table join product_table on cart_product_num = product_num where cart_client_num = ?"
-					+ " order by cart_num desc";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setInt(1, client.getClientNum());
-
-			rs = pstmt.executeQuery();
-
-			if(rs.next()) {
-				cart=new CartDTO();
-				cart.setCartNum(rs.getInt("cart_num"));
-				cart.setCartClientNum(rs.getInt("cart_client_num"));
-				cart.setCartProductNum(rs.getInt("cart_product_num"));
-				cart.setCartCount(rs.getInt("cart_count"));
-				cart.setProductName(rs.getString("product_name"));
-				cart.setProductPrice(rs.getInt("product_price"));
-				cart.setProductCom(rs.getString("product_com"));
-				cart.setProductDis(rs.getInt("product_dis"));
-				cart.setProductMainImg(rs.getString("product_main_img"));
-			}
-
-		} catch (SQLException e) {
-			System.out.println("[에러]selectCartList() 메소드 오류" + e.getMessage());
-		} finally {
-			close(con, pstmt, rs);
-		}
-		return cart;
-	}
-	
-	
 		//주문정보를 전달받아 ORDER 테이블에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
 		public int insertOrder(OrderDTO order) {
 			Connection con=null;
@@ -81,7 +37,7 @@ public class OrderDAO extends JdbcDAO {
 				String sql="insert into order_table values(order_seq.nextval,?,?,sysdate,?,0,?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
-				pstmt.setString(2, order.getOrderTime());
+				pstmt.setString(2, order.getOrderTime()); //pstmt.setTimestamp(2, new stimestamp(order.getordertime.gettime()) ??
 				pstmt.setInt(3, order.getOrderProductNum());
 				pstmt.setInt(4, order.getOrderSum());
 				pstmt.setInt(5, order.getOrderDisSum());
@@ -101,33 +57,64 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return rows;
 		}
-		
-		
-		
-		//제품번호와 수량을 전달받아서 주문테이블에 행으로 삽입하는 메소드  
-		public ProductDTO selectSingleOrder(int productNum, int count) {
-			Connection con=null;
-			ProductDTO product=null;
 			
-			PreparedStatement pstmt=null;
-			int rows=0;
+		// 회원번호를 검색해 회원번호에 해당하는 product_table에 있는 단일행을 가져옴
+		// 가져온 product_table에서  order_table과 조인하여 제품정보를 가져옴
+		public OrderDTO selectOrderList(ClientDTO client) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			OrderDTO order=null;
+
 			try {
-				con=getConnection();
+
+				con = getConnection();
+
+				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, order_content, order_receiver"
+				        +",order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
+				        +", product_dis, product_main_img"
+				        +"from order_table join product_table on order_product_num = product_num where order_client_num = ?"
+				        +"order by order_num desc";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, client.getClientNum());
+
+				rs = pstmt.executeQuery();
+
+				if(rs.next()) {
+					order=new OrderDTO();
+					order.setOrderNum(rs.getInt("order_num"));
+					order.setOrderClientNum(rs.getInt("order_client_num"));
+					order.setOrderTime(rs.getString("order_time"));
+					order.setOrderDate(rs.getString("order_date"));
+					order.setOrderProductNum(rs.getInt("order_product_num"));
+					order.setOrderStatus(rs.getInt("order_status"));
+					order.setOrderSum(rs.getInt("order_sum"));;
+					order.setOrderDisSum(rs.getInt("order_dis_sum"));
+					order.setOrderContent(rs.getString("order_content"));
+					order.setOrderReceiver(rs.getString("order_receiver"));
+					order.setOrderZipcode(rs.getString("order_zipcode"));
+					order.setOrderAddress1(rs.getString("order_address1"));
+					order.setOrderAddress2(rs.getString("order_address2"));
+					order.setOrderMobile(rs.getString("order_mobile"));
+					order.setOrderCount(rs.getInt("order_count"));
+					order.setProductDis(rs.getInt("order_product_dis"));
+					order.setProductMainImg(rs.getString("order_product_main_img"));
+					order.setProductName(rs.getString("order_product_name"));
+					order.setProductNum(rs.getInt("order_product_num"));
+					order.setProductPrice(rs.getInt("order_product_price"));
 				
-				String sql="insert into order_table values(?,?)";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, productNum);
-				pstmt.setInt(2, count);
-				
-				rows=pstmt.executeUpdate();
+				}
+
 			} catch (SQLException e) {
-				System.out.println("[에러]selectSingleOrder() 메소드의 SQL 오류 = "+e.getMessage());
+				System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
 			} finally {
-				close(con, pstmt);
+				close(con, pstmt, rs);
 			}
-			return product;
+			return order;
 		}
-		
-		//
+
 		
 }

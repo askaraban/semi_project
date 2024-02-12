@@ -1,8 +1,45 @@
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="oracle.security.o3logon.O3LoginClientHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="/security/login_check.jspf" %>
-<%--ffdf   fff  --%>
+    
+
+<%
+
+	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
+	DecimalFormat format = new DecimalFormat("###,###,##0");
+	
+
+	//제품번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
+	if (request.getParameter("productNum")==null) {
+		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		return;
+	}
+	
+	//전달값을 반환받아 저장
+	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
+	//System.out.println("productNum = "+productNum);
+	
+	//수량을 넘겨받아야 하는디. 받아지지가 않넹 액션 확인 ..
+	//int count=Integer.parseInt(request.getParameter("totCount")); //단일제품 수량
+	//System.out.println("count = " + count);
+	
+	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
+	//ProductDAO 클래스의 메소드 호출
+	ProductDTO product=ProductDAO.getDAO().selectProductByNum(productNum);
+	
+	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
+	if(product==null) {
+	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		return;
+	}
+%>
+
+
+
 <style type="text/css">
 	
 
@@ -385,7 +422,21 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 <br>
 
 <!-- 주문 상품 정보 -->
-    
+<%-- 일단 수량을 전달받아야함 
+    <% //할인율 반영 가격 ..
+		int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+		if(product.getProductDis()==0){
+			totPrice += order.getOrderCount() * product.getProductPrice();
+		} else {
+			totPrice += order.getOrderCount() * discount;
+		}
+		
+		// 상세페이지로 이동할 수 있도록 DAO로 상품번호를 가져오고, url 로 전달
+				int productNum = CartDAO.getDAO().selectProductCount(cart.getCartNum());
+				String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+						   +"&productNum="+productNum;
+	%>
+--%>
     <form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
     <section id="orderChk" style="display: block;">
     	<input type="hidden" id="#" name="#" value="#">
@@ -394,18 +445,17 @@ int count=Integer.parseInt(request.getParameter("totCount"));
     </div>	
     <div class="cartList">
     	<ul>
-    		<script>
-    		</script>
+    		
     		<li>
 			    <div class="pdtRow">
 			    	<div class="cell pdtImg">
-			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
-			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
+			    	<a href="#">
+			    		<img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>" alt="" width="90" height="90">
 			   		</a>
 			    </div>
 			    <div class="cell pdtInfo">
 			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
+			    		<a href="/product_page/product" onclick="#"><%=product.getProductName() %></a>
 			    	</div>
 			    	<div class="pdtOpt"> <!-- 수량 -->
 			    		<span class="pdtCount">1개</span>
@@ -413,40 +463,14 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 			    </div>
 			   	<div class="cell pdtPrice">
 			   		<span class="price">
-			   			<span class="num">54,000</span>
-			   			원 
+			   			<span class="num"><%=format.format(product.getProductPrice()) %> </span>
+			   		원
 			   		</span>
 			   	  </div>
 			   	</div>
 	   	    </li>
 	   	  </ul>
-	   	<ul>
-    		<script>
-    		</script>
-    		<li>
-			    <div class="pdtRow">
-			    	<div class="cell pdtImg">
-			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
-			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
-			   		</a>
-			    </div>
-			    <div class="cell pdtInfo">
-			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
-			    	</div>
-			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount">1개</span>
-			    	</div>
-			    </div>
-			   	<div class="cell pdtPrice">
-			   		<span class="price">
-			   			<span class="num">54,000</span>
-			   			원 
-			   		</span>
-			   	  </div>
-			   	</div>
-			  </li>
-   		  </ul>
+	 
      </div>	
   </section>	
  </form>
@@ -459,9 +483,8 @@ int count=Integer.parseInt(request.getParameter("totCount"));
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem">
     	<button type="button" class="btnSubmit" id="btn_payment">
-    	<span id="total_order_sale_price_view">54,000</span>
-    	원 
-    	<span class>결제하기</span>
+    	<span id="total_order_sale_price_view"><%=format.format(product.getProductPrice()) %> 원</span>
+    	<span class="payment">결제하기</span>
     	</button>
     	</div>
     </section>
