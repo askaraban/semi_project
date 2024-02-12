@@ -128,8 +128,8 @@ input[type='number'] {
 			
 			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
 			<div class="cart-product-infoArea third-inner" style="width: 250px;">
-				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br>
-				<span><strong style="font-weight: bold; font-size: 20px;">
+				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
+				<span><strong style="font-weight: bold; font-size: 18px;">
 				
 					<%if(cart.getProductDis()!=0) {%>
 					<em><%=format.format(cart.getCartCount()*discount) %>원</em>
@@ -158,12 +158,12 @@ input[type='number'] {
 				<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
 			</div>
 			<div class="cart-result-content">=</div>
-			<div style="width: 300px; height: 100px; padding-top: 20px;">
+			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
 				<span class="result-word">주문금액</span>
 				<br>
 				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 			</div>
-			<div style="width: 300px; height: 100px; padding-top: 20px;">
+			<div style="width: 300px; height: 100px; padding-top: 23px;">
 				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" ></button>
 			</div>
 		</div>

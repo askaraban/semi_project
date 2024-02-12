@@ -103,7 +103,7 @@
 
 .cart-product-infoArea {
 	min-width: 0;
-	padding-left: 12px;
+	padding-left: 30px;
 	padding-top: 5px;
 	
 }
@@ -145,7 +145,7 @@
     text-align: left;
 }
 .cart-select-product-content{
-	width: 200px; height: 100px; padding-top: 20px;
+	width: 200px; height: 100px; padding-top: 20px; padding-left: 38px;
 }
 .cart-minus-content{
 	width: 50px; height: 100px; padding-top: 10px; font-size: 50px; color: rgb(199,199,199);
