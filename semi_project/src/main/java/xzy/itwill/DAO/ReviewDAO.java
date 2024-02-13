@@ -223,12 +223,12 @@ public class ReviewDAO extends JdbcDAO {
 			String sql="select * from (select rownum rn, temp.* from (select review_num"
 					+ ", review_member_num, client_name, review_subject, review_content, review_image"
 					+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
-					+ " from review_table join client_table on review_member_num=client_num"
-					+ " order by review_num desc) temp) where rn between ? and ? and review_product_num=?";
+					+ " from review_table join client_table on review_member_num=client_num where review_product_num=?"
+					+ " order by review_num desc) temp) where rn between ? and ?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, reviewProductNum);
+			pstmt.setInt(1, reviewProductNum);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 	     
 			//여기 밑으로 확인하기
 	     
