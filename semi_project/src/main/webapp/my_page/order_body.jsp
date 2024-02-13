@@ -1,6 +1,5 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("utf-8");
 String main_header = "/main_page/main_header.jsp";
@@ -21,10 +20,8 @@ String main_footer = "/main_page/main_footer.jsp";
 	String contentFilePath="/"+group+"/"+worker+".jsp";
 
 %>
-
-<!doctype html>
-<html lang="kr">
-
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,26 +33,22 @@ String main_footer = "/main_page/main_footer.jsp";
 	<!--  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">-->
 <link href="<%=request.getContextPath()%>/style/style.css" type="text/css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/style/cart.css" type="text/css" rel="stylesheet">
 
 </head>
-
 <body>
-
-	<%-- 헤더 --%>
+<%-- 헤더 --%>
 	<jsp:include page="<%=main_header %>"/>
-	 
-	 
-	 
-	<%-- 바디 --%>
-	<jsp:include page="<%=contentFilePath %>"/>
-	<% String returnURL = (String)request.getAttribute("returnURL");
-	
-			if(returnURL!=null) {
-				response.sendRedirect(returnURL);
-				return;
-			} %>
-	<%-- 풋터 --%>
+
+<%-- 바디 --%>
+<jsp:include page="<%=contentFilePath %>"/>
+<% String returnURL = (String)request.getAttribute("returnURL");
+
+		if(returnURL!=null) {
+			response.sendRedirect(returnURL);
+			return;
+		} %>
+
+<%-- 풋터 --%>
 	<jsp:include page="<%=main_footer %>"/>
 	
 	

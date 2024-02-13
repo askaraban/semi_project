@@ -2,232 +2,24 @@
 pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="<%=request.getContextPath()%>/style/my_page_order.css" type="text/css" rel="stylesheet">
 <%@include file="/security/login_check.jspf" %>  
-<style>
-<style type="text/css">
-* {margin:0;padding:0;}
-html {height: 100%; background: #fff;}
-html.mobile {width: 100%; overflow: hidden;}
-body {
-	width: 100%;
-	max-width: 1020px;
-	margin: 0 auto;
-	box-sizing: border-box;
-	display: block;
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
-<%-- 비밀번호 재확인 --%>
-[class*="subTitle1"] {
-    margin: 60px 0 24px;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    text-align: left;
-}
-
-
-<%-- 비밀번호 입력 칸 --%>
-.pwdInputField {
-    position: relative;
-    margin-top: 20px;
-    padding: 20px 20px;
-    border-top: 2px solid #000;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    
-}
-
-fieldset, img {
-    border: 0;
-}
-
-fieldset {
-    display: block;
-    margin-inline-start: 2px;
-    margin-inline-end: 2px;
-    padding-block-start: 0.35em;
-    padding-inline-start: 0.75em;
-    padding-inline-end: 0.75em;
-    padding-block-end: 0.625em;
-    min-inline-size: min-content;
-    <%-- border-width: 2px; --%>
-    border-style: groove;
-    border-color: rgb(192, 192, 192);
-    border-image: initial;
-}
-
-.btnWrap {
-	padding: 30px;
-	margin: 10px;
-	
-}
-
-<%-- 확인 버튼 --%>
-[class*="btnType3"] {
-    height: 50px;
-    line-height: 50px;
-    padding: 0 30px;
-    font-weight: 600;
-    color: #fff;
-    text-align: center;
-    background: #F5A9D0;
-}
-
-.btnWrap [class*="btnType3"] {
-    position: absolute;
-    right: 50%;
-    width: 150px;
-    margin-left: -100px;
-}
-
-<%-- 취소 버튼 --%>
-[class*="btnType4"] {
-    height: 50px;
-    line-height: 50px;
-    padding: 0 30px;
-    font-weight: 600;
-    color: #000000;
-    text-align: center;
-    background: #FFFFFF;
-	border: 1px solid black;
-}
-
-.btnWrap [class*="btnType4"] {
-    position: absolute;
-    left: 60%;
-    width: 150px;
-    margin-left: -100px;
-}
-
-<%-- 네비게이션 바 --%>
-#navigation a:hover {
-    text-align: left;
-	color: #F5A9D0;
-	font-size: 1.5em;
-}
-
-.navigation {
-  width : 100px;
-  height : 100px;
-  background-color: red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-#navigation h1 {
-	font-size: 1em;	
-	margin: 5px;
-	height: 50px;
-	text-align: center;
-	
-}
-
-#navigation h2 {
-	font-size: 1em;		
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h3 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;			
-}
-
-#navigation h4 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-	
-}
-
-#navigation {
-	position: absolute;
-}
-
-<%-- 회원탈퇴 --%>
-[class*="subTitle4"] {
-    margin: 60px 0 24px;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    text-align: left;
-}
-
-.mbOutTop {
-    padding: 70px 0 0;
-    border-top: 2px solid #000;
-}
-
-.mbOutTop .txt {
-    margin: 0 0 50px;
-    font-size: 14px;
-    line-height: 19px;
-    color: #666;
-    text-align: center;
-}
-
-.mbOutTop .list {
-    padding: 30px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25em;
-    border: 1px solid #EEEEEE;
-    background: #FCFCFD;
-}
-
-.mbOutTop .list li {
-    margin-top: 30px;
-}
-
-li {
-    list-style: none;
-    text-align: left;
-}
-
-.mbOutTop .list {
-    padding: 30px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.25em;
-    border: 1px solid #EEEEEE;
-    background: #FCFCFD;
-}
-
-h3.subTitle2 {
-    margin-top: 60px;
-}
-
-.subTitle2 {
-    margin: 100px 0 20px;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 1.55;
-    text-align: left;
-}
-</style>
 
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation">
+			<div id="navigation" style="padding-top: 60px;">
 				<h1>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
 				</h1>
 				<h2>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
 				</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
 				</h4>
 			</div>
 		</div>
@@ -267,14 +59,14 @@ h3.subTitle2 {
 					회원 탈퇴 전 아래의 사항들을 확인해주세요.
 				</p>
 				<ul class="list">
-					<li>1.과자몰 공식 온라인몰에서 탈퇴시 다음의 정보는 삭제될 수 있습니다.
+					<li class="list_sub">1.과자몰 공식 온라인몰에서 탈퇴시 다음의 정보는 삭제될 수 있습니다.
 						<span class="sub">
 							- 과자몰 공식 온라인몰에서 발행한 쿠폰<br>
 							- 리뷰 프로필, 리뷰 작성 내역, 리뷰관 활동 내역<br>
 							- 1:1 문의 내역 등
 						</span>
 					</li>
-					<li>2. 과자몰 공식 온라인몰에서 탈퇴하면, 즉시 재이용 하실 수 없습니다.
+					<li class="list_sub">2. 과자몰 공식 온라인몰에서 탈퇴하면, 즉시 재이용 하실 수 없습니다.
 						<span class="sub">
 							- 과자몰 아이디로 로그인 및 과자몰 서비스 이용약관 동의<br>
 							- 과자몰 아이디로 공식 온라인몰을 이용하셨던 경우, 재가입 시점에 따라 1에서 언급한 정보가 유지될 수 있습니다.
@@ -293,7 +85,7 @@ h3.subTitle2 {
 			</div>
 			<div class="btnWrap wL" id="btn">
 				<button type="button" id="submitBtn" class="btnType3m">확인</button>
-				<a href="/semi_project_1/main_page/main.jsp" class="btnType4m">취소</a>
+				<a href="/semi_project_1/main_page/main.jsp" class="btnType4m" style="color: black; border: 1px solid black; text-decoration: none;">취소</a>
 			</div>
 		</div>
 	</div>

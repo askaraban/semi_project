@@ -3,255 +3,24 @@
 <%@include file="/security/login_url.jspf" %>    
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="<%=request.getContextPath()%>/style/my_page_order.css" type="text/css" rel="stylesheet">
+
 <%-- 네비게이션 바 --%> 
-<style type="text/css">
-body {
-	width: 100%;
-	max-width: 1020px;
-	margin: 0 auto;
-	box-sizing: border-box;
-	display: block;
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
-#navigation a:hover {
-    text-align: left;
-	color: #F5A9D0;
-	font-size: 1.5em;
-}
-
-#navigation h1 {
-	font-size: 1em;	
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h2 {
-	font-size: 1em;		
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h3 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;			
-}
-
-#navigation h4 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation {
-	position: absolute;
-}
-
-<%-- 주문조회 --%>
-[class*="subTitle1"] {
-    margin: 60px 0 24px;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    text-align: left;
-}
-
-<%-- 기간/일자별 테두리 --%>
-.tableTypeSearch {
-    margin: 30px 0 60px;
-    padding: 0 10px;
-    border: 1px solid #eee;
-    background: #FCFCFD;
-}
-
-.tableTypeSearch tr {
-    border-top: 1px solid #eee;
-}
-
-<%-- 기간/일자별 문구 --%>
-.tableTypeSearch th {
-    text-align: left;
-    font-weight: 600;
-    color: #999;
-}
-<%-- 기간별 조회 선택 --%>
-.tableTypeSearch th, .tableTypeSearch td {
-    height: 80px;
-    padding: 20px 0;
-    box-sizing: border-box;
-}
-
-.tableTypeSearch .inputChk, .tableTypeSearch .inputRadio {
-    margin-right: 30px;
-}
-
-<%-- 일자별 조회 검색 --%>
-.tableTypeSearch th, .tableTypeSearch td {
-    height: 80px;
-    padding: 20px 0;
-    box-sizing: border-box;
-}
-
-<%-- 날짜검색창 --%>
-.inputTxt:read-only {
-    border: 1px solid #DDD;
-    background: #F5F5F5;
-}
-
-<%-- 검색버튼 --%>
-.tableTypeSearch .btnType7m {
-    width: 100px;
-    margin-left: 10px;
-    border: none;
-    font-weight: 600;
-    color: #fff;
-    background: #F5A9D0;
-}
-.btnType7m {
-    height: 40px;
-    line-height: 38px;
-    padding: 0 16px;
-}
-
-<%-- 총 --%>
-.tableListLength {
-    margin: 0 0 20px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.29em;
-    text-align: left;
-}
-
-<%-- 주문창 테이블 --%>
-.tableType {
-    position: relative;
-    border-top: 2px solid #000;
-}
-
-.tableType thead th {
-    border-left: 1px solid #eee;
-    background: #F5F5F5;
-}
-
-<%-- 주문창 글자 --%>
-.tableType th {
-    padding: 15px 20px 15px;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #eee;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 500;
-    color: #000;
-}
-
-.helpWrap li {
-    margin-top: 5px;
-    font-size: 13px;
-    line-height: 1.54;
-    color: #888;
-    text-align: left;
-}
-
-<%-- 1234 --%>
-[class*="tableType"] + .paging, .helpWrap + .paging {
-    margin-top: 30px;
-    padding: 0px 0px 30px;
-}
-
-<%-- 하단 이미지 부분 --%>
-.iconProcess {
-    display: flex;
-    text-align: center;
-    box-sizing: border-box;
-    margin-top: 60px;
-    font-size: 12px;
-    line-height: 1.33em;
-    color: #999;
-    border: 1px solid #EEEEEE;
-    background: #FCFCFD;
-}
-
-.iconProcess li {
-    flex: 1;
-    position: relative;
-    margin-right: 8px;
-    padding: 20px 0 20px 0;
-    border-right: 1px solid #eee;
-}
-
-
-
-.iconProcess .tit {
-    display: block;
-    margin: 0 0 10px;
-    padding: 0 0 70px;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.33em;
-    color: #333;
-}
-
-[class*="bulListType"] > li:first-child {
-    margin-top: 0;
-}
-
-
-li {
-    list-style: none;
-}
-
-
-.iconProcess li:last-child {
-    margin-right: 0;
-    background: none;
-}
-
-
-<%-- 하단 이미지 --%>
-.iconProcess .icon1 .tit {
-    background: url(../my_page/images/icon_process1.png) no-repeat 50% 100%; background-size: 50px;
-
-}
-
-.iconProcess .icon2 .tit {
-    background: url(../my_page/images/icon_process2.png) no-repeat 50% 100%; background-size: 50px;
-}
-
-.iconProcess .icon3 .tit {
-    background: url(../my_page/images/icon_process3.png) no-repeat 50% 100%; background-size: 50px;
-}
-
-.iconProcess .icon4 .tit {
-    background: url(../my_page/images/icon_process4.png) no-repeat 50% 100%; background-size: 50px;
-}
-
-.iconProcess .icon5 .tit {
-    background: url(../my_page/images/icon_process5.png) no-repeat 50% 100%; background-size: 50px;
-}
-
-
-</style>
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation">
+			<div id="navigation" style="padding-top: 60px;">
 				<h1>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
 				</h1>
 				<h2>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
 				</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
 				</h4>
 			</div>
 		</div>
@@ -273,9 +42,9 @@ li {
 							<tr>
 								<th scope="row">기간별 조회</th>
 							<td>
-								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('D15', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry1"> <span>15일</span></label>
-								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M1', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry2"> <span>1개월</span></label>
-								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M2', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry3"> <span>2개월</span></label>
+								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('Dday', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry1"> <span>오늘</span></label>
+								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('W1', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry2"> <span>1주일</span></label>
+								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M1', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry3"> <span>1개월</span></label>
 								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M3', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry4"> <span>3개월</span></label>
 								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M6', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry5"> <span>6개월</span></label>
 							</td>
