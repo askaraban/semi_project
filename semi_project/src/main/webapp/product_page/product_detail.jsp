@@ -62,7 +62,20 @@
 		int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
 %>
 <body>	
-	<%@include file="/product_page/product_listArea.jspf" %>
+	<div class="listArea">
+		<ul class="menu">
+			<li class="selected">
+				<a href="#productDetailImg">상세정보</a>
+			</li>
+			<li>
+				<a href="#review_list">리뷰 (<%=productReview %>)</a>
+			</li>
+			<li>
+				<a href="#qa_list">Q&A</a>
+			</li>
+		</ul>
+	</div>
+	
 	<div>
 		<img src="<%=request.getContextPath() %>/product_detail_img/<%=product.getProductImg1() %>" style="width: 100%; height: 100%; 
 			object-fit:cover;" id="productDetailImg" class="card-img-top" >

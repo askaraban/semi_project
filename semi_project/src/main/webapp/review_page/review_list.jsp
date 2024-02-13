@@ -28,7 +28,10 @@
 	//전체 페이지의 총갯수를 계산하여 저장
 	//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
 	int totalPage=(int)Math.ceil((double)productReview/pageSize);//페이지의 총갯수
-
+	if(totalPage == 0) {
+		totalPage=1;
+	}
+	
 	//전달받은 페이지번호가 비정상적인 경우
 	if(pageNum<=0 || pageNum>totalPage) {
 		pageNum=1;
@@ -64,10 +67,22 @@
 	//페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 	// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 	int displayNum=productReview-(pageNum-1)*pageSize;
-/* 	System.out.println("displayNum = " + displayNum); */
 	
 %>
-<%@include file="/product_page/product_listArea.jspf" %>
+<div class="listArea">
+	<ul class="menu">
+		<li>
+			<a href="#productDetailImg">상세정보</a>
+		</li>
+		<li class="selected">
+			<a href="#review_list">리뷰 (<%=productReview %>)</a>
+		</li>
+		<li>
+			<a href="#qa_list">Q&A</a>
+		</li>
+	</ul>
+</div>
+	
 <div id="review_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
 	<div id="review_title" style="margin-bottom:25px">제품후기목록(<%=productReview %>)</div>
@@ -92,7 +107,6 @@
 				<%-- 게시글의 글번호가 아닌 게시글의 일련번호 출력 --%>
 				<td><%=displayNum %></td>
 				<% displayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
-				<% 	System.out.println("displayNum = " + displayNum); %>
 				
 				<%-- 제목 출력 --%>
 				<td class="subject">
@@ -158,7 +172,7 @@
 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 					+"&productNum="+reviewProductNum+"&review_list"+"&pageSize="+pageSize;
 		%>
-	
+		
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
 			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
@@ -167,6 +181,7 @@
 		<% } %>
 		
 		<% for(int i=startPage;i<=endPage;i++) { %>
+			
 			<%-- 요청 페이지번호와 출력된 페이지번호가 같지 않은 경우에만 링크 제공 --%>
 			<% if(pageNum != i) { %>
 				<a href="<%=responseUrl%>&pageNum=<%=i%>#review_list">[<%=i %>]</a>

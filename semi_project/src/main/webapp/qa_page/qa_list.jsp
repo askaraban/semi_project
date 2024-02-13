@@ -9,7 +9,20 @@
 	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
 	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
 %>
-<%@include file="/product_page/product_listArea.jspf" %>
+<div class="listArea">
+	<ul class="menu">
+		<li>
+			<a href="#productDetailImg">상세정보</a>
+		</li>
+		<li>
+			<a href="#review_list">리뷰 (<%=productReview %>)</a>
+		</li>
+		<li class="selected">
+			<a href="#qa_list">Q&A</a>
+		</li>
+	</ul>
+</div>
+	
 <div id="qa_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
 	<div id="review_title">Q&A목록(갯수)</div>
