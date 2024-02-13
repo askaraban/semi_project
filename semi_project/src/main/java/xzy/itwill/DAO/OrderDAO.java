@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.itwill.DTO.CartDTO;
@@ -118,8 +119,59 @@ public class OrderDAO extends JdbcDAO {
 		}
 		
 		// 날짜와 회원번호를 전달받아 해당 날짜에 해당하는 주문번호 리스트를 가져오는 메소드
-		public List<OrderDTO> myOrderList(String startDate, String endDate, ClientDTO clientNum) {
-			
+		public List<OrderDTO> myOrderList(String startDate, String endDate, int clientNum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			List<OrderDTO> orderList = new ArrayList<>();
+
+			try {
+
+				con = getConnection();
+
+				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, product_name, "
+						+ "order_content, order_receiver, order_zipcode, order_address1, order_address2, order_mobile, order_count from order_table"
+						+ " join product_table on order_product_num=product_num "
+						+ " where order_client_num=? and to_char(order_date,'yyyy-mm-dd') between ? and ?";
+				
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, clientNum);
+				pstmt.setString(2, startDate);
+				pstmt.setString(3, endDate);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					OrderDTO order = new OrderDTO();
+					order.setOrderNum(rs.getInt("order_num"));
+					order.setOrderClientNum(rs.getInt("order_client_num"));
+					order.setOrderTime(rs.getString("order_time"));
+					order.setOrderDate(rs.getString("order_date"));
+					order.setOrderProductNum(rs.getInt("order_product_num"));
+					order.setOrderStatus(rs.getInt("order_status"));
+					order.setOrderSum(rs.getInt("order_sum"));
+					order.setOrderDisSum(rs.getInt("order_dis_sum"));
+					
+					order.setProductName(rs.getString("product_name"));
+					
+					order.setOrderContent(rs.getString("order_content"));
+					order.setOrderReceiver(rs.getString("order_receiver"));
+					order.setOrderZipcode(rs.getString("order_zipcode"));
+					order.setOrderAddress1(rs.getString("order_address1"));
+					order.setOrderAddress2(rs.getString("order_address2"));
+					order.setOrderMobile(rs.getString("order_mobile"));
+					order.setOrderCount(rs.getInt("order_count"));
+					orderList.add(order);
+				}
+
+			} catch (SQLException e) {
+				System.out.println("[에러]myOrderList() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return orderList;
 		}
 
 		
