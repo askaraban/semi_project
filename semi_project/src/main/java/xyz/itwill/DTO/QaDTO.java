@@ -1,17 +1,18 @@
 package xyz.itwill.DTO;
 
 /*
-이름           널?       유형             
------------- -------- -------------- 
-QA_NUM       NOT NULL NUMBER        	- 글번호
-QA_MEMBER             NUMBER        	- 작성자
-QA_SUBJECT            VARCHAR2(500) 	- 제목
-QA_CONTENT            VARCHAR2(4000)	- 내용
-QA_IMAGE              VARCHAR2(100) 	- 이미지 파일 경로
-QA_REGISTER           DATE          	- 작성날짜
-QA_UPDATE             DATE          	- 변경날짜
-QA_READCOUNT          NUMBER        	- 조회수
-QA_REPLAY             NUMBER 	        - 답글    
+이름             널?       유형             
+-------------- -------- -------------- 
+QA_NUM         NOT NULL NUMBER       	- 글번호
+QA_MEMBER               NUMBER       	- 작성자
+QA_SUBJECT              VARCHAR2(500)	- 제목
+QA_CONTENT              VARCHAR2(4000)	- 내용
+QA_IMAGE                VARCHAR2(100)	- 이미지 파일 경로
+QA_REGISTER             DATE         	- 작성날짜
+QA_UPDATE               DATE         	- 변경날짜
+QA_READCOUNT            NUMBER       	- 조회수
+QA_REPLAY               VARCHAR2(4000)	- 답글    
+QA_PRODUCT_NUM          NUMBER(10)   	- 제품번호
 */
 
 public class QaDTO {
@@ -24,8 +25,10 @@ public class QaDTO {
 	private String qaRegister;
 	private String qaUpdate;
 	private int qaReadCount;
-	private int qaReplay;
+	private String qaReplay;
+	private int qaProductNum;
 	
+
 	public QaDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -102,12 +105,19 @@ public class QaDTO {
 		this.qaReadCount = qaReadCount;
 	}
 
-	public int getQaReplay() {
+	public String getQaReplay() {
 		return qaReplay;
 	}
 
-	public void setQaReplay(int qaReplay) {
+	public void setQaReplay(String qaReplay) {
 		this.qaReplay = qaReplay;
 	}
 
+	public int getQaProductNum() {
+		return qaProductNum;
+	}
+
+	public void setQaProductNum(int qaProductNum) {
+		this.qaProductNum = qaProductNum;
+	}
 }

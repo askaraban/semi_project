@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.itwill.DTO.QaDTO;
+import xyz.itwill.DTO.ReviewDTO;
 
 public class QaDAO extends JdbcDAO {
 	private static QaDAO _dao;
@@ -100,7 +101,7 @@ public class QaDAO extends JdbcDAO {
 				qa.setQaRegister(rs.getString("qa_register"));
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readcount"));
-				qa.setQaReplay(rs.getInt("qa_replay"));
+				qa.setQaReplay(rs.getString("qa_replay"));
 				
 				qaList.add(qa);
 			}
@@ -110,6 +111,81 @@ public class QaDAO extends JdbcDAO {
 			close(con, pstmt, rs);
 		}
 		return qaList;
+	}
+	
+	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 제품번호를 전달받아
+	// REVIEW_TABLE에 저장된 행을 select 하여 게시글 목록을 반환하는 메소드
+	public List<QaDTO> selectQaListByQaProductNum(int startRow, int endRow, int qaProductNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<QaDTO> qaList = new ArrayList<QaDTO>();
+		try {
+			con = getConnection();
+
+			String sql="select * from (select rownum rn, temp.* from (select qa_num"
+					+ " , qa_member, client_name, qa_subject, qa_content, qa_image"
+					+ " , qa_register, qa_update, qa_readcount, qa_replay, qa_product_num"
+					+ " from qa_table join client_table on qa_member=client_num where qa_product_num=?"
+					+ " order by qa_num desc) temp) where rn between ? and ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qaProductNum);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+	     
+			//여기 밑으로 확인하기
+	     
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				QaDTO qa = new QaDTO();
+	            qa.setQaNum(rs.getInt("qa_num"));
+	            qa.setQaMember(rs.getInt("qa_member"));
+	            qa.setQaName(rs.getString("client_name"));
+	            qa.setQaSubject(rs.getString("qa_subject"));
+	            qa.setQaContent(rs.getString("qa_content"));
+	            qa.setQaImage(rs.getString("qa_image"));
+	            qa.setQaRegister(rs.getString("qa_register"));
+	            qa.setQaUpdate(rs.getString("qa_update"));
+	            qa.setQaReadCount(rs.getInt("qa_readcount"));
+	            qa.setQaReplay(rs.getString("qa_replay"));
+	            qa.setQaProductNum(rs.getInt("qa_product_num"));
+
+	            qaList.add(qa);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectQaListByQaProductNum() 메소드의 SQL 오류 = " + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return qaList;
+	}
+	
+	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드
+	public int selectQaCountByQaNum(int qaProductNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int qaCount=0;
+		try {
+			con=getConnection();
+			
+			String sql="select count(*) from qa_table where qa_product_num=?";
+
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qaProductNum);
+			
+			rs=pstmt.executeQuery();
+         
+			if(rs.next()) {
+				qaCount=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectQaCountByQaNum() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return qaCount;
 	}
 	
 	//REVIEW_SEQ 시퀸스의 다음값(정수값)을 검색하여 반환하는 메소드
@@ -152,7 +228,7 @@ public class QaDAO extends JdbcDAO {
 			pstmt.setString(3, qa.getQaSubject());
 			pstmt.setString(4, qa.getQaContent());
 			pstmt.setString(5, qa.getQaImage());
-			pstmt.setInt(6, qa.getQaReplay());
+			pstmt.setString(6, qa.getQaReplay());
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -192,7 +268,7 @@ public class QaDAO extends JdbcDAO {
 				qa.setQaRegister(rs.getString("qa_register"));
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readCount"));
-				qa.setQaReplay(rs.getInt("qa_replay"));
+				qa.setQaReplay(rs.getString("qa_replay"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());

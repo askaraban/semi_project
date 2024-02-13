@@ -11,7 +11,7 @@ REVIEW_IMAGE               VARCHAR2(100)  - 이미지 파일 경로
 REVIEW_REGISTER            DATE           - 작성날짜
 REVIEW_UPDATE              DATE           - 변경날짜
 REVIEW_READCOUNT           NUMBER(30)     - 조회수
-REVIEW_REPLAY              NUMBER(30)  	  - 답글
+REVIEW_REPLAY              VARCHAR2(4000) - 답글
 REVIEW_PRODUCT_NUM         NUMBER(10)     - 제품번호
 */
 
@@ -25,7 +25,7 @@ public class ReviewDTO {
 	private String reviewRegister;
 	private String reviewUpdate;
 	private int  reviewReadcount;
-	private int reviewReplay;
+	private String reviewReplay;
 	private int reviewProductNum;
 
 
@@ -34,7 +34,7 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(int reviewNum, int reviewMemberNum, String reviewName, String reviewSubject, String reviewContent,
-			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, int reviewReplay,
+			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, String reviewReplay,
 			int reviewProductNum) {
 		super();
 		this.reviewNum = reviewNum;
@@ -122,11 +122,11 @@ public class ReviewDTO {
 		this.reviewReadcount = reviewReadcount;
 	}
 
-	public int getReviewReplay() {
+	public String getReviewReplay() {
 		return reviewReplay;
 	}
 
-	public void setReviewReplay(int reviewReplay) {
+	public void setReviewReplay(String reviewReplay) {
 		this.reviewReplay = reviewReplay;
 	}
 
