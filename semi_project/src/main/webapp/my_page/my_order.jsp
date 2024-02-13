@@ -137,7 +137,8 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 								<td id="orderDate"><%=orderList.getOrderDate() %></td>
 								<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
 								</td>
-								<td class="left"><a href="#" id="productName"> <%=orderList.getProductName() %> </a></td>
+								<td class="left"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
+								id="productName"> <%=orderList.getProductName() %> </a></td>
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
 								<%if(orderList.getOrderStatus()==1) {%>
 								<td id="orderStatus">제품 준비중</td>
