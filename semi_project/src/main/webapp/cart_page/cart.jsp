@@ -230,7 +230,7 @@ $("input[type=checkbox]").filter(".selectCheck").click(function() { // .selectCh
 
 <%-- 선택 삭제 버튼 클릭 시 [cart_remove_action]으로 이동하여 선택삭제하는 메소드 --%>
 $("#cartDelete").click(()=>{
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action";
+	$("#cart").attr("action", "<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page&worker=cart_remove_action");
 });
 
 function cantPressWord(e) { // 음수값이나 다른 문자값이 들어가지 못하도록 함수를 생성
