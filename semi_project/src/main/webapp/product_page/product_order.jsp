@@ -206,7 +206,8 @@ $("img").filter(".ProductWish").click(function() {
 })
 
 $("#directOrderBtn").click(function() {
-	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single");
+	var result = $("#result").text();
+	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single&result="+result);
 	$("#uploadForm").submit();
 	
 });
