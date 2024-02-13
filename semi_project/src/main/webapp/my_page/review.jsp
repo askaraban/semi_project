@@ -11,7 +11,9 @@
 	crossorigin="anonymous"></script>
 <link href="<%=request.getContextPath()%>/style/my_page_order.css"
 	type="text/css" rel="stylesheet">
-<%-- 네비게이션 바 --%>
+
+<%@include file="/security/login_check.jspf" %>  
+	
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">

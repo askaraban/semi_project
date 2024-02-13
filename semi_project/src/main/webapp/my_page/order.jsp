@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/security/login_url.jspf" %>    
@@ -5,7 +7,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link href="<%=request.getContextPath()%>/style/my_page_order.css" type="text/css" rel="stylesheet">
 
-<%-- 네비게이션 바 --%> 
+<%
+
+String currentDate=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+%>
+
+
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
@@ -42,7 +50,7 @@
 							<tr>
 								<th scope="row">기간별 조회</th>
 							<td>
-								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('Dday', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry1"> <span>오늘</span></label>
+								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('Dday', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry1" checked="checked"> <span>오늘</span></label>
 								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('W1', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry2"> <span>1주일</span></label>
 								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M1', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry3"> <span>1개월</span></label>
 								<label class="inputRadio"><input type="radio" name="srch" onclick="javascript:$.jdate.addDays('M3', document.schFrm.stDate, document.schFrm.endDate);" id="inquiry4"> <span>3개월</span></label>
@@ -52,9 +60,9 @@
 							<tr>
 								<th scope="row">일자별 조회</th>
 							<td>
-								<input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;" value="" id="dp1706857231636">
+								<input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;" value="<%=currentDate %>" id="dp1706857231636">
 								<span class="hyphen">~</span>
-								<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;" value="" id="dp1706857231637">
+								<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;" value="<%=currentDate %>" id="dp1706857231637">
 								<button type="button" class="btnType7m" onclick="goSearch(1);">검색</button>
 							</td>
 							</tr>

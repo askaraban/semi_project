@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import xyz.itwill.DTO.CartDTO;
 import xyz.itwill.DTO.ClientDTO;
 import xyz.itwill.DTO.OrderDTO;
 import xyz.itwill.DTO.ProductDTO;
-import xyz.itwill.dto.ReviewDTO;
+import xyz.itwill.DTO.ReviewDTO;
 
 public class OrderDAO extends JdbcDAO {
 	private static OrderDAO _dao;
@@ -114,6 +115,11 @@ public class OrderDAO extends JdbcDAO {
 				close(con, pstmt, rs);
 			}
 			return order;
+		}
+		
+		// 날짜와 회원번호를 전달받아 해당 날짜에 해당하는 주문번호 리스트를 가져오는 메소드
+		public List<OrderDTO> myOrderList(String startDate, String endDate, ClientDTO clientNum) {
+			
 		}
 
 		

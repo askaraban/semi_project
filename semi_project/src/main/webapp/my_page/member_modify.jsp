@@ -21,56 +21,6 @@ pageEncoding="UTF-8"%>
 	}
 %>
 <style type="text/css">
-body {
-	width: 100%;
-	max-width: 1020px;
-	margin: 0 auto;
-	box-sizing: border-box;
-	display: block;
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
-<%--네비게이션 바 --%>
-#navigation a:hover {
-    text-align: left;
-	color: blue;
-	font-size: 1.5em;
-}
-
-#navigation h1 {
-	font-size: 1em;	
-	margin: 5px;
-	height: 50px;
-	text-align: center;
-	
-}
-
-#navigation h2 {
-	font-size: 1em;		
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h3 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;			
-}
-
-#navigation h4 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-	
-}
-
-#navigation {
-	position: absolute;
-}
 
 .fieldset {
 	text-align: left;
@@ -155,25 +105,25 @@ body {
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation">
+			<div id="navigation" style="padding-top: 60px;">
 				<h1>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
 				</h1>
 				<h2>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&amp;A</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
 				</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
+					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
 				</h4>
 			</div>
 		</div>
 		<div class="col col-lg-10">
-			<div class="tableHead">
-				<legend>과자몰 회원정보 수정</legend>
-				<p class="tableHeadTxt">* 이름 변경(개명)의 경우 과자몰 고객상담실(080-XXX-XXXX)로 문의 부탁드립니다.</p>
+			<div class="tableHead" >
+				<legend>쿠키킹 회원정보 수정</legend>
+				<p class="tableHeadTxt" style="padding-left: 20px;">* 이름 변경(개명)의 경우 쿠키킹 고객상담실(080-XXX-XXXX)로 문의 부탁드립니다.</p>
 			</div>
 			<fieldset class="pwdInputField">
 				<ul>
@@ -184,7 +134,7 @@ body {
 					<li>
 						<label for="passwd">비밀번호</label>
 						<input type="password" name="passwd" id="passwd">
-						<span style="color: red;">비밀번호를 변경하지 않을 경우 입력하지 마세요.</span>
+						<span style="color: red; font-size: 12px;">비밀번호를 변경하지 않을 경우 입력하지 마세요.</span>
 						<div id="passwdRegMsg" class="error">비밀번호는 영문자,숫자,특수문자가 반드시 하나이상 포함된 6~20 범위의 문자로만 작성 가능합니다.</div>
 					</li>
 					<li>
@@ -237,7 +187,7 @@ body {
 				<button type="reset" class="btn btn-outline-secondary">다시입력</button>
 			</div>
 			<div id="link" class="memberLeave">
- 				<p>과자몰 회원에서 탈퇴가 가능합니다.
+ 				<p>쿠키킹 회원에서 탈퇴가 가능합니다.
 				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=remove">[회원탈퇴]</a>
 				</p>
 			</div>
