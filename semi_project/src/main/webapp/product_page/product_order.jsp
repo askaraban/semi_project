@@ -33,7 +33,7 @@
 		return;
 	}
 	//전달값을 반환받아 저장
-	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
+	int productNum=Integer.parseInt(request.getParameter("productNum"));// 제품번호
 	
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
@@ -77,7 +77,7 @@
 			// 할인가를 나타내기 위한 변수
 			int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 		%>
-		<div class="col-sm-9" style="text-align:left; padding-left:100px; font-weight: bold;"><%=format.format(discount) %> 원
+		<div class="col-sm-9" style="text-align:left; padding-left:100px; font-weight: bold;" id="price"><%=format.format(discount) %> 원
 			<span class=col-sm-3 style="text-align:left; font-size: 10px; text-decoration:line-through;"><%=format.format(product.getProductPrice()) %> 원</span>
         </div>
         <% } else { %>
@@ -90,8 +90,8 @@
 		<div class="col-sm-3">수량</div>
 			<div class="col" style="text-align:right;">
 			<input id="countBtn" type="button" onclick="count('minus')" value="-"/>
-				<span id="result">1</span>                           <!-- span은 값을 넘기지 못함 / input 태그나 span을 사용하려면 hidden으로 보내야함 -->
-			<input type="hidden" name="totCount" id="totCount" value="1">
+				<span id="result">1</span>
+				<input type="hidden" name="totCount" id="totCount" value="1">
 			<input id="countBtn" type="button" onclick="count('plus')" value="+"/>
 		</div>
 		</div>
@@ -105,7 +105,6 @@
 					int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 				%>
 				<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(discount) %> 원</td>
-				<%-- <% System.out.println("discount = " + discount); %> --%><!-- 할인가 적용시 count, totalResult 안됨 -> 수정 필요 	-->
 			</tr>
 		</table>
 		</div>

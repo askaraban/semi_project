@@ -42,7 +42,12 @@ public class OrderDTO {
 	private String productName;
 	private int productPrice; 
 	private int productDis;
+	private String productMainImg;
 	
+	
+	public OrderDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public int getProductPrice() {
 		return productPrice;
@@ -53,7 +58,7 @@ public class OrderDTO {
 		this.productPrice = productPrice;
 	}
 
-	private String productMainImg;
+	
 	
 	public OrderDTO(int orderNum, int orderClientNum, String orderTime, String orderDate, int orderProductNum,
 			int orderCount, int orderStatus, int orderSum, int orderDisSum, String orderContent, String orderReceiver,
@@ -113,10 +118,6 @@ public class OrderDTO {
 
 	public void setProductMainImg(String productMainImg) {
 		this.productMainImg = productMainImg;
-	}
-
-	public OrderDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 
