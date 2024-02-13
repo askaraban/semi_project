@@ -68,23 +68,21 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con = getConnection();
 
-			if (keyword.equals("")) {// 검색 기능을 사용하지 않은 경우
-				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, name, review_subject, review_content, review_image"
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우
+				String sql="select * from (select rownum rn, temp.* from (select review_num"
+						+ ", review_member_num, client_name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
-						+ ", from review_table join client_table"
-						+ " on review_member_num=client_num order by review_register desc) temp)"
-						+ " where rn between ? and ?";
-				pstmt = con.prepareStatement(sql);
+						+ " from review_table join client_table on review_member_num=client_num"
+						+ " order by review_num desc) temp) where rn between ? and ?;";
+				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
-			} else {// 검색 기능을 사용한 경우
-				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, name, review_subject, review_content, review_image"
+			} else {//검색 기능을 사용한 경우
+				String sql="select * from (select rownum rn, temp.* from (select review_num"
+						+ ", review_member_num, client_name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
-						+ ", from review_table join client_table"
-						+ " on review_member_num=client_num where " + search + " like '%'||?||'%'"
-						+ " order by review_register desc) temp)"
+						+ ", from review_table join client_table on review_member_num=client_num"
+						+ " where "+search+" like '%'||?||'%' order by review_num desc) temp)"
 						+ " where rn between ? and ?";
 				pstmt = con.prepareStatement(sql);
 	            pstmt.setString(1, keyword);

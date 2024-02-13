@@ -33,7 +33,7 @@
 		return;
 	}
 	//전달값을 반환받아 저장
-	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
+	int productNum=Integer.parseInt(request.getParameter("productNum"));// 제품번호
 	
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
@@ -105,7 +105,6 @@
 					int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 				%>
 				<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(discount) %> 원</td>
-				<%-- <% System.out.println("discount = " + discount); %> --%><!-- 할인가 적용시 count, totalResult 안됨 -> 수정 필요 	-->
 			</tr>
 		</table>
 		</div>
