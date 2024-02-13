@@ -33,7 +33,7 @@
 		return;
 	}
 	//전달값을 반환받아 저장
-	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
+	int productNum=Integer.parseInt(request.getParameter("productNum"));// 제품번호
 	
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
@@ -105,7 +105,6 @@
 					int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 				%>
 				<td id="totalResult" style="text-align:right; padding-right:10px; font-weight: bold;"><%=format.format(discount) %> 원</td>
-				<%-- <% System.out.println("discount = " + discount); %> --%><!-- 할인가 적용시 count, totalResult 안됨 -> 수정 필요 	-->
 			</tr>
 		</table>
 		</div>
@@ -139,7 +138,7 @@
 			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=order_single"
 					   +"&productNum="+product.getProductNum();
 		%>
-		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button">바로 구매하기</button >
+		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button" id="directOrderBtn">바로 구매하기</button >
 	</p>
 </div>
 </form>
@@ -205,4 +204,11 @@ $("img").filter(".ProductWish").click(function() {
 		});
 	}
 })
+
+$("#directOrderBtn").click(function() {
+	var result = $("#result").text();
+	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single&result="+result);
+	$("#uploadForm").submit();
+	
+});
 </script>

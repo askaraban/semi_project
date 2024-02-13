@@ -68,23 +68,21 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con = getConnection();
 
-			if (keyword.equals("")) {// 검색 기능을 사용하지 않은 경우
-				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, name, review_subject, review_content, review_image"
+			if(keyword.equals("")) {//검색 기능을 사용하지 않은 경우
+				String sql="select * from (select rownum rn, temp.* from (select review_num"
+						+ ", review_member_num, client_name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
-						+ ", from review_table join client_table"
-						+ " on review_member_num=client_num order by review_register desc) temp)"
-						+ " where rn between ? and ?";
-				pstmt = con.prepareStatement(sql);
+						+ " from review_table join client_table on review_member_num=client_num"
+						+ " order by review_num desc) temp) where rn between ? and ?;";
+				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
-			} else {// 검색 기능을 사용한 경우
-				String sql = "select * from (select rownum rn, temp.* from (select review_num"
-						+ ", review_member_num, name, review_subject, review_content, review_image"
+			} else {//검색 기능을 사용한 경우
+				String sql="select * from (select rownum rn, temp.* from (select review_num"
+						+ ", review_member_num, client_name, review_subject, review_content, review_image"
 						+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
-						+ ", from review_table join client_table"
-						+ " on review_member_num=client_num where " + search + " like '%'||?||'%'"
-						+ " order by review_register desc) temp)"
+						+ ", from review_table join client_table on review_member_num=client_num"
+						+ " where "+search+" like '%'||?||'%' order by review_num desc) temp)"
 						+ " where rn between ? and ?";
 				pstmt = con.prepareStatement(sql);
 	            pstmt.setString(1, keyword);
@@ -170,24 +168,72 @@ public class ReviewDAO extends JdbcDAO {
 		return rows;
 	}
 
-	// 제품번호를 전달받아 REVIEW_TABLE에 저장된 행을 검색하여 제품별 리뷰 목록을 반환하는 메소드
-	public List<ReviewDTO> selectReviewByProductNum(int reviewProductNum) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
+//	// 제품번호를 전달받아 REVIEW_TABLE에 저장된 행을 검색하여 제품별 리뷰 목록을 반환하는 메소드
+//	public List<ReviewDTO> selectReviewByProductNum(int reviewProductNum) {
+//		Connection con=null;
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		List<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
+//		try {
+//			con=getConnection();
+//			
+//			String sql="select review_num,review_member_num,client_name,review_subject,review_content,review_image"
+//					+ " ,review_register,review_update,review_readcount,review_replay,review_product_num"
+//					+ " from review_table join client_table on review_member_num=client_num where review_product_num=? order by review_num desc";
+//
+//			pstmt=con.prepareStatement(sql);
+//
+//						pstmt.setInt(1, reviewProductNum);
+//			rs=pstmt.executeQuery();
+//			
+//			while (rs.next()) {
+//	            ReviewDTO review = new ReviewDTO();
+//	            review.setReviewNum(rs.getInt("review_num"));
+//	            review.setReviewMemberNum(rs.getInt("review_member_num"));
+//	            review.setReviewName(rs.getString("client_name"));
+//	            review.setReviewSubject(rs.getString("review_subject"));
+//	            review.setReviewContent(rs.getString("review_content"));
+//	            review.setReviewImage(rs.getString("review_image"));
+//	            review.setReviewRegister(rs.getString("review_register"));
+//	            review.setReviewUpdate(rs.getString("review_update"));
+//	            review.setReviewReadcount(rs.getInt("review_readcount"));
+//	            review.setReviewReplay(rs.getInt("review_replay"));
+//	            review.setReviewProductNum(rs.getInt("review_product_num"));
+//
+//	            reviewList.add(review);
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("[에러]selectReviewByProductNum() 메소드의 SQL 오류 = "+e.getMessage());
+//		} finally {
+//			close(con, pstmt, rs);
+//		}
+//		return reviewList;
+//	}	
+	
+	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 제품번호를 전달받아
+	// REVIEW_TABLE에 저장된 행을 select 하여 게시글 목록을 반환하는 메소드
+	public List<ReviewDTO> selectReviewListByReviewProductNum(int startRow, int endRow, int reviewProductNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		List<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
 		try {
-			con=getConnection();
-			
-			String sql="select review_num,review_member_num,client_name,review_subject,review_content,review_image"
-					+ " ,review_register,review_update,review_readcount,review_replay,review_product_num"
-					+ " from review_table join client_table on review_member_num=client_num where review_product_num=? order by review_num desc";
+			con = getConnection();
 
+			String sql="select * from (select rownum rn, temp.* from (select review_num"
+					+ ", review_member_num, client_name, review_subject, review_content, review_image"
+					+ ", review_register, review_update, review_readcount, review_replay, review_product_num"
+					+ " from review_table join client_table on review_member_num=client_num where review_product_num=?"
+					+ " order by review_num desc) temp) where rn between ? and ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, reviewProductNum);
-			
-			rs=pstmt.executeQuery();
-			
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+	     
+			//여기 밑으로 확인하기
+	     
+			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 	            ReviewDTO review = new ReviewDTO();
 	            review.setReviewNum(rs.getInt("review_num"));
@@ -205,12 +251,12 @@ public class ReviewDAO extends JdbcDAO {
 	            reviewList.add(review);
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectReviewByProductNum() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectReviewListByReviewProductNum() 메소드의 SQL 오류 = " + e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
 		return reviewList;
-	}	
+	}
 	
 	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드
 		public int selectReviewCountByProductNum(int reviewProductNum) {

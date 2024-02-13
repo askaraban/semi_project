@@ -54,7 +54,7 @@
 					<%} %>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page
-					&worker=order">&nbsp;마이페이지</a>
+					&worker=my_order">&nbsp;마이페이지</a>
 				</div>
 				<div class="col-4 text-center">
 
