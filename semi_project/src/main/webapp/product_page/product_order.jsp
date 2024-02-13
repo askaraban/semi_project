@@ -138,7 +138,7 @@
 			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=order_single"
 					   +"&productNum="+product.getProductNum();
 		%>
-		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button">바로 구매하기</button >
+		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button" id="directOrderBtn">바로 구매하기</button >
 	</p>
 </div>
 </form>
@@ -204,4 +204,10 @@ $("img").filter(".ProductWish").click(function() {
 		});
 	}
 })
+
+$("#directOrderBtn").click(function() {
+	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single");
+	$("#uploadForm").submit();
+	
+});
 </script>

@@ -95,7 +95,7 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 							<tr>
 								<th scope="row">일자별 조회</th>
 								<td><input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
-									value="2024-12-23" id="stDate"> 
+									value="<%=currentDate %>" id="stDate"> 
 									<span class="hyphen">~</span>
 									<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
 									value="<%=currentDate%>" id="endDate">
@@ -108,7 +108,7 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 			</div>
 			<div id="listArea">
 				<p class="tableListLength">
-					총 <strong class="ftColor1">1</strong> 건
+					총 <strong class="ftColor1"><%=myOrderList.size() %></strong> 건
 				</p>
 				<div class="tableType">
 					<table>
@@ -132,7 +132,7 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 								<th scope="col">수취확인</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="orderList">
 							<tr style="height: 100px; font-weight: bold; display: none;">
 								<td colspan="7">주문 내역이 없습니다.</td>
 							</tr>
@@ -225,9 +225,55 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 	})
 	
 	$("#searchBtn").click(function() {
-		
+		var startDate = $("#stDate").val();
+		var endDate = $("#endDate").val();
 		$.ajax({
-			
+			type: "post",
+			url: "<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_search_action",
+			data : {"startDate" : startDate, "endDate" : endDate, "clientNum" : clientNum},
+			dataType: "json",
+			success: function(result) {
+				//주문정보목록에 출력된 기존 주문정보들을 삭제 처리 - 초기화
+				$("#orderList").children().remove();
+				
+				if(result.code=="success") {//검색된 주문 있는 경우
+					//Array 객체의 요소값를 차례대로 제공받아 반복 처리
+					$(result.data).each(function() {
+						
+						<tr>
+						<td id="orderDate"><%=orderList.getOrderDate() %></td>
+						<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
+						</td>
+						<td class="left"><a href="#" id="productName"> <%=orderList.getProductName() %> </a></td>
+						<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
+						<td id="orderStatus">배송완료</td>
+						<td class="btn">
+							<button type="button" class="btnType7s" id="trackingBtn">배송조회</button>
+						</td>
+						<td class="btn"></td>
+					</tr>
+						
+						
+						
+						//Array 객체의 요소값(Object 객체)를 HTML 태그(div)로 변환
+						var html="<div class='comment' id='comment_"+this.num+"'>";//댓글태그
+						html+="<b>["+this.writer+"]</b><br>";//댓글태그에 작성자 포함
+						html+=this.content.replace(/\n/g,"<br>")+"<br>";//댓글태그에 내용 포함
+						html+="("+this.regdate+")<br>";//댓글태그에 작성날짜 포함
+						html+="<button type='button' onclick='modifyComment("+this.num+");'>댓글변경</button>&nbsp;";//댓글태그에 댓글변경 버튼 포함
+						html+="<button type='button' onclick='removeComment("+this.num+");'>댓글삭제</button>&nbsp;";//댓글태그에 댓글변경 버튼 포함
+						html+="</div>";
+						
+						//댓글목록태그의 댓글태그를 마지막 자식태그로 추가하여 출력 처리
+						$("#comment_list").append(html);
+					});
+				} else {//검색된 댓글정보가 없는 경우
+					$("#comment_list").html("<div class='no_comment'>"+result.message+"</div>");
+				}
+			},
+			error: function(xhr) {
+				alert("에러코드 = "+xhr.status);
+			}
 		});
 	});
 </script>
