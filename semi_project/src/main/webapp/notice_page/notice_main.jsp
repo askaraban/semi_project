@@ -224,7 +224,7 @@ td {
 					 	<% } else { %>
 					 		<%=notice.getNoticeDate() %>
 					 	<% } %>
-					 </td>
+					 </td> 
 				<%--
 				<% } else {//삭제글인 경우 %>
 					<td>&nbsp;</td>
