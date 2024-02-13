@@ -21,9 +21,9 @@
 	
 	//전달값을 반환받아 저장
 	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
-	//System.out.println("productNum = "+productNum);
+	System.out.println("productNum = "+productNum);
 	
-	//수량을 넘겨받아야 하는디. 받아지지가 않넹 액션 확인 ..
+	
 	//int count=Integer.parseInt(request.getParameter("totCount")); //단일제품 수량
 	//System.out.println("count = " + count);
 	
@@ -39,7 +39,7 @@
 %>
 
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style type="text/css">
 	
 
@@ -238,9 +238,7 @@
 	 
 <%--  
 int count=Integer.parseInt(request.getParameter("totCount"));
-참고하시면 됩니당--%>
-	 
-	 
+참고하시면 됩니당--%>	 
 
 	<!-- 사용자 영역 -->
 	<div id="titleArea" class="titleArea">
@@ -321,7 +319,7 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
-	    <form id="orderInfoForm" name="orderInfoForm" method="POST">
+	    <form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
 	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
 	    <div class="tableTypeWrite payTable">
     	<table>
@@ -482,14 +480,14 @@ int count=Integer.parseInt(request.getParameter("totCount"));
   </section>	
  </form>
   				
-	<form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
+	<form  action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="#" name="#" value="#">
+    	<input type="hidden" id="pdtNum" name="pdtNum" value="productNum">
     <div id="orderProduct" class="totalPrice">
         <h5>총 결제금액</h5>  
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem">
-    	<button type="button" class="btnSubmit" id="btn_payment">
+    	<button type="submit" class="btnSubmit" id="btn_payment">
     	<%
 					// 할인가를 나타내기 위한 변수
 		   int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
@@ -500,10 +498,7 @@ int count=Integer.parseInt(request.getParameter("totCount"));
     	</button>
     	</div>
     </section>
- </form>
-    				      
-                       
-                  				  
+ </form> 				                                 				  
     
 <!-- 부트스트랩 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
@@ -518,4 +513,10 @@ $("#postSearch").click(function() {
 		} 
 	}).open();
 });
+
+$("#btn_payment").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=insert_order_single"
+		+"&productNum=<%=product.getProductNum()%>";	
+});
+
 </script>
