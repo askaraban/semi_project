@@ -1,13 +1,11 @@
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@page import="xzy.itwill.DAO.NoticeDAO"%>
 <%@page import="xyz.itwill.DTO.NoticeDTO"%>
 <%@page import="xyz.itwill.DTO.QaDTO"%>
 <%@page import="xzy.itwill.DAO.QaDAO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="xyz.itwill.dto.MemberDTO"%>
-<%@page import="xyz.itwill.dto.ReviewDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="xyz.itwill.dao.ReviewDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 전달하여 응답하는 JSP 문서 --%>
@@ -76,7 +74,7 @@
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 	//클래스의 메소드 호출
-	List<QaDTO> qaList=QaDAO.getDAO().selectQaList(startRow, endRow, search, keyword);
+	List<NoticeDTO> noticeList=NoticeDAO.getDAO().selectNoticeList(startRow, endRow, search, keyword);
 	List<QaDTO> qaList=QaDAO.getDAO().selectQaList(startRow, endRow, search, keyword);
 	
 	//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
@@ -84,6 +82,7 @@
 	// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
 	QaDTO qaLoginMember=(QaDTO)session.getAttribute("qaLoginMember");
 	NoticeDTO noticeLoginMember=(NoticeDTO)session.getAttribute("noticeLoginMember");
+	ClientDTO loginMember=(ClientDTO)session.getAttribute("loginMember");
 	
 	//서버 시스템의 현재 날짜를 제공받아 저장
 	// => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
@@ -95,7 +94,17 @@
 	int qaDisplayNum=totalQa-(pageNum-1)*pageSize;
 %>
 <style type="text/css">
-#review_list {
+h1 {
+	text-align: center;
+}
+
+#notice_list {
+	width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#qa_list {
 	width: 1000px;
 	margin: 0 auto;
 	text-align: center;
@@ -131,7 +140,13 @@ td {
 	text-overflow: ellipsis;
 }
 
-#review_list a:hover {
+#notice_list a:hover {
+	text-decoration: none; 
+	color: blue;
+	font-weight: bold;
+}
+
+#qa_list a:hover {
 	text-decoration: none; 
 	color: blue;
 	font-weight: bold;
@@ -157,7 +172,7 @@ td {
 
 <h1>고객센터</h1>
 <div id="notice_list">
-	<div id="notice_title">공지사항/Q&A(<%=totalQa %>)</div>
+	<div id="notice_title">공지사항/Q&A</div>
 	
 	<%-- 공지사항 --%>
 	<%-- 게시글 목록 출력 --%>
@@ -179,8 +194,8 @@ td {
 			<% for(NoticeDTO notice : noticeList) { %>
 			<tr>
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
-				<td><%=displayNum %></td>
-				<% displayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
+				<td><%=noticeDisplayNum %></td>
+				<% noticeDisplayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
 				
 				<%-- 제목 --%>
 				<td class="subject">
@@ -188,61 +203,46 @@ td {
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String url=request.getContextPath()+"/index.jsp?group=review&worker=review_detail"
-						+"&reviewNum="+review.getReviewNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
+						String url=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail"
+						+"&noticeNum="+notice.getNoticeNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
 						+"&search="+search+"&keyword="+keyword;
 					%>
-					<% if(review.getReviewStatus()==1) {//일반 게시글인 경우 %>
-						<a href="<%=url%>"><%=review.getReviewSubject() %></a>
-					<% } else if(review.getReviewStatus()==2) {//비밀 게시글인 경우 %>
-						<span class="subject_hidden">비밀글</span>
-						<%-- 로그인 상태의 사용자가 게시글 작성자인 경우 또는 로그인 상태의
-						사용자가 관리자인 경우 제목과 링크 제공 --%>
-						<% if(loginMember!=null && (loginMember.getMemberNum()==review.getReviewMember() 
-							|| loginMember.getMemberStatus()==9))  { %>
-							<a href="<%=url%>"><%=review.getReviewSubject() %></a>
-						<% } else { %>
-							게시글 작성자 또는 관리자만 확인 가능합니다.						
-						<% } %>	
-					<% } else if(review.getReviewStatus()==0) {//삭제 게시글인 경우 %>
-						<span class="subject_hidden">삭제글</span>
-						게시글 작성자 또는 관리자에 의해 삭제된 게시글입니다.	
-					<% } %>
-				</td>
-				
-				<% if(review.getReviewStatus()!=0) {//삭제 게시글이 아닌 경우 %>				
+						<a href="<%=url%>"><%=notice.getNoticeTitle() %></a>
+				</td>			
 					<%-- 작성자 출력 --%>
-					<td><%=review.getReviewName() %></td>
+					<td>과자몰</td>
 								
 					<%-- 조회수 출력 --%>
-					<td><%=review.getReviewReadcount() %></td>
+					<td><%=notice.getNoticeCount() %></td>
 								
 					<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
 					 <td>
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 	<% if(currentDate.equals(review.getReviewRegister().substring(0, 10)))  { %>
-					 		<%=review.getReviewRegister().substring(11) %>
+					 	<% if(currentDate.equals(notice.getNoticeDate().substring(0, 10)))  { %>
+					 		<%=notice.getNoticeDate().substring(11) %>
 					 	<% } else { %>
-					 		<%=review.getReviewRegister() %>
+					 		<%=notice.getNoticeDate() %>
 					 	<% } %>
 					 </td>
+				<%--
 				<% } else {//삭제글인 경우 %>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				<% } %>
+				--%>
 			</tr>	
-			<% } %>
 		<% } %>
+	<% } %>
 	</table>
 	
-	<div id="review_list">
-	<div id="review_title">제품후기목록(<%=totalReview %>)</div>
+<div id="qa_list">
+	<div id="qa_title">Q&A(<%=totalQa%>)</div>
 	
 	<div style="text-align: right;">
 		게시글갯수 : 
-		<select id="reviewCount">
+		<select id="qaCount">
 			<option value="10" <% if(pageSize==10) { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
 			<option value="20" <% if(pageSize==20) { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
 			<option value="50" <% if(pageSize==50) { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
@@ -250,8 +250,13 @@ td {
 		</select>
 		&nbsp;&nbsp;&nbsp;
 		<% if(loginMember!=null) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
-			<button type="button" id="writeBtn">글쓰기</button>
+			<button type="button" id="qaWriteBtn">QA쓰기</button>
 		<% } %>
+		<% if(loginMember!=null && loginMember.getClientStatus()==9) {//관리자가 JSP 문서를 요청한 경우 %>
+			<button type="button" id="noticeWriteBtn">공지쓰기</button>
+			<button type="button" id="qaWriteBtn">QA쓰기</button>
+		<% } %>
+		
 	</div>
 	
 	<%-- Q&A --%>
@@ -265,75 +270,61 @@ td {
 			<th width="200">작성일</th>
 		</tr>
 		
-		<% if(totalReview==0) { %>
+		<% if(totalQa==0) { %>
 			<tr>
 				<td colspan="5">검색된 게시글이 없습니다.</td>
 			</tr>
 		<% } else { %>
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
-			<% for(ReviewDTO review : reviewList) { %>
+			<% for(QaDTO qa : qaList) { %>
 			<tr>
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
-				<td><%=displayNum %></td>
-				<% displayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
+				<td><%=qaDisplayNum %></td>
+				<% qaDisplayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
 				
 				<%-- 제목 --%>
 				<td class="subject">
 					<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
-					<% if(review.getReviewRestep() != 0) {//답글인 경우 %>
+					<% if(qa.getQaReplay() != 0) {//답글인 경우 %>
 						<%-- 게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정 --%>
-						<span style="margin-left: <%=review.getReviewRelevel()*20%>px;">┗[답글]</span>
+						<span style="margin-left: <%=qa.getQaReplay()*20%>px;">┗[RE]</span>
 					<% } %>
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String url=request.getContextPath()+"/index.jsp?group=review&worker=review_detail"
-						+"&reviewNum="+review.getReviewNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
+						String url=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=qa_detail"
+						+"&qaNum="+qa.getQaNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
 						+"&search="+search+"&keyword="+keyword;
 					%>
-					<% if(review.getReviewStatus()==1) {//일반 게시글인 경우 %>
-						<a href="<%=url%>"><%=review.getReviewSubject() %></a>
-					<% } else if(review.getReviewStatus()==2) {//비밀 게시글인 경우 %>
-						<span class="subject_hidden">비밀글</span>
-						<%-- 로그인 상태의 사용자가 게시글 작성자인 경우 또는 로그인 상태의
-						사용자가 관리자인 경우 제목과 링크 제공 --%>
-						<% if(loginMember!=null && (loginMember.getMemberNum()==review.getReviewMember() 
-							|| loginMember.getMemberStatus()==9))  { %>
-							<a href="<%=url%>"><%=review.getReviewSubject() %></a>
-						<% } else { %>
-							게시글 작성자 또는 관리자만 확인 가능합니다.						
-						<% } %>	
-					<% } else if(review.getReviewStatus()==0) {//삭제 게시글인 경우 %>
-						<span class="subject_hidden">삭제글</span>
-						게시글 작성자 또는 관리자에 의해 삭제된 게시글입니다.	
-					<% } %>
+						<a href="<%=url%>"><%=qa.getQaSubject() %></a>
 				</td>
-				
-				<% if(review.getReviewStatus()!=0) {//삭제 게시글이 아닌 경우 %>				
+								
 					<%-- 작성자 출력 --%>
-					<td><%=review.getReviewName() %></td>
+					<td><%=qa.getQaName() %></td>
 								
 					<%-- 조회수 출력 --%>
-					<td><%=review.getReviewReadcount() %></td>
+					<td><%=qa.getQaReadCount() %></td>
 								
 					<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
 					 <td>
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 	<% if(currentDate.equals(review.getReviewRegister().substring(0, 10)))  { %>
-					 		<%=review.getReviewRegister().substring(11) %>
+					 	<% if(currentDate.equals(qa.getQaRegister().substring(0, 10)))  { %>
+					 		<%=qa.getQaRegister().substring(11) %>
 					 	<% } else { %>
-					 		<%=review.getReviewRegister() %>
+					 		<%=qa.getQaRegister() %>
 					 	<% } %>
 					 </td>
+				<%--
 				<% } else {//삭제글인 경우 %>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 				<% } %>
-			</tr>	
-			<% } %>
+				--%>
+			</tr>
 		<% } %>
+	<% } %>
 	</table>
 	
 	<%-- 페이지번호 출력 및 링크 제공 - 블럭화 처리(페이지 번호를 하나의 그룹화 시킨다고 생각하기) --%>
@@ -359,16 +350,16 @@ td {
 	
 	<div id="page_list">
 		<%
-			String responseUrl=request.getContextPath()+"/index.jsp?group=review&worker=review_list"
+			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_main"
 					+"&pageSize="+pageSize+"&search="+search+"&keyword="+keyword;
 		%>
 	
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
 			
-			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>"><</a>
 		<% } else { %>	
-			[이전]
+			<
 		<% } %>
 		
 		<% for(int i=startPage;i<=endPage;i++) { %>
@@ -382,19 +373,19 @@ td {
 		
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(endPage!=totalPage) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">></a>
 		<% } else { %>	
-			[다음]
+			>
 		<% } %>
 	</div>
 
 		<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
-	<form action="<%=request.getContextPath() %>/index.jsp?group=review&worker=review_list" method="post">
+	<form action="<%=request.getContextPath() %>/main_page/main.jsp?group=notice_page&worker=notice_main" method="post">
 		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정(DAO에서 사용하기 위해 컬럼명으로 설정) --%>
 		<select name="search">
 			<option value="name" <% if(search.equals("name")) { %>  selected <% } %>>&nbsp;작성자&nbsp;</option>
-			<option value="review_subject" <% if(search.equals("review_subject")) { %>  selected <% } %>>&nbsp;제목&nbsp;</option>
-			<option value="review_content" <% if(search.equals("review_content")) { %>  selected <% } %>>&nbsp;내용&nbsp;</option>
+			<option value="qa_subject" <% if(search.equals("qa_subject")) { %>  selected <% } %>>&nbsp;제목&nbsp;</option>
+			<option value="qa_content" <% if(search.equals("qa_content")) { %>  selected <% } %>>&nbsp;내용&nbsp;</option>
 		</select>
 		<input type="text" name="keyword" value="<%=keyword%>">
 		<button type="submit">검색</button>
@@ -402,15 +393,19 @@ td {
 </div>
 
 <script type="text/javascript">
-$("#reviewCount").change(function() {
+$("#qaCount").change(function() {
 	//alert($("#reviewCount").val());
-	location.href="<%=request.getContextPath()%>/index.jsp?group=review&worker=review_list"
-		+"&pageNum=<%=pageNum%>&pageSize="+$("#reviewCount").val()
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
+		+"&pageNum=<%=pageNum%>&pageSize="+$("#qaCount").val()
 		+"&search=<%=search%>&keyword=<%=keyword%>";
 });
 
 //전달값 없이 전달
-$("#writeBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/index.jsp?group=review&worker=review_write";
+$("#noticeWriteBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_write";
+});
+
+$("#qaWriteBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_write";
 });
 </script>

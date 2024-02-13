@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.itwill.DTO.NoticeDTO;
-import xyz.itwill.DTO.QaDTO;
 
 public class NoticeDAO extends JdbcDAO {
 	private static NoticeDAO _dao;
@@ -200,7 +199,7 @@ public class NoticeDAO extends JdbcDAO {
 			Connection con=null;
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
-			List<NoticeDTO> qaList=new ArrayList<NoticeDTO>();
+			List<NoticeDTO> noticeList=new ArrayList<NoticeDTO>();
 			try {
 				con=getConnection();
 				
@@ -208,17 +207,17 @@ public class NoticeDAO extends JdbcDAO {
 					String sql="select * from (select rownum rn, temp.* from (select notice_num"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
 							+ ", notice_count from notice_table join client_table"
-							+ " on qa_member=client_num order by qa_register desc) temp)"
+							+ " on order by notice_date desc) temp)"
 							+ "where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, startRow);
 					pstmt.setInt(2, endRow);
 				} else { //검색 기능을 사용한 경우
-					String sql="select * from (select rownum rn, temp.* from (select qa_num"
-							+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
-							+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
-							+ " on qa_member=client_num where "+search+" like '%'||?||'%'"
-							+ " order by qa_register desc)temp)where rn between ? and ?";
+					String sql="select * from (select rownum rn, temp.* from (select notice_num"
+							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
+							+ ", notice_count from notice_table join client_table"
+							+ " on where "+search+" like '%'||?||'%'"
+							+ " order by notice_date desc)temp)where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 					pstmt.setInt(2, startRow);
@@ -228,25 +227,21 @@ public class NoticeDAO extends JdbcDAO {
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()) {
-					QaDTO qa=new QaDTO();
-					qa.setQaNum(rs.getInt("qa_num"));
-					qa.setQaMember(rs.getInt("qa_member"));
-					qa.setQaSubject(rs.getString("qa_subject"));
-					qa.setQaContent(rs.getString("qa_content"));
-					qa.setQaImage(rs.getString("qa_image"));
-					qa.setQaRegister(rs.getString("qa_register"));
-					qa.setQaUpdate(rs.getString("qa_update"));
-					qa.setQaReadCount(rs.getInt("qa_readcount"));
-					qa.setQaReplay(rs.getInt("qa_replay"));
-					
-					qaList.add(qa);
+					NoticeDTO notice=new NoticeDTO();
+					notice.setNoticeNum(rs.getInt("notice_num"));
+					notice.setNoticeTitle(rs.getString("notice_title"));
+					notice.setNoticeContent(rs.getString("notice_image"));
+					notice.setNoticeImage(rs.getString("notice_date"));
+					notice.setNoticeUpdate(rs.getString("notice_update"));
+					notice.setNoticeCount(rs.getInt("notice_count"));
+					noticeList.add(notice);
 				}
 			} catch (SQLException e) {
 				System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}
-			return qaList;
+			return noticeList;
 		}
 	
 }
