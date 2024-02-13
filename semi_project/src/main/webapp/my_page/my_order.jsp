@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="xzy.itwill.DAO.OrderDAO"%>
@@ -28,6 +31,41 @@ DecimalFormat format = new DecimalFormat("###,###,##0");
 
 
 List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentDate, clientNum);
+//페이징 처리를 위한 변수- 시작페이지 1페이지
+int pageNum = 1;
+if(request.getParameter("pageNum")!=null){
+	pageNum=Integer.parseInt(request.getParameter("pageNum")); 
+}
+// 넘길 수 있는 최대 페이지 수를 저장하기 위한 변수 - 보여지는 페이지 수 10페이지
+int pageSize = 8;
+if(request.getParameter("pageSize")!=null){
+	pageSize = Integer.parseInt(request.getParameter("pageSize"));
+}
+
+// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
+
+// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
+int totalPage = (int)Math.ceil((double)myOrderList.size()/pageSize);
+
+// 전달받은 페이지 수가 비정상적인 경우 
+if(pageNum<=0 || pageNum>totalPage ){
+	pageNum=1;
+}
+
+// 페이지 번호에 대한 페이지의 시작번호를 저장하기 위한 변수 - 10의 간격으로 시작하도록 하시오
+// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+int startRow = (pageNum-1)*pageSize + 1;
+
+// 페이지 번호에 대한 페이지의 끝번호를 저장하기 위한 변수
+// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+int endRow = pageNum * pageSize;
+
+if(endRow>totalPage){
+	endRow=totalPage;
+}
+// 페이지에 출력될 제품들의 일련번호 시작값을 계산하여 저장
+// => 검색된 제품의 총 개수 : 91 >> 1Page : 91 ~ 82 , 2Page: 81 ~ 3Page : 71 
+int displayNum = totalPage - (pageNum-1) * pageSize;
 
 %>
 
@@ -94,10 +132,10 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 							</tr>
 							<tr>
 								<th scope="row">일자별 조회</th>
-								<td><input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
+								<td><input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px; text-align: center;"
 									value="<%=currentDate %>" id="stDate"> 
 									<span class="hyphen">~</span>
-									<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
+									<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px; text-align: center;"
 									value="<%=currentDate%>" id="endDate">
 									<button type="button" class="btnType7m" id="searchBtn">검색</button>
 								</td>
@@ -133,12 +171,12 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 								<td colspan="7">주문 내역이 없습니다.</td>
 							</tr>
 							<%for(OrderDTO orderList : myOrderList) { %>
-							<tr>
+							<tr style="border-bottom: 1px solid #E2E2E2;">
 								<td id="orderDate"><%=orderList.getOrderDate() %></td>
-								<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
+								<td><a href="#" id="orderNumber" class="orderPrductList"> <%=orderList.getOrderNum() %> </a>
 								</td>
 								<td class="left"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
-								id="productName"> <%=orderList.getProductName() %> </a></td>
+								id="productName" class="orderPrductList"> <%=orderList.getProductName() %> </a></td>
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
 								<%if(orderList.getOrderStatus()==1) {%>
 								<td id="orderStatus">제품 준비중</td>
@@ -150,10 +188,68 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 						</tbody>
 					</table>
 				</div>
+				
+	<%-- 페이지 번호 출력 및 링크 제공 - 블럭화 처리 --%>
+	<%
+		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
+		int blockSize=5;
+	
+		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
+		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
+		int startPage=(pageNum-1)/blockSize*blockSize+1;
+		
+		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
+		// ex) 1블럭 : 5, 2블럭 : 10
+		int endPage=startPage+blockSize-1;
+		
+		// 토탈페이지보다 종료페이지보다 크다면
+		if(totalPage<endPage){
+			endPage=totalPage;
+		}
+	%>
 				<!-- paging -->
-				<div class="paging">
-					<span class="num on"><a href="javascript:void(0);">1</a></span>
-				</div>
+<br>
+<nav aria-label="Page navigation" >
+  <ul class="pagination justify-content-center" >
+    <li class="page-item" >
+    <%if(startPage>blockSize){%>
+      <a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <%} else {%>
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+      <%} %>
+      <% for(int i=startPage;i<=endPage;i++){ %>
+			<%if(pageNum !=i) {%>
+   	 			<li class="page-item">
+   	 			<a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>"><%=i %></a>
+   	 			</li>
+   	 		<%}else{  %>
+   	 			<li class="page-item">
+				<a class="page-link" href="#"><%=i %></a>
+				</li>
+			<%} %>
+		<%} %>
+			<%if(endPage!=totalPage){ %>
+		    <li class="page-item">
+		      <a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    <%}else{  %>
+				<li class="page-item">
+		      <a class="page-link" href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+			<%} %>
+	  </ul>
+</nav>
+<br>
+<br>
 				<!-- //paging -->
 				<div class="helpWrap">
 					<ul class="bulListType">
