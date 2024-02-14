@@ -13,6 +13,7 @@ REVIEW_UPDATE              DATE           - 변경날짜
 REVIEW_READCOUNT           NUMBER(30)     - 조회수
 REVIEW_REPLAY              VARCHAR2(4000) - 답글
 REVIEW_PRODUCT_NUM         NUMBER(10)     - 제품번호
+REVIEW_STATUS              NUMBER(10)     - 글상태(0: 리뷰작성X, 1: 리뷰작성O)
 */
 
 public class ReviewDTO {
@@ -27,6 +28,7 @@ public class ReviewDTO {
 	private int  reviewReadcount;
 	private String reviewReplay;
 	private int reviewProductNum;
+	private int reviewStatus;
 
 
 	public ReviewDTO() {
@@ -35,7 +37,7 @@ public class ReviewDTO {
 
 	public ReviewDTO(int reviewNum, int reviewMemberNum, String reviewName, String reviewSubject, String reviewContent,
 			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, String reviewReplay,
-			int reviewProductNum) {
+			int reviewProductNum, int reviewStatus) {
 		super();
 		this.reviewNum = reviewNum;
 		this.reviewMemberNum = reviewMemberNum;
@@ -48,6 +50,7 @@ public class ReviewDTO {
 		this.reviewReadcount = reviewReadcount;
 		this.reviewReplay = reviewReplay;
 		this.reviewProductNum = reviewProductNum;
+		this.reviewStatus = reviewStatus;
 	}
 
 	public int getReviewNum() {
@@ -137,4 +140,13 @@ public class ReviewDTO {
 	public void setReviewProductNum(int reviewProductNum) {
 		this.reviewProductNum = reviewProductNum;
 	}
+
+	public int getReviewStatus() {
+		return reviewStatus;
+	}
+
+	public void setReviewStatus(int reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
+	
 }
