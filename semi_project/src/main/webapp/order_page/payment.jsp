@@ -1,3 +1,4 @@
+<%@page import="xyz.itwill.DTO.OrderDTO"%>
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -17,6 +18,8 @@ h2{
 </style>  
         
 <div id='class'><h2>"구매가 완료되었습니다."</h2></div>
+
+<span><%=loginClient.getClientName()%>님의 주문번호는 <%= %></span>
 <a href="<%=request.getContextPath()%>/main_page/main.jsp">	
 <button type="submit" >홈으로</button></a>
 
