@@ -168,8 +168,6 @@
 	
 	<div id="page_list">
 		<%
-/* 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product&productNum=2#review_list"
-					+"&pageSize="+pageSize; */
 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 					+"&productNum="+reviewProductNum+"&review_list"+"&pageSize="+pageSize;
 		%>

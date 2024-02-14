@@ -18,7 +18,7 @@
 <%
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("reviewNum")==null) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -33,7 +33,7 @@
 	
 	//검색된 게시글이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(review==null) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	
@@ -58,14 +58,14 @@ table {
 }
 
 th, td {
-	border: 1px solid black;
+	border: 1px solid gray;
 	padding: 5px;	
 }
 
 th {
 	width: 100px;
-	background: black;
-	color: white;
+	background: pink;
+	color: gray;
 }
 
 td {
@@ -119,6 +119,8 @@ td {
 				<br>
 				<% if(review.getReviewImage()!=null) { %>
 					<img src="<%=request.getContextPath()%>/<%=review.getReviewImage()%>" width="200">
+					<%-- <% System.out.println("request.getContextPath() = " + request.getContextPath()); %> --%>
+					<!-- request.getContextPath() = /semi_project_1 -->
 				<% } %>
 			</td>
 		</tr>
@@ -162,8 +164,8 @@ $("#replyBtn").click(function() {
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";
 });
 
+/* request.getHeader("referer") : 이전페이지로 이동 */
 $("#listBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_list"
-		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";	
+	location.href="<%=request.getHeader("referer")%>#review_list";	 
 });
 </script>
