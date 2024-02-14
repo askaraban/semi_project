@@ -18,7 +18,7 @@ QA_PRODUCT_NUM          NUMBER(10)   	- 제품번호
 public class QaDTO {
 	private int qaNum;
 	private int qaMember;
-	private String qaName; //CLIENT 테이블의 회원이름(CLIENT_NAME 컬럼)을 저장하기 위한 필드 - 작성자이름
+	//private String qaName; //CLIENT 테이블의 회원이름(CLIENT_NAME 컬럼)을 저장하기 위한 필드 - 작성자이름
 	private String qaSubject;
 	private String qaContent;
 	private String qaImage;
@@ -61,6 +61,7 @@ public class QaDTO {
 		this.qaMember = qaMember;
 	}
 
+	/*
 	public String getQaName() {
 		return qaName;
 	}
@@ -68,6 +69,7 @@ public class QaDTO {
 	public void setQaName(String qaName) {
 		this.qaName = qaName;
 	}
+	*/
 
 	public String getQaSubject() {
 		return qaSubject;

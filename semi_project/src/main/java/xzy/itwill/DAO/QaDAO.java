@@ -315,7 +315,7 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select qa_num,qa_member,name,qa_subject,qa_content,qa_image"
+			String sql="select qa_num,qa_member,name ,qa_subject,qa_content,qa_image"
 					+ ",qa_register,qa_update,qa_readcount,qa_replay,qa_product_num from qa_table join"
 					+ " client_table on qa_table.qa_member=client_table.client_num"
 					+ " where qa_num=?";
@@ -385,5 +385,40 @@ public class QaDAO extends JdbcDAO {
 			close(con, pstmt);
 		}
 		return rows;
+	}
+	
+	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
+	public int updateQa(QaDTO qa) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			//사용자가 이미지 파일을 입력하지 않은 경우 - 이미지 파일 미변경(기존 이미지 파일 사용)
+			if(qa.getQaImage()==null) {
+				String sql="update qa_table set qa_subject=?,qa_content=?"
+						+ " where qa_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, qa.getQaSubject());
+				pstmt.setString(2, qa.getQaContent());
+				pstmt.setInt(3, qa.getQaNum());
+			} else {//사용자가 이미지 파일을 입력한 경우 - 이미지 파일 변경
+				String sql="update qa_table set qa_subject=?,qa_content=?,qa_image=?"
+						+ " where qa_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, qa.getQaSubject());
+				pstmt.setString(2, qa.getQaContent());
+				pstmt.setString(3, qa.getQaImage());
+				pstmt.setInt(4, qa.getQaNum());
+			}			
+				
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]updateReview() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;		
 	}
 }
