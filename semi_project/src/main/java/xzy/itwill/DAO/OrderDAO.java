@@ -36,7 +36,7 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="insert into order_table values(order_seq.nextval,?,current_timestamp,sysdate,?,0,?,?,?,?,?,?,?,?,?,1)";
+				String sql="insert into order_table values(order_table_seq.nextval,?,current_timestamp,sysdate,?,0,?,?,?,?,?,?,?,?,?,1)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
 				pstmt.setInt(2, order.getOrderProductNum());
@@ -242,11 +242,13 @@ public class OrderDAO extends JdbcDAO {
 
 				con = getConnection();
 
-				String sql = "update set order_table order_review_status=2 where order_num=?";
+				String sql = "update order_table set order_review_status=2 where order_num=?";
 
 				pstmt = con.prepareStatement(sql);
 
 				pstmt.setInt(1, orderNum);
+				
+				rows=pstmt.executeUpdate();
 
 			} catch (SQLException e) {
 				System.out.println("[에러]updateReviewStatus() 메소드 오류" + e.getMessage());

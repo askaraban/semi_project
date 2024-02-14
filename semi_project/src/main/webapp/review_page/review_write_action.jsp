@@ -47,7 +47,7 @@ if (mr.getFilesystemName("reviewImage") != null) {
 
 // reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
 ReviewDTO review = new ReviewDTO();
-review.setReviewNum(loginClient.getClientNum()); // 로그인된 회원정보의 회원번호를 필드값으로 변경
+review.setReviewMemberNum(loginClient.getClientNum()); // 로그인된 회원정보의 회원번호를 필드값으로 변경
 review.setReviewSubject(reviewSubject);
 review.setReviewContent(reviewContent);
 review.setReviewImage(reviewImage);
