@@ -335,7 +335,7 @@ public class ReviewDAO extends JdbcDAO {
 			con=getConnection();
 			
 			String sql="select review_num,review_member_num,client_name,review_subject,review_content,review_image"
-					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_status"
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num"
 					+ " from review_table join client_table on review_table.review_member_num=client_table.client_num"
 					+ " where review_num=?";
 			pstmt=con.prepareStatement(sql);
@@ -356,7 +356,7 @@ public class ReviewDAO extends JdbcDAO {
 	            review.setReviewReadcount(rs.getInt("review_readcount"));
 	            review.setReviewReplay(rs.getString("review_replay"));
 	            review.setReviewProductNum(rs.getInt("review_product_num"));
-	            review.setReviewStatus(rs.getInt("review_status"));
+	            review.setReviewOrderNum(rs.getInt("review_order_num"));
 	            
 			}
 	   } catch (SQLException e) {
@@ -376,7 +376,7 @@ public class ReviewDAO extends JdbcDAO {
 			con=getConnection();
 			
 			String sql="select review_num,review_member_num,review_subject,review_content,review_image"
-					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_status"
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num"
 					+ " from review_table where review_status=1 and review_table.review_member_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
@@ -395,7 +395,7 @@ public class ReviewDAO extends JdbcDAO {
 				review.setReviewReadcount(rs.getInt("review_readcount"));
 				review.setReviewReplay(rs.getString("review_replay"));
 				review.setReviewProductNum(rs.getInt("review_product_num"));
-				review.setReviewStatus(rs.getInt("review_status"));
+				review.setReviewOrderNum(rs.getInt("review_order_num"));
 				reviewList.add(review);
 				
 			}
