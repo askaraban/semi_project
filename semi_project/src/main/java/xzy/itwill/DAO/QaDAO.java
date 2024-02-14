@@ -57,6 +57,30 @@ public class QaDAO extends JdbcDAO {
 		}
 		return totalCount;
 	}
+	// 회원 페이지에서 자신의 qa 목록을 볼 수 있는 메소드
+	public int selectTotalQa(int clientNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int totalCount=0;
+		try {
+			con=getConnection();
+			
+			String sql="select count(*) from qa_table where qa_member=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, clientNum);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCount=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectTotalQa() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return totalCount;
+	}
 	
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 메소드
@@ -88,6 +112,48 @@ public class QaDAO extends JdbcDAO {
 				pstmt.setInt(2, startRow);
 				pstmt.setInt(3, endRow);
 			}
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QaDTO qa=new QaDTO();
+				qa.setQaNum(rs.getInt("qa_num"));
+				qa.setQaMember(rs.getInt("qa_member"));
+				qa.setQaSubject(rs.getString("qa_subject"));
+				qa.setQaContent(rs.getString("qa_content"));
+				qa.setQaImage(rs.getString("qa_image"));
+				qa.setQaRegister(rs.getString("qa_register"));
+				qa.setQaUpdate(rs.getString("qa_update"));
+				qa.setQaReadCount(rs.getInt("qa_readcount"));
+				qa.setQaReplay(rs.getString("qa_replay"));
+				
+				qaList.add(qa);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return qaList;
+	}
+	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 회원번호를 전달받아 회원에 대한 qa리스트 출력하는 메소드
+	public List<QaDTO> selectQaList(int startRow, int endRow, int clientNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<QaDTO> qaList=new ArrayList<QaDTO>();
+		try {
+			con=getConnection();
+			
+				String sql="select * from (select rownum rn, temp.* from (select qa_num"
+						+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
+						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
+						+ " on qa_member=client_num where client_num=? order by qa_register desc,qa_num desc) temp)"
+						+ "where rn between ? and ?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, clientNum);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 			
 			rs=pstmt.executeQuery();
 			

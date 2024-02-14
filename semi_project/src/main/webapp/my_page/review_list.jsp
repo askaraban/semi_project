@@ -79,185 +79,25 @@
 %>
 
 <%-- 네비게이션 바 --%> 
-<style type="text/css">
-body {
-	width: 100%;
-	max-width: 1020px;
-	margin: 0 auto;
-	box-sizing: border-box;
-	display: block;
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
-#navigation a:hover {
-    text-align: left;
-	color: #F5A9D0;
-	font-size: 1.5em;
-}
-
-#navigation h1 {
-	font-size: 1em;	
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h2 {
-	font-size: 1em;		
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation h3 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;			
-}
-
-#navigation h4 {
-	font-size: 1em;
-	margin: 5px;
-	height: 50px;
-	text-align: center;	
-}
-
-#navigation {
-	position: absolute;
-}
-
-
-<%-- 리뷰 --%>
-[class*="subTitle1"] {
-    margin: 60px 0 24px;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-    text-align: left;
-}
-
-<%-- 리뷰쓰기 --%>
-[class*="tabType"] ul {
-    display: flex;
-}
-
-<%-- 상자 --%>
-.tabType li button,
-.tabType li a {
-	position: relative;
-	display: block;
-	width: 100%;
-	height: 62px;
-	text-align: center;
-}
-
-[class*="tabType"] li {
-	flex:1;
-	position:relative;
-	font-size:16px;
-	line-height:1.25;
-	color:#666;
-}
-
-<%--글자 중앙--%>
-.tabType li a:after {
-	content: "";
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-}
-
-<%--답글--%>
-.tabType li.active1 a {
-	font-weight:600;
-	color:#000;
-	background:#fff;
-}
-
-<%--점 없애기--%>
-li {
-    list-style: none;
-}
-
-a {
-	text-decoration: none;
-}
-
-<%--1:1--%>
-.tabType li.active a {
-	font-weight:600;
-	color:#fff;
-	background:#F5A9D0;;
-}
-
-<%-- 라인 --%>
-.mbOutTop {
-    padding: 70px 0 0;
-    border-top: 3px solid #000;
-}
-
-<%-- 리뷰 목록 --%>
-#review_title {
-	font-size: 1.2em;
-	font-weight: bold;
-	margin: 60px;
-}
-
-<%-- 수정 삭제 --%>
-.userIntro .n2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-<%-- 아이디 작성자 날짜 --%>
-.userIntro .n2 .left {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    letter-spacing: -0.01em;
-}
-
-
-
-
-
-
-.myReview_new .endProgress .summary {
-    display: flex;
-    align-items: center;
-    padding: 40px 0 30px;
-}
-
-.userIntro .n2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-
-
-
-</style>
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation">
+			<div id="navigation" style="padding-top: 60px;">
 				<h1>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
 				</h1>
 				<h2>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
 				</h3>
 				<h4>
-					<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
 				</h4>
 			</div>
 		</div>
@@ -311,11 +151,6 @@ a {
 				
 						<%-- 제목 출력 --%>
 						<td class="subject">
-							<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
-							<% if(reviewTable.getReviewRestep() != 0) {//답글인 경우 %>
-							<%-- 게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정 --%>
-							<span style="margin-left: <%=review.getReviewRelevel()*20%>px;">┗[답글]</span>
-						<% } %>
 					
 					
 					
@@ -467,7 +302,7 @@ a {
 						</div>
 					</div>
 				</li>
-                	
-                	
+                </div>
+                </div>	
 	</div>
 </div>  

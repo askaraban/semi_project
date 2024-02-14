@@ -5,7 +5,6 @@
 <%@page import="xyz.itwill.DTO.QaDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/security/login_url.jspf"%>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -17,6 +16,8 @@
 	crossorigin="anonymous"></script>
 <link href="<%=request.getContextPath()%>/style/my_page_order.css"
 	type="text/css" rel="stylesheet">
+<%@include file="/security/login_url.jspf"%>
+	
 <%
 //게시글 검색 기능에 필요한 전달값(검색대상과 검색단어)을 반환받아 저장
 String search = request.getParameter("search");//검색대상
@@ -43,7 +44,7 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 //검색정보(검색대상과 검색단어)를 전달받아 REVIEW 테이블에 저장된 게시글 중 검색대상의 컬럼에
 //검색단어가 포함된 게시글의 갯수를 검색하여 반환하는 ReviewDAO 클래스의 메서드 호출
 // => 검색 기능을 사용하지 않을 경우 REVIEW 테이블에 저장된 모든 게시글의 갯수를 반환
-int totalQa = QaDAO.getDAO().selectTotalQa(search, keyword);//검색된 게시글의 총갯수
+int totalQa = QaDAO.getDAO().selectTotalQa(loginClient.getClientNum());//검색된 게시글의 총갯수
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -70,12 +71,12 @@ if (endRow > totalQa) {
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 //클래스의 메소드 호출
-List<QaDTO> QaList = QaDAO.getDAO().selectQaList(startRow, endRow, search, keyword);
+List<QaDTO> QaList = QaDAO.getDAO().selectQaList(startRow, endRow, loginClient.getClientNum());
 
 //session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 // => 로그인 상태의 사용자에게만 글쓰기 권한 제공
 // => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
-QaDTO client_login = (QaDTO) session.getAttribute("client_login");
+
 
 //서버 시스템의 현재 날짜를 제공받아 저장
 // => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
@@ -84,6 +85,10 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 // => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 int displayNum = totalQa - (pageNum - 1) * pageSize;
+System.out.println(totalQa);
+System.out.println(displayNum);
+System.out.println(startRow);
+System.out.println(endRow);
 %>
 
 
@@ -112,23 +117,12 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 		<div class="col col-lg-10">
 			<h1 class="subTitle1">Q&A</h1>
 			<div id="listArea">
-				<div id="qa_title">
-					Q&A목록(<%=totalQa%>)
-				</div>
 				<div id="qa_list">
-					<div style="text-align: right;">
-						게시글갯수 : <select id="qaCount">
-							<option value="10" <%{%> selected <%}%>>&nbsp;10개&nbsp;</option>
-							<option value="20" <%{%> selected <%}%>>&nbsp;20개&nbsp;</option>
-							<option value="50" <%{%> selected <%}%>>&nbsp;50개&nbsp;</option>
-							<option value="100" <%{%> selected <%}%>>&nbsp;100개&nbsp;</option>
-						</select> &nbsp;&nbsp;&nbsp;
-					</div>
 					<div class="tableType">
 						<table>
 							<colgroup>
-								<col style="width: 150px;">
-								<col style="width: 350px;">
+								<col style="width: 100px;">
+								<col style="width: 400px;">
 								<col style="width: 150px;">
 								<col style="width: 200px;">
 							</colgroup>
@@ -141,23 +135,62 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 								</tr>
 							</thead>
 							<tbody>
+							<% for(QaDTO review : QaList){%>
 								<tr>
+									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
+									<td><%=displayNum %></td>
+									<%displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장%>
+									
+									<td class="left"><a href="javascript:void(0)"> <%=review.getQaSubject() %></a></td>
+									<td><%=loginClient.getClientName() %></td>
 									<td>2023.11.15</td>
-									<td><a href="javascript:void(0)"
-										onclick="goOrderDetail('20691308', '000', 'N')"> 20691308
-									</a></td>
-									<td class="left"><a href="javascript:void(0)"
-										onclick="goOrderDetail('20691308', '000', 'N')"> 비자 트러블 토너
-											외1건 </a></td>
-									<td>66,500원</td>
 								</tr>
+							<%} %>
 							</tbody>
 						</table>
 					</div>
 
-					<div class="paging">
-						<span class="num on"><a href="javascript:void(0);">1</a></span>
-					</div>
+					<%
+		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
+		int blockSize=5;
+	
+		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
+		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
+		int startPage=(pageNum-1)/blockSize*blockSize+1;
+		
+		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
+		// ex) 1블럭 : 5, 2블럭 : 10
+		int endPage=startPage+blockSize-1;
+		
+		// 토탈페이지보다 종료페이지보다 크다면
+		if(totalPage<endPage){
+			endPage=totalPage;
+		}
+	%>
+	<br>
+	<div id="page_list">
+		<%
+			String responseList="";
+		%>
+		
+		<%if(startPage>blockSize){%>
+			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
+		<%} else {%>
+			[이전]
+		<%} %>
+		<% for(int i=startPage;i<=endPage;i++){ %>
+			<%if(pageNum !=i) {%>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+			<%}else{  %>
+				[<%=i %>]
+			<%} %>
+		<%} %>
+			<%if(endPage!=totalPage){ %>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
+			<%}else{  %>
+				[다음]
+			<%} %>
+	</div>
 				</div>
 			</div>
 		</div>
