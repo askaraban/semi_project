@@ -367,6 +367,45 @@ public class ReviewDAO extends JdbcDAO {
 	   }
 	   return review;
 	}
+	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+	public ReviewDTO selectMyReviewList(int clientNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ReviewDTO review=null;
+		try {
+			con=getConnection();
+			
+			String sql="select review_num,review_member_num,review_subject,review_content,review_image"
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_status"
+					+ " from review_table where review_status=1 and review_table.review_member_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, clientNum);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				review=new ReviewDTO();
+				review.setReviewNum(rs.getInt("review_num"));
+				review.setReviewMemberNum(rs.getInt("review_member_num"));
+				review.setReviewSubject(rs.getString("review_subject"));
+				review.setReviewContent(rs.getString("review_content"));
+				review.setReviewImage(rs.getString("review_image"));
+				review.setReviewRegister(rs.getString("review_register"));
+				review.setReviewUpdate(rs.getString("review_update"));
+				review.setReviewReadcount(rs.getInt("review_readcount"));
+				review.setReviewReplay(rs.getString("review_replay"));
+				review.setReviewProductNum(rs.getInt("review_product_num"));
+				review.setReviewStatus(rs.getInt("review_status"));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectMyReviewList() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return review;
+	}
    
 	//글번호를 전달받아 REVIEWTABLE 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 메소드
