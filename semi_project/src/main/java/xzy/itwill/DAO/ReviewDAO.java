@@ -444,7 +444,7 @@ public class ReviewDAO extends JdbcDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, reviewNum); 
 		} catch (SQLException e) {
-			System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]deleteReview() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt);
 		}
