@@ -144,10 +144,10 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 							</colgroup>
 							<thead>
 								<tr>
-									<th scope="col">글번호</th>
-									<th scope="col">제목</th>
+									<th scope="col">번호</th>
 									<th scope="col">제품명</th>
-									<th scope="col">작성자</th>
+									<th scope="col">구매일시</th>
+									<th scope="col">구매자</th>
 								</tr>
 							</thead>
 							<tbody style="padding-top: 10px;">
