@@ -97,7 +97,7 @@ public class QaDAO extends JdbcDAO {
 						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num order by qa_register desc) temp)"
-						+ "where rn between ? and ?";
+						+ " where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
@@ -106,7 +106,7 @@ public class QaDAO extends JdbcDAO {
 						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num where "+search+" like '%'||?||'%'"
-						+ " order by qa_register desc)temp)where rn between ? and ?";
+						+ " order by qa_register desc) temp) where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, startRow);
@@ -290,14 +290,13 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,?)";
+			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, qa.getQaNum());
 			pstmt.setInt(2, qa.getQaMember());
 			pstmt.setString(3, qa.getQaSubject());
 			pstmt.setString(4, qa.getQaContent());
 			pstmt.setString(5, qa.getQaImage());
-			pstmt.setString(6, qa.getQaReplay());
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {

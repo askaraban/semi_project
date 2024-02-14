@@ -28,6 +28,16 @@ public class NoticeDTO {
 	private String noticeUpdate;
 	private int noticeCount;
 	
+	private int clientNum;
+	
+	public int getClientNum() {
+		return clientNum;
+	}
+
+	public void setClientNum(int clientNum) {
+		this.clientNum = clientNum;
+	}
+
 	public NoticeDTO() {
 		// TODO Auto-generated constructor stub
 	}

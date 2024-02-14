@@ -82,7 +82,7 @@
 	// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
 	QaDTO qaLoginMember=(QaDTO)session.getAttribute("qaLoginMember");
 	NoticeDTO noticeLoginMember=(NoticeDTO)session.getAttribute("noticeLoginMember");
-	ClientDTO clientStatus=(ClientDTO)session.getAttribute("clientStatus");
+	ClientDTO clientLoginMember=(ClientDTO)session.getAttribute("loginClient");
 	
 	//서버 시스템의 현재 날짜를 제공받아 저장
 	// => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
@@ -92,6 +92,7 @@
 	// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 	int noticeDisplayNum=totalNotice-(pageNum-1)*pageSize;
 	int qaDisplayNum=totalQa-(pageNum-1)*pageSize;
+	
 %>
 <style type="text/css">
 h1 {
@@ -142,13 +143,13 @@ td {
 
 #notice_list a:hover {
 	text-decoration: none; 
-	color: blue;
+	color: pink;
 	font-weight: bold;
 }
 
 #qa_list a:hover {
 	text-decoration: none; 
-	color: blue;
+	color: pink;
 	font-weight: bold;
 }
 
@@ -240,25 +241,17 @@ td {
 <div id="qa_list">
 	<div id="qa_title">Q&A(<%=totalQa%>)</div>
 	
-	<div style="text-align: right;">
-		게시글갯수 : 
-		<select id="qaCount">
-			<option value="10" <% if(pageSize==10) { %> selected <% } %>>&nbsp;10개&nbsp;</option>	
-			<option value="20" <% if(pageSize==20) { %> selected <% } %>>&nbsp;20개&nbsp;</option>	
-			<option value="50" <% if(pageSize==50) { %> selected <% } %>>&nbsp;50개&nbsp;</option>	
-			<option value="100" <% if(pageSize==100) { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
-		</select>
-		&nbsp;&nbsp;&nbsp;
-		<button type="button" id="noticeWriteBtn">공지쓰기</button>
-			<button type="button" id="qaWriteBtn">QA쓰기</button>
-		<% if(clientStatus!=null) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
-			<button type="button" id="qaWriteBtn">QA쓰기</button>
-		<% } %>
-		<% if(clientStatus!=null && clientStatus.getClientStatus()==9) {//관리자가 JSP 문서를 요청한 경우 %>
-			<button type="button" id="noticeWriteBtn">공지쓰기</button>
-			<button type="button" id="qaWriteBtn">QA쓰기</button>
-		<% } %>
-		
+		<div style="text-align: right;">
+		<%if(clientLoginMember!=null){ %>
+			<% if(clientLoginMember.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
+				<button type="button" id="qaWriteBtn">QA쓰기</button>
+				<button type="button" id="noticeWriteBtn">공지쓰기</button>
+			<% } %>
+			<% if(clientLoginMember.getClientStatus()==1) { %>
+				<button type="button" id="qaWriteBtn">QA쓰기</button>
+			<%} %>
+		<%} %>
+		</div>
 	</div>
 	
 	<%-- Q&A --%>

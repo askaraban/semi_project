@@ -167,7 +167,7 @@ td {
 		
 	
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
-			
+			<% for(ReviewDTO review : reviewList) { %>
 			<tr>
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
 				<td></td>
@@ -177,12 +177,11 @@ td {
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String URL=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail";
-						
+						String URL=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_detail";	
 					%>
 							
 					<%-- 작성자 출력 --%>
-					<td></td>
+					<td>과자몰</td>
 								
 					<%-- 조회수 출력 --%>
 					<td><%=notice.getNoticeCount() %></td>

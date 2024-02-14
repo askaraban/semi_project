@@ -29,7 +29,6 @@
 
 	// 제품번호 가져옴
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
-	System.out.println("productNum = " + productNum);
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -153,7 +152,7 @@ td {
 		<% } %>
 		
 		<%-- 로그인 상태의 사용자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient!=null) { %>
+		<% if(loginClient!=null && loginClient.getClientStatus() == 9) { %>
 			<button type="button" id="replyBtn">답글쓰기</button>
 		<% } %>
 		
@@ -172,7 +171,7 @@ $("#removeBtn").click(function() {
 	if(confirm("게시글을 정말로 삭제 하시겠습니까?")) {
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_remove_action"
 			+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
-			+"&pageSize=<%=pageSize%>";	
+			+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
 	}
 });
 
@@ -181,16 +180,9 @@ $("#replyBtn").click(function() {
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";
 });
 
-<%-- /* request.getHeader("referer") : 이전페이지로 이동 */
-$("#listBtn").click(function() {
-	location.href="<%=request.getHeader("referer")%>#review_list";	 
-}); --%>
 
 $("#listBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
 		+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#review_list";   
 	});
-<%-- 	<% System.out.println("productNum = " + productNum); %>
-	<% System.out.println("pageSize = " + pageSize); %>
-	<% System.out.println("pageNum = " + pageNum); %> --%>
 </script>

@@ -108,12 +108,12 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 			<h1 class="subTitle1">리뷰</h1>
 			<div class="tabType">
 				<ul class="item2" style="padding-left: unset;">
-					<li class="active write_review" style="text-decoration: none;"><a
+					<li class="active write_review" id="write" style="text-decoration: none;"><a
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">
 							<span>작성 가능한 리뷰</span>
 					</a></li>
-					<li class="active1 write_review"><a
+					<li class="active1 write_review written" id=""><a
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written">
 							<span>내가 작성한 리뷰</span>
@@ -155,13 +155,14 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 								for (OrderDTO list : reviewList) {
 								%>
 								<tr>
+								<%=list.getOrderNum() %>
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum%></td>
 									<%
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
 									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>">
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>&reviewNum=<%=list.getOrderNum()%>">
 											<%=list.getProductName()%></a></td>
 									<td><%=list.getOrderDate()%></td>
 									<td><%=loginClient.getClientName()%></td>
@@ -224,6 +225,7 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 </div>
 
 <script>
-	$("#reviewArea").removeClass();
-	$("#reviewArea").addClass('tableType tb_review');
+	$("#write").click(function() {
+		
+	})
 </script>
