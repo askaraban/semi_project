@@ -349,7 +349,6 @@ fieldset {
 }
 
 .mbOutTop {
-    padding: 70px 0 0;
     border-top: 2px solid #000;
 }
 
@@ -362,7 +361,6 @@ fieldset {
 }
 
 .mbOutTop .list {
-    padding: 30px;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25em;
@@ -380,7 +378,6 @@ fieldset {
 }
 
 .mbOutTop .list {
-    padding: 30px;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25em;
@@ -471,11 +468,6 @@ h3.subTitle2 {
 }
 
 /*<%-- 라인 --%>*/
-.mbOutTop {
-    padding: 70px 0 0;
-    border-top: 3px solid #000;
-}
-
 
 .nonList:not(td) {
     justify-content: center;
