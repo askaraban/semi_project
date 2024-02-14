@@ -23,12 +23,8 @@
 	*/
 	
 	String[] cartNumList = request.getParameterValues("cartNum");
-	
- 	for(String cart : cartNumList){
- 		System.out.println("cart = " + cart);
-		CartDTO cartOne = CartDAO.getDAO().selectOrder(Integer.parseInt(cart));
-		System.out.println("cartOne = " + cartOne); 
-	} 
+	int totalPrice = 0;
+ 	
  
 %>
 
@@ -108,10 +104,7 @@
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
-	    <input type="hidden" id="clientNum" name="clientNum" value="<%=cartOne.getCartClientNum()%>">
-	    <input type="hidden" id="productNum" name="productNum" value="<%=cart.getCartProductNum()%>">
-	    <input type="hidden" id="orderSum" name="orderSum" value="<%=orderSum%>">
-	    <input type="hidden" id="orderDisSum" name="orderDisSum" value="<%=orderDisSum%>">
+	   
 		    
 	    <div class="tableTypeWrite payTable">
     	<table>
@@ -218,7 +211,7 @@
 	</div>
 
 	<div class="cartList">
-		<% 
+		<%-- <% 
  			for(String cartTwo : cartOne) {  
 				//System.out.println(cart);	 cartNum[i]	
 				
@@ -228,59 +221,87 @@
 				int totalPrice= Integer.parseInt(cartOne.getProductPrice())*cartNum; //수량*가격 
 				System.out.println("totalPrice = " + totalPrice);
 				
-				int discount = (int)Math.floor(((double)(cart.getProductPrice())*(100-cartOne.getProductDis())/100)/10)*10;
+				int discount = (int)Math.floor(((double)(cartOne.getProductPrice())*(100-cartOne.getProductDis())/100)/10)*10;
 					
-				int orderSum=cart.getProductPrice()*cart.getCartCount();
-				int orderDisSum=discount*cart.getCartCount(); 
+				int orderSum=cartOne.getProductPrice()*cartOne.getCartCount();
+				int orderDisSum=discount*cartOne.getCartCount(); 
+		%> --%>
+		<%
+		for(String cart : cartNumList){
+			CartDTO cartOne = CartDAO.getDAO().selectOrder(Integer.parseInt(cart));
+			
+			int discount =  (int)Math.floor(((double)(cartOne.getProductPrice())*(100-cartOne.getProductDis())/100)/10)*10;
+			if(cartOne.getProductDis()==0){
+				totalPrice += cartOne.getCartCount() * cartOne.getProductPrice();
+			} else {
+				totalPrice += cartOne.getCartCount() * discount;
+			}
+			
+			int productNum = CartDAO.getDAO().selectProductCount(cartOne.getCartNum());
+			String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+					   +"&productNum="+productNum;
 		%>
-		<ul>
-			<li>
-				<div class="pdtRow">
-					<div class="cell pdtImg">
-						<a href="#"><img src="<%=request.getContextPath() %>/productImg/<%=cart.getProductMainImg() %>" alt="" width="90" height="90"></a>
-					</div>	
-			   </div>
-				<div class="cell pdtInfo">
-					<div class="pdtName"> <!-- 품명 -->
-						<a href="/product_page/product" onclick="#"><%=cart.getProductName() %></a>
-					</div>
-					<div class="pdtOpt"> <!-- 수량 -->
-						<span class="pdtCount"><%=cart.getCartCount() %> 개</span>
-						<input type="hidden" name="productCount" value="<%=cart.getCartCount()%>">
-					</div>
+		<div class="product-info">
+			<div class="product-inner">
+				<div>
+					<a href="<%=url%>">
+					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=cartOne.getProductMainImg()%>">
+					</a>
 				</div>
-				<div class="cell pdtPrice">
-					<span class="price">
-						<% if(cart.getProductDis()!=0) { 
-							// 할인가를 나타내기 위한 변수
-							int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-						%>
-							<span class="num"><%=format.format(orderDisSum) %> 원 </span>
-						<% } else { %>
-							<span class="num"><%=format.format(orderSum) %> 원</span>
-						<% } %>
-					</span>
+				<div class="cart-product-infoArea"
+					style="width: 250px; margin-left: 15px;">
+					<div class="cart-product-title" style="font-weight: bold;">
+					<a href="<%=url%>" style="text-decoration-line: none; color: black;"><%=cartOne.getProductName() %></a>
+					</div>
+					<%if(cartOne.getProductDis()!=0) {%>
+					<div class="cart-product-price" id="select_price_<%=cartOne.getProductPrice() %>" style="padding-top: 10px;">
+					가격 : <%=format.format(discount) %>원
+					<span class="discount" style="font-size: 10px;"><%=format.format(cartOne.getProductPrice()) %>원</span>
+					</div>
+					<%} else {%>
+					<div class="cart-product-price" id="select_price_<%=cartOne.getProductPrice() %>" style="padding-top: 10px;">
+					가격 : <%=format.format(cartOne.getProductPrice()) %>원
+					</div>
+					<%} %>
 				</div>
-			</li>
-		</ul>
+			</div>
+			
+			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
+				<span>상품 주문 수량 : <%=cartOne.getCartCount() %>개 </span>
+			</div>
+			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
+			<div class="cart-product-infoArea third-inner" style="width: 250px;">
+				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
+				<span><strong style="font-weight: bold; font-size: 18px;">
+				
+					<%if(cartOne.getProductDis()!=0) {%>
+					<em><%=format.format(cartOne.getCartCount()*discount) %>원</em>
+					<%} else {%>
+					<em><%=format.format(cartOne.getCartCount()*cartOne.getProductPrice()) %>원</em>
+					<%} %>
+				</strong>&nbsp;(<%=cartOne.getCartCount() %>개)</span>
+			</div>
+			<br>
+		</div>
+		<% }%> 
 	</div>	
-<% } %>
 </section>
   				
-<section id="orderChk" style="display: block;">
-<div id="orderProduct" class="totalPrice">
-    <h5>총 결제금액</h5>  
-</div>
-	<div class="ec-base-button gFull" id="orderFixItem">  
-    	<button type="submit" class="btnSubmit" id="btn_payment">	
-	    	<%
-				int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-			%>
-    	<span id="totalOrderDisPrice"><%=format.format(discount1*productCount) %> 원</span> 	
-    	<span class="payment">결제하기</span>
-    	</button>	
-	</div>
-</section>
+<div style="display: flex; padding-left: 100px;">
+			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
+				<span class="result-word"></span>
+				<br>
+				<span class="result-count" id="selectedPrice2"></span>
+			</div>
+			<div style="width: 280px; height: 100px; padding-top: 23px;">
+				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" >결제하기</button>
+			</div>
+			<div style="width: 300px; height: 100px; padding-top: 20px;" >
+				<span class="result-word">총 주문금액</span>
+				<br>
+				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
+			</div>
+		</div>
 </form>
 				                                 				  
     				      
