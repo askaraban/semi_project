@@ -207,17 +207,17 @@ public class NoticeDAO extends JdbcDAO {
 					String sql="select * from (select rownum rn, temp.* from (select notice_num"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
 							+ ", notice_count from notice_table join client_table"
-							+ " on order by notice_date desc) temp)"
-							+ "where rn between ? and ?";
+							+ " on notice_member=client_num order by notice_date desc) temp)"
+							+ " where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, startRow);
 					pstmt.setInt(2, endRow);
 				} else { //검색 기능을 사용한 경우
-					String sql="select * from (select rownum rn, temp.* from (select notice_num"
+					String sql="select * from (select rownum rn, temp.* from (select notice_num, notice_member"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
 							+ ", notice_count from notice_table join client_table"
-							+ " on where "+search+" like '%'||?||'%'"
-							+ " order by notice_date desc)temp)where rn between ? and ?";
+							+ " on notice_member=client_num where "+search+" like '%'||?||'%'"
+							+ " order by notice_date desc) temp) where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setString(1, keyword);
 					pstmt.setInt(2, startRow);
@@ -237,7 +237,7 @@ public class NoticeDAO extends JdbcDAO {
 					noticeList.add(notice);
 				}
 			} catch (SQLException e) {
-				System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
+				System.out.println("[에러]selectNoticeList() 메소드의 SQL 오류 = "+e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}
