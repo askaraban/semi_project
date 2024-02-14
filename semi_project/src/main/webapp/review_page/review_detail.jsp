@@ -29,7 +29,6 @@
 
 	// 제품번호 가져옴
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
-	System.out.println("productNum = " + productNum);
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -172,7 +171,7 @@ $("#removeBtn").click(function() {
 	if(confirm("게시글을 정말로 삭제 하시겠습니까?")) {
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_remove_action"
 			+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
-			+"&pageSize=<%=pageSize%>";	
+			+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
 	}
 });
 

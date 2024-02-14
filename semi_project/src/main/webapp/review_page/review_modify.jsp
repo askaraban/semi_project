@@ -32,6 +32,7 @@
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
+	
 	//로그인 상태의 사용자가 게시글 작성자 및 관리자가 아닌 경우에 대한 응답 처리 - 비정상적인 요청
 	if(loginClient.getClientNum()!=review.getReviewMemberNum() && loginClient.getClientStatus()!=9) {
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");

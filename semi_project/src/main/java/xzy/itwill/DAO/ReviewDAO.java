@@ -442,7 +442,9 @@ public class ReviewDAO extends JdbcDAO {
 			
 			String sql="delete from review_table where review_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, reviewNum); 
+			pstmt.setInt(1, reviewNum);
+			
+			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("[에러]deleteReview() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
