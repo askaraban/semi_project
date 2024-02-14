@@ -195,6 +195,47 @@ public class CartDAO extends JdbcDAO {
 		}
 		return cartList;
 	}
+	public CartDTO selectOrder(int cartNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		CartDTO cart = null;
+		
+		try {
+			
+			con = getConnection();
+			
+			String sql = "select cart_num, cart_client_num, cart_product_num, cart_count, product_name, product_price, product_com, "
+					+ "product_dis, product_main_img from cart_table join product_table on cart_product_num = product_num where cart_num = ?"
+					+ " order by cart_num desc";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, cartNum);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				cart = new CartDTO();
+				cart.setCartNum(rs.getInt("cart_num"));
+				cart.setCartClientNum(rs.getInt("cart_client_num"));
+				cart.setCartProductNum(rs.getInt("cart_product_num"));
+				cart.setCartCount(rs.getInt("cart_count"));
+				cart.setProductName(rs.getString("product_name"));
+				cart.setProductPrice(rs.getInt("product_price"));
+				cart.setProductCom(rs.getString("product_com"));
+				cart.setProductDis(rs.getInt("product_dis"));
+				cart.setProductMainImg(rs.getString("product_main_img"));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("[에러]selectOrder() 메소드 오류" + e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return cart;
+	}
 
 	public int deleteCart(int cartNum) {
 		Connection con = null;
