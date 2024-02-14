@@ -9,7 +9,7 @@
 <link href="<%=request.getContextPath()%>/style/review_list_style.css" type="text/css" rel="stylesheet">
 <%
 	// 제품번호 가져옴
-	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
+	int productNum = Integer.parseInt(request.getParameter("productNum"));
 
 	//페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
 	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
@@ -23,7 +23,7 @@
 	}
 	
 	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
+	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(productNum);
 	
 	//전체 페이지의 총갯수를 계산하여 저장
 	//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -53,7 +53,7 @@
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 	//클래스의 메소드 호출
-	List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectReviewListByReviewProductNum(startRow, endRow, reviewProductNum);
+	List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectReviewListByReviewProductNum(startRow, endRow, productNum);
 	
 	//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 	// => 로그인 상태의 사용자에게만 글쓰기 권한 제공
@@ -120,10 +120,9 @@
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
 						String url=request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
-							+"&reviewNum="+review.getReviewNum()+"&pageNum="+pageNum+"&pageSize="+pageSize;
+							+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize;
 					%>
 					<a href="<%=url%>"><%=review.getReviewSubject() %></a>
-					
 				</td>
 				
 				<%-- 작성자(회원이름) 출력 --%>
@@ -169,7 +168,7 @@
 	<div id="page_list">
 		<%
 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-					+"&productNum="+reviewProductNum+"&review_list"+"&pageSize="+pageSize;
+					+"&productNum="+productNum+"&review_list"+"&pageSize="+pageSize;
 		%>
 		
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>

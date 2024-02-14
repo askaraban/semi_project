@@ -94,7 +94,7 @@ public class QaDAO extends JdbcDAO {
 			
 			if(keyword.equals("")) { //검색 기능을 사용하지 않는 경우
 				String sql="select * from (select rownum rn, temp.* from (select qa_num"
-						+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
+						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num order by qa_register desc) temp)"
 						+ "where rn between ? and ?";
@@ -103,7 +103,7 @@ public class QaDAO extends JdbcDAO {
 				pstmt.setInt(2, endRow);
 			} else { //검색 기능을 사용한 경우
 				String sql="select * from (select rownum rn, temp.* from (select qa_num"
-						+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
+						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num where "+search+" like '%'||?||'%'"
 						+ " order by qa_register desc)temp)where rn between ? and ?";
@@ -119,6 +119,7 @@ public class QaDAO extends JdbcDAO {
 				QaDTO qa=new QaDTO();
 				qa.setQaNum(rs.getInt("qa_num"));
 				qa.setQaMember(rs.getInt("qa_member"));
+				qa.setQaName(rs.getString("client_name"));
 				qa.setQaSubject(rs.getString("qa_subject"));
 				qa.setQaContent(rs.getString("qa_content"));
 				qa.setQaImage(rs.getString("qa_image"));
@@ -136,6 +137,7 @@ public class QaDAO extends JdbcDAO {
 		}
 		return qaList;
 	}
+	/* 없어도 될 부분
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 회원번호를 전달받아 회원에 대한 qa리스트 출력하는 메소드
 	public List<QaDTO> selectQaList(int startRow, int endRow, int clientNum) {
 		Connection con=null;
@@ -178,6 +180,7 @@ public class QaDAO extends JdbcDAO {
 		}
 		return qaList;
 	}
+	*/
 	
 	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 제품번호를 전달받아
 	// REVIEW_TABLE에 저장된 행을 select 하여 게시글 목록을 반환하는 메소드

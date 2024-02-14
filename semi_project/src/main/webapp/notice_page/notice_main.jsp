@@ -82,7 +82,7 @@
 	// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
 	QaDTO qaLoginMember=(QaDTO)session.getAttribute("qaLoginMember");
 	NoticeDTO noticeLoginMember=(NoticeDTO)session.getAttribute("noticeLoginMember");
-	ClientDTO loginMember=(ClientDTO)session.getAttribute("loginMember");
+	ClientDTO clientStatus=(ClientDTO)session.getAttribute("clientStatus");
 	
 	//서버 시스템의 현재 날짜를 제공받아 저장
 	// => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
@@ -122,9 +122,9 @@ table {
 }
 
 th {
-	border: 1px solid white;
-	background: black;
-	color: white;
+	border: 1px solid gray;
+	background: pink;
+	color: black;
 }
 
 td {
@@ -249,10 +249,12 @@ td {
 			<option value="100" <% if(pageSize==100) { %> selected <% } %>>&nbsp;100개&nbsp;</option>	
 		</select>
 		&nbsp;&nbsp;&nbsp;
-		<% if(loginMember!=null) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
+		<button type="button" id="noticeWriteBtn">공지쓰기</button>
+			<button type="button" id="qaWriteBtn">QA쓰기</button>
+		<% if(clientStatus!=null) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
 			<button type="button" id="qaWriteBtn">QA쓰기</button>
 		<% } %>
-		<% if(loginMember!=null && loginMember.getClientStatus()==9) {//관리자가 JSP 문서를 요청한 경우 %>
+		<% if(clientStatus!=null && clientStatus.getClientStatus()==9) {//관리자가 JSP 문서를 요청한 경우 %>
 			<button type="button" id="noticeWriteBtn">공지쓰기</button>
 			<button type="button" id="qaWriteBtn">QA쓰기</button>
 		<% } %>
@@ -285,10 +287,6 @@ td {
 				<%-- 제목 --%>
 				<td class="subject">
 					<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
-					<% if(qa.getQaReplay() != 0) {//답글인 경우 %>
-						<%-- 게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정 --%>
-						<span style="margin-left: <%=qa.getQaReplay()*20%>px;">┗[RE]</span>
-					<% } %>
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%

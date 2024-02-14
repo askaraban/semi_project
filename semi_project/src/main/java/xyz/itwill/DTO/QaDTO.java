@@ -27,7 +27,7 @@ public class QaDTO {
 	private int qaReadCount;
 	private String qaReplay;
 	private int qaProductNum;
-	
+	/*
 	private int clientNum;
 	
 	
@@ -39,6 +39,7 @@ public class QaDTO {
 	public void setClientNum(int clientNum) {
 		this.clientNum = clientNum;
 	}
+	*/
 
 	public QaDTO() {
 		// TODO Auto-generated constructor stub

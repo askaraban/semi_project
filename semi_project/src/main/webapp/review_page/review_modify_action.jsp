@@ -15,7 +15,7 @@
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getMethod().equals("GET")) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -30,8 +30,8 @@
 	int reviewNum=Integer.parseInt(multipartRequest.getParameter("reviewNum"));
 	String pageNum=multipartRequest.getParameter("pageNum");
 	String pageSize=multipartRequest.getParameter("pageSize");
+	int productNum = Integer.parseInt(multipartRequest.getParameter("productNum"));
 	String reviewSubject=Utility.escapeTag(multipartRequest.getParameter("reviewSubject"));
-	/* int reviewStatus=1;//전달값이 없는 경우 - 일반글 */
 	String reviewContent=Utility.escapeTag(multipartRequest.getParameter("reviewContent"));
 	
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로를 저장
@@ -53,6 +53,7 @@
 	review.setReviewSubject(reviewSubject);
 	review.setReviewContent(reviewContent);
 	review.setReviewImage(reviewImage);
+	review.setReviewProductNum(productNum);
 	/* review.setReviewStatus(reviewStatus); */
 	
 	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
@@ -61,5 +62,7 @@
 	
 	//페이지 이동
  	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
-			+"&reviewNum="+review.getReviewNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
+			+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
+	System.out.println("review.getReviewProductNum() = " + review.getReviewProductNum());
+	
 %>

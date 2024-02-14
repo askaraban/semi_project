@@ -10,12 +10,9 @@
 <title>Insert title here</title>
 </head>
 <%
-	// 제품번호 가져옴
-	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
-
 	//제품번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("productNum")==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	//전달값을 반환받아 저장
@@ -27,7 +24,7 @@
 	
 	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(product==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	
@@ -59,7 +56,7 @@
 		int totalReview=ReviewDAO.getDAO().selectTotalReview(search, keyword);//검색된 게시글의 총갯수
 		
 		// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-		int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
+		int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(productNum);
 %>
 <body>	
 	<div class="listArea">

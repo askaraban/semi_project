@@ -11,16 +11,17 @@
 <%-- 비로그인 상태의 사용자가 JSP 문서를 요청한 경우 에러페이지로 이동되도록 응답 처리 --%>
 <%@include file="/security/login_check.jspf" %>    
 <%
-	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
-	if(request.getParameter("reviewNum")==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
-		return;
-	}
-	
 	//전달값을 반환받아 저장
 	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
 	String pageNum=request.getParameter("pageNum");
 	String pageSize=request.getParameter("pageSize");
+	int productNum = Integer.parseInt(request.getParameter("productNum"));
+
+	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
+	if(request.getParameter("reviewNum")==null) {
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
+		return;
+	}
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -28,12 +29,12 @@
 	
 	//검색된 게시글이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(review==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	//로그인 상태의 사용자가 게시글 작성자 및 관리자가 아닌 경우에 대한 응답 처리 - 비정상적인 요청
 	if(loginClient.getClientNum()!=review.getReviewMemberNum() && loginClient.getClientStatus()!=9) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 %>
@@ -57,6 +58,7 @@ td {
 <form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"
 	method="post" enctype="multipart/form-data" id="reviewForm">
 	<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
+	<input type="hidden" name="productNum" value="<%=productNum %>">
 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
 	<input type="hidden" name="pageSize" value="<%=pageSize %>">
 	<table>
