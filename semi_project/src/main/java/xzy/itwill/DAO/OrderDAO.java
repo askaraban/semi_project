@@ -61,7 +61,7 @@ public class OrderDAO extends JdbcDAO {
 			
 		// 회원번호를 검색해 회원번호에 해당하는 product_table에 있는 단일행을 가져옴
 		// 가져온 product_table에서  order_table과 조인하여 제품정보를 가져옴
-		public OrderDTO selectOrderList(ClientDTO client) {
+		public OrderDTO selectedOrderList(ClientDTO client) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;

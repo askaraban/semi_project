@@ -54,7 +54,6 @@ public class OrderDTO {
 	}
 	
 	
-	
 	public int getOrderReviewStatus() {
 		return orderReviewStatus;
 	}

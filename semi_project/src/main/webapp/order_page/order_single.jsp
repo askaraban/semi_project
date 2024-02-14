@@ -8,8 +8,6 @@
     
 <%@include file="/security/login_url.jspf" %>
 <%
-
-
 	
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	
@@ -482,7 +480,7 @@
     <div id="orderProduct" class="totalPrice">
         <h5>총 결제금액</h5>  
     </div>
-    	<div class="ec-base-button gFull" id="orderFixItem">  
+    	<div class="ec-base-button gFull" id="orderFixItem"> 
 	    	<button type="submit" class="btnSubmit" id="btn_payment">	
 		    	<%
 				  int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
