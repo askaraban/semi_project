@@ -206,7 +206,7 @@ $("img").filter(".ProductWish").click(function() {
 })
 // 단일제품 구매하기 버튼
 $("#directOrderBtn").click(function() {
-	var result = $("#result").text();
+	var result = $("#totCount").text();
 	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single");
 	$("#uploadForm").submit();
 	

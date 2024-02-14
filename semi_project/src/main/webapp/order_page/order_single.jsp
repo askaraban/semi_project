@@ -6,38 +6,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-
+<%@include file="/security/login_url.jspf" %>
 <%
 
-	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
+
+	
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	
 
 	//제품번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if (request.getParameter("productNum")==null) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp");
 		return;
 	}
 	
 	//전달값을 반환받아 저장
 	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
-	System.out.println("productNum = "+productNum);
+	//System.out.println("productNum = "+productNum);
 	
-	
-	//int count=Integer.parseInt(request.getParameter("totCount")); //단일제품 수량
-	//System.out.println("count = " + count);
 	
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
 	ProductDTO product=ProductDAO.getDAO().selectProductByNum(productNum);
-	String result = request.getParameter("result");
-	System.out.println(result);
+	int productCount = Integer.parseInt(request.getParameter("totCount"));
+	//System.out.println(productCount);
+		
+	// 할인가를 나타내기 위한 변수
+	int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 	
-	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
-	if(product==null) {
-	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
-		return;
-	}
+	int clientNum=loginClient.getClientNum();
+	
+	int orderSum=product.getProductPrice()*productCount;
+	int orderDisSum=discount*productCount;
+	
 %>
 
 
@@ -237,10 +238,6 @@
 <%-- 제품 상세에서 구매 페이지로 제품번호와 수량을 전달받아 반환
 	 DB랑 연결해서 삽입할 데이터 처리 DAO 메소드 호출  
 	 구매 정보 삽입하고 결제완료 표시하는 문서를 하나로 통합 --%>
-	 
-<%--  
-int count=Integer.parseInt(request.getParameter("totCount"));
-참고하시면 됩니당--%>	 
 
 	<!-- 사용자 영역 -->
 	<div id="titleArea" class="titleArea">
@@ -251,10 +248,8 @@ int count=Integer.parseInt(request.getParameter("totCount"));
     <!-- 주문자정보 -->
     <section style="display=block;">
 	    <div id="ec-jigsaw-title-billingInfo" class="orderInfotitle">
-	       <h5>주문자 정보</h5>
+	       <h5>주문자 정보</h5> 
 	    </div>
-		    <form id="orderInfoForm" name="orderInfoForm" method="POST">
-			    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
 			    	<div class="tableTypeWrite payTable">
 		    		   <table>
 						    <colgroup>
@@ -313,16 +308,19 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 								  </tbody>
 							</table>
 						</div>
-				 	</form>
 			</section>
 			<br>
 			<br>				    													
 	
+<form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
-	    <form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
-	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
+	    <input type="hidden" id="clientNum" name="clientNum" value="<%=clientNum%>">
+	    <input type="hidden" id="productNum" name="productNum" value="<%=productNum%>">
+	    <input type="hidden" id="orderSum" name="orderSum" value="<%=orderSum%>">
+	    <input type="hidden" id="orderDisSum" name="orderDisSum" value="<%=orderDisSum%>">
+		    
 	    <div class="tableTypeWrite payTable">
     	<table>
 			   <colgroup>
@@ -339,7 +337,7 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 					 		받는 사람 
 						</th>
 						<td class="receiver">
-							<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
+							<input type="text" name="order_receiver" id="order_receiver" maxlength="10" 
 							class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
 						</td>
 					</tr>
@@ -352,7 +350,7 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 					 		연락처
 				 		</th>
 						<td>
-							<select name="mobile1">
+							<select name="mobile4">
 								<option value="010" selected>&nbsp;010&nbsp;</option>
 								<option value="011">&nbsp;011&nbsp;</option>
 								<option value="016">&nbsp;016&nbsp;</option>
@@ -360,8 +358,8 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 								<option value="018">&nbsp;018&nbsp;</option>
 								<option value="019">&nbsp;019&nbsp;</option>
 							</select>
-							- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
-							- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
+							- <input type="text" name="mobile5" id="mobile2" size="4" maxlength="4">
+							- <input type="text" name="mobile6" id="mobile3" size="4" maxlength="4">
 						</td>
 					</tr>
 					<tr class="deliEmail">
@@ -409,37 +407,19 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 					 		배송 요청사항
 					 		</th>
 				 		<td>
-							<textarea rows="5" cols="80" name="shippingMsg" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<textarea rows="5" cols="80" name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
 				 		</td>
 				   </tr>
 			  </tbody>
 			</table>
 		</div>
-	</form>
 	<br>
 </section>		
 <br>		                                               	
 <br>
 
 <!-- 주문 상품 정보 -->
-<%-- 일단 수량을 전달받아야함 
-    <% //할인율 반영 가격 ..
-		int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-		if(product.getProductDis()==0){
-			totPrice += order.getOrderCount() * product.getProductPrice();
-		} else {
-			totPrice += order.getOrderCount() * discount;
-		}
-		
-		// 상세페이지로 이동할 수 있도록 DAO로 상품번호를 가져오고, url 로 전달
-				int productNum = CartDAO.getDAO().selectProductCount(cart.getCartNum());
-				String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-						   +"&productNum="+productNum;
-	%>
---%>
-    <form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="#" name="#" value="#">
     <div id="orderProduct" class="orderProductInfo">
         <h5>주문 상품 정보</h5>  
     </div>	
@@ -458,7 +438,8 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 			    		<a href="/product_page/product" onclick="#"><%=product.getProductName() %></a>
 			    	</div>
 			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount">1개</span>
+			    		<span class="pdtCount"><%=request.getParameter("totCount") %> 개</span>
+			    		<input type="hidden" name="productCount" value="<%=productCount%>">
 			    	</div>
 			    </div>
 			   	<div class="cell pdtPrice">
@@ -466,41 +447,36 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 			   		<% if(product.getProductDis()!=0){ %>
 			   		<%
 			   			// 할인가를 나타내기 위한 변수
-						int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+						int discount1 =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 			   		%>
-			   			<span class="num"><%=format.format(discount) %> 원 </span>
+			   			<span class="num"><%=format.format(discount1*productCount) %> 원 </span>
 			   		<% } else { %>
-			   			<span class="num"><%=format.format(product.getProductPrice()) %> 원</span>
+			   			<span class="num"><%=format.format(product.getProductPrice()*productCount) %> 원</span>
 			   		</span>
 			   		<%} %>
 			   	  </div>
 			   	</div>
 	   	    </li>
 	   	  </ul>
-	 
      </div>	
-  </section>	
- </form>
+ </section>	
   				
-	<form  action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="pdtNum" name="pdtNum" value="productNum">
     <div id="orderProduct" class="totalPrice">
         <h5>총 결제금액</h5>  
     </div>
-    	<div class="ec-base-button gFull" id="orderFixItem">
-    	<button type="submit" class="btnSubmit" id="btn_payment">
-    	<%
-					// 할인가를 나타내기 위한 변수
-		   int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-		%>
-    	<span id="total_order_sale_price_view"><%=format.format(discount) %> 원</span>
-    	
-    	<span class="payment">결제하기</span>
-    	</button>
+    	<div class="ec-base-button gFull" id="orderFixItem">  
+	    	<button type="submit" class="btnSubmit" id="btn_payment">	
+		    	<%
+				  int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+				%>
+	    	<span id="totalOrderDisPrice"><%=format.format(discount1*productCount) %> 원</span> 	
+	    	<span class="payment">결제하기</span>
+	    	</button>	
     	</div>
     </section>
- </form> 				                                 				  
+ </form>
+				                                 				  
     
 <!-- 부트스트랩 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
@@ -512,13 +488,9 @@ $("#postSearch").click(function() {
 		oncomplete: function(data) {
 			$("#zipcode").val(data.zonecode);
 			$("#address1").val(data.address);
-		} 
+		}	 
 	}).open();
 });
 
-$("#btn_payment").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=insert_order_single"
-		+"&productNum=<%=product.getProductNum()%>";	
-});
 
 </script>

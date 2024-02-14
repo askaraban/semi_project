@@ -36,20 +36,19 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="insert into order_table values(order_seq.nextval,?,?,sysdate,?,0,?,?,?,?,?,?,?,?,?)";
+				String sql="insert into order_table values(order_seq.nextval,?,sysdate,?,?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
-				pstmt.setString(2, order.getOrderTime()); //pstmt.setTimestamp(2, new stimestamp(order.getordertime.gettime()) ??
-				pstmt.setInt(3, order.getOrderProductNum());
-				pstmt.setInt(4, order.getOrderSum());
-				pstmt.setInt(5, order.getOrderDisSum());
-				pstmt.setString(6, order.getOrderContent());
-				pstmt.setString(7, order.getOrderReceiver());
-				pstmt.setString(8, order.getOrderZipcode());
-				pstmt.setString(9, order.getOrderAddress1());
-				pstmt.setString(10, order.getOrderAddress2());
-				pstmt.setString(11, order.getOrderMobile());
-				pstmt.setInt(12, order.getOrderCount());
+				pstmt.setInt(2, order.getOrderProductNum());
+				pstmt.setInt(3, order.getOrderSum());
+				pstmt.setInt(4, order.getOrderDisSum());
+				pstmt.setString(5, order.getOrderContent());
+				pstmt.setString(6, order.getOrderReceiver());
+				pstmt.setString(7, order.getOrderZipcode());
+				pstmt.setString(8, order.getOrderAddress1());
+				pstmt.setString(9, order.getOrderAddress2());
+				pstmt.setString(10, order.getOrderMobile());
+				pstmt.setInt(11, order.getOrderCount());
 						
 				rows=pstmt.executeUpdate();
 			} catch (SQLException e) {
