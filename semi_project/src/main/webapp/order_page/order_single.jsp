@@ -438,7 +438,7 @@
 			    		<a href="/product_page/product" onclick="#"><%=product.getProductName() %></a>
 			    	</div>
 			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount"><%=productNum %> 개</span>
+			    		<span class="pdtCount"><%=productCount %> 개</span>
 			    		<input type="hidden" name="productCount" value="<%=productCount%>">
 			    	</div>
 			    </div>
