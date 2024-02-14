@@ -10,12 +10,19 @@
 <%
 
 	DecimalFormat format = new DecimalFormat("###,###,##0");
-
-
-	String[] cartNumList = request.getParameterValues("cartNum");
+	 
+	
+	 	String[] cartNumList = request.getParameterValues("cartNum");
+	System.out.println(cartNumList);
 	for(String cart : cartNumList){
-		//System.out.println(cart);
-
+		System.out.println(cart);
+		
+	} 
+	
+	
+ 
+%>
+   
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style type="text/css">
@@ -110,8 +117,6 @@
 		display: flex;
 		flex-direction: column;
 	}
-	
-	
 	
 	.pdtInfo {
 		flex: 1;
@@ -209,7 +214,6 @@
 	
 </style>
 
-
 	<div id="titleArea" class="titleArea">
 		<h2>결제하기</h2>	
 	</div>
@@ -282,208 +286,191 @@
 			<br>
 			<br>				    							
 	
+<form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
 <section style="display=block;">							
- <!-- 배송지 작성 -->    
- <h5 class="subtitle3">배송지 작성</h5>  
-   	    <div class="segment ec-shippingInfo-sameaddr ">
-	      <input id="sameaddr0" name="sameaddr"  value="T" type="radio" ><label for="sameaddr0" >주문자 정보와 동일</label>
-	      <input id="sameaddr1" name="sameaddr" value="F" type="radio" ><label for="sameaddr1" >새로운 배송지</label>                    
-	    </div>	    
-	    	<form id="orderInfoForm" name="orderInfoForm" method="POST">
-	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
+ 		<!-- 배송지 작성 -->    
+ 	<h5 class="deliveryForm">배송지 작성</h5>      
+	    <input type="hidden" id="clientNum" name="clientNum" value="<%=cart.getCartClientNum()%>">
+	    <input type="hidden" id="productNum" name="productNum" value="<%=cart.getCartProductNum()%>">
+	    <input type="hidden" id="orderSum" name="orderSum" value="<%=orderSum%>">
+	    <input type="hidden" id="orderDisSum" name="orderDisSum" value="<%=orderDisSum%>">
+		    
 	    <div class="tableTypeWrite payTable">
     	<table>
-			    <colgroup>
+			   <colgroup>
 			    	<col style="width: 214px;">
 			    	<col>
-			    </colgroup>
-			 <tbody>
-			 	<tr>
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		받는 사람 
-					</th>
-					<td>
-						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
-						class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
-						<p class="inputAlt"></p>
-					</td>
-				</tr>
-				<tr class="">
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		연락처
-			 		</th>
-					<td>
-						<select name="mobile1">
-							<option value="010" selected>&nbsp;010&nbsp;</option>
-							<option value="011">&nbsp;011&nbsp;</option>
-							<option value="016">&nbsp;016&nbsp;</option>
-							<option value="017">&nbsp;017&nbsp;</option>
-							<option value="018">&nbsp;018&nbsp;</option>
-							<option value="019">&nbsp;019&nbsp;</option>
-						</select>
-						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4">
-						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4">
-					<p class="inputAlt"></p>
-					</td>
-				</tr>
-				<tr class="deliveryEmailWrap">
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		이메일
-			 		</th>
-			 		<td>
-			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
-			 			title="이메일 입력" style="width:90 %;" value="">
-			 			<p class="inputAlt"></p>
-			 		</td>
-				   </tr>
+			   </colgroup>
+			 	<tbody>
+				 	<tr>
+				 		<th scope="row"> 
+					 		<span class="required" aria-required="true">
+					 		필수입력
+					 		::after
+					 		</span>
+					 		받는 사람 
+						</th>
+						<td class="receiver">
+							<input type="text" name="order_receiver" id="order_receiver" maxlength="10" 
+							class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
+						</td>
+					</tr>
+					<tr class="deliPhone">
+				 		<th scope="row"> 
+					 		<span class="required" aria-required="true">
+					 		필수입력
+					 		::after
+					 		</span>
+					 		연락처
+				 		</th>
+						<td>
+							<select name="mobile4">
+								<option value="010" selected>&nbsp;010&nbsp;</option>
+								<option value="011">&nbsp;011&nbsp;</option>
+								<option value="016">&nbsp;016&nbsp;</option>
+								<option value="017">&nbsp;017&nbsp;</option>
+								<option value="018">&nbsp;018&nbsp;</option>
+								<option value="019">&nbsp;019&nbsp;</option>
+							</select>
+							- <input type="text" name="mobile5" id="mobile2" size="4" maxlength="4">
+							- <input type="text" name="mobile6" id="mobile3" size="4" maxlength="4">
+						</td>
+					</tr>
+					<tr class="deliEmail">
+				 		<th scope="row"> 
+					 		<span class="required" aria-required="true">
+					 		필수입력
+					 		::after
+					 		</span>
+					 		이메일
+				 		</th>
+				 		<td>
+				 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt email" 
+				 			title="이메일 입력" style="width:90 %;" value="">
+				 		</td>
+					 </tr>
 				   <tr class="address">
 				   		<th scope="row"> 
-			 			<span class="required" aria-required="true">
-			 			필수입력
-			 			::after
-			 			</span>
-			 			배송지
+				 			<span class="required" aria-required="true">
+				 			필수입력
+				 			::after
+				 			</span>
+				 			배송지
 			 			</th>
 			 			<td>
 			 				<ul>
-			 				<li>
-							<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
-							<span id="postSearch">우편번호 검색</span>
-							</li>
-							<li>
-							<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
-							</li>
-							<li>
-							<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
-							</li>
+				 				<li>
+								<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
+								<span id="postSearch">우편번호 검색</span>
+								</li>
+								<li>
+								<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
+								</li>
+								<li>
+								<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
+								</li>
 							</ul>
-			 			<p class="inputAlt"></p>
 			 			</td>
 				   </tr>
 				   <tr class="shippingMsg">
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		배송 요청사항
-			 		</th>
-			 		<td>
-						<textarea rows="5" cols="80" name="shippingMsg" placeholder="배송 요청사항을 입력해 주세요."></textarea>
-			 			<p class="inputAlt"></p>
-			 		</td>
+					 		<th scope="row"> 
+					 		<span class="required" aria-required="true">
+					 		필수입력
+					 		::after
+					 		</span>
+					 		배송 요청사항
+					 		</th>
+				 		<td>
+							<textarea rows="5" cols="80" name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+				 		</td>
 				   </tr>
 			  </tbody>
 			</table>
 		</div>
-	</form>
 	<br>
 </section>		
 <br>		                                               	
 <br>
 
-<!-- 주문 상품 정보 -->
-    
-    <form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
+<!-- 주문 상품 정보 구역-->
+
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="#" name="#" value="#">
-    <div id="orderProduct" class="title">
+   
+    <div id="orderProduct" class="orderProductInfo">
         <h5>주문 상품 정보</h5>  
-    </div>	
+    </div>
+    
     <div class="cartList">
-    	<ul>
-    		<li>
+    <% for(String cartList : cartNumList){ 
+		//System.out.println(cart);	 cartNum[i]	
+	    
+		int cartNum=Integer.parseInt(cartList);
+		CartDTO cart=CartDAO.getDAO().selectOrder(cartList);
+		
+		int totalPrice= Integer.parseInt(cart.getProductPrice())*cartNum; //수량*가격 
+		
+		int discount = (int)Math.floor(((double)(cart.getProductPrice())*(100-cart.getProductDis())/100)/10)*10;
+			
+		int orderSum=cart.getProductPrice()*cart.getCartCount();
+		int orderDisSum=discount*cart.getCartCount(); 
+	%>
+	    	<ul>
+    			<li>
 			    <div class="pdtRow">
 			    	<div class="cell pdtImg">
-			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
-			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
+			    	<a href="#">
+			    		<img src="<%=request.getContextPath() %>/productImg/<%=cart.getProductMainImg() %>" alt="" width="90" height="90">
 			   		</a>
-			    </div>
+			   </div>
 			    <div class="cell pdtInfo">
 			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
+			    		<a href="/product_page/product" onclick="#"><%=cart.getProductName() %></a>
 			    	</div>
 			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount">1개</span>
+			    		<span class="pdtCount"><%=cart.getCartCount() %> 개</span>
+			    		<input type="hidden" name="productCount" value="<%=cart.getCartCount()%>">
 			    	</div>
 			    </div>
 			   	<div class="cell pdtPrice">
 			   		<span class="price">
-			   			<span class="num">54,000</span>
-			   			원 
+			   		<% if(cart.getProductDis()!=0){ %>
+			   		<%
+			   			// 할인가를 나타내기 위한 변수
+						int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+			   		%>
+			   			<span class="num"><%=format.format(orderDisSum) %> 원 </span>
+			   		<% } else { %>
+			   			<span class="num"><%=format.format(orderSum) %> 원</span>
 			   		</span>
+			   		<% } %>
 			   	  </div>
 			   	</div>
 	   	    </li>
 	   	  </ul>
-	   	<ul>
-    		<script>
-    		</script>
-    		<li>
-			    <div class="pdtRow">
-			    	<div class="cell pdtImg">
-			    	<a href="/product/detail.html?product_no=2527&cate_no=1"> 
-			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
-			   		</a>
-			    </div>
-			    <div class="cell pdtInfo">
-			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product/detail.html?product_no=2527&cate_no=1" onclick="#">촉촉한 초코칩</a>
-			    	</div>
-			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount">1개</span>
-			    	</div>
-			    </div>
-			   	<div class="cell pdtPrice">
-			   		<span class="price">
-			   			<span class="num">54,000</span>
-			   			원 
-			   		</span>
-			   	  </div>
-			   	</div>
-			  </li>
-   		  </ul>
      </div>	
-  </section>	
- </form>
+ </section>	
+ <% } %>
   				
-	<form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="#" name="#" value="#">
-    <div id="orderProduct" class="title">
+    <div id="orderProduct" class="totalPrice">
         <h5>총 결제금액</h5>  
     </div>
-    	<div class="ec-base-button gFull" id="orderFixItem">
-    	<button type="button" class="btnSubmit" id="btn_payment">
-    	<span id="total_order_sale_price_view">54,000</span>
-    	원 
-    	<span class>결제하기</span>
-    	</button>
+    	<div class="ec-base-button gFull" id="orderFixItem">  
+	    	<button type="submit" class="btnSubmit" id="btn_payment">	
+		    	<%
+				  int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+				%>
+	    	<span id="totalOrderDisPrice"><%=format.format(discount1*productCount) %> 원</span> 	
+	    	<span class="payment">결제하기</span>
+	    	</button>	
     	</div>
-    	</section>
-    	</form>
+    </section>
+ </form>
+				                                 				  
     				      
                            
-          					
-     
-							
+          											
     
-    
-	<!-- 부트스트랩 -->
- 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
-	</script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	$("#postSearch").click(function() {
