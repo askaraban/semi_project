@@ -1,20 +1,215 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="xyz.itwill.DTO.CartDTO"%>
+<%@page import="xzy.itwill.DAO.CartDAO"%>
+<%@page import="xzy.itwill.DAO.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 장바구니 페이지에서 구매페이지로  --%>
 
-<link href="<%=request.getContextPath()%>/style/order_style.css" type="text/css" rel="stylesheet">
-<!doctype html>
-<html lang="kr">
+<%@include file="/security/login_url.jspf" %>
+<%
 
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<title>과자몰</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body id="userStyle">
-	<!-- 사용자 영역 -->
+	DecimalFormat format = new DecimalFormat("###,###,##0");
+
+
+	String[] cartNumList = request.getParameterValues("cartNum");
+	for(String cart : cartNumList){
+		//System.out.println(cart);
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style type="text/css">
+	
+	.tableTypeWrite {
+		border-top: 2px solid #000;
+	}
+		
+	.tableTypeWrite.payTable.required {
+		margin: 0;
+	}
+	
+	.tableTypeWrite .required {
+		font-size: 0;
+	}
+	
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	
+	.tableTypeWrite th {
+		padding: 24px 30px;
+		border-bottom: 1px solid #F5F5F5;
+		text-align: left;
+		color: #333;
+		vertical-align: top;
+	}
+		
+	.tableTypeWrite .required:after {
+		content: "*";
+		display:inline-block;
+		color: red;
+		font-size: 16px;
+		vertical-align: -3px;
+	}
+	
+	.tableTypeWrite th {
+		padding: 24px 30px;
+		border-bottom: 1px solid #F5F5F5;
+		text-align: left;
+		vertical-align: top;
+	}
+	
+	
+	.btnSubmit {
+		background: pink;
+		border: 1px solid pink;
+		font-weight: bold;
+		color: white;
+	}
+	
+	.prdBox {
+		display: flex;
+	
+	}	
+			
+	#postSearch {
+		font-size: 12px;
+		font-weight: bold;
+		cursor: pointer;
+		margin-left: 10px;
+		padding: 2px 10px;
+		border: 1px solid black;
+	}
+
+	#postSearch:hover {
+		background: black;
+		color: white;
+	}
+	
+	
+	
+	.cartList {
+		border-top: 2px solid #000;
+		border-bottom: 1px solid #eee;
+	}
+		
+	.pdtRow {
+		display: flex;
+		position: relative;
+	}
+	
+	.pdtImg {
+	 	position: relative;
+	 	flex: none;
+	 	width: 100px;
+	 	height: 133px;
+	}
+	
+	.cell {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	
+	
+	.pdtInfo {
+		flex: 1;
+		justify-content: start;
+		padding: 0 50px 0 20px;
+	}
+	
+	.pdtName {
+	 	margin: 0 0 10px;
+	 	font-size: 16px;
+	 	line-height: 1.25;
+	 	color: #000;
+	}
+	
+	.pdtOpt {
+	 	display: flex;
+	 	font-size: 14px;
+	 	line-height: 18px;
+	 	color: #888;
+	}
+	
+	.pdtPirce {
+		justify-content: center;
+		margin-left: 14px;
+		width: 113px;
+		text-align: right;
+	}
+	
+	.price {
+		display: block;
+		font-weight: 500;
+		font-size: 14px;
+	}
+	
+	.num {
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 1.33;
+	}
+	
+	#orderFixItem.ec-base-button.gFull [class*="btn"] {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 400;
+		height: 50px;
+		line-height: 50px;
+		color: #fff;
+		width: 100%;
+	}
+	
+	
+	.titleArea     {
+		text-align: left;
+	}
+	
+	.orderInfotitle {
+		text-align: left;
+	}
+	
+	.deliveryForm   {
+		text-align: left;
+	}
+	
+	.orderProductInfo {
+		text-align: left;
+	}
+	
+	.totalPrice {
+		text-align: left;
+	}
+	
+	.nameInfo {
+		text-align: left;
+		
+	}
+	
+	.receiver {
+		text-align: left;
+	}
+	
+	td ul {
+		list-style: none;
+		padding: 0;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		text-align: left;    
+	}
+	
+	.deliEmail {
+		text-align: left;
+	}
+	
+	.deliPhone {
+		text-align: left;
+	}
+	
+</style>
+
+
 	<div id="titleArea" class="titleArea">
 		<h2>결제하기</h2>	
 	</div>
@@ -22,76 +217,70 @@
 	<br>    	          
     <!-- 주문자정보 -->
     <section style="display=block;">
-    <div id="ec-jigsaw-title-billingInfo" class="title">
-       <h5>주문자 정보</h5>
-    </div>
-    
-    <form id="orderInfoForm" name="orderInfoForm" method="POST">
-	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
-	    <div class="tableTypeWrite payTable">
-    	<table>
-			    <colgroup>
-			    	<col style="width: 214px;">
-			    	<col>
-			    </colgroup>
-			 <tbody>
-			 	<tr>
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		주문자
-					</th>
-					<td>
-						<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
-						class="inputTxt altPosition" title="이름입력" style="width: 40%;" value="">
-						<p class="inputAlt"></p>
-					</td>
-				</tr>
-				<tr class="">
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		연락처
-			 		</th>
-					<td>
-						<select name="mobile1">
-							<option value="010" selected>&nbsp;010&nbsp;</option>
-							<option value="011">&nbsp;011&nbsp;</option>
-							<option value="016">&nbsp;016&nbsp;</option>
-							<option value="017">&nbsp;017&nbsp;</option>
-							<option value="018">&nbsp;018&nbsp;</option>
-							<option value="019">&nbsp;019&nbsp;</option>
-						</select>
-						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="">
-						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="">
-					<p class="inputAlt"></p>
-					</td>
-				</tr>
-				<tr class="deliveryEmailWrap">
-			 		<th scope="row"> 
-			 		<span class="required" aria-required="true">
-			 		필수입력
-			 		::after
-			 		</span>
-			 		이메일
-			 		</th>
-			 		<td>
-			 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt alt Position" 
-			 			title="이메일 입력" style="width:90 %;" value="value="">
-			 			<p class="inputAlt"></p>
-			 		</td>
-				   </tr>
-			  </tbody>
-			</table>
-		</div>
-	</form>
-</section>
-	<br>
-	<br>
+	    <div id="ec-jigsaw-title-billingInfo" class="orderInfotitle">
+	       <h5>주문자 정보</h5> 
+	    </div>
+			    	<div class="tableTypeWrite payTable">
+		    		   <table>
+						    <colgroup>
+						    	<col style="width: 214px;">
+						    	<col>
+						    </colgroup>
+						 		<tbody>
+						 			<tr>
+						 				<th scope="row"> 
+						 				<span class="required" aria-required="true">
+						 				필수입력
+								 		::after
+						 				</span>
+						 				주문자
+										</th>
+										<td class="nameInfo">
+										<input type="text" name="orderNameTxt" id="orderNameTxt" maxlength="10" 
+										class="inputTxt name" title="이름입력" style="width: 40%;" value="<%=loginClient.getClientName()%>" readonly="readonly">
+										</td>
+									</tr>
+									<tr class="">
+				 						<th scope="row"> 
+				 						<span class="required" aria-required="true">
+								 		필수입력
+								 		::after
+								 		</span>
+								 		연락처
+								 		</th>
+									<td >
+										<select name="mobile1" readonly="readonly">
+											<option value="010" selected>&nbsp;010&nbsp;</option>
+											<option value="011">&nbsp;011&nbsp;</option>
+											<option value="016">&nbsp;016&nbsp;</option>
+											<option value="017">&nbsp;017&nbsp;</option>
+											<option value="018">&nbsp;018&nbsp;</option>
+											<option value="019">&nbsp;019&nbsp;</option>
+										</select>
+										- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>" readonly="readonly">
+										- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>" readonly="readonly">
+									</td>
+									</tr>
+									<tr class="deliveryEmailWrap">
+								 		<th scope="row"> 
+								 		<span class="required" aria-required="true">
+								 		필수입력
+								 		::after
+								 		</span>
+								 		이메일
+								 		</th>
+								 		<td >
+								 			<input type="text" name="emailTxt" id="emailTxt" class="deliEmail" 
+								 			title="이메일 입력" style="width:90 %;" value="<%=loginClient.getClientEmail()%>" readonly="readonly">
+								 			<p class="inputAlt"></p>
+								 		</td>
+									</tr>
+								  </tbody>
+							</table>
+						</div>
+			</section>
+			<br>
+			<br>				    							
 	
 <section style="display=block;">							
  <!-- 배송지 작성 -->    
@@ -245,7 +434,7 @@
     		<li>
 			    <div class="pdtRow">
 			    	<div class="cell pdtImg">
-			    	<a href="/product/detail.html?product_no=2527&cate_no=1">
+			    	<a href="/product/detail.html?product_no=2527&cate_no=1"> 
 			    		<img src="//cookieall.com/web/product/tiny/202311/bbe72d6afbfb3eb1f5d2c9daa2bec301.jpg" alt="그린티 씨드 세럼" onerror="''" width="90" height="90">
 			   		</a>
 			    </div>
