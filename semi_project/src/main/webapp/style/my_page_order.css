@@ -161,6 +161,10 @@ body {
 	text-decoration: none;
 }
 
+.productName{
+	text-decoration: none;
+}
+
 /*1234 -*/
 [class*="tableType"] + .paging, .helpWrap + .paging {
     margin-top: 30px;
