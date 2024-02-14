@@ -152,7 +152,7 @@ td {
 		<% } %>
 		
 		<%-- 로그인 상태의 사용자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient.getClientStatus() == 9) { %>
+		<% if(loginClient!=null && loginClient.getClientStatus() == 9) { %>
 			<button type="button" id="replyBtn">답글쓰기</button>
 		<% } %>
 		
@@ -180,16 +180,9 @@ $("#replyBtn").click(function() {
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";
 });
 
-<%-- /* request.getHeader("referer") : 이전페이지로 이동 */
-$("#listBtn").click(function() {
-	location.href="<%=request.getHeader("referer")%>#review_list";	 
-}); --%>
 
 $("#listBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
 		+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#review_list";   
 	});
-<%-- 	<% System.out.println("productNum = " + productNum); %>
-	<% System.out.println("pageSize = " + pageSize); %>
-	<% System.out.println("pageNum = " + pageNum); %> --%>
 </script>
