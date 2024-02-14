@@ -72,15 +72,13 @@ td {
 }
 </style>
 
-<form
-	action="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update_action"
-	method="post" enctype="multipart/form-data" id="uploadForm">
+<form action="#" method="post" enctype="multipart/form-data" id="uploadForm">
 	<div class="manager_body">
 		<div class="insert_div_content">
 			<ul>
 				<li>
 					<div class="insert_div">
-						<input type="hidden" name="productNum" value="<%=productNum%>">
+						<input type="hidden" name="productNum" id="productNum" value="<%=proNum%>">
 						<input type="text" name="productName" value="<%=productName %>"> <label>제품명</label>
 					</div>
 				</li>
@@ -152,7 +150,22 @@ td {
 	</div>
 	<hr>
 	<div class="insert_div">
-		<button type="submit">제품변경</button>
+		<button type="button" id="subBtn">제품변경</button>
 		<button type="reset">다시입력</button>
+		<button type="button" id="delBtn">제품삭제</button>
 	</div>
 </form>
+
+
+<script type="text/javascript">
+
+$("#delBtn").click(function() {
+	$("#uploadForm").attr("action","<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_delete_action");
+	$("#uploadForm").submit();
+});
+$("#subBtn").click(function() {
+	$("#uploadForm").attr("action","<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update_action");
+	$("#uploadForm").submit();
+});
+
+</script>
