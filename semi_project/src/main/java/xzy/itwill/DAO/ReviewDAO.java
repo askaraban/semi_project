@@ -105,7 +105,7 @@ public class ReviewDAO extends JdbcDAO {
 	            review.setReviewRegister(rs.getString("review_register"));
 	            review.setReviewUpdate(rs.getString("review_update"));
 	            review.setReviewReadcount(rs.getInt("review_readcount"));
-	            review.setReviewReplay(rs.getInt("review_replay"));
+	            review.setReviewReplay(rs.getString("review_replay"));
 
 	            reviewList.add(review);
 			}
@@ -157,7 +157,7 @@ public class ReviewDAO extends JdbcDAO {
 			pstmt.setString(3, review.getReviewSubject());
 			pstmt.setString(4, review.getReviewContent());
 			pstmt.setString(5, review.getReviewImage());
-			pstmt.setInt(6, review.getReviewReplay());
+			pstmt.setString(6, review.getReviewReplay());
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -245,7 +245,7 @@ public class ReviewDAO extends JdbcDAO {
 	            review.setReviewRegister(rs.getString("review_register"));
 	            review.setReviewUpdate(rs.getString("review_update"));
 	            review.setReviewReadcount(rs.getInt("review_readcount"));
-	            review.setReviewReplay(rs.getInt("review_replay"));
+	            review.setReviewReplay(rs.getString("review_replay"));
 	            review.setReviewProductNum(rs.getInt("review_product_num"));
 
 	            reviewList.add(review);
@@ -259,31 +259,31 @@ public class ReviewDAO extends JdbcDAO {
 	}
 	
 	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드
-		public int selectReviewCountByProductNum(int reviewProductNum) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			ResultSet rs=null;
-			int reviewCount=0;
-			try {
-				con=getConnection();
-				
-				String sql="select count(*) from review_table where review_product_num=?";
+	public int selectReviewCountByProductNum(int reviewProductNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int reviewCount=0;
+		try {
+			con=getConnection();
+			
+			String sql="select count(*) from review_table where review_product_num=?";
 
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1, reviewProductNum);
-				
-				rs=pstmt.executeQuery();
-	         
-				if(rs.next()) {
-					reviewCount=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				System.out.println("[에러]selectReviewCountByProductNum() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt, rs);
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, reviewProductNum);
+			
+			rs=pstmt.executeQuery();
+         
+			if(rs.next()) {
+				reviewCount=rs.getInt(1);
 			}
-			return reviewCount;
+		} catch (SQLException e) {
+			System.out.println("[에러]selectReviewCountByProductNum() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
 		}
+		return reviewCount;
+	}
 	
 	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
 	public ReviewDTO selectRebiewTabledByNum(int reviewNum) {
@@ -314,7 +314,7 @@ public class ReviewDAO extends JdbcDAO {
 				review.setReviewRegister(rs.getString("review_register"));
 				review.setReviewUpdate(rs.getString("review_update"));
 				review.setReviewReadcount(rs.getInt("review_readcount"));
-				review.setReviewReplay(rs.getInt("review_replay"));
+				review.setReviewReplay(rs.getString("review_replay"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
@@ -355,7 +355,7 @@ public class ReviewDAO extends JdbcDAO {
 				review.setReviewRegister(rs.getString("review_register"));
 				review.setReviewUpdate(rs.getString("review_update"));
 				review.setReviewReadcount(rs.getInt("review_readcount"));
-				review.setReviewReplay(rs.getInt("review_replay"));
+				review.setReviewReplay(rs.getString("review_replay"));
 			}
 	   } catch (SQLException e) {
 	      System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());

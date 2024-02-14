@@ -107,16 +107,20 @@ pageEncoding="UTF-8"%>
 		<div class="col col-lg-2">
 			<div id="navigation" style="padding-top: 60px;">
 				<h1>
-					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
 				</h1>
 				<h2>
-					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
 				</h2>
 				<h3>
-					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
 				</h3>
 				<h4>
-					<a class="side_menu" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
+					<a class="side_menu"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
 				</h4>
 			</div>
 		</div>

@@ -93,7 +93,7 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 			<div id="navigation" style="padding-top: 60px;">
 				<h1>
 					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
 				</h1>
 				<h2>
 					<a class="side_menu"

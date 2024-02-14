@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="xzy.itwill.DAO.OrderDAO"%>
@@ -28,6 +31,41 @@ DecimalFormat format = new DecimalFormat("###,###,##0");
 
 
 List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentDate, clientNum);
+//페이징 처리를 위한 변수- 시작페이지 1페이지
+int pageNum = 1;
+if(request.getParameter("pageNum")!=null){
+	pageNum=Integer.parseInt(request.getParameter("pageNum")); 
+}
+// 넘길 수 있는 최대 페이지 수를 저장하기 위한 변수 - 보여지는 페이지 수 10페이지
+int pageSize = 8;
+if(request.getParameter("pageSize")!=null){
+	pageSize = Integer.parseInt(request.getParameter("pageSize"));
+}
+
+// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
+
+// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
+int totalPage = (int)Math.ceil((double)myOrderList.size()/pageSize);
+
+// 전달받은 페이지 수가 비정상적인 경우 
+if(pageNum<=0 || pageNum>totalPage ){
+	pageNum=1;
+}
+
+// 페이지 번호에 대한 페이지의 시작번호를 저장하기 위한 변수 - 10의 간격으로 시작하도록 하시오
+// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+int startRow = (pageNum-1)*pageSize + 1;
+
+// 페이지 번호에 대한 페이지의 끝번호를 저장하기 위한 변수
+// ex) 1) 1~10 2) 11~20 3) 21~30 ...
+int endRow = pageNum * pageSize;
+
+if(endRow>totalPage){
+	endRow=totalPage;
+}
+// 페이지에 출력될 제품들의 일련번호 시작값을 계산하여 저장
+// => 검색된 제품의 총 개수 : 91 >> 1Page : 91 ~ 82 , 2Page: 81 ~ 3Page : 71 
+int displayNum = totalPage - (pageNum-1) * pageSize;
 
 %>
 
@@ -38,7 +76,7 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 			<div id="navigation" style="padding-top: 60px;">
 				<h1>
 					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
 				</h1>
 				<h2>
 					<a class="side_menu"
@@ -94,10 +132,10 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 							</tr>
 							<tr>
 								<th scope="row">일자별 조회</th>
-								<td><input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
+								<td><input type="text" name="stDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px; text-align: center;"
 									value="<%=currentDate %>" id="stDate"> 
 									<span class="hyphen">~</span>
-									<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px;"
+									<input type="text" name="endDate" readonly="" class="inputTxt datepicker hasDatepicker" style="width: 200px; text-align: center;"
 									value="<%=currentDate%>" id="endDate">
 									<button type="button" class="btnType7m" id="searchBtn">검색</button>
 								</td>
@@ -108,18 +146,16 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 			</div>
 			<div id="listArea">
 				<p class="tableListLength">
-					총 <strong class="ftColor1"><%=myOrderList.size() %></strong> 건
+					총 <strong class="ftColor1" id="countOrder"><%=myOrderList.size() %></strong> 건
 				</p>
 				<div class="tableType">
 					<table>
 						<colgroup>
-							<col style="width: 120px;">
-							<col style="width: 115px;">
-							<col>
-							<col style="width: 110px;">
-							<col style="width: 110px;">
-							<col style="width: 110px;">
-							<col style="width: 110px;">
+							<col style="width: 150px;">
+							<col style="width: 150px;">
+							<col style="width: 220px;">
+							<col style="width: 150px;">
+							<col style="width: 160px;">
 						</colgroup>
 						<thead>
 							<tr>
@@ -128,35 +164,92 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 								<th scope="col">대표제품 명</th>
 								<th scope="col">결제금액</th>
 								<th scope="col">처리현황</th>
-								<th scope="col">배송조회</th>
-								<th scope="col">수취확인</th>
 							</tr>
 						</thead>
 						<tbody id="orderList">
-							<tr style="height: 100px; font-weight: bold; display: none;">
+							<tr style="height: 100px; font-weight: bold; display: none;" id="noneList">
 								<td colspan="7">주문 내역이 없습니다.</td>
 							</tr>
 							<%for(OrderDTO orderList : myOrderList) { %>
-							<tr>
+							<tr style="border-bottom: 1px solid #E2E2E2;">
 								<td id="orderDate"><%=orderList.getOrderDate() %></td>
-								<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
+								<td><a href="#" id="orderNumber" class="orderPrductList"> <%=orderList.getOrderNum() %> </a>
 								</td>
-								<td class="left"><a href="#" id="productName"> <%=orderList.getProductName() %> </a></td>
+								<td class="left"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
+								id="productName" class="orderPrductList"> <%=orderList.getProductName() %> </a></td>
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
+								<%if(orderList.getOrderStatus()==1) {%>
+								<td id="orderStatus">제품 준비중</td>
+								<%} else { %>
 								<td id="orderStatus">배송완료</td>
-								<td class="btn">
-									<button type="button" class="btnType7s" id="trackingBtn">배송조회</button>
-								</td>
-								<td class="btn"></td>
+								<%} %>
 							</tr>
 							<%} %>
 						</tbody>
 					</table>
 				</div>
+				
+	<%-- 페이지 번호 출력 및 링크 제공 - 블럭화 처리 --%>
+	<%
+		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
+		int blockSize=5;
+	
+		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
+		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
+		int startPage=(pageNum-1)/blockSize*blockSize+1;
+		
+		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
+		// ex) 1블럭 : 5, 2블럭 : 10
+		int endPage=startPage+blockSize-1;
+		
+		// 토탈페이지보다 종료페이지보다 크다면
+		if(totalPage<endPage){
+			endPage=totalPage;
+		}
+	%>
 				<!-- paging -->
-				<div class="paging">
-					<span class="num on"><a href="javascript:void(0);">1</a></span>
-				</div>
+<br>
+<nav aria-label="Page navigation" >
+  <ul class="pagination justify-content-center" >
+    <li class="page-item" >
+    <%if(startPage>blockSize){%>
+      <a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <%} else {%>
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+      <%} %>
+      <% for(int i=startPage;i<=endPage;i++){ %>
+			<%if(pageNum !=i) {%>
+   	 			<li class="page-item">
+   	 			<a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>"><%=i %></a>
+   	 			</li>
+   	 		<%}else{  %>
+   	 			<li class="page-item">
+				<a class="page-link" href="#"><%=i %></a>
+				</li>
+			<%} %>
+		<%} %>
+			<%if(endPage!=totalPage){ %>
+		    <li class="page-item">
+		      <a class="page-link" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		    <%}else{  %>
+				<li class="page-item">
+		      <a class="page-link" href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+			<%} %>
+	  </ul>
+</nav>
+<br>
+<br>
 				<!-- //paging -->
 				<div class="helpWrap">
 					<ul class="bulListType">
@@ -183,11 +276,6 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 								제품을 포장하고 있습니다.
 						</span>
 					</span></li>
-					<li class="icon4"><span class="box"> <strong
-							class="tit">배송중</strong> <span> 제품을 포장 후 배송중입니다.<br>
-								송장번호를 통해 현 배송상태<br> 를 확인하실 수 있습니다.
-						</span>
-					</span></li>
 					<li class="icon5"><span class="box"> <strong
 							class="tit">배송완료</strong>
 					</span></li>
@@ -199,37 +287,94 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 
 
 <script type="text/javascript">
+
+function dateFormat(myDate) {
+	/* 이전 날에 대한 radio가 선택되었을 때 주문 조회  */
+	let year = myDate.getFullYear(); // 년도
+	let month = myDate.getMonth() + 1;  // 월
+	let date = myDate.getDate();  // 날짜
 	
+	if(month.toString().length==1){
+		month = ("0"+month).slice(-2);
+	}
+	if(date.toString().length==1){
+		date = ("0"+date).slice(-2);
+	}
+	
+	var wantDate = year + '-' + month + '-' + date;
+	return  wantDate;
+}
+function nowDate() {
 	/* 오늘 radio가 선택되었을 때 주문 조회  */
-	let today = new Date();
-	let year = today.getFullYear(); // 년도
-	let month = today.getMonth() + 1;  // 월
-	let date = today.getDate();  // 날짜
+	var day = new Date();
+	let year = day.getFullYear(); // 년도
+	let month = day.getMonth() + 1;  // 월
+	let date = day.getDate();  // 날짜
 	
-	function dateFormat() {
-		
-		if(month.toString().length==1){
-			month = "0"+month;
-		}
-		if(date.toString().length==1){
-			date = "0"+date;
-		}
-	} 
+	if(month.toString().length==1){
+		month = ("0"+month).slice(-2);
+	}
+	if(date.toString().length==1){
+		date = ("0"+date).slice(-2);
+	}
+	var wantDate = year + '-' + month + '-' + date;
+	return  wantDate;
+}
+
+function lastWeek() {
+	  var day = new Date();
+	  var dayOfMonth = day.getDate();
+	  day.setDate(dayOfMonth - 7);
+	  return dateFormat(day);
+}
+
+function lastMonth() {
+	  var day = new Date();
+	  var monthOfYear = day.getMonth();
+	  day.setMonth(monthOfYear - 1);
+	  return dateFormat(day);
+}
+function thirdMonth() {
+	  var day = new Date();
+	  var monthOfYear = day.getMonth();
+	  day.setMonth(monthOfYear - 3);
+	  return dateFormat(day);
+}
+function sixthMonth() {
+	  var day = new Date();
+	  var monthOfYear = day.getMonth();
+	  day.setMonth(monthOfYear - 6);
+	  return dateFormat(day);
+}
+
+
+$("#inquiry1").click(function() {
+	$("#stDate").attr("value",nowDate());
+	$("#endDate").attr("value",nowDate());
+})
+$("#inquiry2").click(function() {
+	$("#stDate").attr("value",lastWeek());
+})
+$("#inquiry3").click(function() {
+	$("#stDate").attr("value",lastMonth());
+})
+$("#inquiry4").click(function() {
+	$("#stDate").attr("value",thirdMonth());
+})
+$("#inquiry5").click(function() {
+	$("#stDate").attr("value",sixthMonth());
+})
+
 	
 	
-	$("#inquiry1").click(function() {
-		dateFormat();
-		
-		$("#stDate").attr("value", year + '-' + month + '-' + date);
-		$("#endDate").attr("value",year + '-' + month + '-' + date);
-	})
 	
 	$("#searchBtn").click(function() {
 		var startDate = $("#stDate").val();
 		var endDate = $("#endDate").val();
+		var clientNum = $("#clientNum").val();
 		$.ajax({
 			type: "post",
-			url: "<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_search_action",
+			url: "<%=request.getContextPath()%>/my_page/order_search_action.jsp",
 			data : {"startDate" : startDate, "endDate" : endDate, "clientNum" : clientNum},
 			dataType: "json",
 			success: function(result) {
@@ -239,36 +384,25 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentD
 				if(result.code=="success") {//검색된 주문 있는 경우
 					//Array 객체의 요소값를 차례대로 제공받아 반복 처리
 					$(result.data).each(function() {
-						
-						<tr>
-						<td id="orderDate"><%=orderList.getOrderDate() %></td>
-						<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
-						</td>
-						<td class="left"><a href="#" id="productName"> <%=orderList.getProductName() %> </a></td>
-						<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
-						<td id="orderStatus">배송완료</td>
-						<td class="btn">
-							<button type="button" class="btnType7s" id="trackingBtn">배송조회</button>
-						</td>
-						<td class="btn"></td>
-					</tr>
-						
-						
-						
+						$("#countOrder").text(result.data.length);
 						//Array 객체의 요소값(Object 객체)를 HTML 태그(div)로 변환
-						var html="<div class='comment' id='comment_"+this.num+"'>";//댓글태그
-						html+="<b>["+this.writer+"]</b><br>";//댓글태그에 작성자 포함
-						html+=this.content.replace(/\n/g,"<br>")+"<br>";//댓글태그에 내용 포함
-						html+="("+this.regdate+")<br>";//댓글태그에 작성날짜 포함
-						html+="<button type='button' onclick='modifyComment("+this.num+");'>댓글변경</button>&nbsp;";//댓글태그에 댓글변경 버튼 포함
-						html+="<button type='button' onclick='removeComment("+this.num+");'>댓글삭제</button>&nbsp;";//댓글태그에 댓글변경 버튼 포함
-						html+="</div>";
+						var html="<tr>";
+						html+="<td>"+this.date+"</td>";//주문날짜
+						html+="<td><a href='#'>"+this.number+" </a></td>";//주문번호
+						html+="<td class='left'><a href='#'>"+this.product+" </a></td>";//제품이름
+						html+="<td>"+this.price+"원</td>";//가격
+						if(this.status==1){
+						html+="<td>제품 준비중</td>";//주문상태
+						} else {
+						html+="<td>배송 완료</td>";//주문상태
+						}
+						html+="</tr>";
 						
-						//댓글목록태그의 댓글태그를 마지막 자식태그로 추가하여 출력 처리
-						$("#comment_list").append(html);
+						//리스트 추가
+						$("#orderList").append(html);
 					});
 				} else {//검색된 댓글정보가 없는 경우
-					$("#comment_list").html("<div class='no_comment'>"+result.message+"</div>");
+					$("#noneList").show();
 				}
 			},
 			error: function(xhr) {

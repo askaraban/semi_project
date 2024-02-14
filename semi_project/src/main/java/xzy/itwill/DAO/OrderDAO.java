@@ -131,7 +131,7 @@ public class OrderDAO extends JdbcDAO {
 				con = getConnection();
 
 				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, product_name, "
-						+ "order_content, order_receiver, order_zipcode, order_address1, order_address2, order_mobile, order_count from order_table"
+						+ "product_num, order_content, order_receiver, order_zipcode, order_address1, order_address2, order_mobile, order_count from order_table"
 						+ " join product_table on order_product_num=product_num "
 						+ " where order_client_num=? and to_char(order_date,'yyyy-mm-dd') between ? and ?";
 				
@@ -155,6 +155,7 @@ public class OrderDAO extends JdbcDAO {
 					order.setOrderDisSum(rs.getInt("order_dis_sum"));
 					
 					order.setProductName(rs.getString("product_name"));
+					order.setProductNum(rs.getInt("product_num"));
 					
 					order.setOrderContent(rs.getString("order_content"));
 					order.setOrderReceiver(rs.getString("order_receiver"));

@@ -12,7 +12,14 @@
 <link href="<%=request.getContextPath()%>/style/my_page_order.css"
 	type="text/css" rel="stylesheet">
 
-<%@include file="/security/login_check.jspf" %>  
+<%@include file="/security/login_check.jspf" %> 
+
+<%
+
+
+
+%>
+ 
 	
 <div class="container text-center">
 	<div class="row justify-content-md-center">
@@ -20,7 +27,7 @@
 			<div id="navigation" style="padding-top: 60px;">
 				<h1>
 					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=order">주문내역</a>
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
 				</h1>
 				<h2>
 					<a class="side_menu"
@@ -58,13 +65,6 @@
 								구매하신 제품이 있을 경우에만<br> 리뷰 작성이 가능합니다.
 							</div>
 						</div>
-						<!-- 리뷰 없을때 -->
-					</div>
-				</div>
-				<div class="btnWrap">
-					<div class="btnType3l" style="left: 56%;">
-						<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_write">
-						리뷰 쓰기</a>
 					</div>
 				</div>
 			</div>

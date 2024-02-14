@@ -157,6 +157,10 @@ body {
     text-align: left;
 }
 
+.orderPrductList{
+	text-decoration: none;
+}
+
 /*1234 -*/
 [class*="tableType"] + .paging, .helpWrap + .paging {
     margin-top: 30px;
@@ -451,7 +455,7 @@ h3.subTitle2 {
 .tabType li.active a {
 	font-weight:600;
 	color:#fff;
-	background:#F5A9D0;;
+	background:#F5A9D0;
 }
 
 .myReview_new .inProgress .sel_area {
