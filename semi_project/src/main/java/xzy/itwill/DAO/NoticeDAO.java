@@ -204,7 +204,7 @@ public class NoticeDAO extends JdbcDAO {
 				con=getConnection();
 				
 				if(keyword.equals("")) { //검색 기능을 사용하지 않는 경우
-					String sql="select * from (select rownum rn, temp.* from (select notice_num"
+					String sql="select * from (select rownum rn, temp.* from (select notice_num, client_num"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
 							+ ", notice_count from notice_table join client_table"
 							+ " on notice_member=client_num order by notice_date desc) temp)"
@@ -213,7 +213,7 @@ public class NoticeDAO extends JdbcDAO {
 					pstmt.setInt(1, startRow);
 					pstmt.setInt(2, endRow);
 				} else { //검색 기능을 사용한 경우
-					String sql="select * from (select rownum rn, temp.* from (select notice_num, notice_member"
+					String sql="select * from (select rownum rn, temp.* from (select notice_num, notice_member, client_num"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
 							+ ", notice_count from notice_table join client_table"
 							+ " on notice_member=client_num where "+search+" like '%'||?||'%'"
@@ -229,6 +229,7 @@ public class NoticeDAO extends JdbcDAO {
 				while(rs.next()) {
 					NoticeDTO notice=new NoticeDTO();
 					notice.setNoticeNum(rs.getInt("notice_num"));
+					notice.setClientNum(rs.getInt("client_num"));
 					notice.setNoticeTitle(rs.getString("notice_title"));
 					notice.setNoticeContent(rs.getString("notice_image"));
 					notice.setNoticeImage(rs.getString("notice_date"));
