@@ -1,3 +1,4 @@
+<%@page import="xzy.itwill.DAO.OrderDAO"%>
 <%@page import="xyz.itwill.DTO.ReviewDTO"%>
 <%@page import="xzy.itwill.DAO.ReviewDAO"%>
 <%@page import="xyz.itwill.util.Utility"%>
@@ -33,6 +34,7 @@ MultipartRequest mr = new MultipartRequest(request, saveDirectory, 20 * 1024 * 1
 String pageNum = mr.getParameter("pageNum");
 String pageSize = mr.getParameter("pageSize");
 String productNum = mr.getParameter("productNum");
+int orderNum = Integer.parseInt(mr.getParameter("orderNum"));
 
 
 String reviewSubject = Utility.escapeTag(mr.getParameter("reviewSubject"));
@@ -50,9 +52,18 @@ review.setReviewSubject(reviewSubject);
 review.setReviewContent(reviewContent);
 review.setReviewImage(reviewImage);
 review.setReviewProductNum(Integer.parseInt(productNum));
+review.setOrderReviewStatus(orderNum);
 
+/* System.out.println("orderNum=" + orderNum);
+System.out.println("reviewSubject=" + reviewSubject);
+System.out.println("loginClient.getClientNum()=" + loginClient.getClientNum());
+System.out.println("reviewImage=" + reviewImage);
+System.out.println("orderNum=" + orderNum);
+System.out.println("productNum=" + productNum);
+ */
 // review 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 reviewDAo 클래스
-ReviewDAO.getDAO().insertReview(review);
+ReviewDAO.getDAO().insertReview(review, orderNum);
+int rows = OrderDAO.getDAO().updateReviewStatus(orderNum);
 
 request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=my_page&worker=review" + "&pageNum="
 		+ pageNum + "&pageSize=" + pageSize);

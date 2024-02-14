@@ -143,20 +143,21 @@ public class ReviewDAO extends JdbcDAO {
 	}
    
 	//게시글을 전달받아 REVIEW_TABLE에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드
-	public int insertReview(ReviewDTO review) {
+	public int insertReview(ReviewDTO review, int orderNum) {
 		Connection con=null;
-		PreparedStatement pstmt=null;
+		PreparedStatement pstmt=null;	
 		int rows=0;
 		try {
 			con=getConnection();
 			
-			String sql="insert into review_table values(review_table_seq.nextval,?,?,?,?,sysdate,null,0,null,?,1)";
+			String sql="insert into review_table values(review_table_seq.nextval,?,?,?,?,sysdate,null,0,null,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, review.getReviewMemberNum());
 			pstmt.setString(2, review.getReviewSubject());
 			pstmt.setString(3, review.getReviewContent());
 			pstmt.setString(4, review.getReviewImage());
 			pstmt.setInt(5, review.getReviewProductNum());
+			pstmt.setInt(6, orderNum);
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -367,7 +368,7 @@ public class ReviewDAO extends JdbcDAO {
 	   return review;
 	}
 	//회원번호를 전달받아 회원번호와 상태코드에 해당하는 리뷰리스트를 가져오는 메소드
-	public List<ReviewDTO> selectMyReviewList(int clientNum) {
+	public List<ReviewDTO> selectMyReviewList(int clientNum, int status) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -376,10 +377,11 @@ public class ReviewDAO extends JdbcDAO {
 			con=getConnection();
 			
 			String sql="select review_num,review_member_num,review_subject,review_content,review_image"
-					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num"
-					+ " from review_table where review_status=1 and review_table.review_member_num=?";
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num,order_review_status"
+					+ " from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
+			pstmt.setInt(2, status);
 			
 			rs=pstmt.executeQuery();
 			
@@ -396,6 +398,7 @@ public class ReviewDAO extends JdbcDAO {
 				review.setReviewReplay(rs.getString("review_replay"));
 				review.setReviewProductNum(rs.getInt("review_product_num"));
 				review.setReviewOrderNum(rs.getInt("review_order_num"));
+				review.setOrderReviewStatus(rs.getInt("order_review_status"));
 				reviewList.add(review);
 				
 			}

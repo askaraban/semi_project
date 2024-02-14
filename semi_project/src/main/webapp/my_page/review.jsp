@@ -1,3 +1,5 @@
+<%@page import="xzy.itwill.DAO.OrderDAO"%>
+<%@page import="xyz.itwill.DTO.OrderDTO"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="xyz.itwill.DTO.ReviewDTO"%>
@@ -32,7 +34,7 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 }
 
 // REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum());
+List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 1);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -62,7 +64,7 @@ if (endRow > productReview.size()) {
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 //클래스의 메소드 호출
-List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum());
+List<OrderDTO> reviewList = OrderDAO.getDAO().selectOrderList(loginClient, 1);
 
 //session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 // => 로그인 상태의 사용자에게만 글쓰기 권한 제공
@@ -75,6 +77,7 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 // => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 int displayNum = productReview.size() - (pageNum - 1) * pageSize;
+
 %>
 
 
@@ -149,7 +152,7 @@ int displayNum = productReview.size() - (pageNum - 1) * pageSize;
 							</thead>
 							<tbody style="padding-top: 10px;">
 								<%
-								for (ReviewDTO list : reviewList) {
+								for (OrderDTO list : reviewList) {
 								%>
 								<tr>
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
@@ -157,13 +160,13 @@ int displayNum = productReview.size() - (pageNum - 1) * pageSize;
 									<%
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
-
 									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&reviewNum=<%=list.getReviewNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getReviewProductNum()%>">
-											<%=list.getReviewSubject()%></a></td>
-									<td><%=list.getReviewRegister()%></td>
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>">
+											<%=list.getProductName()%></a></td>
+									<td><%=list.getOrderDate()%></td>
 									<td><%=loginClient.getClientName()%></td>
 								</tr>
+									
 								<%
 								}
 								%>

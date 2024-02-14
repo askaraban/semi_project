@@ -17,7 +17,8 @@ ORDER_ZIPCODE              VARCHAR2(10)   - 우편번호
 ORDER_ADDRESS1             VARCHAR2(200)  - 기본주소
 ORDER_ADDRESS2             VARCHAR2(100)  - 상세주소
 ORDER_MOBILE               VARCHAR2(20)   - 전화번호
-ORDER_COUNT				   NUMBER(5)	  - 구매수량 
+ORDER_COUNT				   NUMBER(5)	  - 구매수량
+ORDER_REVIEW_STATUS			NUMBER(5)		-리뷰에 대한 상태 (작성 전 1 : 후 2)
 */
 
 public class OrderDTO {

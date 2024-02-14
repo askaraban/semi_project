@@ -92,7 +92,7 @@ public class OrderDAO extends JdbcDAO {
 					order.setOrderDate(rs.getString("order_date"));
 					order.setOrderProductNum(rs.getInt("order_product_num"));
 					order.setOrderStatus(rs.getInt("order_status"));
-					order.setOrderSum(rs.getInt("order_sum"));;
+					order.setOrderSum(rs.getInt("order_sum"));
 					order.setOrderDisSum(rs.getInt("order_dis_sum"));
 					order.setOrderContent(rs.getString("order_content"));
 					order.setOrderReceiver(rs.getString("order_receiver"));
@@ -130,8 +130,8 @@ public class OrderDAO extends JdbcDAO {
 				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, order_content, order_receiver"
 						+",order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
 						+", product_dis, product_main_img, order_review_status"
-						+"from order_table join product_table on order_product_num = product_num where order_client_num = ? and order_review_status=?"
-						+"order by order_num desc";
+						+" from order_table join product_table on order_product_num = product_num where order_client_num = ? and order_review_status=?"
+						+" order by order_num desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -148,7 +148,7 @@ public class OrderDAO extends JdbcDAO {
 					order.setOrderDate(rs.getString("order_date"));
 					order.setOrderProductNum(rs.getInt("order_product_num"));
 					order.setOrderStatus(rs.getInt("order_status"));
-					order.setOrderSum(rs.getInt("order_sum"));;
+					order.setOrderSum(rs.getInt("order_sum"));
 					order.setOrderDisSum(rs.getInt("order_dis_sum"));
 					order.setOrderContent(rs.getString("order_content"));
 					order.setOrderReceiver(rs.getString("order_receiver"));
@@ -157,18 +157,18 @@ public class OrderDAO extends JdbcDAO {
 					order.setOrderAddress2(rs.getString("order_address2"));
 					order.setOrderMobile(rs.getString("order_mobile"));
 					order.setOrderCount(rs.getInt("order_count"));
-					order.setProductDis(rs.getInt("order_product_dis"));
-					order.setProductMainImg(rs.getString("order_product_main_img"));
-					order.setProductName(rs.getString("order_product_name"));
-					order.setProductNum(rs.getInt("order_product_num"));
-					order.setProductPrice(rs.getInt("order_product_price"));
-					order.setProductPrice(rs.getInt("order_review_status"));
+					order.setProductNum(rs.getInt("product_num"));
+					order.setProductName(rs.getString("product_name"));
+					order.setProductPrice(rs.getInt("product_price"));
+					order.setProductDis(rs.getInt("product_dis"));
+					order.setProductMainImg(rs.getString("product_main_img"));
+					order.setOrderReviewStatus(rs.getInt("order_review_status"));
 					orderList.add(order);
 					
 				}
 				
 			} catch (SQLException e) {
-				System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
+				System.out.println("[에러]selectOrderList1() 메소드 오류" + e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}
@@ -231,6 +231,29 @@ public class OrderDAO extends JdbcDAO {
 				close(con, pstmt, rs);
 			}
 			return orderList;
+		}
+		
+		public int updateReviewStatus(int orderNum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			int rows = 0;
+
+			try {
+
+				con = getConnection();
+
+				String sql = "update set order_table order_review_status=2 where order_num=?";
+
+				pstmt = con.prepareStatement(sql);
+
+				pstmt.setInt(1, orderNum);
+
+			} catch (SQLException e) {
+				System.out.println("[에러]updateReviewStatus() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
 		}
 
 		

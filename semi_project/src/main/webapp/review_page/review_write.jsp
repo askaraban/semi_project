@@ -21,7 +21,7 @@
 
 <%
 
-String reviewNum = request.getParameter("reviewNum");
+String orderNum = request.getParameter("orderNum");
 String pageNum =  request.getParameter("pageNum");
 String pageSize = request.getParameter("pageSize");
 String productNum = request.getParameter("productNum");
@@ -109,6 +109,7 @@ td {
 					 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
 					 	<input type="hidden" name="pageSize" value="<%=pageSize %>">
 					 	<input type="hidden" name="productNum" value="<%=productNum %>">
+					 	<input type="hidden" name="orderNum" value="<%=orderNum %>">
 					 	<table>
 					 		<tr>
 					 			<th>제목</th>
