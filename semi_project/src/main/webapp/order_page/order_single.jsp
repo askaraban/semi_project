@@ -21,7 +21,7 @@
 	
 	//전달값을 반환받아 저장
 	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
-	System.out.println("productNum = "+productNum);
+	//System.out.println("productNum = "+productNum);
 	
 	
 	//int count=Integer.parseInt(request.getParameter("totCount")); //단일제품 수량
@@ -30,14 +30,20 @@
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
 	ProductDTO product=ProductDAO.getDAO().selectProductByNum(productNum);
-	String result = request.getParameter("result");
-	System.out.println(result);
+	int productCount = Integer.parseInt(request.getParameter("totCount"));
+	
+	int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+	int orderDisSum=productCount*discount;
+	int orderSum=productCount*product.getProductPrice();
+	//System.out.println(productCount);
 	
 	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(product==null) {
 	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
 		return;
 	}
+	
+	
 %>
 
 
@@ -175,6 +181,7 @@
 		font-weight: 700;
 		font-size: 18px;
 		line-height: 1.33;
+		
 	}
 	
 	#orderFixItem.ec-base-button.gFull [class*="btn"] {
@@ -233,14 +240,12 @@
 	}
 	
 	
+	
 </style>
 <%-- 제품 상세에서 구매 페이지로 제품번호와 수량을 전달받아 반환
 	 DB랑 연결해서 삽입할 데이터 처리 DAO 메소드 호출  
 	 구매 정보 삽입하고 결제완료 표시하는 문서를 하나로 통합 --%>
-	 
-<%--  
-int count=Integer.parseInt(request.getParameter("totCount"));
-참고하시면 됩니당--%>	 
+	  
 
 	<!-- 사용자 영역 -->
 	<div id="titleArea" class="titleArea">
@@ -322,7 +327,6 @@ int count=Integer.parseInt(request.getParameter("totCount"));
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
 	    <form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
-	    <input type="hidden" id="recentlyAddrNoDefaultListCnt" value="0">
 	    <div class="tableTypeWrite payTable">
     	<table>
 			   <colgroup>
@@ -338,8 +342,8 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 					 		</span>
 					 		받는 사람 
 						</th>
-						<td class="receiver">
-							<input type="text" name="ordNmTxt" id="ordNmTxt" maxlength="10" 
+						<td class="order_receiver">
+							<input type="text" name="order_receiver" id="order_receiver" maxlength="10" 
 							class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
 						</td>
 					</tr>
@@ -400,7 +404,7 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 							</ul>
 			 			</td>
 				   </tr>
-				   <tr class="shippingMsg">
+				   <tr class="order_content">
 					 		<th scope="row"> 
 					 		<span class="required" aria-required="true">
 					 		필수입력
@@ -409,37 +413,28 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 					 		배송 요청사항
 					 		</th>
 				 		<td>
-							<textarea rows="5" cols="80" name="shippingMsg" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<textarea rows="5" cols="80" name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
 				 		</td>
 				   </tr>
 			  </tbody>
 			</table>
 		</div>
-	</form>
+	
 	<br>
 </section>		
 <br>		                                               	
 <br>
 
 <!-- 주문 상품 정보 -->
-<%-- 일단 수량을 전달받아야함 
-    <% //할인율 반영 가격 ..
-		int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-		if(product.getProductDis()==0){
-			totPrice += order.getOrderCount() * product.getProductPrice();
-		} else {
-			totPrice += order.getOrderCount() * discount;
-		}
-		
-		// 상세페이지로 이동할 수 있도록 DAO로 상품번호를 가져오고, url 로 전달
-				int productNum = CartDAO.getDAO().selectProductCount(cart.getCartNum());
-				String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-						   +"&productNum="+productNum;
-	%>
---%>
-    <form id="orderForm" name="orderForm" action="#" onsubmit="return false;">
+
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="#" name="#" value="#">
+    	<input type="hidden" id="clientNum" name="clientNum" value="<%=loginClient.getClientNum()%>">
+    	<input type="hidden" id="productNum" name="productNum" value="<%=product.getProductNum()%>">
+    	<input type="hidden" id="orderCount" name="orderCount" value="<%=productCount %>">
+    	<input type="hidden" id="orderDIsSum" name="orderDIsSum" value="<%=discount*productCount %>">
+    	<input type="hidden" id="orderSum" name="orderSum" value="<%=product.getProductPrice()*productCount %>">
+    	
+    	
     <div id="orderProduct" class="orderProductInfo">
         <h5>주문 상품 정보</h5>  
     </div>	
@@ -453,54 +448,64 @@ int count=Integer.parseInt(request.getParameter("totCount"));
 			    		<img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>" alt="" width="90" height="90">
 			   		</a>
 			    </div>
-			    <div class="cell pdtInfo">
+			    <div class="cell pdtName">
 			    	<div class="pdtName"> <!-- 품명 -->
 			    		<a href="/product_page/product" onclick="#"><%=product.getProductName() %></a>
 			    	</div>
-			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount">1개</span>
+			    	<div class="pdtCount"> <!-- 수량 -->
+			    		<span class="pdtCount"><%=productCount %> 개</span>
 			    	</div>
 			    </div>
-			   	<div class="cell pdtPrice">
+			   	<div class="pdtPrice">
 			   		<span class="price">
 			   		<% if(product.getProductDis()!=0){ %>
 			   		<%
 			   			// 할인가를 나타내기 위한 변수
-						int discount =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+						int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 			   		%>
-			   			<span class="num"><%=format.format(discount) %> 원 </span>
+			   		 <span class="num"><%=format.format(discount1*productCount) %> 원 </span>
 			   		<% } else { %>
-			   			<span class="num"><%=format.format(product.getProductPrice()) %> 원</span>
+			   			<span class="num"><%=format.format(product.getProductPrice()*productCount)%> 원</span>
 			   		</span>
 			   		<%} %>
+			   		
 			   	  </div>
 			   	</div>
 	   	    </li>
 	   	  </ul>
 	 
      </div>	
-  </section>	
- </form>
-  				
-	<form  action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
+  </section>					
+	
     <section id="orderChk" style="display: block;">
-    	<input type="hidden" id="pdtNum" name="pdtNum" value="productNum">
+    	
     <div id="orderProduct" class="totalPrice">
         <h5>총 결제금액</h5>  
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem">
     	<button type="submit" class="btnSubmit" id="btn_payment">
-    	<%
-					// 할인가를 나타내기 위한 변수
-		   int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-		%>
-    	<span id="total_order_sale_price_view"><%=format.format(discount) %> 원</span>
+    	
+    	<span class="price">
+	   		<% if(product.getProductDis()!=0){ %>
+	   		<%
+	   			// 할인가를 나타내기 위한 변수
+				int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
+	   		%>
+	   		 <span class="num"><%=format.format(discount1*productCount) %> 원 </span>
+	   		 
+	   		<% } else { %>
+	   			<span class="num"><%=format.format(product.getProductPrice()*productCount)%> 원</span>
+	   		
+	   	</span>
+	   		<%} %>
     	
     	<span class="payment">결제하기</span>
     	</button>
-    	</div>
-    </section>
- </form> 				                                 				  
+    </form>
+    </div>
+   </section>
+   
+			                                 				  
     
 <!-- 부트스트랩 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js">
@@ -517,8 +522,7 @@ $("#postSearch").click(function() {
 });
 
 $("#btn_payment").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=insert_order_single"
-		+"&productNum=<%=product.getProductNum()%>";	
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=insert_order_single"	
 });
 
 </script>
