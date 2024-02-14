@@ -100,7 +100,7 @@
 <br>
 <br>				    							
 	
-<form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
+<form action="<%=request.getContextPath()%>/order_page/insert_order_multi.jsp" method="post" id="orderForm">
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
@@ -240,7 +240,9 @@
 			int productNum = CartDAO.getDAO().selectProductCount(cartOne.getCartNum());
 			String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 					   +"&productNum="+productNum;
+			
 		%>
+		
 		<div class="product-info">
 			<div class="product-inner">
 				<div>
@@ -283,6 +285,11 @@
 			</div>
 			<br>
 		</div>
+		<input type="hidden" value="<%=cartOne.getCartProductNum()%>" name="cartProductNum">
+		<input type="hidden" value="<%=cartOne.getCartCount()%>" name="cartProductCount">
+		<input type="hidden" value="<%=cartOne.getCartNum()%>" name="cartNum">
+		<input type="hidden" value="<%=cartOne.getCartCount()*cartOne.getProductPrice()%>" name="orderSum">
+		<input type="hidden" value="<%=cartOne.getProductDis()*cartOne.getCartCount()*cartOne.getProductPrice()%>" name="productDis">
 		<% }%> 
 	</div>	
 </section>
@@ -302,6 +309,7 @@
 				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 			</div>
 		</div>
+		
 </form>
 				                                 				  
     				      
