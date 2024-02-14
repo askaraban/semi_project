@@ -9,35 +9,29 @@
 
 <%
 
-	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	
-
-	//제품번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
-	if (request.getParameter("productNum")==null) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
-		return;
-	}
+	ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
+	//System.out.println("loginClient = " + loginClient);
 	
-	//전달값을 반환받아 저장
-	int productNum=Integer.parseInt(request.getParameter("productNum"));         // 제품번호
-	System.out.println("productNum = "+productNum);
+	int productNum=Integer.parseInt(request.getParameter("productNum"));
+	System.out.println("productNum = " + productNum);
 	
-	
-	//int count=Integer.parseInt(request.getParameter("totCount")); //단일제품 수량
+	//int count=Integer.parseInt(request.getParameter("totCount"));
 	//System.out.println("count = " + count);
+	
 	
 	//제품번호를 전달받아 Product 테이블의 단일행을 검색하여 상품(ProductDTO 객체)을반환하는
 	//ProductDAO 클래스의 메소드 호출
 	ProductDTO product=ProductDAO.getDAO().selectProductByNum(productNum);
-	String result = request.getParameter("result");
-	System.out.println(result);
 	
 	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(product==null) {
 	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
 		return;
 	}
+	
+	
 %>
 
 
@@ -489,9 +483,13 @@ int count=Integer.parseInt(request.getParameter("totCount"));
         <h5>총 결제금액</h5>  
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem">
-    	<button type="submit" class="btnSubmit" id="btn_payment">
     	<%
-					// 할인가를 나타내기 위한 변수
+			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=insert_order_action"
+					   +"&productNum="+product.getProductNum();
+		%>
+    	<button type="submit" class="btnSubmit" id="btn_payment" onclick="location.href='<%=url%>'">
+    	<%
+			// 할인가를 나타내기 위한 변수
 		   int discount = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
 		%>
     	<span id="total_order_sale_price_view"><%=format.format(discount) %> 원</span>
@@ -516,9 +514,5 @@ $("#postSearch").click(function() {
 	}).open();
 });
 
-$("#btn_payment").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=insert_order_single"
-		+"&productNum=<%=product.getProductNum()%>";	
-});
 
 </script>

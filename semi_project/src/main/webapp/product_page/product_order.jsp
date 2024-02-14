@@ -39,7 +39,6 @@
 	//ProductDAO 클래스의 메소드 호출
 	ProductDTO product=ProductDAO.getDAO().selectProductByNum(productNum);
 	
-	
 	//상품이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(product==null) {
 	request.setAttribute("returnUrl", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
@@ -207,8 +206,8 @@ $("img").filter(".ProductWish").click(function() {
 })
 // 단일제품 구매하기 버튼
 $("#directOrderBtn").click(function() {
-	var result = $("#totCount").val();
-	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single");
+	var result = $("#result").text();
+	$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_single&result="+result);
 	$("#uploadForm").submit();
 	
 });

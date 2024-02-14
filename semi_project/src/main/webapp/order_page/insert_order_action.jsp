@@ -6,9 +6,6 @@
 <%-- 주문정보를 전달받아 ORDER 테이블의 행으로 삽입하고 [payment.jsp] 문서를 요청할
 수 있는 URL 주소를 클라이언트에게 전달하여 응답하는 JSP 문서 --%>    
 
-<%-- 회원번호, 제품번호, 총금액, 할인된 총 금액, 수량  hidden name value --%> 
-<%-- 폼 : 받는사람,주소1,2,3,휴대폰번호,배송요청사항 --%>
-
 <%
    
 	// get 방식으로 요청했을 시 비정상적인 요청이므로 에러페이지
@@ -21,22 +18,23 @@
 		request.setCharacterEncoding("utf-8");
 		
 		//전달값을 반환받아 변수에 저장 ..제품번호,수량,회원번호,
-		int orderClientNum=Integer.parseInt(request.getParameter("clientNum")); //
-		int orderProductNum=Integer.parseInt(request.getParameter("productNum")); //
-		int orderSum=Integer.parseInt(request.getParameter("orderSum")); //
-		int orderDisSum=Integer.parseInt(request.getParameter("orderDIsSum"));
+		int orderClientNum=Integer.parseInt(request.getParameter("order_client_num")); //
+		String orderTime=request.getParameter("order_time"); //
+		int orderProductNum=Integer.parseInt(request.getParameter("order_product_num")); //
+		int orderSum=Integer.parseInt(request.getParameter("order_sum")); //
+		int orderDisSum=Integer.parseInt(request.getParameter("order_dis_sum"));
 		String orderContent=request.getParameter("order_content");
 		String orderReceiver=request.getParameter("order_receiver");
-		String orderZipcode=request.getParameter("zipcode");
-		String orderAddress1=request.getParameter("address1");
-		String orderAddress2=request.getParameter("address2");
-		String orderMobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
-		+"-"+request.getParameter("mobile3");
-		int orderCount=Integer.parseInt(request.getParameter("orderCount")); //
+		String orderZipcode=request.getParameter("order_zipcode");
+		String orderAddress1=request.getParameter("order_address1");
+		String orderAddress2=request.getParameter("order_address2");
+		String orderMobile=request.getParameter("order_mobile");
+		int orderCount=Integer.parseInt(request.getParameter("order_count")); //
 		
 		//OrderDTO 객체를 생성하여 전달값으로 필드값 변경
 		OrderDTO order=new OrderDTO();
 		order.setOrderClientNum(orderClientNum);
+		order.setOrderTime(orderTime);
 		order.setOrderProductNum(orderProductNum);
 		order.setOrderSum(orderSum);
 		order.setOrderDisSum(orderDisSum);
