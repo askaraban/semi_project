@@ -43,15 +43,15 @@
 	//String reviewSubject=Utility.stripTag(multipartRequest.getParameter("reviewSutbject"));
 	//=> 전달값에 포함된 태그 관련 문자를 회피문자로 변환하여 반환
 	String noticeTitle=Utility.stripTag(multipartRequest.getParameter("noticeTitle"));
-	String noticeContent=Utility.stripTag(multipartRequest.getParameter("noticeContent"));
 	
 	/*
 	int reviewStatus=1; //전달값이 없는 경우 - 일반글
 	if(multipartRequest.getParameter("reviewSecret")!=null) { //전달값이 있는 경우 - 비밀글
 		reviewStatus=Integer.parseInt(multipartRequest.getParameter("noticeSecret"));
 	}
-	String noticeContent=multipartRequest.getParameter("noticeContent");
 	*/
+	//String noticeContent=multipartRequest.getParameter("noticeContent");
+	String noticeContent=Utility.escapeTag(multipartRequest.getParameter("noticeContent"));
 	
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로 저장
 	String noticeImage=null;

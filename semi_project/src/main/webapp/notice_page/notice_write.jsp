@@ -14,10 +14,12 @@
 <%
 	//전달값을 반환받아 저장 - 전달값이 없는 경우(새글) 변수에 초기값 저장
 	String pageNum="1", pageSize="10", search="", keyword=""; //페이지 검색 정보 유지 위해
-	pageNum=request.getParameter("pageNum");
-	pageSize=request.getParameter("pageSize");
-	search=request.getParameter("search");
-	keyword=request.getParameter("keyword");
+	if(request.getParameter("qa_replay")!=null) {
+		pageNum=request.getParameter("pageNum");
+		pageSize=request.getParameter("pageSize");
+		search=request.getParameter("search");
+		keyword=request.getParameter("keyword");
+	}
 	
 %>
 
@@ -29,6 +31,10 @@ table {
 th {
 	width: 100px;
 	font-weight: bold;
+}
+
+button {
+	text-align: right;
 }
 
 td {
@@ -68,7 +74,8 @@ td {
 			</td>
 		</tr>
 		<tr>
-			<th colspan="2">
+			<th colspan="2" id="btn">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="submit">글저장</button>
 				<button type="reset" id="resetBtn">다시쓰기</button>
 			</th>
