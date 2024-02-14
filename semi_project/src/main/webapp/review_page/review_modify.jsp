@@ -40,61 +40,79 @@
 	}
 %>
 <style type="text/css">
-table {
+#review_modify {
+	width: 500px;
 	margin: 0 auto;
+}
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 th {
 	width: 100px;
-	font-weight: bold;
+	background: pink;
+	color: gray;
+	border: 1px solid gray;
 }
 
 td {
 	text-align: left;
+	border: 1px solid gray;
+	width: 400px;
+}
+
+#reviewContent{
+	width: 400px;
+}
+
+#review_menu {
+	text-align: right;
+	margin: 5px;
 }
 </style>
-<h1>게시글변경</h1>
-
-<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"
-	method="post" enctype="multipart/form-data" id="reviewForm">
-	<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
-	<input type="hidden" name="productNum" value="<%=productNum %>">
-	<input type="hidden" name="pageNum" value="<%=pageNum %>">
-	<input type="hidden" name="pageSize" value="<%=pageSize %>">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="reviewSubject" id="reviewSubject" size="40" value="<%=review.getReviewSubject()%>">
-			</td>					
-		</tr>	
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea rows="7" cols="60" name="reviewContent" id="reviewContent"><%=review.getReviewContent() %></textarea>
-			</td>
-		</tr>			
-		<tr>
-			<th>이미지파일</th>
-			<td>
-				<input type="file" name="reviewImage"><br><br>
-				<% if(review.getReviewImage()!=null) { %>
-					<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
-					<img src="<%=request.getContextPath()%>/<%=review.getReviewImage()%>" width="200">
-				<% } %>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<button type="submit">글변경</button>
-				<button type="reset" id="resetBtn">다시쓰기</button>
-			</th>
-		</tr>
-	</table>
-</form>
-<div id="message" style="color: red;"></div>
-
+<div id="review_modify">
+	<h1>게시글변경</h1>
+	
+	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
+	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"
+		method="post" enctype="multipart/form-data" id="reviewForm">
+		<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
+		<input type="hidden" name="productNum" value="<%=productNum %>">
+		<input type="hidden" name="pageNum" value="<%=pageNum %>">
+		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="reviewSubject" id="reviewSubject" size="40" value="<%=review.getReviewSubject()%>">
+				</td>					
+			</tr>	
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="7" cols="60" name="reviewContent" id="reviewContent"><%=review.getReviewContent() %></textarea>
+				</td>
+			</tr>			
+			<tr>
+				<th>이미지파일</th>
+				<td>
+					<input type="file" name="reviewImage"><br><br>
+					<% if(review.getReviewImage()!=null) { %>
+						<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
+						<img src="<%=request.getContextPath()%>/<%=review.getReviewImage()%>" style="vertical-align: middle;" width="200">
+					<% } %>
+				</td>
+			</tr>
+		</table>
+		<div id="review_menu">
+			<button type="submit">글변경</button>
+			<button type="reset" id="resetBtn">다시쓰기</button>
+		</div>
+	</form>
+	<div id="message" style="color: red;"></div>
+</div>
 <script type="text/javascript">
 $("#reviewSubject").focus();
 
