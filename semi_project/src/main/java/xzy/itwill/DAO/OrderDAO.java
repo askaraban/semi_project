@@ -36,7 +36,7 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="insert into order_table values(order_seq.nextval,?,sysdate,?,?,?,?,?,?,?,?,?,?,1)";
+				String sql="insert into order_table values(order_seq.nextval,?,current_timestamp,sysdate,?,0,?,?,?,?,?,?,?,?,?,1)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
 				pstmt.setInt(2, order.getOrderProductNum());
