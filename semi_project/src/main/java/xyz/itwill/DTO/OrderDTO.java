@@ -36,6 +36,7 @@ public class OrderDTO {
 	private String orderAddress1;
 	private String orderAddress2;
 	private String orderMobile;
+	private int orderReviewStatus;
 	
 	//join 할 필드명
 	private int productNum;
@@ -44,11 +45,37 @@ public class OrderDTO {
 	private int productDis;
 	private String productMainImg;
 	
+	// 리뷰테이블과 조인
+	private int reviewStatus;
 	
 	public OrderDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	public int getOrderReviewStatus() {
+		return orderReviewStatus;
+	}
+
+	public void setOrderReviewStatus(int orderReviewStatus) {
+		this.orderReviewStatus = orderReviewStatus;
+	}
+
+
+
+	public int getReviewStatus() {
+		return reviewStatus;
+	}
+
+
+
+	public void setReviewStatus(int reviewStatus) {
+		this.reviewStatus = reviewStatus;
+	}
+
+
+
 	public int getProductPrice() {
 		return productPrice;
 	}
