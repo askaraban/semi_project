@@ -108,12 +108,12 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 			<h1 class="subTitle1">리뷰</h1>
 			<div class="tabType">
 				<ul class="item2" style="padding-left: unset;">
-					<li class="active write_review" style="text-decoration: none;"><a
+					<li class="active write_review" id="write" style="text-decoration: none;"><a
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">
 							<span>작성 가능한 리뷰</span>
 					</a></li>
-					<li class="active1 write_review"><a
+					<li class="active1 write_review written" id=""><a
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written">
 							<span>내가 작성한 리뷰</span>
@@ -224,6 +224,7 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 </div>
 
 <script>
-	$("#reviewArea").removeClass();
-	$("#reviewArea").addClass('tableType tb_review');
+	$("#write").click(function() {
+		
+	})
 </script>
