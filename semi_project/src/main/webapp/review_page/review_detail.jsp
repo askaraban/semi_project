@@ -152,7 +152,7 @@ td {
 		<% } %>
 		
 		<%-- 로그인 상태의 사용자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient!=null) { %>
+		<% if(loginClient.getClientStatus() == 9) { %>
 			<button type="button" id="replyBtn">답글쓰기</button>
 		<% } %>
 		
