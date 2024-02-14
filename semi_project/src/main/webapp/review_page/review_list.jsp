@@ -119,7 +119,7 @@
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String url=request.getContextPath()+"/product_page/product.jsp?group=review_page&worker=review_detail"
+						String url=request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
 							+"&reviewNum="+review.getReviewNum()+"&pageNum="+pageNum+"&pageSize="+pageSize;
 					%>
 					<a href="<%=url%>"><%=review.getReviewSubject() %></a>
@@ -176,7 +176,7 @@
 		
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>#review_list">[이전]</a>
 		<% } else { %>	
 			[이전]
 		<% } %>
@@ -193,7 +193,7 @@
 		
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(endPage!=totalPage) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>#review_list">[다음]</a>
 		<% } else { %>	
 			[다음]
 		<% } %>

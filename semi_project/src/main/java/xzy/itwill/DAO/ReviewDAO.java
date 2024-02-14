@@ -285,49 +285,49 @@ public class ReviewDAO extends JdbcDAO {
 		return reviewCount;
 	}
 	
-	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
-	public ReviewDTO selectRebiewTabledByNum(int reviewNum) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		ReviewDTO review=null;
-		try {
-			con=getConnection();
-			
-			String sql="select review_num,review_member_num,name review_name,review_subject,review_content,review_image"
-				+ ",review_register,review_update,review_readcount,review_replay from review_table join"
-				+ " client_table on review_table.review_member_num=client_table.client_num"
-				+ " where review_num=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, reviewNum);
-			
-			rs=pstmt.executeQuery();
-			
-			if(rs.next()) {
-				review=new ReviewDTO();
-				review.setReviewNum(rs.getInt("review_num"));
-				review.setReviewMemberNum(rs.getInt("review_member_num"));
-				review.setReviewName(rs.getString("review_name"));
-				review.setReviewSubject(rs.getString("review_subject"));
-				review.setReviewContent(rs.getString("review_content"));
-				review.setReviewImage(rs.getString("review_image"));
-				review.setReviewRegister(rs.getString("review_register"));
-				review.setReviewUpdate(rs.getString("review_update"));
-				review.setReviewReadcount(rs.getInt("review_readcount"));
-				review.setReviewReplay(rs.getString("review_replay"));
-			}
-		} catch (SQLException e) {
-			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
-		} finally {
-			close(con, pstmt, rs);
-		}
-		return review;
-		//return rows;
-		// # rows -> qa 로 변경 (row가 정의되어있지 않아 오류발생하길래 수정했습니당)
-	}   
+//	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
+//	public ReviewDTO selectRebiewTabledByNum(int reviewNum) {
+//		Connection con=null;
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		ReviewDTO review=null;
+//		try {
+//			con=getConnection();
+//			
+//			String sql="select review_num,review_member_num,name review_name,review_subject,review_content,review_image"
+//				+ ",review_register,review_update,review_readcount,review_replay from review_table join"
+//				+ " client_table on review_table.review_member_num=client_table.client_num"
+//				+ " where review_num=?";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.setInt(1, reviewNum);
+//			
+//			rs=pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				review=new ReviewDTO();
+//				review.setReviewNum(rs.getInt("review_num"));
+//				review.setReviewMemberNum(rs.getInt("review_member_num"));
+//				review.setReviewName(rs.getString("review_name"));
+//				review.setReviewSubject(rs.getString("review_subject"));
+//				review.setReviewContent(rs.getString("review_content"));
+//				review.setReviewImage(rs.getString("review_image"));
+//				review.setReviewRegister(rs.getString("review_register"));
+//				review.setReviewUpdate(rs.getString("review_update"));
+//				review.setReviewReadcount(rs.getInt("review_readcount"));
+//				review.setReviewReplay(rs.getString("review_replay"));
+//			}
+//		} catch (SQLException e) {
+//			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
+//		} finally {
+//			close(con, pstmt, rs);
+//		}
+//		return review;
+//		//return rows;
+//		// # rows -> qa 로 변경 (row가 정의되어있지 않아 오류발생하길래 수정했습니당)
+//	}   
 
 	//글번호를 전달받아 REVIEWTABLE의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
-	public ReviewDTO selectRebiewTableByNum(int reviewNum) {
+	public ReviewDTO selectReviewTableByNum(int reviewNum) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -335,10 +335,10 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select review_num,review_member_num,name review_name,review_subject,review_content,review_image"
-				+ ",review_register,review_update,review_readcount,review_replay from review_table join"
-				+ " client_table on review_table.teview_member_num=client_table.client_num"
-				+ " where review_num=?";
+			String sql="select review_num,review_member_num,client_name,review_subject,review_content,review_image"
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_status"
+					+ " from review_table join client_table on review_table.review_member_num=client_table.client_num"
+					+ " where review_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, reviewNum);
 			
@@ -346,19 +346,22 @@ public class ReviewDAO extends JdbcDAO {
 			
 			if(rs.next()) {
 				review=new ReviewDTO();
-				review.setReviewNum(rs.getInt("review_num"));
-				review.setReviewMemberNum(rs.getInt("review_member_num"));
-				review.setReviewName(rs.getString("review_name"));
-				review.setReviewSubject(rs.getString("review_subject"));
-				review.setReviewContent(rs.getString("review_content"));
-				review.setReviewImage(rs.getString("review_image"));
-				review.setReviewRegister(rs.getString("review_register"));
-				review.setReviewUpdate(rs.getString("review_update"));
-				review.setReviewReadcount(rs.getInt("review_readcount"));
-				review.setReviewReplay(rs.getString("review_replay"));
+	            review.setReviewNum(rs.getInt("review_num"));
+	            review.setReviewMemberNum(rs.getInt("review_member_num"));
+	            review.setReviewName(rs.getString("client_name"));
+	            review.setReviewSubject(rs.getString("review_subject"));
+	            review.setReviewContent(rs.getString("review_content"));
+	            review.setReviewImage(rs.getString("review_image"));
+	            review.setReviewRegister(rs.getString("review_register"));
+	            review.setReviewUpdate(rs.getString("review_update"));
+	            review.setReviewReadcount(rs.getInt("review_readcount"));
+	            review.setReviewReplay(rs.getString("review_replay"));
+	            review.setReviewProductNum(rs.getInt("review_product_num"));
+	            review.setReviewStatus(rs.getInt("review_status"));
+	            
 			}
 	   } catch (SQLException e) {
-	      System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());
+	      System.out.println("[에러]selectReviewTableByNum() 메소드의 SQL 오류 = "+e.getMessage());
 	   } finally {
 	      close(con, pstmt, rs);
 	   }
