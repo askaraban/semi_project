@@ -34,7 +34,7 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 }
 
 // REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 1);
+List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 2);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -146,25 +146,30 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 								<tr>
 									<th scope="col">글번호</th>
 									<th scope="col">제목</th>
-									<th scope="col">제품명</th>
+									<th scope="col">등록일</th>
 									<th scope="col">작성자</th>
 								</tr>
 							</thead>
 							<tbody style="padding-top: 10px;">
+							<%-- <%
+							int url = 0;
+							for(ReviewDTO review : productReview){
+									url = review.getReviewNum();
+									
+								} %> --%>
 								<%
-								for (OrderDTO list : reviewList) {
+								for (ReviewDTO review : productReview) {
 								%>
 								<tr>
-								<%=list.getOrderNum() %>
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum%></td>
 									<%
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
 									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>&reviewNum=<%=list.getOrderNum()%>">
-											<%=list.getProductName()%></a></td>
-									<td><%=list.getOrderDate()%></td>
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_detail&orderNum=<%=review.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=review.getReviewProductNum()%>&reviewNum=<%=review.getReviewNum()%>">
+											<%=review.getReviewSubject()%></a></td>
+									<td><%=review.getReviewRegister()%></td>
 									<td><%=loginClient.getClientName()%></td>
 								</tr>
 									
@@ -174,6 +179,9 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 								<%
 								}
 								%>
+								
+								
+								
 							</tbody>
 						</table>
 					</div>

@@ -157,13 +157,6 @@ body {
     text-align: left;
 }
 
-.orderPrductList{
-	text-decoration: none;
-}
-
-.productName{
-	text-decoration: none;
-}
 
 /*1234 -*/
 [class*="tableType"] + .paging, .helpWrap + .paging {

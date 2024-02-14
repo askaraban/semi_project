@@ -15,6 +15,7 @@ DecimalFormat format = new DecimalFormat("###,###,##0");
 
 
 List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startDate, edDate, clientNum);
+String uri = Utility.toJSON("/main_page/main.jsp?group=product_page&worker=product&productNum=");
 %>
 
 <% if(myOrderList.isEmpty()) {//검색된 주문정보가 없는 경우 %>
@@ -31,6 +32,7 @@ List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startDate, edDate, cl
 		, "number":"<%=myOrderList.get(i).getOrderNum() %>"
 		, "product":"<%=Utility.toJSON(myOrderList.get(i).getProductName()) %>"
 		, "price":"<%=format.format(myOrderList.get(i).getOrderSum()) %>"
+		, "url":"<%=request.getContextPath()%><%=uri%><%=myOrderList.get(i).getProductNum() %>"
 		, "status":"<%=myOrderList.get(i).getOrderStatus() %>"}
 	<% } %>	
 	]

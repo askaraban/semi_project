@@ -137,7 +137,7 @@ public class QaDAO extends JdbcDAO {
 		}
 		return qaList;
 	}
-	/* 없어도 될 부분
+	
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 회원번호를 전달받아 회원에 대한 qa리스트 출력하는 메소드
 	public List<QaDTO> selectQaList(int startRow, int endRow, int clientNum) {
 		Connection con=null;
@@ -180,7 +180,6 @@ public class QaDAO extends JdbcDAO {
 		}
 		return qaList;
 	}
-	*/
 	
 	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 제품번호를 전달받아
 	// REVIEW_TABLE에 저장된 행을 select 하여 게시글 목록을 반환하는 메소드

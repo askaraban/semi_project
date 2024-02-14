@@ -136,7 +136,7 @@ System.out.println(endRow);
 							</thead>
 							<tbody>
 							<% for(QaDTO review : QaList){%>
-								<tr>
+								<tr style="padding-bottom: 10px;">
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum %></td>
 									<%displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장%>
@@ -145,6 +145,7 @@ System.out.println(endRow);
 									<td><%=loginClient.getClientName() %></td>
 									<td>2023.11.15</td>
 								</tr>
+								
 							<%} %>
 							</tbody>
 						</table>

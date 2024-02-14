@@ -32,9 +32,22 @@ public class ReviewDTO {
 	
 	//order_table 조인
 	private int orderReviewStatus;
+	private int orderNum;
 	
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public int getOrderNum() {
+		return orderNum;
+	}
+
+
+
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 
 
