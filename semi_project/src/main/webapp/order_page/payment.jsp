@@ -1,20 +1,24 @@
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- [order_single.jsp] 문서에서 사용자의 입력을 받아서 구매테이블의 테이블로 데이터를 저장하는 문서
-	 결제를 완료했다는 화면을 보여주는 문서  --%> 
 
+<%@include file="/security/login_url.jspf" %>
+<style type="text/css">
 
+.class {
+    margin_bottom: 60px;
+    padding: 200px;
+}
 
+h2{
+	margin-bottom: 35px;
+}
+    
+</style>  
+        
+<div id='class'><h2>"구매가 완료되었습니다."</h2></div>
+<a href="<%=request.getContextPath()%>/main_page/main.jsp">	
+<button type="submit" >홈으로</button></a>
 
-	    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>결제페이지</h1>
-	<p>ex)구매가 완료되었습니다.</p>
-</body>
-</html>
+<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">	
+<button type="submit" >마이페이지</button></a>

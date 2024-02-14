@@ -139,4 +139,14 @@ $("#login_btn").click(function() {
 	
 	$("#loginForm").submit();
 });
+
+	document.addEventListener("keydown", function(event) {
+    // 엔터 누르면 클릭 기능 
+    if (event.key === "Enter") {
+        var loginButton = document.getElementById("login_btn"); 
+        if (loginButton) {
+            loginButton.click();
+        }
+    }
+});
 </script>

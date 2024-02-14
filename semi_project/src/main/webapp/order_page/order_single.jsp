@@ -45,6 +45,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style type="text/css">
 	
+	
+	.error {
+		color: red;
+		position: relative;
+		left: 160px;
+		display: none;
+		text-align: left;
+	}
 
 	.tableTypeWrite {
 		border-top: 2px solid #000;
@@ -339,6 +347,7 @@
 						<td class="receiver">
 							<input type="text" name="order_receiver" id="order_receiver" maxlength="10" 
 							class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
+							<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
 						</td>
 					</tr>
 					<tr class="deliPhone">
@@ -358,8 +367,10 @@
 								<option value="018">&nbsp;018&nbsp;</option>
 								<option value="019">&nbsp;019&nbsp;</option>
 							</select>
-							- <input type="text" name="mobile5" id="mobile2" size="4" maxlength="4">
-							- <input type="text" name="mobile6" id="mobile3" size="4" maxlength="4">
+							- <input type="text" name="mobile5" id="mobile5" size="4" maxlength="4">
+							- <input type="text" name="mobile6" id="mobile6" size="4" maxlength="4">
+							<div id="mobileMsg"  class="error">전화번호를 입력해 입력해 주세요.</div>
+							<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
 						</td>
 					</tr>
 					<tr class="deliEmail">
@@ -373,6 +384,8 @@
 				 		<td>
 				 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt email" 
 				 			title="이메일 입력" style="width:90 %;" value="">
+				 			<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
+							<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 				 		</td>
 					 </tr>
 				   <tr class="address">
@@ -388,12 +401,15 @@
 				 				<li>
 								<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
 								<span id="postSearch">우편번호 검색</span>
+								<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 								</li>
 								<li>
 								<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
+								<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
 								</li>
 								<li>
 								<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
+								<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
 								</li>
 							</ul>
 			 			</td>
@@ -407,7 +423,8 @@
 					 		배송 요청사항
 					 		</th>
 				 		<td>
-							<textarea rows="5" cols="80" name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<textarea rows="5" cols="80" id="order_content"name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<div id="orderContentMsg" class="error">배송 요청사항을 입력해 주세요.</div>
 				 		</td>
 				   </tr>
 			  </tbody>
@@ -483,6 +500,8 @@
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$("#order_receiver").focus();
+
 $("#postSearch").click(function() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -492,5 +511,56 @@ $("#postSearch").click(function() {
 	}).open();
 });
 
+$("#orderForm").submit(function() {
+	var submitResult=true;
+	
+	$(".error").css("display","none");
+	
+	if($("#order_receiver").val()=="") {
+		$("#nameMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	var emailReg=/^[a-zA-Z]\w{5,19}$/g;
+	if($("#emailTxt").val()=="") {
+		$("#emailMsg").css("display","block");
+		submitResult=false;
+	} else if(!emailReg.test($("#email").val())) {
+		$("#emailRegMsg").css("display","block");
+		submitResult=false;
+	}
+
+	var mobile2Reg=/\d{3,4}/;
+	var mobile3Reg=/\d{4}/;
+	if($("#mobile5").val()=="" || $("#mobile6").val()=="") {
+		$("#mobileMsg").css("display","block");
+		submitResult=false;
+	} else if(!mobile2Reg.test($("#mobile5").val()) || !mobile3Reg.test($("#mobile6").val())) {
+		$("#mobileRegMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#zipcode").val()=="") {
+		$("#zipcodeMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#address1").val()=="") {
+		$("#address1Msg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#address2").val()=="") {
+		$("#address2Msg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#order_content").val()=="") {
+		$("#orderContentMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	return submitResult;
+});
 
 </script>
