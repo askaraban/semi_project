@@ -16,16 +16,20 @@
 <%-- => [글변경] 태그와 [글삭제] 태그는 게시글 작성자 또는 관리자에게만 출력되어 링크를 제공하고
 [답글쓰기] 태그는 로그인 상태의 사용자에게만 출력되어 링크 제공 --%>
 <%
+	//전달값을 반환받아 저장
+	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
+	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+	int pageSize=Integer.parseInt(request.getParameter("pageSize"));
+	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("reviewNum")==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
-	//전달값을 반환받아 저장
-	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
-	String pageNum=request.getParameter("pageNum");
-	String pageSize=request.getParameter("pageSize");
+	// 제품번호 가져옴
+	int productNum = Integer.parseInt(request.getParameter("productNum"));
+	System.out.println("productNum = " + productNum);
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -33,7 +37,7 @@
 	
 	//검색된 게시글이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(review==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	
@@ -45,6 +49,19 @@
 	//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 ReviewDAO 클래스의 메소드 호출
 	ReviewDAO.getDAO().updateReviewReadCount(reviewNum);
+%>
+<%-- 페이지번호 출력 및 링크 제공 - 블럭화 처리 --%>
+<%
+	//하나의 페이지블럭에 출력될 페이지번호의 갯수 설정
+	int blockSize=5;
+
+	//페이지블럭에 출력될 시작 페이지번호를 계산하여 저장
+	//ex)1Block : 1, 2Block : 6, 3Block : 11, 4Block : 16,...
+	int startPage=(pageNum-1)/blockSize*blockSize+1;
+	        
+	//페이지블럭에 출력될 종료 페이지번호를 계산하여 저장
+	//ex)1Block : 5, 2Block : 10, 3Block : 15, 4Block : 20,...
+	int endPage=startPage+blockSize-1;
 %>
 <style type="text/css">
 #review_detail {
@@ -148,7 +165,7 @@ td {
 $("#modifyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify"
 		+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
-		+"&pageSize=<%=pageSize%>";	
+		+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
 });
 
 $("#removeBtn").click(function() {
@@ -164,8 +181,16 @@ $("#replyBtn").click(function() {
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";
 });
 
-/* request.getHeader("referer") : 이전페이지로 이동 */
+<%-- /* request.getHeader("referer") : 이전페이지로 이동 */
 $("#listBtn").click(function() {
 	location.href="<%=request.getHeader("referer")%>#review_list";	 
-});
+}); --%>
+
+$("#listBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
+		+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#review_list";   
+	});
+<%-- 	<% System.out.println("productNum = " + productNum); %>
+	<% System.out.println("pageSize = " + pageSize); %>
+	<% System.out.println("pageNum = " + pageNum); %> --%>
 </script>
