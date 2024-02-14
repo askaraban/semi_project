@@ -76,7 +76,7 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 // => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-int displayNum = productReview.size() - (pageNum - 1) * pageSize;
+int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 
 %>
 
@@ -115,7 +115,7 @@ int displayNum = productReview.size() - (pageNum - 1) * pageSize;
 					</a></li>
 					<li class="active1 write_review"><a
 						style="text-decoration: none;"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_list">
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written">
 							<span>내가 작성한 리뷰</span>
 					</a></li>
 				</ul>
