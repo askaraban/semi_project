@@ -82,7 +82,7 @@
 	// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
 	QaDTO qaLoginMember=(QaDTO)session.getAttribute("qaLoginMember");
 	NoticeDTO noticeLoginMember=(NoticeDTO)session.getAttribute("noticeLoginMember");
-	ClientDTO clientLoginMember=(ClientDTO)session.getAttribute("loginClient");
+	ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
 	
 	//서버 시스템의 현재 날짜를 제공받아 저장
 	// => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
@@ -242,12 +242,12 @@ td {
 	<div id="qa_title">Q&A(<%=totalQa%>)</div>
 	
 		<div style="text-align: right;">
-		<%if(clientLoginMember!=null){ %>
-			<% if(clientLoginMember.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
+		<%if(loginClient!=null){ %>
+			<% if(loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
 				<button type="button" id="qaWriteBtn">QA쓰기</button>
 				<button type="button" id="noticeWriteBtn">공지쓰기</button>
 			<% } %>
-			<% if(clientLoginMember.getClientStatus()==1) { %>
+			<% if(loginClient.getClientStatus()==1) { %>
 				<button type="button" id="qaWriteBtn">QA쓰기</button>
 			<%} %>
 		<%} %>
@@ -348,9 +348,9 @@ td {
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
 			
-			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>"><</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
 		<% } else { %>	
-			<
+			[이전]
 		<% } %>
 		
 		<% for(int i=startPage;i<=endPage;i++) { %>
@@ -364,9 +364,9 @@ td {
 		
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(endPage!=totalPage) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">></a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
 		<% } else { %>	
-			>
+			[다음]
 		<% } %>
 	</div>
 

@@ -38,10 +38,10 @@ td {
 	text-align: left;
 }
 </style>
-	<div id="qa_main_title">
+	<div id="notice_main_title" style="text-align: center">
 	<h2>Q&A</h2>
 	</div>
-	<div>Q&A 입니다.</div>
+	<div style="text-align: center">Q&A입니다.</div>
 	<br>
 
 <%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
@@ -72,6 +72,7 @@ td {
 		</tr>
 		<tr>
 			<th colspan="2">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="submit">글저장</button>
 				<button type="reset" id="resetBtn">다시쓰기</button>
 			</th>

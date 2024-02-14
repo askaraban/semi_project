@@ -41,7 +41,7 @@
 	//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 	//=> 검색된 게시글이 비밀글인 경우 권한을 확인하기 위해 필요
 	//=> 권한에 따른 태그 출력을 위해 필요
-	ClientDTO loginMember=(ClientDTO)session.getAttribute("loginMember");
+	ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
 	/*
 	if(review.getReviewStatus()==2) { //검색된 게시글이 비밀글인 경우
 		if(loginMember==null || loginMember.getMemberNum()!=review.getReviewMember()
@@ -138,7 +138,7 @@ td {
 	<%-- 태그를 출력하여 링크 제공 --%>
 	<div id="notice_menu">
 		<%-- 로그인 상태의 사용자 중 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginMember!=null && (loginMember.getClientStatus()==9)) { %>
+		<% if(loginClient!=null && (loginClient.getClientStatus()==9)) { %>
 			<button type="button" id="modifyBtn">글변경</button>
 			<button type="button" id="removeBtn">글삭제</button>
 		<% } %>

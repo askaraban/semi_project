@@ -315,8 +315,8 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select qa_num,qa_member,name qa_name,qa_subject,qa_content,qa_image"
-					+ ",qa_register,qa_update,qa_readcount,qa_replay from qa_table join"
+			String sql="select qa_num,qa_member,name,qa_subject,qa_content,qa_image"
+					+ ",qa_register,qa_update,qa_readcount,qa_replay,qa_product_num from qa_table join"
 					+ " client_table on qa_table.qa_member=client_table.client_num"
 					+ " where qa_num=?";
 			pstmt=con.prepareStatement(sql);
@@ -336,6 +336,7 @@ public class QaDAO extends JdbcDAO {
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readCount"));
 				qa.setQaReplay(rs.getString("qa_replay"));
+				qa.setQaProductNum(rs.getInt("qa_product_num"));
 			}
 		} catch (SQLException e) {
 			System.out.println("[에러]selectQaByNum() 메소드의 SQL 오류 = "+e.getMessage());

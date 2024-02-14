@@ -41,10 +41,10 @@ td {
 	text-align: left;
 }
 </style>
-	<div id="notice_main_title">
+	<div id="notice_main_title" style="text-align: center">
 	<h2>공지사항</h2>
 	</div>
-	<div>공지사항입니다.</div>
+	<div style="text-align: center">공지사항입니다.</div>
 	<br>
 
 <%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
