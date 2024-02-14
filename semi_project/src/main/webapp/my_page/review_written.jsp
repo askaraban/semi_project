@@ -155,13 +155,14 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 								for (OrderDTO list : reviewList) {
 								%>
 								<tr>
+								<%=list.getOrderNum() %>
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum%></td>
 									<%
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
 									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>">
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>&reviewNum=<%=list.getOrderNum()%>">
 											<%=list.getProductName()%></a></td>
 									<td><%=list.getOrderDate()%></td>
 									<td><%=loginClient.getClientName()%></td>

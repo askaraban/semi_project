@@ -19,7 +19,7 @@
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
-
+	
 	//전달파일을 저장할 서버 디렉토리의 파일 시스템 경로를 반환받아 저장
 	//String saveDirectory=application.getRealPath("/review_images");
 	String saveDirectory=request.getServletContext().getRealPath("/images");
@@ -79,6 +79,7 @@
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값을 저장
 	QaDTO qa=new QaDTO();
 	qa.setQaNum(nextNum); //시퀀스 객체의 다음값으로 필드값 변경
+	qa.setQaMember(loginClient.getClientNum());
 	qa.setQaSubject(qaSubject);
 	qa.setQaContent(qaContent);
 	qa.setQaImage(qaImage);
