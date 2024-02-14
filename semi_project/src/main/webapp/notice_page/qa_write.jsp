@@ -14,7 +14,7 @@
 <%
 	//전달값을 반환받아 저장 - 전달값이 없는 경우(새글) 변수에 초기값 저장
 	String pageNum="1", pageSize="10", search="", keyword=""; //페이지 검색 정보 유지 위해
-	if(request.getParameter("ref")!=null) {//전달값이 있는 경우 - 답글인 경우 부모글의 정보를 변수에 저장
+	if(request.getParameter("qa_replay")!=null) {//전달값이 있는 경우 - 답글인 경우 부모글의 정보를 변수에 저장
 		//부모글 관련 정보를 반환받아 저장
 		//ref, restep, revlevel 제일 중요
 		pageNum=request.getParameter("pageNum");

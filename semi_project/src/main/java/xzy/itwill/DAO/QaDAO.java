@@ -97,7 +97,7 @@ public class QaDAO extends JdbcDAO {
 						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num order by qa_register desc) temp)"
-						+ "where rn between ? and ?";
+						+ " where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, startRow);
 				pstmt.setInt(2, endRow);
@@ -106,7 +106,7 @@ public class QaDAO extends JdbcDAO {
 						+ ", qa_member, client_name, qa_subject, qa_content, qa_image, qa_register"
 						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
 						+ " on qa_member=client_num where "+search+" like '%'||?||'%'"
-						+ " order by qa_register desc)temp)where rn between ? and ?";
+						+ " order by qa_register desc) temp) where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, startRow);

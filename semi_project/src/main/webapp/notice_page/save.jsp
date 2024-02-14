@@ -182,7 +182,7 @@ td {
 					%>
 							
 					<%-- 작성자 출력 --%>
-					<td></td>
+					<td>과자몰</td>
 								
 					<%-- 조회수 출력 --%>
 					<td><%=notice.getNoticeCount() %></td>
