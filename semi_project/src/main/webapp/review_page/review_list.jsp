@@ -91,7 +91,8 @@
 	<table>
 		<tr>
 			<th width="100">글번호</th>
-			<th width="500">제목</th>
+			<th width="100">답변</th>
+			<th width="400">제목</th>
 			<th width="100">작성자</th>
 			<th width="100">조회수</th>
 			<th width="200">작성일</th>
@@ -107,6 +108,12 @@
 				<%-- 게시글의 글번호가 아닌 게시글의 일련번호 출력 --%>
 				<td><%=displayNum %></td>
 				<% displayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
+				
+				<% if(review.getReviewReplay()==null) { %>
+					<td>미완료</td>
+				<% } else { %>
+					<td>완료</td>
+				<% } %>
 				
 				<%-- 제목 출력 --%>
 				<td class="subject">
