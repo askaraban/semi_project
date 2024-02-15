@@ -57,6 +57,7 @@ public class ReviewDAO extends JdbcDAO {
 		}
 		return totalCount;
 	}
+	
    
 	// 페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	// 검색단어)를 전달받아 REVIEW_TANLE에 저장된 행을 검색하여 게시글 목록을 반환하는 메소드
@@ -404,13 +405,87 @@ public class ReviewDAO extends JdbcDAO {
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectMyReviewList() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectMyReviewList1() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return reviewList;
+	}
+	//회원번호, 상태코드, 시작번호, 끝번호를 전달받아 해당하는 리뷰리스트를 가져오는 메소드
+	public List<ReviewDTO> selectMyReviewList(int clientNum, int status, int startRow, int endRow) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<ReviewDTO> reviewList = new ArrayList<>();
+		try {
+			con=getConnection();
+			
+			String sql="select * from (select rownum rn, temp.* from (select review_num,review_member_num,review_subject,review_content,review_image"
+					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num,order_review_status, order_num"
+					+ " from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?"
+					+ " order by review_num desc) temp) where rn between ? and ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, clientNum);
+			pstmt.setInt(2, status);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReviewDTO review=new ReviewDTO();
+				review.setReviewNum(rs.getInt("review_num"));
+				review.setReviewMemberNum(rs.getInt("review_member_num"));
+				review.setReviewSubject(rs.getString("review_subject"));
+				review.setReviewContent(rs.getString("review_content"));
+				review.setReviewImage(rs.getString("review_image"));
+				review.setReviewRegister(rs.getString("review_register"));
+				review.setReviewUpdate(rs.getString("review_update"));
+				review.setReviewReadcount(rs.getInt("review_readcount"));
+				review.setReviewReplay(rs.getString("review_replay"));
+				review.setReviewProductNum(rs.getInt("review_product_num"));
+				review.setReviewOrderNum(rs.getInt("review_order_num"));
+				review.setOrderReviewStatus(rs.getInt("order_review_status"));
+				review.setOrderNum(rs.getInt("order_num"));
+				reviewList.add(review);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectMyReviewList2() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
 		return reviewList;
 	}
    
+	// 마이페이지에서 사용하는 리뷰 총 수를 구하는 메소드
+		public int selectTotalReview(int clientNum, int status) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			int totalCount=0;
+			try {
+				con=getConnection();
+				
+				String sql="select count(*) from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?";
+				
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1,clientNum);
+				pstmt.setInt(2,status);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					totalCount=rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("[에러]selectTotalReview() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return totalCount;
+		}
+	
 	//글번호를 전달받아 REVIEWTABLE 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 메소드
 	public int updateReviewReadCount(int ReviewNum) {

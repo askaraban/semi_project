@@ -34,11 +34,11 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 }
 
 // REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(),2);
+int totalReviewOrder = ReviewDAO.getDAO().selectTotalReview(loginClient.getClientNum(),2);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
-int totalPage = (int) Math.ceil((double) productReview.size() / pageSize);//페이지의 총갯수
+int totalPage = (int) Math.ceil((double) totalReviewOrder / pageSize);//페이지의 총갯수
 if (totalPage == 0) {
 	totalPage = 1;
 }
@@ -57,14 +57,15 @@ int startRow = (pageNum - 1) * pageSize + 1;
 int endRow = pageNum * pageSize;
 
 //마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
-if (endRow > productReview.size()) {
-	endRow = productReview.size();
+if (endRow > totalReviewOrder) {
+	endRow = totalReviewOrder;
 }
 
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 //클래스의 메소드 호출
-List<OrderDTO> reviewList = OrderDAO.getDAO().selectOrderList(loginClient, 2, startRow, endRow);
+List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 2, startRow, endRow);
+
 
 //session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 // => 로그인 상태의 사용자에게만 글쓰기 권한 제공
@@ -147,7 +148,7 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 									
 								} %> --%>
 								<%
-								for (ReviewDTO review : productReview) {
+								for (ReviewDTO review : reviewList) {
 								%>
 								<tr>
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
