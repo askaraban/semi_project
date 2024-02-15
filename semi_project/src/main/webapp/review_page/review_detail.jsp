@@ -20,6 +20,8 @@
 	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
 	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	int pageSize=Integer.parseInt(request.getParameter("pageSize"));
+	String reviewSubject=request.getParameter("reviewSubject");
+	//System.out.println("reviewNum = " + reviewNum);
 	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("reviewNum")==null) {
@@ -177,7 +179,8 @@ $("#removeBtn").click(function() {
 
 $("#replyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write"
-		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>";
+		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
+		+"&orderNum=<%=review.getReviewOrderNum()%>&productNum=<%=productNum%>&reviewSubject=<%= reviewSubject %>&reviewNum=<%=reviewNum%>";
 });
 
 
