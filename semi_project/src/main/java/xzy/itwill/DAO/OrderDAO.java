@@ -1,4 +1,4 @@
-package xzy.itwill.DAO;
+	package xzy.itwill.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +36,7 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="insert into order_table values(order_table_seq.nextval,?,current_timestamp,sysdate,?,0,?,?,?,?,?,?,?,?,?,1,?)";
+				String sql="insert into order_table values(order_table_seq.nextval,?,substr(current_timestamp,0,17),sysdate,?,0,?,?,?,?,?,?,?,?,?,1,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
 				pstmt.setInt(2, order.getOrderProductNum());
@@ -60,14 +60,14 @@ public class OrderDAO extends JdbcDAO {
 			return rows;
 		}
 			
-		// 회원번호를 검색해 회원번호에 해당하는 product_table에 있는 단일행을 가져옴
+		// 회원번호를 검색해 회원번호에 해당하는 product_table에 있는 제품리스트을 가져옴
 		// 가져온 product_table에서  order_table과 조인하여 제품정보를 가져옴
-		public OrderDTO selectedOrderList(ClientDTO client) {
+		public List<OrderDTO> selectedOrderList(ClientDTO client) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 
-			OrderDTO order=null;
+			List<OrderDTO> orderList = new ArrayList<>();
 
 			try {
 
@@ -85,8 +85,8 @@ public class OrderDAO extends JdbcDAO {
 
 				rs = pstmt.executeQuery();
 
-				if(rs.next()) {
-					order=new OrderDTO();
+				while(rs.next()) {
+					OrderDTO order=new OrderDTO();
 					order.setOrderNum(rs.getInt("order_num"));
 					order.setOrderClientNum(rs.getInt("order_client_num"));
 					order.setOrderTime(rs.getString("order_time"));
@@ -102,22 +102,110 @@ public class OrderDAO extends JdbcDAO {
 					order.setOrderAddress2(rs.getString("order_address2"));
 					order.setOrderMobile(rs.getString("order_mobile"));
 					order.setOrderCount(rs.getInt("order_count"));
-					order.setProductDis(rs.getInt("order_product_dis"));
-					order.setProductMainImg(rs.getString("order_product_main_img"));
-					order.setProductName(rs.getString("order_product_name"));
+					order.setProductName(rs.getString("product_name"));
+					order.setProductPrice(rs.getInt("product_price"));
+					order.setProductDis(rs.getInt("product_dis"));
+					order.setProductMainImg(rs.getString("product_main_img"));
 					order.setProductNum(rs.getInt("order_product_num"));
-					order.setProductPrice(rs.getInt("order_product_price"));
 					order.setOrder_email(rs.getString("order_email"));
-				
+					orderList.add(order);
 				}
 
 			} catch (SQLException e) {
 				System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
-			}
-			return order;
+			} return orderList;
+			
 		}
+			// 주문번호를 검색해 회원번호에 해당하는 product_table에 있는 제품리스트을 가져옴
+			// 가져온 product_table에서  order_table과 조인하여 제품정보를 가져옴
+			public OrderDTO selectedOrderList(String timeStamp) {
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				OrderDTO order = null;
+				
+				
+				try {
+					
+					con = getConnection();
+					
+					String sql = "select * from (select rownum rn, temp.* from (select order_num, order_client_num, order_time, order_date, order_product_num"
+							+ ", order_status, order_sum, order_dis_sum, order_content, order_receiver"
+							+",order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
+							+", product_dis, product_main_img, order_email from order_table join product_table on order_product_num = product_num where order_time like '%'||?||'%' "
+							+"order by order_num desc) temp) where rn=1";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, timeStamp);
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						order=new OrderDTO();
+						order.setOrderNum(rs.getInt("order_num"));
+						order.setOrderClientNum(rs.getInt("order_client_num"));
+						order.setOrderTime(rs.getString("order_time"));
+						order.setOrderDate(rs.getString("order_date"));
+						order.setOrderProductNum(rs.getInt("order_product_num"));
+						order.setOrderStatus(rs.getInt("order_status"));
+						order.setOrderSum(rs.getInt("order_sum"));
+						order.setOrderDisSum(rs.getInt("order_dis_sum"));
+						order.setOrderContent(rs.getString("order_content"));
+						order.setOrderReceiver(rs.getString("order_receiver"));
+						order.setOrderZipcode(rs.getString("order_zipcode"));
+						order.setOrderAddress1(rs.getString("order_address1"));
+						order.setOrderAddress2(rs.getString("order_address2"));
+						order.setOrderMobile(rs.getString("order_mobile"));
+						order.setOrderCount(rs.getInt("order_count"));
+						order.setProductName(rs.getString("product_name"));
+						order.setProductPrice(rs.getInt("product_price"));
+						order.setProductDis(rs.getInt("product_dis"));
+						order.setProductMainImg(rs.getString("product_main_img"));
+						order.setProductNum(rs.getInt("order_product_num"));
+						order.setOrder_email(rs.getString("order_email"));
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
+				} finally {
+					close(con, pstmt, rs);
+				}
+				return order;
+		}
+			// 타임스탬프를 전달하여 주문 개수를 반환받는 메소드
+			public int selectSameOrder(String timeStamp) {
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				int rows= 0;
+				
+				try {
+					
+					con = getConnection();
+					
+					String sql = "select count(*) from order_table where order_time like '%'||?||'%'";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1, timeStamp);
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						rows=rs.getInt(1);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
+				} finally {
+					close(con, pstmt, rs);
+				}
+				return rows;
+			}
+			
 		// 타임스탬프를 전달받아 해당 타임스탬프에 해당하는 정보를 가져오는 메소드
 		public List<OrderDTO> selectOrder(String timeStamp) {
 			Connection con = null;
@@ -234,7 +322,7 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return orderList;
 		}
-		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
+		// 회원번호와 회원리뷰상태코드, 시작페이지와, 끝번호를 전달받아 상태코드가 1인 리스트 전달받기
 		public List<OrderDTO> selectOrderList(ClientDTO client, int status, int startRow, int endRow) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -321,7 +409,36 @@ public class OrderDAO extends JdbcDAO {
 				}
 								
 			} catch (SQLException e) {
-				System.out.println("[에러]selectOrderCnt() 메소드 오류" + e.getMessage());
+				System.out.println("[에러]selectOrderCnt1() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return rows;
+		}
+		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
+		public int selectOrderCnt(int clientNum) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int rows = 0;
+			
+			try {
+				
+				con = getConnection();
+				
+				String sql="select count(*) from order_table where order_client_num=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, clientNum);
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					rows=rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]selectOrderCnt2() 메소드 오류" + e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}

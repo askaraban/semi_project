@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="xzy.itwill.DAO.OrderDAO"%>
@@ -38,7 +39,7 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
 
-int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(1, clientNum);
+int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(clientNum);
 
 //페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
 //ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
@@ -49,7 +50,6 @@ int startRow = (pageNum - 1) * pageSize + 1;
 int endRow = pageNum * pageSize;
 
 
-//REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
 List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startRow, endRow, clientNum, currentDate, currentDate);
 
 //전체 페이지의 총갯수를 계산하여 저장
@@ -70,21 +70,13 @@ if (endRow > totalReviewOrder) {
 	endRow = totalReviewOrder;
 }
 
-
-//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
-//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
-//클래스의 메소드 호출
-
-//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
-//=> 로그인 상태의 사용자에게만 글쓰기 권한 제공
-//=> 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
-
-//서버 시스템의 현재 날짜를 제공받아 저장
-//=> 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
-
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 //=> 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
+
+OrderDTO order = new OrderDTO();
+int orderCnt = 0;
+
 %>
 <style>
 #navigation a:hover {
@@ -184,15 +176,31 @@ int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 							</tr>
 						<%} %>
 							<%for(OrderDTO orderList : myOrderList) { %>
-							<tr class="<%=orderList.getOrderTime().substring(0, 17)%> orList" >
-								<td class="findOrderList"><%=orderList.getOrderDate().substring(0,10) %></td>
-								<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
-									 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
-								</td>
-								<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
-								 class="productName"> <%=orderList.getProductName() %> </a></td>
+							<%
+								order = OrderDAO.getDAO().selectedOrderList(orderList.getOrderTime().substring(0, 17));
+								orderCnt = OrderDAO.getDAO().selectSameOrder(orderList.getOrderTime().substring(0, 17));
+							%>
+							<tr class="<%=order.getOrderTime().substring(0, 17)%> orList" >
+								<td class="findOrderList"><%=order.getOrderDate().substring(0,10) %></td>
+								
+								<%if(orderCnt>1){  // 주문 수가 1개 초과인 경우%>
+								
+									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
+										 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
+									</td>
+									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
+									 class="productName"> <%=orderList.getProductName() %> </a></td>
+								<%} else { // 주문 수가 1개인 경우%>
+								
+									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
+										 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
+									</td>
+									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
+									 class="productName"> <%=orderList.getProductName() %> </a></td>
+								<%} %>
+																
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
-								<%if(orderList.getOrderStatus()==1) {%>
+								<%if(order.getOrderStatus()==1) {%>
 								<td id="orderStatus">배송완료</td>
 								<%} else { %>
 								<td id="orderStatus">제품 준비중</td>

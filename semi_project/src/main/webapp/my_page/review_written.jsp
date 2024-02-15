@@ -199,19 +199,19 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 		%>
 		
 		<%if(startPage>blockSize){%>
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
+			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
 		<%} else {%>
 			[이전]
 		<%} %>
 		<% for(int i=startPage;i<=endPage;i++){ %>
 			<%if(pageNum !=i) {%>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
 			<%}else{  %>
 				[<%=i %>]
 			<%} %>
 		<%} %>
 			<%if(endPage!=totalPage){ %>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
 			<%}else{  %>
 				[다음]
 			<%} %>
