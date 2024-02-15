@@ -12,8 +12,6 @@
 <%
 	// 제품번호 가져옴(review)
 	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
-	// 제품번호 가져옴(qa)
-	int qaProductNum = Integer.parseInt(request.getParameter("productNum"));
 
 	//페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
 	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
@@ -30,7 +28,7 @@
 	int productReview=ReviewDAO.getDAO().selectReviewCountByProductNum(reviewProductNum);
 	
 	// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-	int qaReview=QaDAO.getDAO().selectQaCountByQaNum(qaProductNum);
+	int qaReview=QaDAO.getDAO().selectQaCountByQaNum(reviewProductNum);
 	
 	//전체 페이지의 총갯수를 계산하여 저장
 	//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -60,7 +58,7 @@
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 	//검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 	//클래스의 메소드 호출
-	List<QaDTO> qaList = QaDAO.getDAO().selectQaListByQaProductNum(startRow, endRow, qaProductNum);
+	List<QaDTO> qaList = QaDAO.getDAO().selectQaListByQaProductNum(startRow, endRow, reviewProductNum);
 	
 	//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 	// => 로그인 상태의 사용자에게만 글쓰기 권한 제공
@@ -76,6 +74,7 @@
 	int displayNum=qaReview-(pageNum-1)*pageSize;
 	
 %>
+<link href="<%=request.getContextPath()%>/style/qa_style.css" type="text/css" rel="stylesheet">
 <div class="listArea">
 	<ul class="menu">
 		<li>
@@ -92,20 +91,14 @@
 	
 <div id="qa_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
-	<div id="review_title" style="margin-bottom:50px; margin-top:40px; font-size: 25px;">Q&A목록(<%=qaReview %>)</div>
-	
-	<div style="text-align: right;">
-		<% if(loginClient!=null) {//로그인 상태의 사용자가 JSP 문서(review_list.jsp)를 요청한 경우 %>
-			<button type="button" id="writeBtn" style="margin-bottom:5px;">글쓰기</button>
-			
-		<% } %>
-	</div>
+	<div id="qa_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px;">Q&A목록(<%=qaReview %>)</div>
 	
 	<%-- 게시글 목록 출력 --%>
 	<table>
 		<tr>
 			<th width="100">글번호</th>
-			<th width="500">제목</th>
+			<th width="100">답변</th>
+			<th width="400">제목</th>
 			<th width="100">작성자</th>
 			<th width="100">조회수</th>
 			<th width="200">작성일</th>
@@ -122,22 +115,21 @@
 				<td><%=displayNum %></td>
 				<% displayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
 				
+				<% if(qa.getQaReplay()==null) { %>
+					<td>미완료</td>
+				<% } else { %>
+					<td>완료</td>
+				<% } %>
+				
 				<%-- 제목 출력 --%>
 				<td class="subject">
-					<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
-					<% if(qa.getQaReplay() != null) {//답글인 경우 
-						int reviewReplayLen = 1; %>
-						<%-- 게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정 --%>
-						<span style="margin-left: <%=reviewReplayLen*20%>px;">┗[답글]</span>
-					<% } %>
-				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
-						String url=request.getContextPath()+"/product_page/product.jsp?group=review_page&worker=review_detail"
-							+"&reviewNum="+qa.getQaNum()+"&pageNum="+pageNum+"&pageSize="+pageSize;
+						String url=request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_detail"
+							+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
+							+"&qaSubject="+qa.getQaSubject()+"&replay="+qa.getQaReplay();
 					%>
 					<a href="<%=url%>"><%=qa.getQaSubject() %></a>
-					
 				</td>
 				
 				<%-- 작성자(회원이름) 출력 --%>
@@ -182,15 +174,13 @@
 	
 	<div id="page_list">
 		<%
-/* 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product&productNum=2#review_list"
-					+"&pageSize="+pageSize; */
 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-					+"&productNum="+qaProductNum+"&review_list"+"&pageSize="+pageSize;
+					+"&productNum="+reviewProductNum+"&review_list"+"&pageSize="+pageSize;
 		%>
 		
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>#qa_list">[이전]</a>
 		<% } else { %>	
 			[이전]
 		<% } %>
@@ -199,7 +189,7 @@
 			
 			<%-- 요청 페이지번호와 출력된 페이지번호가 같지 않은 경우에만 링크 제공 --%>
 			<% if(pageNum != i) { %>
-				<a href="<%=responseUrl%>&pageNum=<%=i%>#review_list">[<%=i %>]</a>
+				<a href="<%=responseUrl%>&pageNum=<%=i%>#qa_list">[<%=i %>]</a>
 			<% } else { %>
 				[<%=i %>]
 			<% } %>
@@ -207,7 +197,7 @@
 		
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(endPage!=totalPage) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
+			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>#qa_list">[다음]</a>
 		<% } else { %>	
 			[다음]
 		<% } %>

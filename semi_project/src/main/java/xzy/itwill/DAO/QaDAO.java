@@ -380,6 +380,8 @@ public class QaDAO extends JdbcDAO {
 			String sql="delete from qa_table where qa_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, qaNum); 
+			
+			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
