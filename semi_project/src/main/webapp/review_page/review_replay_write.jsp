@@ -74,9 +74,10 @@ td {
 	
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write_action" 
 		method="post" id="reviewForm">
-		<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
 	 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
 		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+		<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
+		<input type="hidden" name="productNum" value="<%=productNum %>">
 		
 		<table>
 			<tr>

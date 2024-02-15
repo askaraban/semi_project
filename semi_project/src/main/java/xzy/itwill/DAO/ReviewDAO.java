@@ -496,10 +496,11 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="update review_table set review_replay=? where review_num=?";
+			String sql="update review_table set review_replay=?,review_product_num=? where review_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, review.getReviewReplay());
-			pstmt.setInt(2, review.getReviewNum());
+			pstmt.setInt(2, review.getReviewProductNum());
+			pstmt.setInt(3, review.getReviewNum());
 				
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
