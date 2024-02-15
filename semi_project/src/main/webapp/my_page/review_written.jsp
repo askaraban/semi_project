@@ -79,30 +79,19 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 
 %>
-
+<style>
+#navigation a:hover {
+    text-align: center;
+	color: #F5A9D0;
+	font-size: 17px;
+}
+</style>
 
 
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation" style="padding-top: 60px;">
-				<h1>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
-				</h1>
-				<h2>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
-				</h2>
-				<h3>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
-				</h3>
-				<h4>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
-				</h4>
-			</div>
+			<%@include file="/my_page/my_side.jspf" %>
 		</div>
 		<div class="col col-lg-10">
 			<h1 class="subTitle1">리뷰</h1>

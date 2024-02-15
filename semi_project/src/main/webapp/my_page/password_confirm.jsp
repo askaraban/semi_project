@@ -3,29 +3,18 @@ pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link href="<%=request.getContextPath()%>/style/my_page_order.css" type="text/css" rel="stylesheet">
+<style>
+#navigation a:hover {
+    text-align: center;
+	color: #F5A9D0;
+	font-size: 17px;
+}
+</style>
 <%@include file="/security/login_check.jspf" %>  
-
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation" style="padding-top: 60px;">
-				<h1>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
-				</h1>
-				<h2>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
-				</h2>
-				<h3>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
-				</h3>
-				<h4>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
-				</h4>
-			</div>
+			<%@include file="/my_page/my_side.jspf" %>
 		</div>
 		<div class="col col-lg-10">
 			<%	String action = request.getParameter("action");

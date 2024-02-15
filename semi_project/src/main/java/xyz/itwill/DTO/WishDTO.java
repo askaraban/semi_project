@@ -10,7 +10,30 @@ public class WishDTO {
 	private int wishNum;
 	private int wishClientNum;
 	private int wishProductNum;
+	private String productName;
+	private String productMainImg;
+	private int productPrice;
 	
+	
+	
+	public String getProductMainImg() {
+		return productMainImg;
+	}
+	public void setProductMainImg(String productMainImg) {
+		this.productMainImg = productMainImg;
+	}
+	public int getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	public int getWishNum() {
 		return wishNum;
 	}

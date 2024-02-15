@@ -97,6 +97,11 @@ pageEncoding="UTF-8"%>
     padding: 2px 10px;
     border: 1px solid black;
 }
+#navigation a:hover {
+    text-align: center;
+	color: #F5A9D0;
+	font-size: 17px;
+}
 </style>
 
 <form id="join" action="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=member_modify_action" method="post">
@@ -105,24 +110,7 @@ pageEncoding="UTF-8"%>
 <div class="container text-center">
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-2">
-			<div id="navigation" style="padding-top: 60px;">
-				<h1>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">주문내역</a>
-				</h1>
-				<h2>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">리뷰</a>
-				</h2>
-				<h3>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna">Q&A</a>
-				</h3>
-				<h4>
-					<a class="side_menu"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=password_confirm&action=modify">회원정보</a>
-				</h4>
-			</div>
+			<%@include file="/my_page/my_side.jspf" %>
 		</div>
 		<div class="col col-lg-10">
 			<div class="tableHead" >

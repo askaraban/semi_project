@@ -57,7 +57,7 @@ public class WishDAO extends JdbcDAO{
 		try {
 			con=getConnection();
 			
-			String sql="select wish_num,wish_product_num from wishList_table where wish_client_num=?";
+			String sql="select wish_num,wish_product_num,wish_client_num, from wishList_table where wish_client_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
 			
@@ -67,6 +67,42 @@ public class WishDAO extends JdbcDAO{
 				WishDTO wish=new WishDTO();
 				wish.setWishNum(rs.getInt("wish_num"));
 				wish.setWishProductNum(rs.getInt("wish_product_num"));
+				wish.setWishClientNum(rs.getInt("wish_client_num"));
+				wishList.add(wish);
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectWishList() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return wishList;
+	}
+	
+	// 회원번호를 전달받아 좋아요 번호를 가져오는 메소드;
+	public List<WishDTO> selectWishListAll(int clientNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		List<WishDTO> wishList = new ArrayList<>();
+		try {
+			con=getConnection();
+			
+			String sql="select wish_num,wish_product_num,wish_client_num, product_name, product_main_img, product_price"
+					+ " from wishList_table join product_table on wish_product_num=product_num where wish_client_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, clientNum);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				WishDTO wish=new WishDTO();
+				wish.setWishNum(rs.getInt("wish_num"));
+				wish.setWishProductNum(rs.getInt("wish_product_num"));
+				wish.setWishClientNum(rs.getInt("wish_client_num"));
+				wish.setProductName(rs.getString("product_name"));
+				wish.setProductMainImg(rs.getString("product_main_img"));
+				wish.setProductPrice(rs.getInt("product_price"));
+				
 				wishList.add(wish);
 			}
 		} catch (SQLException e) {
