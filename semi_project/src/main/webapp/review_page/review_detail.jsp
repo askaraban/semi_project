@@ -161,14 +161,8 @@ td {
 	<div id="review_menu">
 		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
 		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum())) { %>
-			<button type="button" id="modifyBtn">글변경</button>
-			<button type="button" id="removeBtn">글삭제</button>
-		<% } %>
-		
-		<%-- 로그인 상태의 사용자면서 관리자인경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient!=null && loginClient.getClientStatus() == 9) { %>
-			<!-- <button type="button" id="replyBtn">답글쓰기</button> -->
-			<!-- <button type="button" id="removeBtn">리뷰삭제</button> -->
+			<button type="button" id="modifyBtn">리뷰변경</button>
+			<button type="button" id="removeBtn">리뷰삭제</button>
 		<% } %>
 	</div>
 </div>
@@ -196,9 +190,9 @@ td {
 		
 		<div id="review_menu">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
+			<% System.out.println("9인가요? = " + loginClient.getClientStatus()); %>
 			<% if(loginClient.getClientStatus()==9) { %>
 				<button type="button" id="replyBtn">답변수정</button>
-				<button type="button" id="removeBtn">답변삭제</button>
 			<% } %>
 		</div>
 	</form>
