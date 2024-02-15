@@ -315,7 +315,7 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select qa_num,qa_member,name ,qa_subject,qa_content,qa_image"
+			String sql="select qa_num,qa_member,client_name qa_name,qa_subject,qa_content,qa_image"
 					+ ",qa_register,qa_update,qa_readcount,qa_replay,qa_product_num from qa_table join"
 					+ " client_table on qa_table.qa_member=client_table.client_num"
 					+ " where qa_num=?";

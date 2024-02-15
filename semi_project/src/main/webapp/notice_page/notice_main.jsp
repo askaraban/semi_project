@@ -80,8 +80,6 @@
 	//session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 	// => 로그인 상태의 사용자에게만 글쓰기 권한 제공
 	// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
-	QaDTO qaLoginMember=(QaDTO)session.getAttribute("qaLoginMember");
-	NoticeDTO noticeLoginMember=(NoticeDTO)session.getAttribute("noticeLoginMember");
 	ClientDTO loginClient=(ClientDTO)session.getAttribute("loginClient");
 	
 	//서버 시스템의 현재 날짜를 제공받아 저장
@@ -92,8 +90,6 @@
 	// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 	int noticeDisplayNum=totalNotice-(pageNum-1)*pageSize;
 	int qaDisplayNum=totalQa-(pageNum-1)*pageSize;
-	
-	System.out.println("totalNotice = "+totalNotice);
 	
 %>
 <style type="text/css">
