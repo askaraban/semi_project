@@ -166,11 +166,13 @@ $("#removeBtn").click(function() {
 	}
 });
 
+<%-- 사용 X
 $("#replyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_write"
 		+"&noticeNum=<%=notice.getNoticeNum()%>&pageNum=<%=pageNum%>"
 		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
+--%>
 
 $("#listBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"

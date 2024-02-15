@@ -69,8 +69,7 @@
 	
 	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
 	//ReviewDAO 클래스의 메소드 호출
-	QaDAO.getDAO().updateQa(qa);
-	
+	QaDAO.getDAO().updateQaReplay(qa);	
 	//페이지 이동
 	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=qa_detail"
 		+"&qaNum="+qaNum+"&pageNum="+pageNum+"&pageSize="+pageSize+"&search="+search+"&keyword="+keyword);
