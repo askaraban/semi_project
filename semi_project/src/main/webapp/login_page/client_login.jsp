@@ -116,7 +116,7 @@ a:hover {
 </form>
 <div id="search">
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_id">아이디 찾기</a> |
-	<a href="#">비밀번호 찾기</a> |
+	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_passwd">비밀번호 찾기</a> |
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_join">회원가입</a>
 </div>
 <div id="message"><%=message %></div>

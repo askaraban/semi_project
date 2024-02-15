@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 아이디를 검색하기 위해 사용자로부터 이름과 이메일을 입력받기 위한 JSP 문서 --%>
+<%-- 비밀번호를 검색하기 위해 사용자로부터 이름과 아이디를 입력받기 위한 JSP 문서 --%>
 <style type="text/css">
 .search_tag {
 	margin: 5px auto;
@@ -39,20 +39,19 @@
 	font-weight: bold;
 }
 </style>
+
 <h1>비밀번호 찾기</h1>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=member&worker=search_id_action"
+<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=member&worker=search_passwd_action"
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
-			<label for="name">이름</label>
-			<input type="text" name="name" id="name">	
+			<input type="text" name="name" id="name" placeholder="이름">	
 		</li>
 		<li>
-			<label for="email">이메일</label>
-			<input type="text" name="email" id="email">	
+			<input type="text" name="id" id="id" placeholder="아이디">	
 		</li>
 	</ul>	
-	<div id="search_btn">아이디 검색</div>
+	<div id="search_btn">비밀번호 검색</div>
 </form>
 <div id="message"></div>
 
@@ -66,9 +65,9 @@ $("#search_btn").click(function() {
 		return;
 	}	
 	
-	if($("#email").val()=="") {
-		$("#message").text("이메일을 입력해 주세요.");
-		$("#email").focus();
+	if($("#id").val()=="") {
+		$("#message").text("아이디를 입력해 주세요.");
+		$("#id").focus();
 		return;
 	}	
 	
