@@ -22,13 +22,16 @@
 	//전달값을 반환받아 저장
 	String pageNum=request.getParameter("pageNum");
 	String pageSize=request.getParameter("pageSize");
+	int productNum = Integer.parseInt(request.getParameter("productNum"));
 	int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 	String replay=request.getParameter("replay");
+	//System.out.println("action의 productNum = " + productNum);
 	
 	// reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
 	ReviewDTO review = new ReviewDTO();
 	review.setReviewReplay(replay);
 	review.setReviewNum(reviewNum);
+	review.setReviewProductNum(productNum);
 	
 	// 관리자가 답변 달 때 review_replay 행 update 하는 메소드
 	ReviewDAO.getDAO().updateReviewReplay(review);

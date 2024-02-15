@@ -18,7 +18,6 @@
    type="text/css" rel="stylesheet">
 
 <%@include file="/security/login_check.jspf" %> 
-
 <%
    //전달값을 반환받아 저장
    String replay=request.getParameter("replay"), pageNum="1", pageSize="5"
@@ -78,6 +77,28 @@ td {
    text-align: right;
    margin: 5px;
 }
+
+#resetBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#saveBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
 </style>
 
 <div id="review_write">
@@ -131,7 +152,7 @@ td {
 		</table>
 		
 		<div id="review_menu">
-			<button type="submit">글저장</button>
+			<button type="submit" id="saveBtn">글저장</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
 		</div>
 	</form>

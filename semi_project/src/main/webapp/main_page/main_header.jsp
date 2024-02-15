@@ -75,13 +75,19 @@
 								width="25" height="25">
 						</form>
 					</div>
+					<%if(loginClient==null){ %>
 					<a class="link-secondary head-right-line"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
-					&worker=#">
-						<img
-						src="<%=request.getContextPath()%>/images/icon/icons8-heart.png"
-						width="25" height="25">
-					</a> &nbsp;&nbsp;&nbsp;<a class="link-secondary head-right-line"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=client_login">
+						<img src="<%=request.getContextPath()%>/images/icon/icons8-heart.png"
+						 width="25" height="25"></a>
+					<%}else { %>
+					<a class="link-secondary head-right-line"
+						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page
+					&worker=my_wishList">
+						<img src="<%=request.getContextPath()%>/images/icon/icons8-heart.png"
+						 width="25" height="25"></a>
+					<%} %>
+						&nbsp;&nbsp;&nbsp;<a class="link-secondary head-right-line"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=cart_page
 					&worker=cart">
 						<img

@@ -73,7 +73,7 @@ td {
 }
 </style>
 <div id="review_modify">
-	<h1>게시글변경</h1>
+	<h1>게시글수정</h1>
 	
 	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"

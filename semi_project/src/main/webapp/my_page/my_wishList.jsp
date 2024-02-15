@@ -117,7 +117,7 @@ DecimalFormat format = new DecimalFormat("###,###,##0");
 					if (myWishList.size() == 0) {
 					%>
 					<div class="nonList">
-						구매하신 제품이 있을 경우에만<br> 리뷰 작성이 가능합니다.
+						자주 구매하는 제품을<br> 위시리스트에 추가 해보세요.
 					</div>
 					<!-- 리뷰 없을때 -->
 					<%
