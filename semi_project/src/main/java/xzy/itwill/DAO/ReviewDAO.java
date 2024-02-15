@@ -496,7 +496,7 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="update review_table set review_replay=? where review_num=?;";
+			String sql="update review_table set review_replay=? where review_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, review.getReviewReplay());
 			pstmt.setInt(2, review.getReviewNum());

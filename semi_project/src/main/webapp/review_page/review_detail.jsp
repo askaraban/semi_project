@@ -46,6 +46,7 @@
 	// => 검색된 게시글이 비밀글인 경우 권한을 확인하기 위해 필요
 	// => 권한에 따른 태그 출력을 위해 필요
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
+	//System.out.println("loginClient.getClientStatus() = " + loginClient.getClientStatus());
 	
 	//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 ReviewDAO 클래스의 메소드 호출
@@ -68,6 +69,12 @@
 #review_detail {
 	width: 500px;
 	margin: 0 auto;
+}
+
+#review_replay {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 50px;
 }
 
 table {
@@ -95,13 +102,18 @@ td {
 }
 
 .content {
-	height: 300px;
+	height: 200px;
 	vertical-align: middle;
 }
 
 #review_menu {
 	text-align: right;
 	margin: 5px;
+}
+
+#review_listBtn {
+	text-align: right;
+	margin-top: 50px;
 }
 </style>
 
@@ -133,7 +145,8 @@ td {
 		<tr>
 			<th>내용</th>
 			<td class="content">
-				<%=review.getReviewContent().replace("\n", "<br>")%>
+				<%-- <%=review.getReviewContent().replace("\n", "<br>")%> --%>
+				<%=review.getReviewContent()%>
 				<br>
 				<% if(review.getReviewImage()!=null) { %>
 					<img src="<%=request.getContextPath()%>/<%=review.getReviewImage()%>" width="200">
@@ -144,22 +157,56 @@ td {
 		</tr>
 	</table>
 	
-	<%-- 태그를 출력하여 링크 제공 --%>
+	<!-- 버튼 태그 div -->
 	<div id="review_menu">
-		<%-- 로그인 상태의 사용자 중 게시글 작성자이거나 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum()
-			|| loginClient.getClientStatus()==9)) { %>
+		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
+		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum())) { %>
 			<button type="button" id="modifyBtn">글변경</button>
 			<button type="button" id="removeBtn">글삭제</button>
 		<% } %>
 		
-		<%-- 로그인 상태의 사용자인 경우에만 태그를 출력하여 링크 제공 --%>
+		<%-- 로그인 상태의 사용자면서 관리자인경우에만 태그를 출력하여 링크 제공 --%>
 		<% if(loginClient!=null && loginClient.getClientStatus() == 9) { %>
-			<button type="button" id="replyBtn">답글쓰기</button>
+			<!-- <button type="button" id="replyBtn">답글쓰기</button> -->
+			<!-- <button type="button" id="removeBtn">리뷰삭제</button> -->
 		<% } %>
-		
-		<button type="button" id="listBtn">글목록</button>
 	</div>
+</div>
+
+<div id="review_replay">
+	<h1>답변</h1>
+	
+	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write_action" 
+		method="post" id="reviewForm" enctype="multipart/form-data">
+		
+		<table>
+			<tr>
+				<th>작성자</th>
+				<td>관리자</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<% if(review.getReviewReplay()==null) { %>
+					<td class="content">답변이 없습니다.</td>
+				<% } else { %>
+					<td class="content"><%= review.getReviewReplay().replace("\n", "<br>") %></td>
+				<% } %>
+			</tr>
+		</table>
+		
+		<div id="review_menu">
+			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
+			<% if(loginClient.getClientStatus()==9) { %>
+				<button type="button" id="replyBtn">답변수정</button>
+				<button type="button" id="removeBtn">답변삭제</button>
+			<% } %>
+		</div>
+	</form>
+</div>
+
+<div id="review_listBtn">
+	<button type="button" id="removeBtn">리뷰삭제</button>
+	<button type="button" id="listBtn">글목록</button>
 </div>
 
 <script type="text/javascript">
@@ -178,7 +225,7 @@ $("#removeBtn").click(function() {
 });
 
 $("#replyBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write"
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write"
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
 		+"&orderNum=<%=review.getReviewOrderNum()%>&productNum=<%=productNum%>&reviewSubject=<%= reviewSubject %>&reviewNum=<%=reviewNum%>";
 });
