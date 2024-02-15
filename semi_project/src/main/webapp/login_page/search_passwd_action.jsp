@@ -12,13 +12,11 @@
 		return;
 	}
 	
-
 	String newPasswordOne=Utility.newPasswordOne();
 	
 	String newPasswd= Utility.encrypt(newPasswordOne);
 	//System.out.println("새로운 비밀번호-2 = "+newPasswordOne);
 	
-
 	//전달값을 반환받아 저장
 	String name=request.getParameter("name");
 	String id=request.getParameter("id");
@@ -41,7 +39,7 @@
 <% if(id!=null && name!=null && email!=null) {//검색결과가 있는 경우 %>
 	<p style="font-size: 1.5em;"><%=name %>님의 새로운 비밀번호는 [<%=newPasswordOne %>]입니다.</p>
 <% } else {//검색결과가 없는 경우 %>
-	<p style="font-size: 1.5em;"><%=name %>님의 정보가 일치하지 않습니다.</p>
+	<p style="font-size: 1.5em;">입력하신 정보를 찾을 수 없습니다.</p>
 <% } %>
 
 <a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
