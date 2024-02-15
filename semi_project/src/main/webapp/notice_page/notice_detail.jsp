@@ -174,7 +174,7 @@ $("#replyBtn").click(function() {
 });
 --%>
 
-$("#listBtn").click(function() {
+$("#NoticeMainBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
 		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });

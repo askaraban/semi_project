@@ -197,9 +197,11 @@ td {
 		
 		<div id="qa_menu">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-			<% System.out.println("9인가요? = " + loginClient.getClientStatus()); %>
-			<% if(loginClient.getClientStatus()==9) { %>
-				<button type="button" id="replyBtn">답변수정</button>
+			<%-- <% System.out.println("9인가요? = " + loginClient.getClientStatus()); %> --%>
+			<% if(loginClient!=null) { %>	
+				<% if(loginClient.getClientStatus()==9) { %>
+					<button type="button" id="replyBtn">답변수정</button>
+				<% } %>
 			<% } %>
 		</div>
 	</form>
