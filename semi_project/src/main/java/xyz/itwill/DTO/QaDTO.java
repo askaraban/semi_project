@@ -28,8 +28,6 @@ public class QaDTO {
 	private String qaReplay;
 	private int qaProductNum;
 	
-	
-	/*
 	private int clientNum;
 	
 	
@@ -41,7 +39,6 @@ public class QaDTO {
 	public void setClientNum(int clientNum) {
 		this.clientNum = clientNum;
 	}
-	*/
 
 	public String getQaName() {
 		return qaName;

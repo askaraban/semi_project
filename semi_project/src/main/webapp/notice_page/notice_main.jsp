@@ -93,6 +93,8 @@
 	int noticeDisplayNum=totalNotice-(pageNum-1)*pageSize;
 	int qaDisplayNum=totalQa-(pageNum-1)*pageSize;
 	
+	System.out.println("totalNotice = "+totalNotice);
+	
 %>
 <style type="text/css">
 h1 {
@@ -111,7 +113,12 @@ h1 {
 	text-align: center;
 }
 
-#review_title {
+#notice_title {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#qa_title {
 	font-size: 1.2em;
 	font-weight: bold;
 }
@@ -341,14 +348,14 @@ td {
 	
 	<div id="page_list">
 		<%
-			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_main"
+			String responseURL=request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=notice_main"
 					+"&pageSize="+pageSize+"&search="+search+"&keyword="+keyword;
 		%>
 	
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(startPage>blockSize) { %>
 			
-			<a href="<%=responseUrl%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
+			<a href="<%=responseURL%>&pageNum=<%=startPage-blockSize%>">[이전]</a>
 		<% } else { %>	
 			[이전]
 		<% } %>
@@ -356,7 +363,7 @@ td {
 		<% for(int i=startPage;i<=endPage;i++) { %>
 			<%-- 요청 페이지번호와 출력된 페이지번호가 같지 않은 경우에만 링크 제공 --%>
 			<% if(pageNum != i) { %>
-				<a href="<%=responseUrl%>&pageNum=<%=i%>">[<%=i %>]</a>
+				<a href="<%=responseURL%>&pageNum=<%=i%>">[<%=i %>]</a>
 			<% } else { %>
 				[<%=i %>]
 			<% } %>
@@ -364,7 +371,7 @@ td {
 		
 		<%-- 다음 페이지블럭이 있는 경우에만 링크 제공 --%>
 		<% if(endPage!=totalPage) { %>
-			<a href="<%=responseUrl%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
+			<a href="<%=responseURL%>&pageNum=<%=startPage+blockSize%>">[다음]</a>
 		<% } else { %>	
 			[다음]
 		<% } %>

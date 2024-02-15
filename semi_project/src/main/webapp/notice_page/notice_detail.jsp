@@ -16,7 +16,7 @@
 <%
 	//글번호가 전달되지 않은 경우에 대한 응답처리 - 비정상적인 요청
 	if(request.getParameter("noticeNum")==null) { //비정상적인 요청
-		request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -58,7 +58,7 @@
 %>
 
 <style type="text/css">
-#review_detail {
+#notice_detail {
 	width: 500px;
 	margin: 0 auto;
 }
@@ -98,7 +98,7 @@ td {
 }
 </style>
 
-<div id="review_detail">
+<div id="notice_detail">
 	<h1>제품후기</h1>
 	
 	<%-- 검색된 게시글 --%>
@@ -156,9 +156,8 @@ $("#removeBtn").click(function () {
 });
 
 $("#NoticeMainBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/index.jsp?group=review&worker=review_list"
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
 		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 
 </script>
-</div>

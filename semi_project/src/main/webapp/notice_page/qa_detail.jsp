@@ -18,7 +18,7 @@
 <%
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("qaNum")==null) {
-		request.setAttribute("returnURL", request.getContextPath()+"/index.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 
@@ -35,7 +35,7 @@
 	
 	//검색된 게시글이 없는 경우에 대한 응답 처리 - 비정상적인 요청
 	if(qa==null) {
-		request.setAttribute("returnUrl", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
 		return;
 	}
 	
