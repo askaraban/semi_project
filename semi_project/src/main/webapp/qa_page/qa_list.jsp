@@ -126,7 +126,7 @@
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
 						String url=request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_detail"
-							+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
+							+"&qaNum="+qa.getQaNum()+"&productNum="+reviewProductNum+"&pageNum="+pageNum+"&pageSize="+pageSize
 							+"&qaSubject="+qa.getQaSubject()+"&replay="+qa.getQaReplay();
 					%>
 					<a href="<%=url%>"><%=qa.getQaSubject() %></a>

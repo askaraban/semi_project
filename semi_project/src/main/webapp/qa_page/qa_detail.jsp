@@ -225,14 +225,9 @@ $("#removeBtn").click(function() {
 			+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
 	}
 });
-/* 
-	int qaNum=Integer.parseInt(request.getParameter("qaNum"));
-	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
-	int pageSize=Integer.parseInt(request.getParameter("pageSize"));
-	int productNum = Integer.parseInt(request.getParameter("productNum"));
-*/
+
 $("#replyBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_replay_write"
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_replay_write"
 		+"&replay=<%=qa.getQaReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
 		+"&qaSubject=<%=qaSubject %>&qaNum=<%=qaNum%>";	
 });

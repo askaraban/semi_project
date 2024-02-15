@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="<%=request.getContextPath()%>/style/product_style.css" type="text/css" rel="stylesheet">
 <%--     <%@include file="/security/login_url.jspf" %> --%>
 <%
 
@@ -51,7 +52,6 @@
 	productList = ProductDAO.getDAO().selectProductList();
 %>   
 
-<link href="<%=request.getContextPath()%>/style/product_style.css" type="text/css" rel="stylesheet">
 <form
 	action="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_action"
 	method="post" id="uploadForm">
@@ -112,7 +112,16 @@
 </div>
 
 <div id="infoBtnArea" class="row productInfo">
-	<p>
+	<p class="moveBtn">
+		<button class="orderBtn" id="cartInsertBtn" type="submit">장바구니 담기</button>
+		<%-- 바로 구매하기 버튼 클릭시 결제하기 창으로 이동할 때 넘길 값 --%>
+		<%
+			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=order_single"
+					   +"&productNum="+product.getProductNum();
+		%>
+		<button class="nowOrderBtn" onclick="location.href='<%=url%>'" type="button" id="directOrderBtn">바로 구매하기</button >
+	</p>
+	<p class="wishBtn">
 	<%-- 로그인이 안되어 있다면, 빈 하트 --%>
 	<%if(loginClient==null) {%>
 		<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
@@ -130,15 +139,6 @@
 			class="ProductWish" alt="좋아요" title="off22"  id="productNum<%=product.getProductNum()%>">
 		<%} %>
 	<%} %>								
-	</p>
-	<p class="moveBtn">
-		<button class="orderBtn" id="cartInsertBtn" type="submit">장바구니 담기</button>
-		<%-- 바로 구매하기 버튼 클릭시 결제하기 창으로 이동할 때 넘길 값 --%>
-		<%
-			String url=request.getContextPath()+"/main_page/main.jsp?group=order_page&worker=order_single"
-					   +"&productNum="+product.getProductNum();
-		%>
-		<button onclick="location.href='<%=url%>'" class="nowOrderBtn" type="button" id="directOrderBtn">바로 구매하기</button >
 	</p>
 </div>
 </form>
