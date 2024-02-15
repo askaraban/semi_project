@@ -249,4 +249,24 @@ public class NoticeDAO extends JdbcDAO {
 			return noticeList;
 		}
 	
+	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는 메소드
+	public int deleteNotice(int noticeNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="delete from notice_table where notice_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, noticeNum); 
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]deleteNotice() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
 }

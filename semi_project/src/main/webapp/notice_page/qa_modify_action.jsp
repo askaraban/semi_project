@@ -59,7 +59,7 @@
 	
 	//REVIEW_SEQ 시퀀스의 다음값을 검색하여 반환하는 ReviewDAO 클래스의 메소드 호출
 	int nextNum=QaDAO.getDAO().selectQaNextNum();
-	
+
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값 변경
 	QaDTO qa=new QaDTO();
 	qa.setQaNum(qaNum);
@@ -69,7 +69,7 @@
 	
 	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
 	//ReviewDAO 클래스의 메소드 호출
-	QaDAO.getDAO().updateQaReplay(qa);	
+	QaDAO.getDAO().updateQa(qa);	
 	//페이지 이동
 	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=notice_page&worker=qa_detail"
 		+"&qaNum="+qaNum+"&pageNum="+pageNum+"&pageSize="+pageSize+"&search="+search+"&keyword="+keyword);

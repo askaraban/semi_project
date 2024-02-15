@@ -164,14 +164,9 @@ td {
 		</tr>
 	</table>
 	
-	<!-- 버튼 태그 div -->
-	<div id="qa_menu">
-		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
-		<% if(loginClient!=null && (loginClient.getClientNum()==qa.getQaMember())) { %>
-			<button type="button" id="modifyBtn">Q&A변경</button>
-			<button type="button" id="removeBtn">Q&A삭제</button>
-		<% } %>
-	</div>
+	<!-- 버튼 태그 div - 없앴음 -->
+	
+	
 </div>
 
 <div id="qa_replay">
@@ -208,21 +203,26 @@ td {
 </div>
 
 <div id="qa_listBtn">
-	<button type="button" id="removeBtn">Q&A삭제</button>
+	<% if(loginClient!=null) { %>	
+		<% if(loginClient.getClientStatus()==9 || loginClient.getClientNum()==qa.getQaMember()) { %>
+			<button type="button" id="removeBtn">Q&A삭제</button>
+			<button type="button" id="modifyBtn">Q&A변경</button>		
+		<% } %>
+	<% } %>
 	<button type="button" id="listBtn">글목록</button>
 </div>
 
 <script type="text/javascript">
 $("#modifyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify"
-		+"&reviewNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
+		+"&qaNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
 		+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 
 $("#removeBtn").click(function() {
 	if(confirm("게시글을 정말로 삭제 하시겠습니까?")) {
-		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_remove_action"
-			+"&reviewNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_remove_action"
+			+"&qaNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
 			+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 	}
 });

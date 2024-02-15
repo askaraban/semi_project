@@ -22,6 +22,7 @@
 	String pageSize=request.getParameter("pageSize");
 	String search=request.getParameter("search");
 	String keyword=request.getParameter("keyword");
+	//String qaSubject=request.getParameter("qaSubject");
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -56,51 +57,48 @@ td {
 <h1 style="text-align: center;">Q&A 변경</h1>
 
 <%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify_action"
-	method="post" enctype="multipart/form-data" id="qaForm">
-	<input type="hidden" name="qaNum" value="<%=qaNum %>">
-	<input type="hidden" name="pageNum" value="<%=pageNum %>">
-	<input type="hidden" name="pageSize" value="<%=pageSize %>">
-	<input type="hidden" name="search" value="<%=search %>">
-	<input type="hidden" name="keyword" value="<%=keyword %>">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="qaSubject" id="qaSubject" size="40" 
-					value="<%=qa.getQaSubject()%>">
-				<%-- 비밀글 없음
-				<input type="checkbox" name="qaSecret" value="2"
-					<% if(review.getReviewStatus()==2) { %> checked <% } %>>비밀글
-				--%>
-			</td>					
-		</tr>	
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea rows="7" cols="60" name="qaContent" id="qaContent"><%=qa.getQaContent()%></textarea>
-			</td>
-		</tr>			
-		<tr>
-			<th>이미지파일</th>
-			<td>
-				<input type="file" name="qaImage"><br><br>
-				<% if(qa.getQaImage()!=null) { %>
-					<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
-					<img src="<%=request.getContextPath()%>/<%=qa.getQaImage()%>" width="200">
-				<% } %>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<button type="submit">글변경</button>
-				<button type="reset" id="resetBtn">다시쓰기</button>
-			</th>
-		</tr>
-	</table>
-</form>
-<div id="message" style="color: red;"></div>
-
+<div id="qa_modify">
+	<h1>게시글수정</h1>
+	
+	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
+	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify_action"
+		method="post" enctype="multipart/form-data" id="qaForm">
+		<input type="hidden" name="qaNum" value="<%=qaNum %>">
+		<input type="hidden" name="pageNum" value="<%=pageNum %>">
+		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+		<input type="hidden" name="search" value="<%=search %>">
+		<input type="hidden" name="keyword" value="<%=keyword %>">
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="qaSubject" id="qaSubject" size="40" value="<%=qa.getQaSubject()%>">
+				</td>					
+			</tr>	
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="7" cols="60" name="qaContent" id="qaContent"><%=qa.getQaContent() %></textarea>
+				</td>
+			</tr>			
+			<tr>
+				<th>이미지파일</th>
+				<td>
+					<input type="file" name="qaImage"><br><br>
+					<% if(qa.getQaImage()!=null) { %>
+						<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
+						<img src="<%=request.getContextPath()%>/<%=qa.getQaImage()%>" style="vertical-align: middle;" width="200">
+					<% } %>
+				</td>
+			</tr>
+		</table>
+		<div id="qa_menu">
+			<button type="submit">글변경</button>
+			<button type="reset" id="resetBtn">다시쓰기</button>
+		</div>
+	</form>
+	<div id="message" style="color: red;"></div>
+</div>
 <script type="text/javascript">
 $("#qaSubject").focus();
 

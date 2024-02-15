@@ -383,7 +383,7 @@ public class QaDAO extends JdbcDAO {
 			
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("[에러]updatQA() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]deleteQa() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt);
 		}
