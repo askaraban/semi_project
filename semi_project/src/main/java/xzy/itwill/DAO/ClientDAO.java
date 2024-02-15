@@ -231,4 +231,28 @@ public class ClientDAO extends JdbcDAO {
 		}
 		return id;
 	}
+	
+	//회원정보를 전달받아 CLIENT_TABLE 테이블에 저장된 행의 회원상태를 변경하고 변경행의 갯수를 반환하는 메소드
+	public int updateClientPassword(ClientDTO clientTable) {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			int rows=0;
+			try {
+				con=getConnection();
+				
+				String sql="update client_table set client_passwd=? where client_name=? and client_id=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, clientTable.getClientPasswd());
+				pstmt.setString(2, clientTable.getClientName());
+				pstmt.setString(3, clientTable.getClientID());
+				
+				rows=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("[에러]updateClientPassword() 메소드의 SQL 오류 = "+e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
+		}
+			
 }

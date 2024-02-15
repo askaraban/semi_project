@@ -31,6 +31,7 @@
 
 	// 제품번호 가져옴
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
+	//System.out.println("productNum = " + productNum);
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -145,13 +146,14 @@ td {
 		<tr>
 			<th>내용</th>
 			<td class="content">
-				<%-- <%=review.getReviewContent().replace("\n", "<br>")%> --%>
-				<%=review.getReviewContent()%>
+				<% if(review.getReviewContent()!=null) { %>
+					<%= review.getReviewContent().replace("\n", "<br>") %>
+				<% } else { %>
+					<%=review.getReviewContent()%>
+				<% } %>				
 				<br>
 				<% if(review.getReviewImage()!=null) { %>
 					<img src="<%=request.getContextPath()%>/<%=review.getReviewImage()%>" width="200">
-					<%-- <% System.out.println("request.getContextPath() = " + request.getContextPath()); %> --%>
-					<!-- request.getContextPath() = /semi_project_1 -->
 				<% } %>
 			</td>
 		</tr>
@@ -162,7 +164,7 @@ td {
 		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
 		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum())) { %>
 			<button type="button" id="modifyBtn">리뷰변경</button>
-			<button type="button" id="removeBtn">리뷰삭제</button>
+			<!-- <button type="button" id="removeBtn">리뷰삭제</button> -->
 		<% } %>
 	</div>
 </div>
@@ -190,7 +192,6 @@ td {
 		
 		<div id="review_menu">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-			<% System.out.println("9인가요? = " + loginClient.getClientStatus()); %>
 			<% if(loginClient.getClientStatus()==9) { %>
 				<button type="button" id="replyBtn">답변수정</button>
 			<% } %>

@@ -40,7 +40,7 @@
 }
 </style>
 <h1>아이디 찾기</h1>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=member&worker=search_id_action"
+<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_id_action"
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
