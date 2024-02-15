@@ -28,55 +28,48 @@ if (request.getParameter("pageNum") != null) {//전달값이 있는 경우
 	pageNum = Integer.parseInt(request.getParameter("pageNum"));
 }
 
-int pageSize = 5;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+int pageSize = 10;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
 
-// REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<ReviewDTO> productReview = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 1);
+//REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
+int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(1, loginClient.getClientNum());
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
-int totalPage = (int) Math.ceil((double) productReview.size() / pageSize);//페이지의 총갯수
-if (totalPage == 0) {
-	totalPage = 1;
-}
+int totalPage = (int) Math.ceil((double) totalReviewOrder / pageSize);//페이지의 총갯수
 
-//전달받은 페이지번호가 비정상적인 경우
+//전달받은 페이지 번호가 비정상적인 경우
 if (pageNum <= 0 || pageNum > totalPage) {
 	pageNum = 1;
 }
 
 //페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
-//ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
 int startRow = (pageNum - 1) * pageSize + 1;
-
-//페이지번호에 대한 게시글의 종료 행번호를 계산하여 저장
-//ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
 int endRow = pageNum * pageSize;
 
-//마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
-if (endRow > productReview.size()) {
-	endRow = productReview.size();
+//마지막 페이지의 게시글의 종료 행번호가 게시글의 개수보다 많은 경우 종료 행번호 변경
+if (endRow > totalReviewOrder) {
+	endRow = totalReviewOrder;
 }
 
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 //클래스의 메소드 호출
-List<OrderDTO> reviewList = OrderDAO.getDAO().selectOrderList(loginClient, 1);
+List<OrderDTO> reviewList = OrderDAO.getDAO().selectOrderList(loginClient, 1, startRow, endRow);
 
 //session 객체에 저장된 권한 관련 속성값을 반환받아 저장
-// => 로그인 상태의 사용자에게만 글쓰기 권한 제공
-// => 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
+//=> 로그인 상태의 사용자에게만 글쓰기 권한 제공
+//=> 게시글이 비밀글인 경우 로그인 상태의 사용자가 게시글 작성자이거나 관리자인 경우에만 권한 제공
 
 //서버 시스템의 현재 날짜를 제공받아 저장
-// => 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
+//=> 게시글 작성날짜와 비교하여 게시글 작성날짜를 다르게 출력되도록 응답 처리
 String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
-// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
+//=> 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
+int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 
 %>
 <style>
@@ -97,12 +90,12 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 			<h1 class="subTitle1">리뷰</h1>
 			<div class="tabType">
 				<ul class="item2" style="padding-left: unset;">
-					<li class="active write_review" style="text-decoration: none;"><a
+					<li class="active write_review" style="text-decoration: none;"><a id="write"
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">
 							<span>작성 가능한 리뷰</span>
 					</a></li>
-					<li class="active1 write_review"><a
+					<li class="active1 write_review"><a id="written"
 						style="text-decoration: none;"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written">
 							<span>내가 작성한 리뷰</span>
@@ -150,7 +143,7 @@ int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
 									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=list.getOrderProductNum()%>">
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&productNum=<%=list.getOrderProductNum()%>">
 											<%=list.getProductName()%></a></td>
 									<td><%=list.getOrderDate()%></td>
 									<td><%=loginClient.getClientName()%></td>

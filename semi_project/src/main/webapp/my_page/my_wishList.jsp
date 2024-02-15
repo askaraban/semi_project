@@ -36,8 +36,16 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
 
+//페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
+//ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
+int startRow = (pageNum - 1) * pageSize + 1;
+
+//페이지번호에 대한 게시글의 종료 행번호를 계산하여 저장
+//ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
+int endRow = pageNum * pageSize;
+
 // REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<WishDTO> myWishList = WishDAO.getDAO().selectWishListAll(loginClient.getClientNum());
+List<WishDTO> myWishList = WishDAO.getDAO().selectWishListAll(loginClient.getClientNum(), startRow, endRow);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -51,13 +59,7 @@ if (pageNum <= 0 || pageNum > totalPage) {
 	pageNum = 1;
 }
 
-//페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
-//ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
-int startRow = (pageNum - 1) * pageSize + 1;
 
-//페이지번호에 대한 게시글의 종료 행번호를 계산하여 저장
-//ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
-int endRow = pageNum * pageSize;
 
 //마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
 if (endRow > myWishList.size()) {

@@ -33,25 +33,12 @@ if (request.getParameter("pageNum") != null) {//전달값이 있는 경우
 	pageNum = Integer.parseInt(request.getParameter("pageNum"));
 }
 
-int pageSize = 5;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+int pageSize = 10;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
 
-//REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(currentDate, currentDate, clientNum);
-
-//전체 페이지의 총갯수를 계산하여 저장
-//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
-int totalPage = (int) Math.ceil((double) myOrderList.size() / pageSize);//페이지의 총갯수
-if (totalPage == 0) {
-	totalPage = 1;
-}
-
-//전달받은 페이지번호가 비정상적인 경우
-if (pageNum <= 0 || pageNum > totalPage) {
-	pageNum = 1;
-}
+int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(1, clientNum);
 
 //페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
 //ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
@@ -61,10 +48,28 @@ int startRow = (pageNum - 1) * pageSize + 1;
 //ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
 int endRow = pageNum * pageSize;
 
-//마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
-if (endRow > myOrderList.size()) {
-	endRow = myOrderList.size();
+
+//REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
+List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startRow, endRow, clientNum, currentDate, currentDate);
+
+//전체 페이지의 총갯수를 계산하여 저장
+//int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
+int totalPage = (int) Math.ceil((double) totalReviewOrder / pageSize);//페이지의 총갯수
+if (totalPage == 0) {
+	totalPage = 1;
 }
+
+//전달받은 페이지번호가 비정상적인 경우
+if (pageNum <= 0 || pageNum > totalPage) {
+	pageNum = 1;
+}
+
+
+//마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
+if (endRow > totalReviewOrder) {
+	endRow = totalReviewOrder;
+}
+
 
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
@@ -79,7 +84,7 @@ if (endRow > myOrderList.size()) {
 
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 //=> 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-int displayNum = myOrderList.size() - (pageNum - 1) * pageSize;
+int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 %>
 <style>
 #navigation a:hover {
@@ -179,17 +184,18 @@ int displayNum = myOrderList.size() - (pageNum - 1) * pageSize;
 							</tr>
 						<%} %>
 							<%for(OrderDTO orderList : myOrderList) { %>
-							<tr>
+							<tr class="<%=orderList.getOrderTime().substring(0, 17)%> orList" >
 								<td class="findOrderList"><%=orderList.getOrderDate().substring(0,10) %></td>
-								<td><a href="#" id="orderNumber"> <%=orderList.getOrderNum() %> </a>
+								<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
+									 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
 								</td>
 								<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
 								 class="productName"> <%=orderList.getProductName() %> </a></td>
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
 								<%if(orderList.getOrderStatus()==1) {%>
-								<td id="orderStatus">제품 준비중</td>
-								<%} else { %>
 								<td id="orderStatus">배송완료</td>
+								<%} else { %>
+								<td id="orderStatus">제품 준비중</td>
 								<%} %>
 							</tr>
 							<%} %>
@@ -214,6 +220,7 @@ int displayNum = myOrderList.size() - (pageNum - 1) * pageSize;
 			endPage=totalPage;
 		}
 	%>
+	
 	<br>
 	<div id="page_list" style="text-align: center;">
 		<%
@@ -221,19 +228,19 @@ int displayNum = myOrderList.size() - (pageNum - 1) * pageSize;
 		%>
 		
 		<%if(startPage>blockSize){%>
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
+			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
 		<%} else {%>
 			[이전]
 		<%} %>
 		<% for(int i=startPage;i<=endPage;i++){ %>
 			<%if(pageNum !=i) {%>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
 			<%}else{  %>
 				[<%=i %>]
 			<%} %>
 		<%} %>
 			<%if(endPage!=totalPage){ %>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
+				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
 			<%}else{  %>
 				[다음]
 			<%} %>
@@ -406,9 +413,13 @@ $("#inquiry5").click(function() {
 	
 	
 	// 주문정보를 출력하기
-	window.
-	
-	
+	$(".orderNumList").each(function() {
+		$(this).click(function(){		
+			var checked = $(this).attr("id");
+
+			
+		})
+	}); 
 	
 	
 </script>

@@ -79,7 +79,7 @@ public class WishDAO extends JdbcDAO{
 	}
 	
 	// 회원번호를 전달받아 좋아요 번호를 가져오는 메소드;
-	public List<WishDTO> selectWishListAll(int clientNum) {
+	public List<WishDTO> selectWishListAll(int clientNum, int startRow, int endRow) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
@@ -87,10 +87,12 @@ public class WishDAO extends JdbcDAO{
 		try {
 			con=getConnection();
 			
-			String sql="select wish_num,wish_product_num,wish_client_num, product_name, product_main_img, product_price"
-					+ " from wishList_table join product_table on wish_product_num=product_num where wish_client_num=?";
+			String sql="select * from (select rownum rn, temp.*from (select wish_num,wish_product_num,wish_client_num, product_name, product_main_img, product_price"
+					+ " from wishList_table join product_table on wish_product_num=product_num where wish_client_num=?) temp) where rn between ? and ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rs=pstmt.executeQuery();
 			
