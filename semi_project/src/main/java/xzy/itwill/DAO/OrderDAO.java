@@ -249,7 +249,7 @@ public class OrderDAO extends JdbcDAO {
 						+ "(select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum"
 						+ ", order_dis_sum, order_content, order_receiver"
 						+", order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
-						+", product_dis, product_main_img, order_review_status order_email from order_table join product_table"
+						+", product_dis, product_main_img, order_review_status, order_email from order_table join product_table"
 						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? order by order_num desc)"
 						+ " temp) where rn between ? and ?";
 				
