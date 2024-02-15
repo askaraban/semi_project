@@ -32,8 +32,20 @@
 	cursor: pointer;
 	letter-spacing: 20px;
 	font-weight: bold;
+	text-align: center;
 }
 
+#name {
+	width: 260px;
+}
+
+#id {
+	width: 260px;
+}
+
+#email {
+	width: 260px;
+}
 #message {
 	color: red;
 	font-weight: bold;

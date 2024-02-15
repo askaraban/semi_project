@@ -7,15 +7,19 @@
 	width: 300px;
 }
 
-#searchForm label {
-	text-align: right;
-	width: 100px;
-	float: left;
-}
-
 #searchForm ul li {
 	list-style-type: none;
 	margin-bottom: 10px;
+	margin-right: 100px;
+	
+}
+
+#name {
+	width: 240px;
+}
+
+#email {
+	width: 240px;
 }
 
 #searchForm input:focus {
@@ -25,13 +29,14 @@
 #search_btn {
 	margin: 0 auto;
 	padding: 5px;
-	width: 300px;
+	width: 250px;
 	background-color: black;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;
 	letter-spacing: 20px;
 	font-weight: bold;
+	text-align: center;
 }
 
 #message {
@@ -44,12 +49,10 @@
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
-			<label for="name">이름</label>
-			<input type="text" name="name" id="name">	
+			<input type="text" name="name" id="name" placeholder="이름">	
 		</li>
 		<li>
-			<label for="email">이메일</label>
-			<input type="text" name="email" id="email">	
+			<input type="text" name="email" id="email" placeholder="이메일">	
 		</li>
 	</ul>	
 	<div id="search_btn">아이디 검색</div>
