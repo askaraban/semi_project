@@ -38,6 +38,7 @@ public class OrderDTO {
 	private String orderAddress2;
 	private String orderMobile;
 	private int orderReviewStatus;
+	private String order_email;
 	
 	//join 할 필드명
 	private int productNum;
@@ -54,6 +55,19 @@ public class OrderDTO {
 	}
 	
 	
+	
+	public String getOrder_email() {
+		return order_email;
+	}
+
+
+	public void setOrder_email(String order_email) {
+		this.order_email = order_email;
+	}
+
+
+
+
 	public int getOrderReviewStatus() {
 		return orderReviewStatus;
 	}

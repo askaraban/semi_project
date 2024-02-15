@@ -24,6 +24,7 @@
 		int orderDisSum=Integer.parseInt(request.getParameter("orderDisSum"));
 		String orderContent=request.getParameter("order_content");
 		String orderReceiver=request.getParameter("order_receiver");
+		String orderEmail=request.getParameter("emailTxt");
 		String orderZipcode=request.getParameter("zipcode");
 		String orderAddress1=request.getParameter("address1");
 		String orderAddress2=request.getParameter("address2");
@@ -47,6 +48,7 @@
 		order.setOrderAddress2(orderAddress2);//9
 		order.setOrderMobile(orderMobile);//10
 		order.setOrderCount(orderCount);//11
+		order.setOrder_email(orderEmail);
 		
 		//System.out.println(orderZipcode);
 		

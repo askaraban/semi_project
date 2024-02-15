@@ -139,7 +139,7 @@
 				 		</th>
 				 		<td>
 				 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt email" 
-				 			title="이메일 입력" style="width:90 %;" value="">
+				 			title="이메일 입력" style="width:90 %;" value="<%=orderlist.get(0).getOrder_email()%>">
 				 		</td>
 					 </tr>
 				   <tr class="address">

@@ -107,6 +107,18 @@ System.out.println(endRow);
 			<h1 class="subTitle1">Q&A</h1>
 			<div id="listArea">
 				<div id="qa_list">
+					<%
+					if (totalQa<= 0) {
+					%>
+					<div class="nonList">
+						등록하신 문의가 없습니다.
+					</div>
+					<!-- 리뷰 없을때 -->
+					<%
+					} else {
+					%>
+				
+				
 					<div class="tableType">
 						<table>
 							<colgroup>
@@ -123,6 +135,7 @@ System.out.println(endRow);
 									<th scope="col">작성일</th>
 								</tr>
 							</thead>
+							
 							<tbody>
 							<% for(QaDTO review : QaList){%>
 								<tr style="padding-bottom: 10px;">
@@ -135,6 +148,7 @@ System.out.println(endRow);
 									<td>2023.11.15</td>
 								</tr>
 								
+							<%} %>
 							<%} %>
 							</tbody>
 						</table>
