@@ -60,9 +60,6 @@ input[type='number'] {
 			totalPrice += cart.getCartCount() * discount;
 		}
 		// 상세페이지로 이동할 수 있도록 DAO로 상품번호를 가져오고, url 로 전달
-		int productNum = CartDAO.getDAO().selectProductCount(cart.getCartNum());
-		String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-				   +"&productNum="+productNum;
 		%>
 		
 		<div class="product-info">
@@ -83,7 +80,8 @@ input[type='number'] {
 				<div>
 					<%-- 장바구니에 있는 모든 제품을 가져오는 DAO 메소드를 호출하여 for문으로 사진과 가격 수량 할인가를 넣기--%>
 					<%
-					
+					String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+							   +"&productNum="+cart.getCartProductNum();
 					%>
 					<a href="<%=url%>">
 					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=cart.getProductMainImg()%>">

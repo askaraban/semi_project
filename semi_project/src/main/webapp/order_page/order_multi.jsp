@@ -238,14 +238,15 @@
 			}
 			
 			int productNum = CartDAO.getDAO().selectProductCount(cartOne.getCartNum());
-			String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-					   +"&productNum="+productNum;
+			
 			
 		%>
 		
 		<div class="product-info">
 			<div class="product-inner">
 				<div>
+					<%String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+							   +"&productNum="+cartOne.getCartProductNum(); %>
 					<a href="<%=url%>">
 					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=cartOne.getProductMainImg()%>">
 					</a>
@@ -293,23 +294,21 @@
 		<% }%> 
 	</div>	
 </section>
-  				
-<div style="display: flex; padding-left: 100px;">
-			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
-				<span class="result-word"></span>
-				<br>
-				<span class="result-count" id="selectedPrice2"></span>
-			</div>
-			<div style="width: 280px; height: 100px; padding-top: 23px;">
-				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" >결제하기</button>
-			</div>
-			<div style="width: 300px; height: 100px; padding-top: 20px;" >
-				<span class="result-word">총 주문금액</span>
-				<br>
-				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
-			</div>
+	<div style="display: flex; padding-left: 100px;">
+		<div style="width: 300px; height: 100px; padding-top: 20px;" >
+			<span class="result-word">총 주문금액</span>
+			<br>
+			<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 		</div>
-		
+		<div style="width: 280px; height: 100px; padding-top: 23px;">
+			<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" >결제하기</button>
+		</div>
+		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word"></span>
+			<br>
+			<span class="result-count" id="selectedPrice2"></span>
+		</div>
+	</div>
 </form>
 				                                 				  
     				      

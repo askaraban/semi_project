@@ -437,48 +437,55 @@
     <section id="orderChk" style="display: block;">
     <div id="orderProduct" class="orderProductInfo">
         <h5>주문 상품 정보</h5>  
-    </div>	
-    <div class="cartList">
-    	<ul>
-    		
-    		<li>
-			    <div class="pdtRow">
-			    	<div class="cell pdtImg">
-			    	<a href="#">
-			    		<img src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>" alt="" width="90" height="90">
-			   		</a>
-			    </div>
-			    <div class="cell pdtInfo">
-			    	<div class="pdtName"> <!-- 품명 -->
-			    		<a href="/product_page/product" onclick="#"><%=product.getProductName() %></a>
-			    	</div>
-			    	<div class="pdtOpt"> <!-- 수량 -->
-			    		<span class="pdtCount"><%=productCount %> 개</span>
-			    		<input type="hidden" name="productCount" value="<%=productCount%>">
-			    	</div>
-			    </div>
-			   	<div class="cell pdtPrice">
-			   		<span class="price">
-			   		<% if(product.getProductDis()!=0){ %>
-			   		<%
-			   			// 할인가를 나타내기 위한 변수
-						int discount1 =  (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-			   		%>
-			   			<span class="num"><%=format.format(discount1*productCount) %> 원 </span>
-			   		<% } else { %>
-			   			<span class="num"><%=format.format(product.getProductPrice()*productCount) %> 원</span>
-			   		</span>
-			   		<%} %>
-			   	  </div>
-			   	</div>
-	   	    </li>
-	   	  </ul>
-     </div>	
+    </div>
+    <div class="product-info">
+			<div class="product-inner">
+				<div>
+					<%String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
+							   +"&productNum="+product.getProductNum(); %>
+					<a href="<%=url%>">
+					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath() %>/productImg/<%=product.getProductMainImg() %>">
+					</a>
+				</div>
+				<div class="cart-product-infoArea"
+					style="width: 250px; margin-left: 15px;">
+					<div class="cart-product-title" style="font-weight: bold;">
+					<a href="<%=url%>" style="text-decoration-line: none; color: black;"><%=product.getProductName() %></a>
+					</div>
+					<%if(product.getProductDis()!=0) {%>
+					<div class="cart-product-price" id="select_price_<%=product.getProductPrice() %>" style="padding-top: 10px;">
+					가격 : <%=format.format(discount) %>원
+					<span class="discount" style="font-size: 10px;"><%=format.format(product.getProductPrice()) %>원</span>
+					</div>
+					<%} else {%>
+					<div class="cart-product-price" id="select_price_<%=product.getProductPrice() %>" style="padding-top: 10px;">
+					가격 : <%=format.format(product.getProductPrice()) %>원
+					</div>
+					<%} %>
+				</div>
+			</div>
+			
+			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
+				<span>상품 주문 수량 : <%=productCount %>개 </span>
+			</div>
+			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
+			<div class="cart-product-infoArea third-inner" style="width: 250px;">
+				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
+				<span><strong style="font-weight: bold; font-size: 18px;">
+				
+					<%if(product.getProductDis()!=0) {%>
+					<em><%=format.format(productCount*discount) %>원</em>
+					<%} else {%>
+					<em><%=format.format(productCount*product.getProductPrice()) %>원</em>
+					<%} %>
+				</strong>&nbsp;(<%=productCount %>개)</span>
+			</div>
+			<br>
+		</div>
  </section>	
   				
     <section id="orderChk" style="display: block;">
     <div id="orderProduct" class="totalPrice">
-        <h5>총 결제금액</h5>  
     </div>
     	<div class="ec-base-button gFull" id="orderFixItem"> 
 	    	<button type="submit" class="btnSubmit" id="btn_payment">	
