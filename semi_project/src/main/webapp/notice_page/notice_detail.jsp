@@ -68,15 +68,20 @@ table {
 	border-collapse: collapse;
 }
 
+h1 {
+	color: pink;
+}
+
 th, td {
 	border: 1px solid black;
 	padding: 5px;	
 }
 
 th {
+	text-align: center;
 	width: 100px;
-	background: black;
-	color: white;
+	background: pink;
+	color: black;
 }
 
 td {
@@ -99,7 +104,7 @@ td {
 </style>
 
 <div id="notice_detail">
-	<h1>제품후기</h1>
+	<h1 style="text-align: center;">공지사항</h1>
 	
 	<%-- 검색된 게시글 --%>
 	<table>

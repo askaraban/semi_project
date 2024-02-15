@@ -83,10 +83,11 @@ public class NoticeDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="update notice_table set notice_count=notice_count+1"
-					+"where notice_num=?";
+			String sql="update notice_table set notice_count=notice_count+1 where notice_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, noticeCount);
+			
+			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("[에러]updateNoticeCount() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
