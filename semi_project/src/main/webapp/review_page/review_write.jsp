@@ -18,7 +18,7 @@
    type="text/css" rel="stylesheet">
 
 <%@include file="/security/login_check.jspf" %> 
-
+System.out.println("test_지원");
 <%
    //전달값을 반환받아 저장
    String replay=request.getParameter("replay"), pageNum="1", pageSize="5"

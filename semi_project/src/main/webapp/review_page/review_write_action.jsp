@@ -11,7 +11,7 @@
 <%-- => 로그인 상태의 사용자만 요청 가능한 JSP 문서 --%>
 <%-- => 게시글이 [multipart/form-data] 타입으로 전달되므로 COS 라이브러리의 MultipartRequest 객체를 사용하여 처리 --%>
 <%-- => 전달받은 파일은 [/review_images] 서버 디렉터리에 저장되도록 업로드 처리 --%>
-
+System.out.println("test_지원");
 <%@include file="/security/login_check.jspf"%>
 
 <%
