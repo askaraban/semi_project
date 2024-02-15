@@ -13,39 +13,26 @@
 <%@include file="/security/login_check.jspf"%>
 
 <%
-//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
-if (request.getMethod().equals("GET")) {
-	request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=error&worker=error_400");
-	return;
-}
- 
-//전달값을 반환받아 저장
-String pageNum=request.getParameter("pageNum");
-String pageSize=request.getParameter("pageSize");
-int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
-String replay=request.getParameter("replay");
-System.out.println("pageNum=" + pageNum);
-System.out.println("pageSize=" + pageSize);
-System.out.println("reviewNum=" + reviewNum);
-System.out.println("replay=" + replay);
-
-
-// reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
-ReviewDTO review = new ReviewDTO();
-review.setReviewReplay(replay);
-review.setReviewNum(reviewNum);
-
-/* System.out.println("orderNum=" + orderNum);
-System.out.println("reviewSubject=" + reviewSubject);`
-System.out.println("loginClient.getClientNum()=" + loginClient.getClientNum());
-System.out.println("reviewImage=" + reviewImage);
-System.out.println("orderNum=" + orderNum);
-System.out.println("productNum=" + productNum);
- */
-
-// 관리자가 답변 달 때 review_replay 행 update 하는 메소드
-ReviewDAO.getDAO().updateReviewReplay(review);
-
-request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
-		+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
+	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
+	if (request.getMethod().equals("GET")) {
+		request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=error&worker=error_400");
+		return;
+	}
+	 
+	//전달값을 반환받아 저장
+	String pageNum=request.getParameter("pageNum");
+	String pageSize=request.getParameter("pageSize");
+	int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
+	String replay=request.getParameter("replay");
+	
+	// reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
+	ReviewDTO review = new ReviewDTO();
+	review.setReviewReplay(replay);
+	review.setReviewNum(reviewNum);
+	
+	// 관리자가 답변 달 때 review_replay 행 update 하는 메소드
+	ReviewDAO.getDAO().updateReviewReplay(review);
+	
+	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
+			+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
 %>

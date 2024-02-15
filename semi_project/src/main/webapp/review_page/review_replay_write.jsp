@@ -25,24 +25,10 @@
 		, orderNum=request.getParameter("orderNum"), reviewSubject=request.getParameter("reviewSubject");
 	int productNum=Integer.parseInt(request.getParameter("productNum"));
 	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
-	System.out.println("reviewNum = " + reviewNum);
    	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
 	ReviewDTO review=ReviewDAO.getDAO().selectReviewTableByNum(reviewNum);
-	
-	System.out.println("review.getReviewNum() = " + review.getReviewNum());
-	System.out.println("review.getReviewReplay() = " + review.getReviewReplay());
-	System.out.println("============");
-	
-   /* if(!request.getParameter("replay").equals("null")) {//전달값이 있는 경우 - 답글 */
-/* 	if(reviewNum!=0 && replay.equals("null") ) {//답글인 경우 
-		//부모글 관련 정보를 반환받아 저장
-		replay=request.getParameter("replay");
-		pageNum=request.getParameter("pageNum");
-		pageSize=request.getParameter("pageSize");
-		productNum=Integer.parseInt(request.getParameter("productNum"));
-	} */
 %> 
 
 <style type="text/css">
@@ -88,12 +74,9 @@ td {
 	
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write_action" 
 		method="post" id="reviewForm">
-	<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
-	<input type="hidden" name="replay" value="<%=replay %>">
- 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
-	<input type="hidden" name="pageSize" value="<%=pageSize %>">
-<%--	<input type="hidden" name="productNum" value="<%=productNum %>">
-	<input type="hidden" name="orderNum" value="<%=orderNum %>"> --%>
+		<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
+	 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
+		<input type="hidden" name="pageSize" value="<%=pageSize %>">
 		
 		<table>
 			<tr>
