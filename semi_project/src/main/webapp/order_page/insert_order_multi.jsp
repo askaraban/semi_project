@@ -43,6 +43,7 @@
 		+"-"+request.getParameter("mobile6");
 		//String orderEmail = request.getParameter("emailTxt");
 		
+		
 		//OrderDTO 객체를 생성하여 전달값으로 필드값 변경
 		OrderDTO order=new OrderDTO();
 		order.setOrderClientNum(orderClientNum);//1

@@ -46,10 +46,9 @@
 	
 	.error {
 		color: red;
-		position: relative;
 		left: 160px;
 		display: none;
-		text-align: left;
+		align-content: flex-start;
 	}
 
 	.tableTypeWrite {
@@ -272,7 +271,7 @@
 						 				주문자
 										</th>
 										<td class="nameInfo">
-										<input type="text" name="orderNameTxt" id="orderNameTxt" maxlength="10" 
+										<input type="text" name="orderNameTCxt" id="orderNameTxt" maxlength="10" 
 										class="inputTxt name" title="이름입력" style="width: 40%;" value="<%=loginClient.getClientName()%>" readonly="readonly">
 										</td>
 									</tr>
@@ -285,7 +284,7 @@
 								 		연락처
 								 		</th>
 									<td >
-										<select name="mobile1" readonly="readonly">
+										<select name="mobile11" readonly="readonly">
 											<option value="010" selected>&nbsp;010&nbsp;</option>
 											<option value="011">&nbsp;011&nbsp;</option>
 											<option value="016">&nbsp;016&nbsp;</option>
@@ -293,8 +292,8 @@
 											<option value="018">&nbsp;018&nbsp;</option>
 											<option value="019">&nbsp;019&nbsp;</option>
 										</select>
-										- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>" readonly="readonly">
-										- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>" readonly="readonly">
+										- <input type="text" name="mobile12" id="mobile12" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>" readonly="readonly">
+										- <input type="text" name="mobile13" id="mobile13" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>" readonly="readonly">
 									</td>
 									</tr>
 									<tr class="deliveryEmailWrap">
@@ -306,9 +305,8 @@
 								 		이메일
 								 		</th>
 								 		<td >
-								 			<input type="text" name="emailTxt" id="emailTxt" class="deliEmail" 
+								 			<input type="text" name="clientEmail" id="clientEmail" class="deliEmail" 
 								 			title="이메일 입력" style="width:90 %;" value="<%=loginClient.getClientEmail()%>" readonly="readonly">
-								 			<p class="inputAlt"></p>
 								 		</td>
 									</tr>
 								  </tbody>
@@ -326,6 +324,7 @@
 	    <input type="hidden" id="productNum" name="productNum" value="<%=productNum%>">
 	    <input type="hidden" id="orderSum" name="orderSum" value="<%=orderSum%>">
 	    <input type="hidden" id="orderDisSum" name="orderDisSum" value="<%=orderDisSum%>">
+	    <input type="hidden" id="productCount" name="productCount" value="<%=productCount%>">
 		    
 	    <div class="tableTypeWrite payTable">
     	<table>

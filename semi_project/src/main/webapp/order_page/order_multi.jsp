@@ -8,9 +8,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="<%=request.getContextPath()%>/style/order_style.css" type="text/css" rel="stylesheet">
 <%-- 장바구니 페이지에서 구매페이지로  --%>
-<%--fff --%>
 
 <%@include file="/security/login_url.jspf" %>
+
 <%
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	CartDTO sendCart = new CartDTO();
@@ -27,6 +27,16 @@
  	
  
 %>
+
+<style>
+.error {
+	color: red;
+	left: 160px;
+	display: none;
+	align-content: flex-start;
+}
+</style>
+
 
 <div id="titleArea" class="titleArea">
 	<h2>결제하기</h2>	
@@ -54,7 +64,7 @@
 	 				주문자
 					</th>
 					<td class="nameInfo">
-					<input type="text" name="orderNameTxt" id="orderNameTxt" maxlength="10" 
+					<input type="text" name="clientName" id="clientName" maxlength="10" 
 					class="inputTxt name" title="이름입력" style="width: 40%;" value="<%=loginClient.getClientName()%>" readonly="readonly">
 					</td>
 				</tr>
@@ -67,7 +77,7 @@
 			 			연락처
 			 		</th>
 					<td>
-						<select name="mobile1" readonly="readonly">
+						<select name="mobile11" readonly="readonly">
 							<option value="010" selected>&nbsp;010&nbsp;</option>
 							<option value="011">&nbsp;011&nbsp;</option>
 							<option value="016">&nbsp;016&nbsp;</option>
@@ -75,8 +85,8 @@
 							<option value="018">&nbsp;018&nbsp;</option>
 							<option value="019">&nbsp;019&nbsp;</option>
 						</select>
-						- <input type="text" name="mobile2" id="mobile2" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>" readonly="readonly">
-						- <input type="text" name="mobile3" id="mobile3" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>" readonly="readonly">
+						- <input type="text" name="mobile12" id="mobile12" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(4,8)%>" readonly="readonly">
+						- <input type="text" name="mobile13" id="mobile13" size="4" maxlength="4" value="<%=loginClient.getClientMobile().substring(9,13)%>" readonly="readonly">
 					</td>
 				</tr>
 				<tr class="deliveryEmailWrap">
@@ -88,9 +98,8 @@
 			 			이메일
 			 		</th>
 			 		<td>
-			 			<input type="text" name="emailTxt" id="emailTxt" class="deliEmail" 
+			 			<input type="text" name="clientEmail" id="clientEmail" class="deliEmail" 
 			 				title="이메일 입력" style="width:90 %;" value="<%=loginClient.getClientEmail()%>" readonly="readonly">
-			 			<p class="inputAlt"></p>
 			 		</td>
 				</tr>
 			</tbody>
@@ -124,6 +133,7 @@
 						<td class="receiver">
 							<input type="text" name="order_receiver" id="order_receiver" maxlength="10" 
 							class="inputTxt altPosition" title="이름입력" style="width: 14%;" value="">
+							<div id="nameMsg" class="error">이름을 입력해 주세요.</div>
 						</td>
 					</tr>
 					<tr class="deliPhone">
@@ -143,8 +153,10 @@
 								<option value="018">&nbsp;018&nbsp;</option>
 								<option value="019">&nbsp;019&nbsp;</option>
 							</select>
-							- <input type="text" name="mobile5" id="mobile2" size="4" maxlength="4">
-							- <input type="text" name="mobile6" id="mobile3" size="4" maxlength="4">
+							- <input type="text" name="mobile5" id="mobile5" size="4" maxlength="4">
+							- <input type="text" name="mobile6" id="mobile6" size="4" maxlength="4">
+							<div id="mobileMsg"  class="error">전화번호를 입력해 입력해 주세요.</div>
+							<div id="mobileRegMsg" class="error">전화번호는 3~4 자리의 숫자로만 입력해 주세요.</div>
 						</td>
 					</tr>
 					<tr class="deliEmail">
@@ -156,8 +168,9 @@
 					 		이메일
 				 		</th>
 				 		<td>
-				 			<input type="text" name="emailTxt" id="emailTxt" class="inputTxt email" 
-				 			title="이메일 입력" style="width:90 %;" value="">
+				 			<input type="text" name="emailTxt" id="emailTxt" style="width:90 %;" value="">				 			 
+				 			<div id="emailMsg" class="error">이메일을 입력해 주세요.</div>
+							<div id="emailRegMsg" class="error">입력한 이메일이 형식에 맞지 않습니다.</div>
 				 		</td>
 					 </tr>
 				   <tr class="address">
@@ -173,12 +186,15 @@
 				 				<li>
 								<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
 								<span id="postSearch">우편번호 검색</span>
+								<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 								</li>
 								<li>
 								<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
+								<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
 								</li>
 								<li>
 								<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
+								<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
 								</li>
 							</ul>
 			 			</td>
@@ -192,7 +208,8 @@
 					 		배송 요청사항
 					 		</th>
 				 		<td>
-							<textarea rows="5" cols="80" name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<textarea rows="5" cols="80" id="order_content"name="order_content" placeholder="배송 요청사항을 입력해 주세요."></textarea>
+							<div id="orderContentMsg" class="error">배송 요청사항을 입력해 주세요.</div>
 				 		</td>
 				   </tr>
 			  </tbody>
@@ -325,4 +342,61 @@ $("#postSearch").click(function() {
 		} 
 	}).open();
 });
+
+$("#order_receiver").focus();
+
+$("#orderForm").submit(function() {
+	var submitResult=true;
+	
+	$(".error").css("display","none");
+	
+	if($("#order_receiver").val()=="") {
+		$("#nameMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	var emailReg=/^[a-zA-Z]\w{5,19}$/g;
+	//alert($("#emailTxt").val());
+	
+	if($("#emailTxt").val()=="") {
+		$("#emailMsg").css("display","block");
+		submitResult=false;
+	} else if(!emailReg.test($("#email").val())) {
+		$("#emailRegMsg").css("display","block");
+		submitResult=false;
+	}
+
+	var mobile2Reg=/\d{3,4}/;
+	var mobile3Reg=/\d{4}/;
+	if($("#mobile5").val()=="" || $("#mobile6").val()=="") {
+		$("#mobileMsg").css("display","block");
+		submitResult=false;
+	} else if(!mobile2Reg.test($("#mobile5").val()) || !mobile3Reg.test($("#mobile6").val())) {
+		$("#mobileRegMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#zipcode").val()=="") {
+		$("#zipcodeMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#address1").val()=="") {
+		$("#address1Msg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#address2").val()=="") {
+		$("#address2Msg").css("display","block");
+		submitResult=false;
+	}
+	
+	if($("#order_content").val()=="") {
+		$("#orderContentMsg").css("display","block");
+		submitResult=false;
+	}
+	
+	return submitResult;
+});
 </script>
+
