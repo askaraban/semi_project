@@ -57,13 +57,15 @@ public class NoticeDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="insert into notice_table values(?,?,?,?,sysdate,null,0,?)";
+			String sql="insert into notice_table values(notice_seq.nextval,?,?,?,sysdate,null,0,?)";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, notice.getNoticeNum());
-			pstmt.setString(2, notice.getNoticeTitle());
-			pstmt.setString(3, notice.getNoticeContent());
-			pstmt.setString(4, notice.getNoticeImage());
-			pstmt.setInt(5, notice.getNoticeMember());
+			pstmt.setString(1, notice.getNoticeTitle());
+			pstmt.setString(2, notice.getNoticeContent());
+			pstmt.setString(3, notice.getNoticeImage());
+			pstmt.setInt(4, notice.getNoticeMember());
+			
+			rows = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("[에러]insertNotice() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {

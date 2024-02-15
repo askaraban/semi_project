@@ -223,11 +223,13 @@ td {
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
 					 <td>
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 	<% if(currentDate.equals(notice.getNoticeDate().substring(0, 10)))  { %>
-					 		<%=notice.getNoticeDate().substring(11) %>
-					 	<% } else { %>
-					 		<%=notice.getNoticeDate() %>
-					 	<% } %>
+					 	<%if(notice.getNoticeDate()!=null){ %>
+						 	<% if(currentDate.equals(notice.getNoticeDate().substring(0, 10)))  { %>
+						 		<%=notice.getNoticeDate().substring(11) %>
+						 	<% } else { %>
+						 		<%=notice.getNoticeDate() %>
+						 	<% } %>
+					 	<%} %>
 					 </td> 
 				<%--
 				<% } else {//삭제글인 경우 %>
@@ -374,7 +376,7 @@ td {
 	</div>
 
 		<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
-	<form action="<%=request.getContextPath() %>/main_page/main.jsp?group=notice_page&worker=notice_main" method="post">
+	<form action="<%=request.getContextPath() %>/main_page/main.jsp?group=notice_page&worker=notice_main" method="post" >
 		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정(DAO에서 사용하기 위해 컬럼명으로 설정) --%>
 		<select name="search">
 			<option value="name" <% if(search.equals("name")) { %>  selected <% } %>>&nbsp;작성자&nbsp;</option>

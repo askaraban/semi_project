@@ -34,22 +34,8 @@
 	String search=multipartRequest.getParameter("search");
 	String keyword=multipartRequest.getParameter("keyword");
 	
-	//사용자로부터 입력받아 전달된 값에 태그 관련 문자값이 존재할 경우 웹프로그램 실행시 문제 발생
-	//=> XSS(Cross Site Scripting) 공격 : 사용자가 악의적인 스크립트를 입력하여 페이지가 깨지거나
-	// 다른 사용자의 사용을 방해 또는 개인정보를 특정 사이트로 전송하는 공격
-	//String reviewSubject=multipartRequest.getParameter("reviewSubject");
-	//XXS 공격을 방어하기 위한 전달값을 변환하여 저장
-	//=> 전달값에 포함된 태그 관련 문자열을 제거하여 반환
-	//String reviewSubject=Utility.stripTag(multipartRequest.getParameter("reviewSutbject"));
-	//=> 전달값에 포함된 태그 관련 문자를 회피문자로 변환하여 반환
 	String noticeTitle=Utility.stripTag(multipartRequest.getParameter("noticeTitle"));
 	
-	/*
-	int reviewStatus=1; //전달값이 없는 경우 - 일반글
-	if(multipartRequest.getParameter("reviewSecret")!=null) { //전달값이 있는 경우 - 비밀글
-		reviewStatus=Integer.parseInt(multipartRequest.getParameter("noticeSecret"));
-	}
-	*/
 	//String noticeContent=multipartRequest.getParameter("noticeContent");
 	String noticeContent=Utility.escapeTag(multipartRequest.getParameter("noticeContent"));
 	
@@ -63,24 +49,13 @@
 	//REVIEW_SEQ 시퀀스의 다음값을 검색하여 반환하는 ReviewDAO 클래스의 메소드 호출
 	int nextNum=NoticeDAO.getDAO().selectNoticeNextNum();
 	
-	/*
-	//게시글을 작성한 클라이언트의 IP 주소를 반환받아 저장
-	//request.getRomoteAddr() : JSP 문서를 요청한 클라이언트의 IP 주소를 반환하는 메소드
-	//=> 이클립스에 등록된 WAS 프로그램은 기본적으로 128Bit 형식(IPV6)의 IP 주소 제공
-	//32Bit 형식(IPV4)의 IP 주소를 제공받을 수 있도록 이클립스에 등록된 WAS 프로그램의 환경 설정 변경
-	//=> Run >> Run Configurations... >> Apache Tomcat >> 사용중인 Apache Tomcat 선택
-	// >> Arguments >> VM Arguments >> [-Djava.net.preferIPv4Stack=true] 추가 >> Apply
-	//System.out.println("reviewIp = "+reviewIp);
-	String noticeIp=request.getRemoteAddr();
-	*/
 	
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값을 저장
 	NoticeDTO notice=new NoticeDTO();
-	notice.setNoticeNum(nextNum); //시퀀스 객체의 다음값으로 필드값 변경
-	notice.setNoticeMember(loginClient.getClientNum());
 	notice.setNoticeTitle(noticeTitle);
 	notice.setNoticeContent(noticeContent);
 	notice.setNoticeImage(noticeImage);
+	notice.setNoticeMember(loginClient.getClientNum());
 	
 	//게시글을 전달받아 REVIEW 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 ReviewDAO 클래스의 메소드
 	NoticeDAO.getDAO().insertNotice(notice);
