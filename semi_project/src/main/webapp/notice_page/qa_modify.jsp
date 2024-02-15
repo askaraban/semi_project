@@ -53,7 +53,7 @@ td {
 	text-align: left;
 }
 </style>
-<h1>게시글변경</h1>
+<h1 style="text-align: center;">Q&A 변경</h1>
 
 <%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 <form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify_action"
@@ -78,7 +78,7 @@ td {
 		<tr>
 			<th>내용</th>
 			<td>
-				<textarea rows="7" cols="60" name="	qaContent" id="qaContent"><%=qa.getQaContent()%></textarea>
+				<textarea rows="7" cols="60" name="qaContent" id="qaContent"><%=qa.getQaContent()%></textarea>
 			</td>
 		</tr>			
 		<tr>
