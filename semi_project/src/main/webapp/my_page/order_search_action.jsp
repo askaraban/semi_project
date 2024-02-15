@@ -11,11 +11,16 @@
 String startDate = request.getParameter("startDate");
 String edDate = request.getParameter("endDate");
 int clientNum = Integer.parseInt(request.getParameter("clientNum"));
+int startRow = Integer.parseInt(request.getParameter("startRow"));
+int endRow = Integer.parseInt(request.getParameter("endRow"));
 DecimalFormat format = new DecimalFormat("###,###,##0");
 
 
-List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startDate, edDate, clientNum);
+List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startDate, edDate, clientNum, startRow, endRow);
 String uri = Utility.toJSON("/main_page/main.jsp?group=product_page&worker=product&productNum=");
+
+String uri2 = Utility.toJSON("/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=");
+System.out.println(startRow);
 %>
 
 <% if(myOrderList.isEmpty()) {//검색된 주문정보가 없는 경우 %>
@@ -33,6 +38,7 @@ String uri = Utility.toJSON("/main_page/main.jsp?group=product_page&worker=produ
 		, "product":"<%=Utility.toJSON(myOrderList.get(i).getProductName()) %>"
 		, "price":"<%=format.format(myOrderList.get(i).getOrderSum()) %>"
 		, "url":"<%=request.getContextPath()%><%=uri%><%=myOrderList.get(i).getProductNum() %>"
+		, "url2":"<%=request.getContextPath()%><%=uri2%><%=myOrderList.get(i).getProductNum() %>&orderTime=<%=myOrderList.get(i).getOrderTime() %>"
 		, "status":"<%=myOrderList.get(i).getOrderStatus() %>"}
 	<% } %>	
 	]

@@ -27,6 +27,9 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 DecimalFormat format = new DecimalFormat("###,###,##0");
 
 
+int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(clientNum);
+List<OrderDTO> tot = OrderDAO.getDAO().selectMyOrderCnt(clientNum);
+int cntTot = tot.size();
 
 //페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
 int pageNum = 1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
@@ -39,18 +42,6 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
 
-int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(clientNum);
-
-//페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
-//ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
-int startRow = (pageNum - 1) * pageSize + 1;
-
-//페이지번호에 대한 게시글의 종료 행번호를 계산하여 저장
-//ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
-int endRow = pageNum * pageSize;
-
-
-List<OrderDTO> myOrderList = OrderDAO.getDAO().myOrderList(startRow, endRow, clientNum, currentDate, currentDate);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
@@ -64,18 +55,31 @@ if (pageNum <= 0 || pageNum > totalPage) {
 	pageNum = 1;
 }
 
+//페이지번호에 대한 게시글의 시작 행번호를 계산하여 저장
+//ex) 1Page : 1, 2Page : 11, 3Page : 21, 4Page : 31, ...
+int startRow = (pageNum - 1) * pageSize + 1;
+
+//페이지번호에 대한 게시글의 종료 행번호를 계산하여 저장
+//ex) 1Page : 10, 2Page : 20, 3Page : 30, 4Page : 40, ...
+int endRow = pageNum * pageSize;
 
 //마지막 페이지의 게시글의 종료 행번호가 게시글의 총갯수보다 많은 경우 종료 행번호 변경
 if (endRow > totalReviewOrder) {
 	endRow = totalReviewOrder;
 }
 
+List<OrderDTO> myOrderList = OrderDAO.getDAO().selectMyOrderList(clientNum, startRow, endRow, currentDate, currentDate);
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 //=> 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
 int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 
 OrderDTO order = new OrderDTO();
 int orderCnt = 0;
+int cnt = 0;
+if(request.getParameter("cnt")!=null){
+	cnt = Integer.parseInt(request.getParameter("cnt"));
+}
+
 
 %>
 <style>
@@ -112,6 +116,23 @@ int orderCnt = 0;
 							<tr>
 								<th scope="row">기간별 조회</th>
 								<td>
+								<%if(request.getParameter("cnt")!=null) {%>
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry1" <%if(cnt==1 || cnt==0) {%>checked="checked"<%} %>>
+									<span>오늘</span>
+									</label> 
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry2" <%if(cnt==2) {%>checked="checked"<%} %>>
+									<span>1주일</span>
+									</label>
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry3" <%if(cnt==3) {%>checked="checked"<%} %>>
+									<span>1개월</span>
+									</label>
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry4" <%if(cnt==4) {%>checked="checked"<%} %>>
+									<span>3개월</span>
+									</label>
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry5" <%if(cnt==5) {%>checked="checked"<%} %>>
+									<span>6개월</span>
+									</label>
+								<%} else {%>
 									<label class="inputRadio"><input type="radio" name="srch" id="inquiry1" checked="checked">
 									<span>오늘</span>
 									</label> 
@@ -121,12 +142,13 @@ int orderCnt = 0;
 									<label class="inputRadio"><input type="radio" name="srch" id="inquiry3">
 									<span>1개월</span>
 									</label>
-									<label class="inputRadio"><input type="radio" name="srch" id="inquiry4">
+									<label class="inputRadio"><input type="radio" name="srch" id="inquiry4" >
 									<span>3개월</span>
 									</label>
 									<label class="inputRadio"><input type="radio" name="srch" id="inquiry5">
 									<span>6개월</span>
 									</label>
+								<%} %>
 								</td>
 							</tr>
 							<tr>
@@ -176,31 +198,18 @@ int orderCnt = 0;
 							</tr>
 						<%} %>
 							<%for(OrderDTO orderList : myOrderList) { %>
-							<%
-								order = OrderDAO.getDAO().selectedOrderList(orderList.getOrderTime().substring(0, 17));
-								orderCnt = OrderDAO.getDAO().selectSameOrder(orderList.getOrderTime().substring(0, 17));
-							%>
-							<tr class="<%=order.getOrderTime().substring(0, 17)%> orList" >
-								<td class="findOrderList"><%=order.getOrderDate().substring(0,10) %></td>
+							<tr class="<%=orderList.getOrderTime().substring(0, 17)%> orList" >
+								<td class="findOrderList"><%=orderList.getOrderDate().substring(0,10) %></td>
 								
-								<%if(orderCnt>1){  // 주문 수가 1개 초과인 경우%>
 								
 									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
 										 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
 									</td>
 									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
 									 class="productName"> <%=orderList.getProductName() %> </a></td>
-								<%} else { // 주문 수가 1개인 경우%>
-								
-									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
-										 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
-									</td>
-									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
-									 class="productName"> <%=orderList.getProductName() %> </a></td>
-								<%} %>
 																
 								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
-								<%if(order.getOrderStatus()==1) {%>
+								<%if(orderList.getOrderStatus()==1) {%>
 								<td id="orderStatus">배송완료</td>
 								<%} else { %>
 								<td id="orderStatus">제품 준비중</td>
@@ -236,13 +245,13 @@ int orderCnt = 0;
 		%>
 		
 		<%if(startPage>blockSize){%>
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
+			<a  href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
 		<%} else {%>
 			[이전]
 		<%} %>
 		<% for(int i=startPage;i<=endPage;i++){ %>
 			<%if(pageNum !=i) {%>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
+				<a id="cnt_<%=i %>" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>" class="page">[<%=i %>]</a>
 			<%}else{  %>
 				[<%=i %>]
 			<%} %>
@@ -371,10 +380,12 @@ $("#inquiry5").click(function() {
 		var startDate = $("#stDate").val();
 		var endDate = $("#endDate").val();
 		var clientNum = $("#clientNum").val();
+		var startRow = <%=startRow%>
+		var endRow = <%=endRow%>
 		$.ajax({
 			type: "post",
 			url: "<%=request.getContextPath()%>/my_page/order_search_action.jsp",
-			data : {"startDate" : startDate, "endDate" : endDate, "clientNum" : clientNum},
+			data : {"startDate" : startDate, "endDate" : endDate, "clientNum" : clientNum, "startRow" : startRow, "endRow" : endRow},
 			dataType: "json",
 			success: function(result) {
 				//주문정보목록에 출력된 기존 주문정보들을 삭제 처리 - 초기화
@@ -387,7 +398,7 @@ $("#inquiry5").click(function() {
 						//Array 객체의 요소값(Object 객체)를 HTML 태그(div)로 변환
 						var html="<tr>";
 						html+="<td>"+this.date+"</td>";//주문날짜
-						html+="<td><a href='#'>"+this.number+" </a></td>";//주문번호
+						html+="<td><a href='"+this.url2+"'>"+this.number+" </a></td>";//주문번호
 						html+="<td class='left productName'><a href='"+this.url+"'>"+this.product+" </a></td>";//제품이름
 						html+="<td>"+this.price+"원</td>";//가격
 						if(this.status==1){
@@ -415,19 +426,6 @@ $("#inquiry5").click(function() {
 			}
 		});
 	});
-	
-	var count = $(".findOrderList");
-	$("#countOrder").val(count);
-	
-	
-	// 주문정보를 출력하기
-	$(".orderNumList").each(function() {
-		$(this).click(function(){		
-			var checked = $(this).attr("id");
 
-			
-		})
-	}); 
-	
 	
 </script>
