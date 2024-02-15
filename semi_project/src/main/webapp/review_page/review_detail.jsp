@@ -106,15 +106,60 @@ td {
 	height: 200px;
 	vertical-align: middle;
 }
-
+/* 
 #review_menu {
 	text-align: right;
 	margin: 5px;
 }
+*/
 
 #review_listBtn {
 	text-align: right;
 	margin-top: 50px;
+} 
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#replyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+ 
+#removeBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#listBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
 
@@ -159,12 +204,11 @@ td {
 		</tr>
 	</table>
 	
-	<!-- 버튼 태그 div -->
-	<div id="review_menu">
-		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
+ 	<!-- 버튼 태그 div -->
+	<div id="review_menu" style="text-align: right;">
+		<!-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 -->
 		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum())) { %>
 			<button type="button" id="modifyBtn">리뷰변경</button>
-			<!-- <button type="button" id="removeBtn">리뷰삭제</button> -->
 		<% } %>
 	</div>
 </div>
@@ -190,17 +234,21 @@ td {
 			</tr>
 		</table>
 		
-		<div id="review_menu">
+		<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
+		<div id="review_menu" style="text-align: right;">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-			<% if(loginClient.getClientStatus()==9) { %>
 				<button type="button" id="replyBtn">답변수정</button>
-			<% } %>
 		</div>
+		<% } else {} %>
 	</form>
 </div>
 
-<div id="review_listBtn">
-	<button type="button" id="removeBtn">리뷰삭제</button>
+<div id="review_listBtn" style="text-align: right;">
+
+	<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum()
+			|| loginClient.getClientStatus()==9)) { %>
+		<button type="button" id="removeBtn">삭제</button>
+	<% } %>
 	<button type="button" id="listBtn">글목록</button>
 </div>
 
