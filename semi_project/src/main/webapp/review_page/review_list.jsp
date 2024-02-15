@@ -110,18 +110,18 @@
 				
 				<%-- 제목 출력 --%>
 				<td class="subject">
-					<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
+<%-- 					게시글이 답글인 경우에 대한 응답 처리
 					<% if(review.getReviewReplay() != null) {//답글인 경우 
 						int reviewReplayLen = 1; %>
-						<%-- 게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정 --%>
+						게시글(답글)의 깊이를 제공받아 왼쪽 여백 설정
 						<span style="margin-left: <%=reviewReplayLen*20%>px;">┗[답글]</span>
-					<% } %>
+					<% } %> --%>
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
 						String url=request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
 							+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
-							+"&reviewSubject="+review.getReviewSubject();
+							+"&reviewSubject="+review.getReviewSubject()+"&replay="+review.getReviewReplay();
 					%>
 					<a href="<%=url%>"><%=review.getReviewSubject() %></a>
 				</td>
