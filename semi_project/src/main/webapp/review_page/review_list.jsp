@@ -120,7 +120,8 @@
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
 					<%
 						String url=request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
-							+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize;
+							+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
+							+"&reviewSubject="+review.getReviewSubject();
 					%>
 					<a href="<%=url%>"><%=review.getReviewSubject() %></a>
 				</td>
