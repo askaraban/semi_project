@@ -76,10 +76,14 @@ th, td {
 	padding: 5px;	
 }
 
+h1 {
+	text-align: center;
+}
+
 th {
 	width: 100px;
-	background: black;
-	color: white;
+	background: pink;
+	color: black;
 }
 
 td {
@@ -102,7 +106,7 @@ td {
 </style>
 
 <div id="qa_detail">
-	<h1>제품후기</h1>
+	<h1>Q&A</h1>
 	
 	<%-- 검색된 게시글 출력 --%>
 	<table>
@@ -168,21 +172,21 @@ td {
 //pageNum,search,keyword 글 목록 위해 전해주는 값(목록에서 상세 페이지)
 $("#modifyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify"
-		+"&reviewNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
+		+"&qaNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
 		+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 
 $("#removeBtn").click(function() {
 	if(confirm("게시글을 정말로 삭제 하시겠습니까?")) {
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_remove_action"
-			+"&reviewNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
+			+"&qaNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
 			+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 	}
 });
 
 $("#replyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_write"
-		+"&productNum=<%=qa.getQaProductNum()%>"	
+		+"&qaNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
 		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 

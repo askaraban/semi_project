@@ -30,7 +30,9 @@ public class QaDTO {
 	
 	private int clientNum;
 	
-	
+	public QaDTO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getClientNum() {
 		return clientNum;
@@ -46,10 +48,6 @@ public class QaDTO {
 
 	public void setQaName(String qaName) {
 		this.qaName = qaName;
-	}
-
-	public QaDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getQaNum() {

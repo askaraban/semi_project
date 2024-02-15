@@ -83,6 +83,7 @@
 	qa.setQaSubject(qaSubject);
 	qa.setQaContent(qaContent);
 	qa.setQaImage(qaImage);
+	//qa.setQaProductNum(qaProductNum);
 	
 	//게시글을 전달받아 REVIEW 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 ReviewDAO 클래스의 메소드
 	QaDAO.getDAO().insertQa(qa);

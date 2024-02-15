@@ -27,7 +27,16 @@ public class NoticeDTO {
 	private String noticeDate;
 	private String noticeUpdate;
 	private int noticeCount;
+	private int noticeMember;
 	
+	public int getNoticeMember() {
+		return noticeMember;
+	}
+
+	public void setNoticeMember(int noticeMember) {
+		this.noticeMember = noticeMember;
+	}
+
 	private int clientNum;
 	
 	public int getClientNum() {

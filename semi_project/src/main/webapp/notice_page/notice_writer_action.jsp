@@ -77,6 +77,7 @@
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값을 저장
 	NoticeDTO notice=new NoticeDTO();
 	notice.setNoticeNum(nextNum); //시퀀스 객체의 다음값으로 필드값 변경
+	notice.setNoticeMember(loginClient.getClientNum());
 	notice.setNoticeTitle(noticeTitle);
 	notice.setNoticeContent(noticeContent);
 	notice.setNoticeImage(noticeImage);

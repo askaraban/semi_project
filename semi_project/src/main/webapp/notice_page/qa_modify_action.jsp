@@ -33,12 +33,15 @@
 	String search=multipartRequest.getParameter("search");
 	String keyword=multipartRequest.getParameter("keyword");
 	String qaSubject=Utility.escapeTag(multipartRequest.getParameter("qaSubject"));
+	
+	
 	/* 일반글, 비밀글, 삭제글 따로 구분 없음
 	int reviewStatus=1;//전달값이 없는 경우 - 일반글
 	if(multipartRequest.getParameter("reviewSecret")!=null) {//전달값이 있는 경우 - 비밀글
 		reviewStatus=Integer.parseInt(multipartRequest.getParameter("reviewSecret"));
 	}
 	*/
+	
 	String qaContent=Utility.escapeTag(multipartRequest.getParameter("qaContent"));
 	
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로를 저장
@@ -53,6 +56,9 @@
 			new File(saveDirectory, removeQaImage.substring("/images/".length())).delete();
 		}
 	}
+	
+	//REVIEW_SEQ 시퀀스의 다음값을 검색하여 반환하는 ReviewDAO 클래스의 메소드 호출
+	int nextNum=QaDAO.getDAO().selectQaNextNum();
 	
 	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값 변경
 	QaDTO qa=new QaDTO();

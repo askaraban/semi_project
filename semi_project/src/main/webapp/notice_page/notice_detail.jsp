@@ -147,17 +147,28 @@ td {
 	</div>
 </div>
 <script type="text/javascript">
-$("#modifyBtn").click(function () {
-	
+$("#modifyBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_modify"
+		+"&noticeNum=<%=notice.getNoticeNum()%>&pageNum=<%=pageNum%>"
+		+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 
-$("#removeBtn").click(function () {
-	
+$("#removeBtn").click(function() {
+	if(confirm("게시글을 정말로 삭제 하시겠습니까?")) {
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_remove_action"
+			+"&noticeNum=<%=notice.getNoticeNum()%>&pageNum=<%=pageNum%>"
+			+"&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
+	}
 });
 
-$("#NoticeMainBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
+$("#replyBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_write"
+		+"&noticeNum=<%=notice.getNoticeNum()%>&pageNum=<%=pageNum%>"
 		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
 });
 
+$("#listBtn").click(function() {
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
+		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
+});
 </script>
