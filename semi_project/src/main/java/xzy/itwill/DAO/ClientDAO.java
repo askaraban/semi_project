@@ -240,11 +240,12 @@ public class ClientDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="update client_table set client_passwd=? where client_name=? and client_id=?";
+				String sql="update client_table set client_passwd=? where client_name=? and client_id=? and client_email=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, clientTable.getClientPasswd());
 				pstmt.setString(2, clientTable.getClientName());
 				pstmt.setString(3, clientTable.getClientID());
+				pstmt.setString(4, clientTable.getClientEmail());
 				
 				rows=pstmt.executeUpdate();
 			} catch (SQLException e) {

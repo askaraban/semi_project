@@ -38,10 +38,12 @@
 	color: red;
 	font-weight: bold;
 }
+
+
 </style>
 
 <h1>비밀번호 찾기</h1>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=member&worker=search_passwd_action"
+<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_passwd_action"
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
@@ -50,8 +52,11 @@
 		<li>
 			<input type="text" name="id" id="id" placeholder="아이디">	
 		</li>
+		<li>
+			<input type="text" name="email" id="email" placeholder="이메일">	
+		</li>
 	</ul>	
-	<div id="search_btn">비밀번호 검색</div>
+	<div id="search_btn" class="repasswd">비밀번호 찾기</div>
 </form>
 <div id="message"></div>
 
@@ -70,7 +75,11 @@ $("#search_btn").click(function() {
 		$("#id").focus();
 		return;
 	}	
-	
+	if($("#email").val()=="") {
+		$("#message").text("이메일를 입력해 주세요.");
+		$("#email").focus();
+		return;
+	}
 	$("#searchForm").submit();
 });
 </script>

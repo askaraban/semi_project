@@ -29,3 +29,6 @@
 <% } else {//검색결과가 없는 경우 %>
 	<p style="font-size: 1.5em;"><%=name %>님의 아이디의 아이디를 찾을 수 없습니다.</p>
 <% } %>
+<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
+&worker=client_login">
+<button type="submit" >로그인하기</button>
