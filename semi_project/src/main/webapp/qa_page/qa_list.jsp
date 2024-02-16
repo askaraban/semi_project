@@ -94,13 +94,13 @@
 	<%-- 검색된 게시글 총갯수 출력 --%>
 	<div id="qa_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px; font-weight: bold;">Q&A목록(<%=qaReview %>)</div>
 	<div style="text-align: right;">
-		<%-- <%if(loginClient!=null && loginClient.getClientStatus()==1) { %> --%> <!-- !!!!!!!!!!!!!!!!!!!!!!!!권한 추가하기!!!!!!!!!!!!!!!!!!!!!!!! -->
+		<% if(loginClient!=null && loginClient.getClientStatus()==1) { %>
 			<%
 				String Url=request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_write"
 						+"&reviewProductNum="+reviewProductNum+"&pageNum="+pageNum+"&pageSize="+pageSize;
 			%>
 			<button type="button" id="qaWriteBtn" onclick="location.href='<%=Url%>'">QA작성</button>
-		<%-- <%} %> --%>
+		<% } %>
 	</div>
 	
 	<%-- 게시글 목록 출력 --%>
