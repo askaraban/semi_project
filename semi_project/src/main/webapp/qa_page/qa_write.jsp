@@ -100,7 +100,18 @@ td {
 				<th>제목</th>
 				<td>
 					<!-- <input type="text" name="qaSubject" id="qaSubject" size="40" value=""test> -->
-					<input type="text" name="qaSubject" id="qaSubject" size="40" value="[<%= product.getProductName() %>]">
+					<%
+					  // 제품명 가져오기
+					  String productName = product.getProductName();
+
+					  // 제품명이 5글자 이상인지 확인하고, 필요에 따라 말 줄임 표시 추가
+					  if (productName.length() > 9) {
+					    productName = productName.substring(0, 9) + "..."; // 5글자 이상이면 말 줄임 표시 추가
+					  }
+					
+					%>
+					
+					<input type="text" name="qaSubject" id="qaSubject" size="40" value="[<%= productName %>]">
 					<% System.out.println("getProductName = " + product.getProductName()); %>
 				</td>					
 			</tr>	
