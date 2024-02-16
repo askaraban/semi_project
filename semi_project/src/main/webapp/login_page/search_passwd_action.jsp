@@ -31,9 +31,7 @@
 	
 	//회원정보를 전달받아 client 테이블에 비밀번호 변경  
 	//ClientDAO 클래스의 메소드 호출
-	ClientDAO.getDAO().updateClientPassword(client);
-	
-	
+	ClientDAO.getDAO().updateClientPassword(client);		
 %>
 <h1>임시비밀번호 발급</h1>
 <% if(id!=null && name!=null && email!=null) {//검색결과가 있는 경우 %>
