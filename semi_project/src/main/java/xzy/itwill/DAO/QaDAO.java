@@ -289,7 +289,7 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null,1)";
+			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null,null)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, qa.getQaNum());
 			pstmt.setInt(2, qa.getQaMember());
