@@ -185,12 +185,8 @@ td {
 	<div style="text-align: right;">
 	<%if(loginClient!=null){ %>
 		<% if(loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
-			<!-- <button type="button" id="qaWriteBtn">QA쓰기</button> -->
 			<button type="button" id="noticeWriteBtn">공지쓰기</button>
 		<% } %>
-		<% if(loginClient.getClientStatus()==1) { %>
-			<button type="button" id="qaWriteBtn">QA쓰기</button>
-		<%} %>
 	<%} %>
 	</div>
 	
@@ -256,6 +252,14 @@ td {
 	
 	<div id="qa_list">
 		<div id="qa_title">- Q&A(<%=totalQa%>)</div>
+	</div>
+	
+	<div style="text-align: right;">
+		<%if(loginClient!=null){ %>
+			<% if(loginClient.getClientStatus()==1) { %>
+				<button type="button" id="qaWriteBtn">QA쓰기</button>
+			<%} %>
+		<%} %>
 	</div>
 	
 	<%-- Q&A --%>
