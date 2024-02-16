@@ -26,7 +26,9 @@
 .wishBtn {
 	width: 70%;
 	height: 80px;
-	margin-top: 10px;
+	margin-top: 20px;
+	margin-left: 360px;
+	position: absolute;
 }
 
 .orderBtn {
@@ -55,9 +57,6 @@
 
 .ProductWish {
 	width: 50px;
-	position: absolute;
-    top: 795px;
-    left: 1340px;
 	opacity: 0.7;
 }
 
