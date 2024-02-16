@@ -312,30 +312,7 @@
 	</div>	
 </section>
 		<% if(totalPrice < 50000) { %>
-				<div style="display: flex;">
-					<div class="cart-select-product-content">						
-								<span class="result-word" >선택상품금액</span>
-								<br>
-								<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
-					</div>
-					<div class="cart-minus-content">-</div>
-							<div style="width: 100px; height: 100px; padding-top: 20px;">
-								<span class="result-word">배송비</span>
-								<br>
-								<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
-							</div>
-							<div class="cart-result-content">=</div>
-							<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
-								<span class="result-word">주문금액</span>
-								<br>
-								<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
-							</div>
-							<div style="width: 200px; height: 100px; padding-top: 23px;">
-					<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
-				</div>
-			</div>										
-		<% } else { %>
-				<div style="display: flex;">
+			<div style="display: flex;">
 					<div class="cart-select-product-content">							
 							<span class="result-word" >선택상품금액</span>
 							<br>
@@ -359,6 +336,30 @@
 						<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
 					</div>
 			</div>
+				
+		<% } else { %>
+				<div style="display: flex;">
+					<div class="cart-select-product-content">						
+								<span class="result-word" >선택상품금액</span>
+								<br>
+								<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
+					</div>
+					<div class="cart-minus-content">-</div>
+							<div style="width: 100px; height: 100px; padding-top: 20px;">
+								<span class="result-word">배송비</span>
+								<br>
+								<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
+							</div>
+							<div class="cart-result-content">=</div>
+							<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+								<span class="result-word">주문금액</span>
+								<br>
+								<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
+							</div>
+							<div style="width: 200px; height: 100px; padding-top: 23px;">
+					<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
+				</div>
+			</div>										
 		<% } %>
 </form>
 				                                 				                         											
@@ -386,13 +387,11 @@ $("#orderForm").submit(function() {
 		submitResult=false;
 	}
 	
-	var emailReg=/^[a-zA-Z]\w{5,19}$/g;
-	//alert($("#emailTxt").val());
-	
+	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
 	if($("#emailTxt").val()=="") {
 		$("#emailMsg").css("display","block");
 		submitResult=false;
-	} else if(!emailReg.test($("#email").val())) {
+	} else if(!emailReg.test($("#emailTxt").val())) {
 		$("#emailRegMsg").css("display","block");
 		submitResult=false;
 	}

@@ -525,11 +525,11 @@ $("#orderForm").submit(function() {
 		submitResult=false;
 	}
 	
-	var emailReg=/^[a-zA-Z]\w{5,19}$/g;
+	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
 	if($("#emailTxt").val()=="") {
 		$("#emailMsg").css("display","block");
 		submitResult=false;
-	} else if(!emailReg.test($("#email").val())) {
+	} else if(!emailReg.test($("#emailTxt").val())) {
 		$("#emailRegMsg").css("display","block");
 		submitResult=false;
 	}

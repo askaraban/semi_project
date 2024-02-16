@@ -7,15 +7,12 @@
 	width: 300px;
 }
 
-#searchForm label {
-	text-align: right;
-	width: 100px;
-	float: left;
-}
+
 
 #searchForm ul li {
 	list-style-type: none;
 	margin-bottom: 10px;
+	margin-right: 100px;
 }
 
 #searchForm input:focus {
@@ -36,15 +33,15 @@
 }
 
 #name {
-	width: 260px;
+	width: 270px;
 }
 
 #id {
-	width: 260px;
+	width: 270px;
 }
 
 #email {
-	width: 260px;
+	width: 270px;
 }
 #message1 {
 	color: red;
