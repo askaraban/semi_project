@@ -71,11 +71,7 @@
 		//전달값을 반환받아 변수에 저장 ..제품번호,수량,회원번호,
 		// int orderCount=Integer.parseInt(request.getParameter("productCount"));
 		
-		
-		
-		
-		
-		 
+	 
 		//클라이언트에게 URL 주소를 전달하여 응답
 		response.sendRedirect(request.getContextPath()+"/order_page/payment.jsp");
 		

@@ -289,7 +289,7 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null,1)";
+			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null,null)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, qa.getQaNum());
 			pstmt.setInt(2, qa.getQaMember());
@@ -400,7 +400,7 @@ public class QaDAO extends JdbcDAO {
 			
 			//사용자가 이미지 파일을 입력하지 않은 경우 - 이미지 파일 미변경(기존 이미지 파일 사용)
 			if(qa.getQaImage()==null) {
-				String sql="update qa_table set qa_subject=?,qa_content=?"
+				String sql="update qa_table set qa_subject=?,qa_content=?,qa_update=sysdate"
 						+ " where qa_num=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, qa.getQaSubject());
@@ -408,7 +408,7 @@ public class QaDAO extends JdbcDAO {
 				pstmt.setInt(3, qa.getQaNum());
 			} else {//사용자가 이미지 파일을 입력한 경우 - 이미지 파일 변경
 				String sql="update qa_table set qa_subject=?,qa_content=?,qa_image=?"
-						+ " where qa_num=?";
+						+ " ,qa_update=sysdate where qa_num=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, qa.getQaSubject());
 				pstmt.setString(2, qa.getQaContent());
@@ -418,7 +418,7 @@ public class QaDAO extends JdbcDAO {
 				
 			rows=pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("[에러]updateReview() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]updateQa() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt);
 		}

@@ -25,18 +25,18 @@
 	String pageNum=request.getParameter("pageNum");
 	String pageSize=request.getParameter("pageSize");
 	int qaNum = Integer.parseInt(request.getParameter("qaNum"));
+	int productNum = Integer.parseInt(request.getParameter("productNum"));
 	String replay=request.getParameter("replay");
-	String search=request.getParameter("search");
-	String keyword=request.getParameter("keyword");
 	
 	// reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
 	QaDTO qa = new QaDTO();
 	qa.setQaReplay(replay);
+	qa.setQaProductNum(productNum);
 	qa.setQaNum(qaNum);
 	
 	// 관리자가 답변 달 때 review_replay 행 update 하는 메소드
 	QaDAO.getDAO().updateQaReplay(qa);
 	
 	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_detail"
-			+"&qaNum="+qa.getQaNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
+			+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
 %>

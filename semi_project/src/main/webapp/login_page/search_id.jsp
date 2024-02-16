@@ -42,20 +42,25 @@
 #message {
 	color: red;
 	font-weight: bold;
+	text-align: center;
 }
 </style>
+<div class="titlearea">
 <h1>아이디 찾기</h1>
+</div>
 <form action="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_id_action"
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
-			<input type="text" name="name" id="name" placeholder="이름">	
+			<strong class="name">이름</strong>&nbsp;&nbsp;
+			<input type="text" name="name" id="name">	
 		</li>
 		<li>
+			<strong class="email">이메일</strong>&nbsp;&nbsp;
 			<input type="text" name="email" id="email" placeholder="이메일">	
 		</li>
 	</ul>	
-	<div id="search_btn">아이디 검색</div>
+	<div id="search_btn">아이디 찾기</div>
 </form>
 <div id="message"></div>
 

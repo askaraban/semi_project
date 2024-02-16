@@ -235,8 +235,9 @@ public class NoticeDAO extends JdbcDAO {
 					notice.setNoticeNum(rs.getInt("notice_num"));
 					notice.setClientNum(rs.getInt("client_num"));
 					notice.setNoticeTitle(rs.getString("notice_title"));
-					notice.setNoticeContent(rs.getString("notice_image"));
-					notice.setNoticeImage(rs.getString("notice_date"));
+					notice.setNoticeContent(rs.getString("notice_content"));
+					notice.setNoticeImage(rs.getString("notice_image"));
+					notice.setNoticeDate(rs.getString("notice_date"));
 					notice.setNoticeUpdate(rs.getString("notice_update"));
 					notice.setNoticeCount(rs.getInt("notice_count"));
 					noticeList.add(notice);

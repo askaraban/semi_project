@@ -33,8 +33,6 @@
 }
 
 .login_tag {
-	
-	
 	margin: 5px auto;
 	width: 425px;
 }
@@ -104,11 +102,11 @@ a:hover {
 	<input type="hidden" value="<%=url%>" name="url"> 
 	<ul class="login_tag">
 		<li>
-			<label for="id" >아이디</label>
+			<label for="id" >아이디</label>&nbsp;&nbsp;
 			<input type="text" name="id" id="id" value="<%=id%>" style="width:210px;" >	
 		</li>
 		<li>
-			<label for="passwd">비밀번호</label>
+			<label for="passwd">비밀번호</label>&nbsp;&nbsp;
 			<input type="password" name="passwd" id="passwd" style="width:210px;" >	
 		</li>
 	</ul>	

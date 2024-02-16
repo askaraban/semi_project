@@ -223,13 +223,8 @@ td {
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
 					 <td>
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 	<%if(notice.getNoticeDate()!=null){ %>
-						 	<% if(currentDate.equals(notice.getNoticeDate().substring(0, 10)))  { %>
-						 		<%=notice.getNoticeDate().substring(11) %>
-						 	<% } else { %>
+
 						 		<%=notice.getNoticeDate() %>
-						 	<% } %>
-					 	<%} %>
 					 </td> 
 				<%--
 				<% } else {//삭제글인 경우 %>
@@ -305,11 +300,7 @@ td {
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
 					 <td>
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 	<% if(currentDate.equals(qa.getQaRegister().substring(0, 10)))  { %>
-					 		<%=qa.getQaRegister().substring(11) %>
-					 	<% } else { %>
 					 		<%=qa.getQaRegister() %>
-					 	<% } %>
 					 </td>
 				<%--
 				<% } else {//삭제글인 경우 %>

@@ -23,7 +23,6 @@
 	String pageNum=request.getParameter("pageNum");
 	String pageSize=request.getParameter("pageSize");
 	String qaSubject=request.getParameter("qaSubject");
-	//System.out.println("reviewNum = " + reviewNum);
 	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("qaNum")==null) {
@@ -109,14 +108,58 @@ td {
 	vertical-align: middle;
 }
 
-#qa_menu {
+/* #qa_menu {
 	text-align: right;
 	margin: 5px;
-}
+}  */
 
 #qa_listBtn {
 	text-align: right;
 	margin-top: 50px;
+}
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#replyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+ 
+#removeBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#listBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
 
@@ -161,10 +204,10 @@ td {
 	</table>
 	
 	<!-- 버튼 태그 div -->
-	<div id="qa_menu">
+	<div id="qa_menu" style="text-align: right;">
 		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
 		<% if(loginClient!=null && (loginClient.getClientNum()==qa.getQaMember())) { %>
-			<button type="button" id="modifyBtn">Q&A변경</button>
+			<button type="button" id="modifyBtn">Q&A수정</button>
 		<% } %>
 	</div>
 </div>
@@ -189,16 +232,25 @@ td {
 				<% } %>
 			</tr>
 		</table>
-		
-		<div id="qa_menu">
-			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-			<%-- <% System.out.println("9인가요? = " + loginClient.getClientStatus()); %> --%>
+
+ 		<div id="qa_menu" style="text-align: right;">
+			<!-- 관리자인 경우에만 태그를 출력하여 링크 제공 -->
 			<% if(loginClient!=null) { %>	
 				<% if(loginClient.getClientStatus()==9) { %>
 					<button type="button" id="replyBtn">답변수정</button>
 				<% } %>
 			<% } %>
-		</div>
+		</div> 
+		
+		
+<%-- 		<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
+			<div id="qa_menu" style="text-align: right;">
+				관리자인 경우에만 태그를 출력하여 링크 제공
+				<button type="button" id="replyBtn">답변수정</button>
+			</div>
+		<% } else { %>
+			<div id="qa_menu" style="text-align: right;"></div>
+		<% } %> --%>
 	</form>
 </div>
 
@@ -206,7 +258,7 @@ td {
 	<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
 	<% if(loginClient!=null && (loginClient.getClientNum()==qa.getQaMember()
 			|| loginClient.getClientStatus()==9)) { %>
-		<button type="button" id="removeBtn">Q&A삭제</button>
+		<button type="button" id="removeBtn">삭제</button>
 	<% } %>
 	<button type="button" id="listBtn">글목록</button>
 </div>
@@ -214,8 +266,8 @@ td {
 <script type="text/javascript">
 $("#modifyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_modify"
-		+"&reviewNum=<%=qa.getQaNum()%>&pageNum=<%=pageNum%>"
-		+"&pageSize=<%=pageSize%>";	
+		+"&qaNum=<%=qaNum%>&pageNum=<%=pageNum%>"
+		+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
 });
 
 $("#removeBtn").click(function() {
@@ -229,13 +281,8 @@ $("#removeBtn").click(function() {
 $("#replyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_replay_write"
 		+"&replay=<%=qa.getQaReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
-		+"&qaSubject=<%=qaSubject %>&qaNum=<%=qaNum%>";	
+		+"&qaSubject=<%=qaSubject %>&productNum=<%=productNum%>&qaNum=<%=qaNum%>";	
 });
-
-<%-- $("#listBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
-		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
-}); --%>
 
 $("#listBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
