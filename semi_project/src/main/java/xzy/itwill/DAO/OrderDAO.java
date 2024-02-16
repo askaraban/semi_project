@@ -719,7 +719,7 @@ public class OrderDAO extends JdbcDAO {
 						+ ", order_address2, order_mobile, order_count, product_num, product_name, product_price"
 						+ ", product_dis, product_main_img, order_email, row_number() over (partition by order_client_num, order_time"
 						+ " order by order_time) as rn from order_table join product_table on product_num=order_product_num"
-						+ " where order_client_num=? and to_char(order_date,'yyyy-mm-dd') between ? and ?)) temp where rn=1) where row_num between ? and ?";
+						+ " where order_client_num=? and to_char(order_date,'yyyy-mm-dd') between ? and ? order by order_date desc)) temp where rn=1) where row_num between ? and ?";
 				
 				pstmt = con.prepareStatement(sql);
 				

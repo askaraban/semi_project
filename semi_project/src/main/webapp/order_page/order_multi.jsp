@@ -228,21 +228,6 @@
 	</div>
 
 	<div class="cartList">
-		<%-- <% 
- 			for(String cartTwo : cartOne) {  
-				//System.out.println(cart);	 cartNum[i]	
-				
-				int cartNum=Integer.parseInt(cartList);
-				/* CartDTO cart=CartDAO.getDAO().selectOrder(cartList); */
-				
-				int totalPrice= Integer.parseInt(cartOne.getProductPrice())*cartNum; //수량*가격 
-				System.out.println("totalPrice = " + totalPrice);
-				
-				int discount = (int)Math.floor(((double)(cartOne.getProductPrice())*(100-cartOne.getProductDis())/100)/10)*10;
-					
-				int orderSum=cartOne.getProductPrice()*cartOne.getCartCount();
-				int orderDisSum=discount*cartOne.getCartCount(); 
-		%> --%>
 		<%
 		for(String cart : cartNumList){
 			CartDTO cartOne = CartDAO.getDAO().selectOrder(Integer.parseInt(cart));

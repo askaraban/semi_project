@@ -259,19 +259,52 @@
 		<% }%> 
 	</div>	
 </section>
-	<div style="display: flex; padding-left: 100px; background-color: pink;" >
-		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 40px;" >
-		</div>
-		<div style="width: 200px; height: 100px; padding-top: 20px; padding-left: 20px;">
-			<span class="result-word" style="text-align: center;">총 주문금액</span>
-			<br>
-			<span class="result-count" id="selectedPrice2" style="font-style: italic;"><%=format.format(totalPrice) %>원</span>
-			
-			<span class="result-word"></span>
-			<br>
-			<span class="result-count" id="selectedPrice2"></span>
-		</div>
-	</div>
+	<% if(totalPrice < 50000) { %>
+			<div style="display: flex;">
+					<div class="cart-select-product-content">							
+						<span class="result-word" >선택상품금액</span>
+						<br>
+						<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
+					</div>
+					<div class="cart-minus-content" style="width: 80px;">+</div>
+					<div style="width: 200px; height: 100px; padding-top: 20px;">
+						<span class="result-word">배송비</span>
+						<br>
+						<span class="result-count" id="selectedPrice"><%=format.format(5000) %>원</span>
+						<br>
+					</div>
+					<div class="cart-result-content" style="width: 180px;">=</div>
+					<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+						<span class="result-word">주문금액</span>
+						<br>
+						<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice+5000) %>원</span>
+					</div>
+			</div>
+				
+		<% } else { %>
+				<div style="display: flex;">
+					<div class="cart-select-product-content">						
+								<span class="result-word" >선택상품금액</span>
+								<br>
+								<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
+					</div>
+					<div class="cart-minus-content" style="width: 80px;">+</div>
+							<div style="width: 200px; height: 100px; padding-top: 20px;">
+								<span class="result-word">배송비</span>
+								<br>
+								<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
+							</div>
+							<div class="cart-result-content" style="width: 180px;">=</div>
+							<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+								<span class="result-word">주문금액</span>
+								<br>
+								<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
+							</div>
+							<div style="width: 200px; height: 100px; padding-top: 23px;">
+					<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
+				</div>
+			</div>										
+		<% } %>
 </form>
 				                                 				  
     				      
