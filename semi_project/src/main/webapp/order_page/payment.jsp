@@ -43,6 +43,7 @@
             text-decoration: none;
             font-size: 16px;
             transition: background-color 0.3s;
+            cursor: pointer;
 		}
 		
 		.home:hover{
@@ -58,12 +59,12 @@
             text-decoration: none;
             font-size: 16px;
             transition: background-color 0.3s;
+            cursor: pointer;
 		}
 		
 		.myorderBtn:hover{
 			background-color: #0056b3;
-		}
-		
+		}		
     </style>
     
     
