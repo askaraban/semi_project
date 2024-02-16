@@ -43,15 +43,17 @@ table {
 }
 
 th {
+   border: 1px solid gray;
+   padding: 5px;
    width: 100px;
    background: pink;
    color: gray;
-   border: 1px solid gray;
 }
 
 td {
    text-align: left;
    border: 1px solid gray;
+   padding: 5px;
    width: 400px;
 }
 
@@ -67,10 +69,32 @@ td {
    text-align: right;
    margin: 5px;
 }
+
+#resetBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#save {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
 </style>
 
 <div id="review_write">
-	<h1>답글쓰기</h1>
+	<h1 style="text-align: left;">답글쓰기</h1>
 	
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write_action" 
 		method="post" id="reviewForm">
@@ -81,11 +105,11 @@ td {
 		
 		<table>
 			<tr>
-				<th>작성자</th>
+				<th style="text-align: left;">작성자</th>
 				<td>관리자</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th style="text-align: left;">내용</th>
 				<td>
 					<textarea rows="7" cols="60" name="replay" id="replay"></textarea>
 				</td>
@@ -93,7 +117,7 @@ td {
 		</table>
 		
 		<div id="review_menu">
-			<button type="submit">글저장</button>
+			<button type="submit" id="save">글저장</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
 		</div>
 	</form>

@@ -67,13 +67,40 @@ td {
 	width: 400px;
 }
 
-#review_menu {
+/* #review_menu {
 	text-align: right;
 	margin: 5px;
+} */
+
+#review_menu {
+	text-align: right;
+	margin-top: 7px;
+}
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#resetBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
 <div id="review_modify">
-	<h1>게시글수정</h1>
+	<h1>게시글 수정</h1>
 	
 	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"
@@ -106,8 +133,9 @@ td {
 				</td>
 			</tr>
 		</table>
-		<div id="review_menu">
-			<button type="submit">글변경</button>
+		
+		<div id="review_menu" style="text-align: right;">
+			<button type="submit" id="modifyBtn">수정</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
 		</div>
 	</form>

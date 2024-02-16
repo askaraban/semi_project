@@ -208,7 +208,7 @@ td {
 	<div id="review_menu" style="text-align: right;">
 		<!-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 -->
 		<% if(loginClient!=null && (loginClient.getClientNum()==review.getReviewMemberNum())) { %>
-			<button type="button" id="modifyBtn">리뷰변경</button>
+			<button type="button" id="modifyBtn">리뷰수정</button>
 		<% } %>
 	</div>
 </div>

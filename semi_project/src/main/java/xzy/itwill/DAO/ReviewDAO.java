@@ -544,7 +544,7 @@ public class ReviewDAO extends JdbcDAO {
 				pstmt.setString(1, review.getReviewSubject());
 				pstmt.setString(2, review.getReviewContent());
 				pstmt.setInt(3, review.getReviewNum());
-			} else {//사용자가 이미지 파일을 입력하지 않은 경우 - 이미지 파일 변경
+			} else {//사용자가 이미지 파일을 입력한 경우 - 이미지 파일 변경
 				String sql="update review_table set review_subject=?,review_content=?,review_image=?"
 						+ ",review_update=sysdate where review_num=?";
 				pstmt=con.prepareStatement(sql);

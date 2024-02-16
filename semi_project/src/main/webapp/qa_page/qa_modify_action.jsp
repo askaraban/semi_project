@@ -30,26 +30,17 @@
 	int qaNum=Integer.parseInt(multipartRequest.getParameter("qaNum"));
 	String pageNum=multipartRequest.getParameter("pageNum");
 	String pageSize=multipartRequest.getParameter("pageSize");
-	String search=multipartRequest.getParameter("search");
-	String keyword=multipartRequest.getParameter("keyword");
+	int productNum = Integer.parseInt(multipartRequest.getParameter("productNum"));
 	String qaSubject=Utility.escapeTag(multipartRequest.getParameter("qaSubject"));
-	
-	
-	/* 일반글, 비밀글, 삭제글 따로 구분 없음
-	int reviewStatus=1;//전달값이 없는 경우 - 일반글
-	if(multipartRequest.getParameter("reviewSecret")!=null) {//전달값이 있는 경우 - 비밀글
-		reviewStatus=Integer.parseInt(multipartRequest.getParameter("reviewSecret"));
-	}
-	*/
-	
 	String qaContent=Utility.escapeTag(multipartRequest.getParameter("qaContent"));
+	System.out.println("qaContent = " + qaContent);
 	
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로를 저장
 	String qaImage=multipartRequest.getFilesystemName("qaImage");
 	if(qaImage!=null) {//업로드 파일이 있는 경우
 		qaImage="/images/"+qaImage;
 	
-		//REVIEW 테이블에 저장된 행(게시글)의 이미지 파일의 경로(REVIEW_IMAGE 컬럼값)을 반환받아 저장
+		//Qa 테이블에 저장된 행(게시글)의 이미지 파일의 경로(Qa_IMAGE 컬럼값)을 반환받아 저장
 		String removeQaImage=QaDAO.getDAO().selectQaByNum(qaNum).getQaImage();
 		if(removeQaImage!=null) {//서버 디렉터리에 이미지 파일이 있는 경우
 			//서버 디렉토리에 저장된 기존 리뷰 이미지 파일을 삭제 처리
@@ -57,20 +48,21 @@
 		}
 	}
 	
-	//REVIEW_SEQ 시퀀스의 다음값을 검색하여 반환하는 ReviewDAO 클래스의 메소드 호출
+	//Qa_SEQ 시퀀스의 다음값을 검색하여 반환하는 QaDAO 클래스의 메소드 호출
 	int nextNum=QaDAO.getDAO().selectQaNextNum();
 	
-	//ReviewDTO 객체를 생성하여 변수값(전달값)으로 필드값 변경
+	//QaDTO 객체를 생성하여 변수값(전달값)으로 필드값 변경
 	QaDTO qa=new QaDTO();
 	qa.setQaNum(qaNum);
 	qa.setQaSubject(qaSubject);
 	qa.setQaContent(qaContent);
 	qa.setQaImage(qaImage);
+	qa.setQaProductNum(productNum);
 	
-	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
-	//ReviewDAO 클래스의 메소드 호출
-	QaDAO.getDAO().updateQaReplay(qa);	
+	//게시글을 전달받아 Qa테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
+	//QaDAO 클래스의 메소드 호출
+	QaDAO.getDAO().updateQa(qa);	
 	//페이지 이동
 	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_detail"
-		+"&qaNum="+qaNum+"&pageNum="+pageNum+"&pageSize="+pageSize);
+		+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
 %>

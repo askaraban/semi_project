@@ -91,7 +91,7 @@
 	
 <div id="qa_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
-	<div id="qa_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px;">Q&A목록(<%=qaReview %>)</div>
+	<div id="qa_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px; font-weight: bold;">Q&A목록(<%=qaReview %>)</div>
 	
 	<%-- 게시글 목록 출력 --%>
 	<table>
