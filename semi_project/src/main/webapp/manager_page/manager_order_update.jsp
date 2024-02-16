@@ -16,7 +16,7 @@
 	// 회원정보를 전달해 회원정보를 받아옴
 	ClientDTO client = ClientDAO.getDAO().selectClientByNum(Integer.parseInt(clientNum));
 	
-	List<OrderDTO> orderlist = OrderDAO.getDAO().selectOrder(timeStamp);
+	List<OrderDTO> orderlist = OrderDAO.getDAO().selectManagerOrder(timeStamp);
 	
 	
 	String[] cartNumList = request.getParameterValues("cartNum");
@@ -97,7 +97,7 @@
 <br>
 <br>				    							
 	
-<form action="<%=request.getContextPath()%>/order_page/insert_order_multi.jsp" method="post" id="orderForm">
+<form action="<%=request.getContextPath()%>/manager_page/manager_order_update_action.jsp" method="post" id="orderForm">
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지</h5>      
@@ -256,21 +256,41 @@
 			
 			<br>
 		</div>
-		<input type="hidden" value="<%=order.getOrderProductNum()%>" name="getOrderProductNum">
-		<input type="hidden" value="<%=order.getOrderCount()%>" name="getOrderCount">
-		<input type="hidden" value="<%=order.getOrderProductNum()%>" name="cartNum">
-		<input type="hidden" value="<%=order.getOrderCount()*order.getProductPrice()%>" name="orderSum">
-		<input type="hidden" value="<%=order.getProductDis()*order.getOrderCount()*order.getProductPrice()%>" name="productDis">
+		<input type="hidden" value="<%=order.getOrderNum()%>" name="orderNum">
+		<input type="hidden" value="<%=order.getOrderClientNum()%>" name="orderClientNum">
+		<input type="hidden" value="<%=order.getOrderTime()%>" name="timeStamp">
 		<% }%> 
 	</div>	
 </section>
-	<div style="display: flex; padding-left: 100px; background-color: pink;" >
-		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 40px;" >
+	<div style="display: flex; padding-left: 50px; background-color: pink;" >
+		<div style="width: 80px; height: 100px; padding-top: 20px; padding-left: 40px;" >
+			<button type="submit" style="border-radius: 10px; width: 140px; height: 50px; background-color: pink; font-weight: bold; font-size: 20px;">
+			배송완료하기</button>
 		</div>
 		<div style="width: 320px; height: 100px; padding-top: 20px; padding-left: 20px;">
-			<span class="result-word"></span>
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">선택 상품금액</span>
 			<br>
-			<span class="result-count" id="selectedPrice2"></span>
+			<br>
+			<span class="result-count" id="selectedPrice2" style="font-weight: bold; font-size: 20px;">
+			<%=format.format(totalPrice) %>원</span>
+		</div>
+		<div style="width: 20px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">+</span>
+			<br>
+			<br>
+		</div>
+		<%if(totalPrice>=50000){ %>
+		<div style="width: 320px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">배송비</span>
+			<br>
+			<br>
+			<span class="result-count" id="selectedPrice2" style="font-weight: bold; font-size: 20px;">
+			0 원</span>
+		</div>
+		<div style="width: 20px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">=</span>
+			<br>
+			<br>
 		</div>
 		<div style="width: 200px; height: 100px; padding-top: 20px; padding-left: 20px;">
 			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">총 주문금액</span>
@@ -279,21 +299,26 @@
 			<span class="result-count" id="selectedPrice2" style="font-style: italic; font-weight: bold; font-size: 20px;">
 			<%=format.format(totalPrice) %>원</span>
 		</div>
+		<%}else{%>
+		<div style="width: 320px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">배송비</span>
+			<br>
+			<br>
+			<span class="result-count" id="selectedPrice2" style="font-weight: bold; font-size: 20px;">
+			<%=format.format(5000) %>원</span>
+		</div>
+		<div style="width: 20px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">=</span>
+			<br>
+			<br>
+		</div>
+		<div style="width: 200px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">총 주문금액</span>
+			<br>
+			<br>
+			<span class="result-count" id="selectedPrice2" style="font-style: italic; font-weight: bold; font-size: 20px;">
+			<%=format.format(totalPrice+5000) %>원</span>
+		</div>
+		<%}%>
 	</div>
 </form>
-				                                 				  
-    				      
-                           
-          											
-    
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-$("#postSearch").click(function() {
-	new daum.Postcode({
-		oncomplete: function(data) {
-			$("#zipcode").val(data.zonecode);
-			$("#address1").val(data.address);
-		} 
-	}).open();
-});
-</script>

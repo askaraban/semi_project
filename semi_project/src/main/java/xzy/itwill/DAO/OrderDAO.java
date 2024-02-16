@@ -264,6 +264,64 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return orderList;
 		}
+		// 타임스탬프를 전달받아 해당 타임스탬프에 해당하는 정보를 가져오는 메소드
+		public List<OrderDTO> selectManagerOrder(String timeStamp) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			List<OrderDTO> orderList = new ArrayList<OrderDTO>();
+			
+			try {
+				
+				con = getConnection();
+				
+				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, order_content, order_receiver"
+						+",order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
+						+", product_dis, product_main_img, order_email from order_table join product_table on order_product_num = product_num"
+						+ " where order_time like '%'||?||'%' and order_status=0 order by order_num desc";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, timeStamp);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					OrderDTO order=new OrderDTO();
+					order.setOrderNum(rs.getInt("order_num"));
+					order.setOrderClientNum(rs.getInt("order_client_num"));
+					order.setOrderTime(rs.getString("order_time"));
+					order.setOrderDate(rs.getString("order_date"));
+					order.setOrderProductNum(rs.getInt("order_product_num"));
+					order.setOrderStatus(rs.getInt("order_status"));
+					order.setOrderSum(rs.getInt("order_sum"));
+					order.setOrderDisSum(rs.getInt("order_dis_sum"));
+					order.setOrderContent(rs.getString("order_content"));
+					order.setOrderReceiver(rs.getString("order_receiver"));
+					order.setOrderZipcode(rs.getString("order_zipcode"));
+					order.setOrderAddress1(rs.getString("order_address1"));
+					order.setOrderAddress2(rs.getString("order_address2"));
+					order.setOrderMobile(rs.getString("order_mobile"));
+					order.setOrderCount(rs.getInt("order_count"));
+					order.setProductNum(rs.getInt("product_num"));
+					order.setProductName(rs.getString("product_name"));
+					order.setProductPrice(rs.getInt("product_price"));
+					order.setProductDis(rs.getInt("product_dis"));
+					order.setProductMainImg(rs.getString("product_main_img"));
+					order.setOrder_email(rs.getString("order_email"));
+					
+					orderList.add(order);
+					
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]selectOrder() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return orderList;
+		}
 		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
 		public List<OrderDTO> selectOrderList(ClientDTO client, int status) {
 			Connection con = null;
@@ -883,6 +941,31 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return totalCount;
 		}
-
+		// 모든 주문상태를 변경하여 주문완료하는 메소드 - 관리자용
+		public int updateOrderStatus(int clientNum, String timeStamp) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			int rows = 0;
+			
+			try {
+				
+				con = getConnection();
+				String sql = "update order_table set order_status=1 where order_client_num=? and order_time=?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, clientNum);
+				pstmt.setString(2, timeStamp);
+					
+				rows=pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("[에러]updateOrderStatus() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt);
+			}
+			return rows;
+		}
+		
+		
 		
 }
