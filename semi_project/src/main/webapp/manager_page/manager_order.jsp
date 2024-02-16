@@ -1,3 +1,5 @@
+<%@page import="xyz.itwill.DTO.OrderDTO"%>
+<%@page import="xzy.itwill.DAO.OrderDAO"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="xyz.itwill.DTO.ProductDTO"%>
 <%@page import="xzy.itwill.DAO.ProductDAO"%>
@@ -32,7 +34,7 @@
 	}
 	
 	// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
-	int totalProduct = ProductDAO.getDAO().searchTotalList(keyword, search);
+	int totalProduct = OrderDAO.getDAO().selectManagerOrderCnt(keyword, search);
 	
 	// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
 	int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
@@ -53,7 +55,7 @@
 	if(endRow>totalProduct){
 		endRow=totalProduct;
 	}
-	List<ProductDTO> productList = ProductDAO.getDAO().searchProductList(search, keyword, startRow, endRow);
+	List<OrderDTO> productList = OrderDAO.getDAO().selectManagerOrderList(search, keyword, startRow, endRow);
 	// 페이지에 출력될 제품들의 일련번호 시작값을 계산하여 저장
 	// => 검색된 제품의 총 개수 : 91 >> 1Page : 91 ~ 82 , 2Page: 81 ~ 3Page : 71 
 	int displayNum = totalProduct - (pageNum-1) * pageSize;
@@ -119,21 +121,14 @@ td {
 			<td colspan="6">검색된 제품이 없습니다.</td>
 		</tr>
 		<%} else { %>
-			<%for(ProductDTO pro : productList) {%>
+			<%for(OrderDTO pro : productList) {%>
 				<tr>
 					<td><%=displayNum %></td>
 					<%displayNum--; // 제품 게시물들의 번호를 1씩 감소시킴  %>
-					<td>&nbsp;<%=pro.getProductNum() %>&nbsp;</td>
-					<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
+					<td>&nbsp;<%=pro.getOrderNum() %>&nbsp;</td>
+					<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_order_update&timeStemp=<%= pro.getOrderTime()%>&orderClientNum=<%=pro.getOrderClientNum() %>" id="url" >
 					<%=pro.getProductName() %></a>&nbsp;</td>
-					<td>&nbsp;<%=pro.getProductCate() %>&nbsp;</td>
-					<td>&nbsp;<%=format.format(pro.getProductPrice()) %>원&nbsp;</td>
-					<td>&nbsp;<%=pro.getProductDis() %>&nbsp;</td>
-					<%if(pro.getProductDisContent()==null) { %>
-						<td> </td>
-					<%} else {%>
-					<td>&nbsp;<%=pro.getProductDisContent() %>&nbsp;</td>
-					<%} %>
+					<td>&nbsp;<%=pro.getOrderDate() %>&nbsp;</td>
 				</tr>
 			<%} %>
 		<%} %>
@@ -160,42 +155,29 @@ td {
 	<div id="page_list">
 		
 		<%if(startPage>blockSize){%>
-			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>		
+			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>		
 		<%} else {%>
 			[이전]
 		<%} %>
 		<% for(int i=startPage;i<=endPage;i++){ %>
 			<%if(pageNum !=i) {%>
-				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=i%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i %>]</a>
+				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_order&pageNum=<%=i%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[<%=i %>]</a>
 			<%}else{  %>
 				[<%=i %>]
 			<%} %>
 		<%} %>
 			<%if(endPage!=totalPage){ %>
-				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
+				<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_order&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[다음]</a>
 			<%}else{  %>
 				[다음]
 			<%} %>
-	</div>
-	<div>
-	<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
-	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post">
-		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정 --%>
-		<select name="search">
-			<option value="product_name" <%if(search.equals("product_name")) {%> selected<%} %>>&nbsp;제품이름&nbsp;</option>
-			<option value="product_num" <%if(search.equals("product_num")) {%> selected<%} %>>&nbsp;제품번호&nbsp;</option>
-			<option value="product_cate" <%if(search.equals("product_cate")) {%> selected<%} %>>&nbsp;유형&nbsp;</option>
-		</select>
-		<input type="text" name="keyword" value="<%=keyword%>">
-		<button type="submit" id="searchBtn">검색</button>
-	</form>
 	</div>
 </div>
 
 <script type="text/javascript">
 
 	$("#searchBtn").click(function() {
-		$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/manager_page/manager.jsp?group=cart_page&worker=cart_remove_action");
+		$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_order");
 	})
 	
 	

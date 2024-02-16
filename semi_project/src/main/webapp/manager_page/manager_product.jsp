@@ -197,9 +197,6 @@ td {
 
 <script type="text/javascript">
 
-	$("#searchBtn").click(function() {
-		$("#uploadForm").attr("action",  "<%=request.getContextPath()%>/manager_page/manager.jsp?group=cart_page&worker=cart_remove_action");
-	})
 	
 	
 </script>
