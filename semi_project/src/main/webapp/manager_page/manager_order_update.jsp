@@ -97,12 +97,10 @@
 <br>
 <br>				    							
 	
-<form action="<%=request.getContextPath()%>/manager_page/manager_order_update_action.jsp" method="post" id="orderForm">
+<form action="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_order_update_action" method="post" id="orderForm">
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지</h5>      
-	   
-		    
 	    <div class="tableTypeWrite payTable">
     	<table>
 			   <colgroup>
@@ -196,7 +194,6 @@
 
 <!-- 주문 상품 정보 구역-->
 
-<section id="orderChk" style="display: block;">
 	<div id="orderProduct" class="orderProductInfo">
 		<h5 style="font-size: 20px;">주문 상품 정보 <a style="font-size: 14px;" href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_order">[돌아가기]</a></h5>  	
 	</div>
@@ -261,7 +258,6 @@
 		<input type="hidden" value="<%=order.getOrderTime()%>" name="timeStamp">
 		<% }%> 
 	</div>	
-</section>
 	<div style="display: flex; padding-left: 50px; background-color: pink;" >
 		<div style="width: 80px; height: 100px; padding-top: 20px; padding-left: 40px;" >
 			<button type="submit" style="border-radius: 10px; width: 140px; height: 50px; background-color: pink; font-weight: bold; font-size: 20px;">

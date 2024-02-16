@@ -14,8 +14,6 @@ int orderClientNum = Integer.parseInt(request.getParameter("orderClientNum"));
 String timeStamp = request.getParameter("timeStamp");
 
 int rows = OrderDAO.getDAO().updateOrderStatus(orderClientNum, timeStamp);
-System.out.println(rows);
-request.setAttribute("returnURL", request.getContextPath()+"/manager_page/manager.jsp?group=manager_page&worker=manager_order");
-System.out.println("실행됨02");
+request.setAttribute("returnURL", request.getContextPath()+"/manager_page/manager.jsp?worker=manager_order");
 
 %>
