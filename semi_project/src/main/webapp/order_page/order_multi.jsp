@@ -15,6 +15,7 @@
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	CartDTO sendCart = new CartDTO();
 	List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient);
+	
 	/* List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient); 
 	->
 		127	17	21	2	킨더 초콜릿 T8 100g	2900	FERRERO oHG mbH	0	kinder_ch.jpg
@@ -25,6 +26,11 @@
 	String[] cartNumList = request.getParameterValues("cartNum");
 	int totalPrice = 0;
  	
+	if(cartNumList==null){
+		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=cart_page&worker=cart");
+		return;
+	}
+	
  
 %>
 
@@ -229,6 +235,7 @@
 
 	<div class="cartList">
 		<%
+		
 		for(String cart : cartNumList){
 			CartDTO cartOne = CartDAO.getDAO().selectOrder(Integer.parseInt(cart));
 			

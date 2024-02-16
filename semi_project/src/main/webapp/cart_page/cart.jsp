@@ -291,15 +291,16 @@ orderLength()
 <%-- 주문페이지로 이동하는 메소드 --%>
 $("#cartOrderBtn").click(function() {
 	
-	<%if(cartList.isEmpty()){%>
-		alert("주문할 제품을 선택해주세요.");
-	<%}%>	return;
-	
 	if($("#selectP").text()=="0원"){
-		
 		alert("주문할 제품을 선택해주세요.");
 		return;
 	}
+	
 	$("#cart").attr("action",  "<%=request.getContextPath()%>/main_page/main.jsp?group=order_page&worker=order_multi");
 });
+
+if($("#selectP").text()=="0원"){
+	$("#cartOrderBtn").attr("disabled", true);
+}
+
 </script>
