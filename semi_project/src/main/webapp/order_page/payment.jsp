@@ -65,8 +65,7 @@
 		.myorderBtn:hover{
 			background-color: #0056b3;
 		}		
-    </style>
-    
+    </style> 
     
 <div class="body">
     <div class="container">
@@ -82,8 +81,3 @@
 		<button type="submit"  class="myorderBtn">나의주문내역</button></a>
     </div>
 </div>
-
-
-
-
-	
