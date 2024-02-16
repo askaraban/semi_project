@@ -39,9 +39,7 @@ int totalReviewOrder = ReviewDAO.getDAO().selectTotalReview(loginClient.getClien
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;
 int totalPage = (int) Math.ceil((double) totalReviewOrder / pageSize);//페이지의 총갯수
-if (totalPage == 0) {
-	totalPage = 1;
-}
+
 
 //전달받은 페이지번호가 비정상적인 경우
 if (pageNum <= 0 || pageNum > totalPage) {
@@ -77,7 +75,7 @@ String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 //페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 // => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-int displayNum = reviewList.size() - (pageNum - 1) * pageSize;
+int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 
 %>
 <style>
