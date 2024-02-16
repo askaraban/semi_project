@@ -1,3 +1,4 @@
+<%@page import="xzy.itwill.DAO.ClientDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="xyz.itwill.DTO.CartDTO"%>
@@ -11,10 +12,12 @@
 
 <%@include file="/security/login_url.jspf" %>
 
-<%
+<%	
+	int clientNum=loginClient.getClientNum();
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	CartDTO sendCart = new CartDTO();
 	List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient);
+	ClientDTO clinet=OrderDAO.getDAO().selectClientInfo(clientNum);
 	
 	/* List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient); 
 	->

@@ -977,6 +977,44 @@ public class OrderDAO extends JdbcDAO {
 			return rows;
 		}
 		
+		//회원 테이블에 저장된 회원정보를 검색하여 반환하는 메소드
+		public ClientDTO selectClientInfo(int ClientNum){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs=null;
+			ClientDTO clientInfo = new ClientDTO();
+			
+			try {
+				con = getConnection();
+				
+				String sql = "select client_name, client_mobile, client_email, "
+						+ "client_address1,client_address2, client_zipcode from client_table where client_num=?";
+						
+				
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, ClientNum);
+				rs = pstmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					clientInfo.setClientName(rs.getString("client_name"));
+					clientInfo.setClientMobile(rs.getString("client_mobile"));
+					clientInfo.setClientEmail(rs.getString("client_email"));
+					clientInfo.setClientAddress1(rs.getString("client_address1"));
+					clientInfo.setClientAddress2(rs.getString("client_address2"));
+					clientInfo.setClientZipcode(rs.getString("client_zipcode"));				
+				}
+						
+				
+			} catch (SQLException e) {
+				System.out.println("selectClientInfo 에러"+ e.getMessage());
+			}finally {
+				close(con, pstmt, rs);
+			}		
+			return clientInfo;
+		}
 		
+
+	}
 		
-}
+
