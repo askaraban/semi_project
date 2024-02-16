@@ -256,7 +256,7 @@ td {
 	
 	<div style="text-align: right;">
 		<%if(loginClient!=null){ %>
-			<% if(loginClient.getClientStatus()==1) { %>
+			<% if(loginClient.getClientStatus()==1 || loginClient.getClientStatus()==9) { %>
 				<button type="button" id="qaWriteBtn">QA쓰기</button>
 			<%} %>
 		<%} %>

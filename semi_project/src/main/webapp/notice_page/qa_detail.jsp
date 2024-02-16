@@ -255,9 +255,12 @@ td {
 
 <div id="qa_listBtn">
 	<% if(loginClient!=null) { %>	
-		<% if(loginClient.getClientStatus()==9 || loginClient.getClientNum()==qa.getQaMember()) { %>
+		<% if(loginClient.getClientStatus()==9) { %>
 			<button type="button" id="removeBtn">Q&A삭제</button>
 			<button type="button" id="modifyBtn">Q&A변경</button>		
+		<% } %>
+		<% if(loginClient.getClientNum()==qa.getQaMember()) { %>
+			<button type="button" id="removeBtn">Q&A삭제</button>
 		<% } %>
 	<% } %>
 	<button type="button" id="listBtn">글목록</button>
