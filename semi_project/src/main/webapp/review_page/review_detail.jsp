@@ -272,7 +272,13 @@ $("#replyBtn").click(function() {
 
 
 $("#listBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
-		+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#review_list";   
-	});
+	var referrer = document.referrer;
+
+	if(referrer.includes('review_written')) {// 마이페이지 화면에서 이동됬으면 글목록 버튼 클릭시 다시 마이페이지로 이동
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review_written";
+	} else {// 아니면 해당제품의 상품상세로 이동
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
+			+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#review_list";  
+	}
+});
 </script>

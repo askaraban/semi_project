@@ -165,11 +165,11 @@ td {
 </style>
 
 <div id="qa_detail">
-	<% if(qaProductName.getProductName()!=null) { %>
+<%-- 	<% if(qaProductName.getProductName()!=null) { %>
 		<h1>상품 Q&A</h1>
-	<% } else { %>	
+	<% } else { %>	 --%>
 		<h1>Q&A</h1>
-	<% } %>
+<%-- 	<% } %> --%>
 	
 	<%-- 검색된 게시글 출력 --%>
 	<table>
@@ -188,12 +188,12 @@ td {
 			<td><%=qa.getQaReadCount()+1 %></td>
 		</tr>
 		
-	<% if(qaProductName.getProductName()!=null) { %>
+<%-- 	<% if(qaProductName.getProductName()!=null) { %>
 		<tr>
 			<th>상품명</th>
 			<td><%= qaProductName.getProductName() %></td>
 		</tr>
-	<% } %>
+	<% } %> --%>
 	
 		<tr>
 			<th>제목</th>
@@ -214,6 +214,8 @@ td {
 		</tr>
 	</table>
 	
+	<% System.out.println("loginClient.getClientNum() = " + loginClient.getClientNum()); %>
+	<% System.out.println("qa.getQaMember() = " + qa.getQaMember()); %>
 	<!-- 버튼 태그 div -->
 	<div id="qa_menu" style="text-align: right;">
 		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
@@ -296,7 +298,13 @@ $("#replyBtn").click(function() {
 });
 
 $("#listBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
-		+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#qa_list"; 
-	});
+	var referrer = document.referrer;
+	
+ 	if(referrer.includes('qna')){// 마이페이지 화면에서 이동됬으면 글목록 버튼 클릭시 다시 마이페이지로 이동
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna";
+ 	} else {// 아니면 해당제품의 상품상세로 이동
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
+			+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#qa_list";
+ 	}
+});
 </script>

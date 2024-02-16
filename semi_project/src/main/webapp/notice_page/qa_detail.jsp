@@ -241,23 +241,19 @@ td {
 			</tr>
 		</table>
 		
+		<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
 		<div id="qa_menu" style="text-align: right;">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-			<%-- <% System.out.println("9인가요? = " + loginClient.getClientStatus()); %> --%>
-			<% if(loginClient!=null) { %>	
-				<% if(loginClient.getClientStatus()==9) { %>
-					<button type="button" id="replyBtn">답변수정</button>
-				<% } %>
-			<% } %>
+			<button type="button" id="replyBtn">답변수정</button>
 		</div>
+		<% } %>
 	</form>
 </div>
 
 <div id="qa_listBtn">
 	<% if(loginClient!=null) { %>	
 		<% if(loginClient.getClientStatus()==9) { %>
-			<button type="button" id="removeBtn">Q&A삭제</button>
-			<button type="button" id="modifyBtn">Q&A변경</button>		
+			<button type="button" id="removeBtn">삭제</button>
 		<% } %>
 		<% if(loginClient.getClientNum()==qa.getQaMember()) { %>
 			<button type="button" id="removeBtn">Q&A삭제</button>
