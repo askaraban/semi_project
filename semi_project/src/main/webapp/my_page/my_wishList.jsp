@@ -104,8 +104,7 @@ DecimalFormat format = new DecimalFormat("###,###,##0");
 			<div class="tabType">
 				<ul class="item2" style="padding-left: unset;">
 					<li class="active write_review" style="text-decoration: none;"><a
-						style="text-decoration: none;"
-						href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review">
+						style="text-decoration: none;">
 							<span>내가 찜한 목록</span>
 					</a></li>
 				</ul>

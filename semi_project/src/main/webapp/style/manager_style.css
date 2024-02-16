@@ -46,79 +46,9 @@ a, a:visited {
 	color: orange;
 }
 
-#content {
-	margin: 5px;
-	padding: 10px;
-	min-height: 700px;
-	border: 1px solid black;	
-	text-align: center;
-}
-
 #footer {
 	margin: 5px;
 	height: 50px;
 	border: 1px solid black;	
 	text-align: center;
-}
-
-.product-info {
-	display: flex;
-	padding-left: 30px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-	border-bottom: 1px solid lightgray;
-}
-
-
-.product-inner {
-	display: flex ;
-	position: relative;
-}
-
-.cart-product-img {
-	position: relative;
-	-ms-flex-negative: 0;
-	flex-shrink: 0;
-	width: 82px;
-	height: 82px;
-	background-color: rgba(0, 0, 0, .04);
-	border-radius: 4px;
-}
-
-.cart-product-infoArea {
-	min-width: 0;
-	padding-left: 30px;
-	padding-top: 5px;
-	
-}
-.second-inner{
-	border-right: 1px solid lightgray;
-	border-left: 1px solid lightgray;
-}
-
-.cart-product-title {
-	overflow: hidden;
-	-o-text-overflow: ellipsis;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	word-wrap: break-word;
-	word-break: break-all;
-	max-height: 40px;
-	font-size: 17px;
-	line-height: 20px;
-	color: #222;
-	letter-spacing: -0.3px;
-	text-align: left;
-}
-
-.cart-product-price {
-	margin-top: 3px;
-	font-weight: 600;
-	color: #222;
-	text-align: left;
-}
-.product-info{
-	border: 1px solid pink;
 }

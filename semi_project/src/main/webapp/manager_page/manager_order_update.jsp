@@ -211,46 +211,48 @@
 			}
 		%>
 		
-		<div class="product-info" >
+		<div class="product-info">
 			<div class="product-inner">
-				<div class="imgList" style="display: flex; position: relative;">
+				<div>
 					<%String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 							   +"&productNum="+order.getOrderProductNum(); %>
 					<a href="<%=url%>">
-					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=order.getProductMainImg()%>" style="width: 100px;">
+					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=order.getProductMainImg()%>">
 					</a>
-					<div class="cart-product-title" style="font-weight: bold; padding-top: 10px; padding-left: 15px; width: 400px;">
+				</div>
+				<div class="cart-product-infoArea"
+					style="width: 250px; margin-left: 15px;">
+					<div class="cart-product-title" style="font-weight: bold;">
 					<a href="<%=url%>" style="text-decoration-line: none; color: black;"><%=order.getProductName() %></a>
+					</div>
 					<%if(order.getProductDis()!=0) {%>
 					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px;">
 					가격 : <%=format.format(discount) %>원
-					<span class="discount" style="font-size: 10px; text-decoration:line-through;"><%=format.format(order.getProductPrice()) %>원</span>
+					<span class="discount" style="font-size: 10px;"><%=format.format(order.getProductPrice()) %>원</span>
 					</div>
 					<%} else {%>
-					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px; ">
+					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px;">
 					가격 : <%=format.format(order.getProductPrice()) %>원
 					</div>
-					</div>
-					<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left; padding-top: 10px;">
-						<span>상품 주문 수량 : <%=order.getOrderCount() %>개 </span>
-					</div>
-					<input type="hidden" value="" id="plzCheck" name="plzCheck" >
-					<div class="cart-product-infoArea third-inner" style="width: 250px; padding-top: 10px;">
-						<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
-						<span><strong style="font-weight: bold; font-size: 18px;">
-						
-							<%if(order.getProductDis()!=0) {%>
-							<em><%=format.format(order.getOrderCount()*discount) %>원</em>
-							<%} else {%>
-							<em><%=format.format(order.getOrderCount()*order.getProductPrice()) %>원</em>
-							<%} %>
-						</strong>&nbsp;(<%=order.getOrderCount() %>개)</span>
-					</div>
-				</div>
-				<hr>
 					<%} %>
+				</div>
 			</div>
 			
+			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
+				<span>상품 주문 수량 : <%=order.getOrderCount() %>개 </span>
+			</div>
+			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
+			<div class="cart-product-infoArea third-inner" style="width: 250px;">
+				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
+				<span><strong style="font-weight: bold; font-size: 18px;">
+				
+					<%if(order.getProductDis()!=0) {%>
+					<em><%=format.format(order.getOrderCount()*discount) %>원</em>
+					<%} else {%>
+					<em><%=format.format(order.getOrderCount()*order.getProductPrice()) %>원</em>
+					<%} %>
+				</strong>&nbsp;(<%=order.getOrderCount() %>개)</span>
+			</div>
 			<br>
 		</div>
 		<input type="hidden" value="<%=order.getOrderNum()%>" name="orderNum">

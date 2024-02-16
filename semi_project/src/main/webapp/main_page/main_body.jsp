@@ -14,8 +14,8 @@
 	
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
 
-	List<ProductDTO> productList = new ArrayList<>();
-	productList = ProductDAO.getDAO().selectBestProudct();
+	List<ProductDTO> pro = new ArrayList<>();
+	pro = ProductDAO.getDAO().selectBestProudct();
 	WishDTO redHeart = new WishDTO();
 	Integer wishProductNum = 0;
 	
@@ -57,33 +57,34 @@
 		</div>
 	<div class="main-prd">
 		<ul class="prdList grid3">
-			<%for(ProductDTO pro : productList){ %>
+			<%for(int i=0;i<8;i++){ %>
+			<%-- <%for(ProductDTO pro : productList){ %> --%>
 			<li id="anchorBoxId_1" class="xans">
 				<div class="card border-light" style="width: 14rem;">
 					<div id="inner_img" class="">
 					<%-- 제품이미지 클릭시 제품상세설명으로 이동할 때 넘길 값 --%>
 					<%
 					String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-							   +"&productNum="+pro.getProductNum();
+							   +"&productNum="+pro.get(i).getProductNum();
 					%>
 					<a href="<%=url%>" class="product-a-line">
-					<img src="<%=request.getContextPath() %>/productImg/<%=pro.getProductMainImg() %>" class="card-img-top" >
+					<img src="<%=request.getContextPath() %>/productImg/<%=pro.get(i).getProductMainImg() %>" class="card-img-top" >
 					</a>
 					</div>
 					<div class="card-body item-box">
 						<h5 class="card-title">
-						<a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.getProductName() %></a>
+						<a href="<%=url%>" style=" text-decoration-line: none; color: black; font-size: 13px;" ><%=pro.get(i).getProductName() %></a>
 						</h5>
-						<p class="card-text" style="font-size: 12px;"><%=pro.getProductCom() %></p>
-						<%if(pro.getProductDis()!=0){ %>
+						<p class="card-text" style="font-size: 12px;"><%=pro.get(i).getProductCom() %></p>
+						<%if(pro.get(i).getProductDis()!=0){ %>
 						<%
 						// 할인가를 나타내기 위한 변수
-						int discount =  (int)Math.floor(((double)(pro.getProductPrice())*(100-pro.getProductDis())/100)/10)*10;
+						int discount =  (int)Math.floor(((double)(pro.get(i).getProductPrice())*(100-pro.get(i).getProductDis())/100)/10)*10;
 						%>
 						<p class="card-text" ><%=format.format(discount) %>원
-						<span class="discount" style="font-size: 10px;"><%=format.format(pro.getProductPrice()) %>원</span>
+						<span class="discount" style="font-size: 10px;"><%=format.format(pro.get(i).getProductPrice()) %>원</span>
 						<%} else{%>
-						<p class="card-text" ><%=format.format(pro.getProductPrice()) %>원
+						<p class="card-text" ><%=format.format(pro.get(i).getProductPrice()) %>원
 						<%} %>
 						</p>
 						
@@ -91,18 +92,18 @@
 							<%-- 로그인이 안되어 있다면, 모두 빈 하트 --%>
 							<%if(loginClient==null) {%>
 								<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
-								class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
+								class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.get(i).getProductNum()%>">
 							<%-- 로그인이 되어 있다면, 회원번호와 제품번호를 매개변수로 전달받아 제품번호를 전달받는 dao 메소드 호출 --%>	
 							<% } else if(loginClient!=null){%>
 								<%
-									wishProductNum=WishDAO.getDAO().selectWish(pro.getProductNum(),loginClientNum);
+									wishProductNum=WishDAO.getDAO().selectWish(pro.get(i).getProductNum(),loginClientNum);
 								%>
-								<%if(wishProductNum==pro.getProductNum()){%> 
+								<%if(wishProductNum==pro.get(i).getProductNum()){%> 
 									<img src="<%=request.getContextPath()%>/images/icon/heart-red.png" 
-									class="wishHeart" alt="좋아요" title="on"  id="productNum<%=pro.getProductNum()%>">
+									class="wishHeart" alt="좋아요" title="on"  id="productNum<%=pro.get(i).getProductNum()%>">
 								<%} else {%>
 									<img src="<%=request.getContextPath()%>/images/icon/heart-black.png" 
-									class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.getProductNum()%>">
+									class="wishHeart" alt="좋아요" title="off"  id="productNum<%=pro.get(i).getProductNum()%>">
 								<%} %>
 							<%} %>								
 						</p>
