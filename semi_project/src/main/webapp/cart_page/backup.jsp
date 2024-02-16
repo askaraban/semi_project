@@ -59,7 +59,6 @@ input[type='number'] {
 			totalPrice += cart.getCartCount() * discount;
 		}
 		
-		System.out.println(totalPrice);
 		// 할인가를 나타내기 위한 변수
 		%>
 		

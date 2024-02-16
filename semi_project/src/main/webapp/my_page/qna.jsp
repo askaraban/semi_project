@@ -127,8 +127,8 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 								<tr>
 									<th scope="col">글번호</th>
 									<th scope="col">제목</th>
-									<th scope="col">작성자</th>
 									<th scope="col">작성일</th>
+									<th scope="col">작성자</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -137,9 +137,9 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum %></td>
 									<%displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장%>
-									<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_detail&qaNum=<%=review.getQaNum()%>&pageNum=1&pageSize=10"> <%=review.getQaSubject() %></a></td>
-									<td><%=loginClient.getClientName() %></td>
+									<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_detail&qaNum=<%=review.getQaNum()%>"> <%=review.getQaSubject() %></a></td>
 									<td><%=review.getQaRegister() %></td>
+									<td><%=loginClient.getClientName() %></td>
 								</tr>
 								
 							<%} %>

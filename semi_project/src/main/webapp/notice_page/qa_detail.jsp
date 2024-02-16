@@ -114,14 +114,60 @@ td {
 	vertical-align: middle;
 }
 
+/*
 #qa_menu {
 	text-align: right;
 	margin: 5px;
 }
+*/
 
 #qa_listBtn {
 	text-align: right;
 	margin-top: 50px;
+}
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#replyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+ 
+#removeBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#listBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
 
@@ -165,9 +211,13 @@ td {
 		</tr>
 	</table>
 	
-	<!-- 버튼 태그 div - 없앴음 -->
-	
-	
+	<!-- 버튼 태그 div -->
+	<div id="qa_menu" style="text-align: right;">
+		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
+		<% if(loginClient!=null && (loginClient.getClientNum()==qa.getQaMember())) { %>
+			<button type="button" id="modifyBtn">Q&A수정</button>
+		<% } %>
+	</div>
 </div>
 
 <div id="qa_replay">
@@ -191,7 +241,7 @@ td {
 			</tr>
 		</table>
 		
-		<div id="qa_menu">
+		<div id="qa_menu" style="text-align: right;">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
 			<%-- <% System.out.println("9인가요? = " + loginClient.getClientStatus()); %> --%>
 			<% if(loginClient!=null) { %>	
@@ -233,15 +283,6 @@ $("#replyBtn").click(function() {
 		+"&replay=<%=qa.getQaReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
 		+"&qaSubject=<%=qaSubject %>&qaNum=<%=qaNum%>";	
 });
-
-<%-- 참고
-$("#replyBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_write"
-		+"&noticeNum=<%=notice.getNoticeNum()%>&pageNum=<%=pageNum%>"
-		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
-});
---%>
-
 
 $("#listBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main";	
