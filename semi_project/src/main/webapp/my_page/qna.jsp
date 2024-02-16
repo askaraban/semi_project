@@ -18,9 +18,7 @@
 	type="text/css" rel="stylesheet">
 <%@include file="/security/login_url.jspf"%>
 	
-<%
-int productNum = Integer.parseInt(request.getParameter("productNum"));
-		
+<%	
 //게시글 검색 기능에 필요한 전달값(검색대상과 검색단어)을 반환받아 저장
 String search = request.getParameter("search");//검색대상
 if (search == null) {//전달값이 없는 경우 - 게시글 검색 기능을 사용하지 않은 경우
@@ -139,7 +137,7 @@ int displayNum = totalQa - (pageNum - 1) * pageSize;
 									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 									<td><%=displayNum %></td>
 									<%displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장%>
-									<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_detail&"&pageNum="+pageNum+&qaNum=<%=review.getQaNum()%>"> <%=review.getQaSubject() %></a></td>
+									<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_detail&&qaNum=<%=review.getQaNum()%>&productNum=<%=review.getQaProductNum()%>"> <%=review.getQaSubject() %></a></td>
 									<td><%=review.getQaRegister() %></td>
 									<td><%=loginClient.getClientName() %></td>
 								</tr>

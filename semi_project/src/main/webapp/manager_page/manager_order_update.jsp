@@ -26,7 +26,7 @@
 %>
 
 <div id="titleArea" class="titleArea">
-	<h2>결제내역</h2>	
+	<h2>결제내역</h2>
 </div>
 <br>
 <br>    	          
