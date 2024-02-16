@@ -106,17 +106,21 @@ h1 {
 #qa_list {
 	width: 1000px;
 	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
 	text-align: center;
 }
 
 #notice_title {
 	font-size: 1.2em;
-	font-weight: bold;
+	font-weight: bold;	
+	text-align: left;
 }
 
 #qa_title {
 	font-size: 1.2em;
 	font-weight: bold;
+	text-align: left;
 }
 
 table {
@@ -174,9 +178,21 @@ td {
 }
 </style>
 
-<h1>고객센터</h1>
+<h1 style="margin-top:30px; margin-bottom:30px;">고객센터</h1>
 <div id="notice_list">
-	<div id="notice_title">공지사항/Q&A</div>
+	<div id="notice_title">- 공지사항/Q&A</div>
+		
+	<div style="text-align: right;">
+	<%if(loginClient!=null){ %>
+		<% if(loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
+			<!-- <button type="button" id="qaWriteBtn">QA쓰기</button> -->
+			<button type="button" id="noticeWriteBtn">공지쓰기</button>
+		<% } %>
+		<% if(loginClient.getClientStatus()==1) { %>
+			<button type="button" id="qaWriteBtn">QA쓰기</button>
+		<%} %>
+	<%} %>
+	</div>
 	
 	<%-- 공지사항 --%>
 	<%-- 게시글 목록 출력 --%>
@@ -238,20 +254,8 @@ td {
 	<% } %>
 	</table>
 	
-<div id="qa_list">
-	<div id="qa_title">Q&A(<%=totalQa%>)</div>
-	
-		<div style="text-align: right;">
-		<%if(loginClient!=null){ %>
-			<% if(loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
-				<button type="button" id="qaWriteBtn">QA쓰기</button>
-				<button type="button" id="noticeWriteBtn">공지쓰기</button>
-			<% } %>
-			<% if(loginClient.getClientStatus()==1) { %>
-				<button type="button" id="qaWriteBtn">QA쓰기</button>
-			<%} %>
-		<%} %>
-		</div>
+	<div id="qa_list">
+		<div id="qa_title">- Q&A(<%=totalQa%>)</div>
 	</div>
 	
 	<%-- Q&A --%>
@@ -259,6 +263,7 @@ td {
 	<table>
 		<tr>
 			<th width="100">글번호</th>
+			<th width="100">답변</th>
 			<th width="500">제목</th>
 			<th width="100">작성자</th>
 			<th width="100">조회수</th>
@@ -276,6 +281,12 @@ td {
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
 				<td><%=qaDisplayNum %></td>
 				<% qaDisplayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
+											
+			<% if(qa.getQaReplay()==null) { %>
+				<td>미완료</td>
+			<% } else { %>
+				<td>완료</td>
+			<% } %>
 				
 				<%-- 제목 --%>
 				<td class="subject">
@@ -287,28 +298,21 @@ td {
 						+"&qaNum="+qa.getQaNum()+"&pageNum="+pageNum+"&pageSize="+pageSize
 						+"&search="+search+"&keyword="+keyword;
 					%>
-						<a href="<%=url%>"><%=qa.getQaSubject() %></a>
+					<a href="<%=url%>"><%=qa.getQaSubject() %></a>
 				</td>
-								
-					<%-- 작성자 출력 --%>
-					<td><%=qa.getQaName() %></td>
-								
-					<%-- 조회수 출력 --%>
-					<td><%=qa.getQaReadCount() %></td>
-								
-					<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
-					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
-					 <td>
-					 	<%-- 오늘 작성된 게시글인 경우 --%>
-					 		<%=qa.getQaRegister() %>
-					 </td>
-				<%--
-				<% } else {//삭제글인 경우 %>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				<% } %>
-				--%>
+				
+				<%-- 작성자 출력 --%>
+				<td><%=qa.getQaName() %></td>
+							
+				<%-- 조회수 출력 --%>
+				<td><%=qa.getQaReadCount() %></td>
+							
+				<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
+				 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
+				<td>
+				 	<%-- 오늘 작성된 게시글인 경우 --%>
+				 	<%=qa.getQaRegister() %>
+				</td>
 			</tr>
 		<% } %>
 	<% } %>

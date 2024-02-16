@@ -472,4 +472,33 @@ public class QaDAO extends JdbcDAO {
 		}
 		return rows;		
 	}
+	
+	//productNum와 QaNum을 전달받아 테이블의 단일행을 검색하여 게시글(QADTO 객체)을 반환하는 메소드(qa_product_name을 출력)
+	public QaDTO selectQaProductName(int productNum, int qaNum) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		QaDTO qa=null;
+		try {
+			con=getConnection();
+			
+				String sql="select product_name from qa_table join product_table on qa_product_num=product_num"
+						+ " where qa_product_num=? and qa_num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, productNum);
+				pstmt.setInt(2, qaNum);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				qa=new QaDTO();
+				qa.setProductName(rs.getString("product_name"));
+			}
+		} catch (SQLException e) {
+			System.out.println("[에러]selectQaProductName() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
+		}
+		return qa;
+	}
 }

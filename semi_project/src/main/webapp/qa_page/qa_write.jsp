@@ -1,3 +1,5 @@
+<%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 사용자로부터 게시글(새글 또는 답글)을 입력받기 위한 JSP 문서 --%>
@@ -22,6 +24,8 @@
 		pageSize=request.getParameter("pageSize");
 		reviewProductNum=Integer.parseInt(request.getParameter("reviewProductNum"));
 	}
+	
+	ProductDTO product =  ProductDAO.getDAO().selectProductByNum(reviewProductNum);
 %>
 
 <style type="text/css">
@@ -95,7 +99,9 @@ td {
 			<tr>
 				<th>제목</th>
 				<td>
-					<input type="text" name="qaSubject" id="qaSubject" size="40">
+					<!-- <input type="text" name="qaSubject" id="qaSubject" size="40" value=""test> -->
+					<input type="text" name="qaSubject" id="qaSubject" size="40" value="[<%= product.getProductName() %>]">
+					<% System.out.println("getProductName = " + product.getProductName()); %>
 				</td>					
 			</tr>	
 			<tr>
