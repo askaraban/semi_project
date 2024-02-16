@@ -1,21 +1,18 @@
-<%@page import="java.util.Date"%>
-<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@page import="xzy.itwill.DAO.WishDAO"%>
-<%@page import="xyz.itwill.DTO.WishDTO"%>
 <%@page import="java.text.DecimalFormat"%>
+<%@page import="xzy.itwill.DAO.ProductDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="xzy.itwill.DAO.ProductDAO"%>
+<%@page import="xyz.itwill.DTO.WishDTO"%>
 <%@page import="xyz.itwill.DTO.ProductDTO"%>
+<%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
+    pageEncoding="UTF-8"%>
 <%	
 	
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
-
+	
 	List<ProductDTO> productList = new ArrayList<>();
-	productList = ProductDAO.getDAO().selectBestProudct();
 	WishDTO redHeart = new WishDTO();
 	Integer wishProductNum = 0;
 	
@@ -31,30 +28,10 @@
 	}  else{
 		login=0;
 	}
+	
+		productList = ProductDAO.getDAO().selectRandomProduct();
+	
 %>	
-
-<body>
-	<br>
-	<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner main-img">
-    <div class="carousel-item active">
-      <a href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product_recommand">
-      <img src="<%=request.getContextPath()%>/images/banner5.png" class="img-fluid" class="d-block w-100" alt="saleProduct">
-      </a>
-    </div>
-  </div>
-</div>
-	<%-- 
-	<div class="main-body main-img" >
-		<img src="<%=request.getContextPath()%>/images/main_img.png" class="img-fluid" alt="Koala"
-			style="width: 100%; height: 400px;">
-			<div class="main-text">여기를 모르ㅇㅇ</div>
-			<%=session.getAttribute("keyword") %>
-	</div>
-	--%>
-		<div class="subTitle">
-		<h2 ><img src="<%=request.getContextPath()%>/images/icon/icons8-crown.png" style="padding-bottom: 18px; width: 50px;">베스트 추천 상품</h2>
-		</div>
 	<div class="main-prd">
 		<ul class="prdList grid3">
 			<%for(ProductDTO pro : productList){ %>
@@ -106,14 +83,12 @@
 								<%} %>
 							<%} %>								
 						</p>
-
 					</div>
 				</div>
 			</li>
 					<%} %>
 		</ul>
-	</div>
-	
+</div>
 	<hr>
 	<script type="text/javascript">
 
@@ -153,6 +128,4 @@ $("img").filter(".wishHeart").click(function() {
 	
 	
 })
-
 </script>
-</body>

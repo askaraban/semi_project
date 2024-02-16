@@ -5,8 +5,8 @@
 	<!-- footer 부분-->
 	<footer id="footer" class="foot_line">
 		<div class="inner_foot">
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp" class="link_logo"> <img src="<%=request.getContextPath() %>/images/logo.png" width="80"
-				height="40" class="img_thumb" alt="쿠키몰">
+			<a href="<%=request.getContextPath()%>/main_page/main.jsp" class="link_logo"> <img src="<%=request.getContextPath()%>/images/King2.png" width="70"
+				height="60" class="img_thumb" alt="쿠키몰" >
 			</a>
 			<div class="info_policy">
 				<ul class="foot_ul">
