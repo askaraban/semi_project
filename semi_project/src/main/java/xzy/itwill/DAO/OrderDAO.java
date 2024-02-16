@@ -380,8 +380,8 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return orderList;
 		}
-		// 회원번호와 회원리뷰상태코드, 시작페이지와, 끝번호를 전달받아 상태코드가 1인 리스트 전달받기
-		public List<OrderDTO> selectOrderList(ClientDTO client, int status, int startRow, int endRow) {
+		// 회원번호와 회원리뷰상태코드, 시작페이지와, 끝번호를 전달받아 리뷰상태코드가 1이고, 상품상태코드가 1인 리스트 전달받기
+		public List<OrderDTO> selectOrderList(ClientDTO client, int status, int productStatus, int startRow, int endRow) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -391,20 +391,21 @@ public class OrderDAO extends JdbcDAO {
 				
 				con = getConnection();
 				
-				String sql = "select * from (select rownum rn, temp.* from "
-						+ "(select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum"
-						+ ", order_dis_sum, order_content, order_receiver"
-						+", order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
-						+", product_dis, product_main_img, order_review_status, order_email from order_table join product_table"
-						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? order by order_num desc)"
+				String sql = "select * from (select rownum rn, temp.* from"
+						+ " (select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum"
+						+ " , order_dis_sum, order_content, order_receiver"
+						+ " , order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
+						+ " , product_dis, product_main_img, order_review_status, product_status, order_email from order_table join product_table"
+						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? order by order_num desc)"
 						+ " temp) where rn between ? and ?";
 				
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, client.getClientNum());
 				pstmt.setInt(2, status);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
+				pstmt.setInt(3, productStatus);
+				pstmt.setInt(4, startRow);
+				pstmt.setInt(5, endRow);
 				
 				rs = pstmt.executeQuery();
 				
@@ -431,18 +432,19 @@ public class OrderDAO extends JdbcDAO {
 					order.setProductDis(rs.getInt("product_dis"));
 					order.setProductMainImg(rs.getString("product_main_img"));
 					order.setOrderReviewStatus(rs.getInt("order_review_status"));
+					order.setProductStatus(rs.getInt("product_status"));
 					order.setOrder_email(rs.getString("order_email"));
 					orderList.add(order);
-					
 				}
 				
 			} catch (SQLException e) {
-				System.out.println("[에러]selectOrderList2() 메소드 오류" + e.getMessage());
+				System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
 			} finally {
 				close(con, pstmt, rs);
 			}
 			return orderList;
 		}
+		
 		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
 		public int selectOrderCnt(int status, int clientNum) {
 			Connection con = null;

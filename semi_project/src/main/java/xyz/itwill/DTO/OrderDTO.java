@@ -46,6 +46,7 @@ public class OrderDTO {
 	private int productPrice; 
 	private int productDis;
 	private String productMainImg;
+	private int productStatus;
 	
 	// 리뷰테이블과 조인
 	private int reviewStatus;
@@ -280,6 +281,14 @@ public class OrderDTO {
 
 	public void setOrderMobile(String orderMobile) {
 		this.orderMobile = orderMobile;
+	}
+
+	public int getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(int productStatus) {
+		this.productStatus = productStatus;
 	}
 	
 }
