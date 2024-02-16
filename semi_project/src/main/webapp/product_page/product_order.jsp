@@ -84,7 +84,7 @@
        		<span class="col-sm-9" style="text-align:left; padding-left:100px; font-weight: bold;" id="price"><%=format.format(product.getProductPrice()) %> 원</span>
 		<%} %>
         <div class="col-sm-3">배송비</div>
-        <div class="col-sm-9" style="text-align:left; padding-left:100px;">무료배송</div>
+        <div class="col-sm-9" style="text-align:left; padding-left:100px;">5,000 원 <br>(50,000 원 이상 주문 시 무료배송)</div>
       
         <div class="row">
 		<div class="col-sm-3">수량</div>
