@@ -27,7 +27,9 @@
 		session.removeAttribute("id");
 	}
 %>
+
 <style type="text/css">
+
 #space {
 	height: 50px;
 }
@@ -37,11 +39,6 @@
 	width: 425px;
 }
 
-#loginForm label {
-	text-align: right;
-	width: 100px;
-	float: left;
-}
 
 #loginForm ul li {
 	width: 350px;
@@ -57,8 +54,8 @@
 	text-align: center;
 	margin: 0 auto;
 	padding: 5px;
-	width: 300px;
-	background-color: black;
+	width: 26%;
+	background-color: pink;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;
@@ -93,33 +90,38 @@ a:hover {
 	max-width: 1020px;
 	width: 100%
 	margin:0 auto;
-	color : orange;
+	color : pink;
+	text-align: center;
+}
+
+.userinfo {
 	text-align: center;
 }
 
 
 </style>
+<br>
 <div class="titlearea">
-<h1>로그인</h1>
+<h1>로그인&nbsp;&nbsp;</h1>
 </div>
 <div id="space"></div>
 <form action="<%=request.getContextPath() %>/main_page/main.jsp?group=login_page&worker=client_login_action" 
 	method="post" id="loginForm" name="loginForm">
 	<%-- url을 전달하기 위한 hidden input --%>
-	<input type="hidden" value="<%=url%>" name="url"> 
-	<ul class="login_tag">
-		<li>
-			<label for="id" >아이디</label>&nbsp;&nbsp;
-			<input type="text" name="id" id="id" value="<%=id%>" style="width:210px;" >	
-		</li>
-		<div id="message1"><%=message %></div>
-		<li>
-			<label for="passwd">비밀번호</label>&nbsp;&nbsp;
-			<input type="password" name="passwd" id="passwd" style="width:210px;" >	
-		</li>
-		<div id="message2"><%=message %></div>
-	</ul>	
+	<input type="hidden" value="<%=url%>" name="url">
+	<div class="userinfo"> 
+		<ul class="login_tag">
+			<li>
+				&nbsp;&nbsp;<input type="text" name="id" id="id" value="<%=id%>" style="width:76%;" placeholder="아이디" >	
+			</li>
+			<div id="message1"><%=message %></div>
+			<li>
+				&nbsp;&nbsp;<input type="password" name="passwd" id="passwd" style="width:76%;" placeholder="패스워드" >	
+			</li>
+			<div id="message2"><%=message %></div>
+		</ul>	
 	<div id="login_btn">로그인</div>
+	</div>
 </form>
 <div id="search">
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_id">아이디 찾기</a> |

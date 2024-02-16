@@ -15,11 +15,11 @@
 }
 
 #name {
-	width: 240px;
+	width: 242px;
 }
 
 #email {
-	width: 240px;
+	width: 242px;
 }
 
 #searchForm input:focus {
@@ -30,7 +30,7 @@
 	margin: 0 auto;
 	padding: 5px;
 	width: 250px;
-	background-color: black;
+	background-color: pink;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;

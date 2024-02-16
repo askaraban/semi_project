@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%-- 비밀번호를 검색하기 위해 사용자로부터 이름과 아이디를 입력받기 위한 JSP 문서 --%>
 <style type="text/css">
+
+
 .search_tag {
 	margin: 5px auto;
-	width: 300px;
+	width: 320px;
 }
 
 
@@ -22,27 +24,28 @@
 #search_btn {
 	margin: 0 auto;
 	padding: 5px;
-	width: 300px;
-	background-color: black;
+	width: 264px;
+	background-color: pink;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;
-	letter-spacing: 20px;
+	letter-spacing: 15px;
 	font-weight: bold;
 	text-align: center;
 }
 
 #name {
-	width: 270px;
+	width: 261px;
 }
 
 #id {
-	width: 270px;
+	width: 261px;
 }
 
 #email {
-	width: 270px;
+	width: 261px;
 }
+
 #message1 {
 	color: red;
 	font-weight: bold;
