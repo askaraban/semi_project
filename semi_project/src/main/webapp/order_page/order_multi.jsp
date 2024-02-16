@@ -387,7 +387,7 @@ $("#orderForm").submit(function() {
 		submitResult=false;
 	}
 	
-	var emailReg=/^[a-zA-Z]\w{5,19}$/g;
+	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
 	//alert($("#emailTxt").val());
 	
 	if($("#emailTxt").val()=="") {
