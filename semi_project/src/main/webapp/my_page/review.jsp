@@ -34,7 +34,8 @@ if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 }
 
 //REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
-int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(1, loginClient.getClientNum());
+int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(loginClient.getClientNum(), 1, 1);
+System.out.println("totalReviewOrder = " + totalReviewOrder);
 
 //전체 페이지의 총갯수를 계산하여 저장
 //int totalPage=totalReview/pageSize+totalReview%pageSize==0?0:1;

@@ -446,7 +446,7 @@ public class OrderDAO extends JdbcDAO {
 		}
 		
 		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
-		public int selectOrderCnt(int status, int clientNum) {
+		public int selectOrderCnt(int clientNum, int status, int productStatus) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -456,11 +456,19 @@ public class OrderDAO extends JdbcDAO {
 				
 				con = getConnection();
 				
-				String sql="select count(*) from order_table where order_review_status=? and order_client_num=?";
+				//String sql="select count(*) from order_table where order_review_status=? and order_client_num=?";
+				String sql="select count(*) from (select temp.* from"
+						+ "(select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum"
+						+ ", order_dis_sum, order_content, order_receiver"
+						+ ", order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
+						+ ", product_dis, product_main_img, order_review_status, product_status, order_email from order_table join product_table"
+						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? order by order_num desc)"
+						+ " temp)";
 				
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, status);
-				pstmt.setInt(2, clientNum);
+				pstmt.setInt(1, clientNum);
+				pstmt.setInt(2, status);
+				pstmt.setInt(3, productStatus);
 				
 				rs=pstmt.executeQuery();
 				
@@ -475,6 +483,7 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return rows;
 		}
+		
 		// 회원번호와 회원리뷰상태코드를 전달받아 상태코드가 1인 리스트 전달받기
 		public int selectOrderCnt(int clientNum) {
 			Connection con = null;

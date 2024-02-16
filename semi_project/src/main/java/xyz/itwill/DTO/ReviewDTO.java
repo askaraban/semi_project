@@ -34,23 +34,20 @@ public class ReviewDTO {
 	private int orderReviewStatus;
 	private int orderNum;
 	
+	//product_table 조인
+	private int productStatus;
+	
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	public int getOrderNum() {
 		return orderNum;
 	}
 
-
-
 	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
 	}
-
-
 
 	public int getOrderReviewStatus() {
 		return orderReviewStatus;
@@ -59,7 +56,6 @@ public class ReviewDTO {
 	public void setOrderReviewStatus(int orderReviewStatus) {
 		this.orderReviewStatus = orderReviewStatus;
 	}
-
 	
 	public ReviewDTO(int reviewNum, int reviewMemberNum, String reviewName, String reviewSubject, String reviewContent,
 			String reviewImage, String reviewRegister, String reviewUpdate, int reviewReadcount, String reviewReplay,
@@ -174,5 +170,12 @@ public class ReviewDTO {
 	public void setReviewOrderNum(int reviewOrderNum) {
 		this.reviewOrderNum = reviewOrderNum;
 	}
-	
+
+	public int getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(int productStatus) {
+		this.productStatus = productStatus;
+	}
 }
