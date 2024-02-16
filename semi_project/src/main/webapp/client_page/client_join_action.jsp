@@ -28,7 +28,6 @@
 	//전달받은 비밀번호를 암호화 처리한 후 변수에 저장
 	String clientPasswd=Utility.encrypt(request.getParameter("passwd"));
 	String clientName=request.getParameter("name");
-	System.out.println(clientName);
 	String clientEmail=request.getParameter("email");
 	String clientMobile=request.getParameter("mobile1")+"-"+request.getParameter("mobile2")
 		+"-"+request.getParameter("mobile3");

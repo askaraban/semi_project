@@ -11,6 +11,5 @@
 <div id="menu">
 	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product">제품관리</a>
 	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product_insert">제품추가</a>
-	<a href="#">게시글관리</a>
 	<a href="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_order">주문관리</a>
 </div>  
