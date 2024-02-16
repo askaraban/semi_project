@@ -258,7 +258,7 @@ public class ProductDAO extends JdbcDAO{
 				
 				if(keyword.equals("")) {
 					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
-							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3, product_status"
 							+ " from product_table order by product_num desc) temp) where rn between ? and ?";
 					
 					pstmt=con.prepareStatement(sql);
@@ -268,7 +268,7 @@ public class ProductDAO extends JdbcDAO{
 					
 				} else {
 					String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
-							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
+							+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3, product_status"
 							+ " from product_table where "+search+" like '%'||?||'%' order by product_num desc) temp) where rn between ? and ?";
 					pstmt=con.prepareStatement(sql);
 					
@@ -292,6 +292,7 @@ public class ProductDAO extends JdbcDAO{
 					product.setProductImg1(rs.getString("product_img1"));
 					product.setProductImg2(rs.getString("product_img2"));
 					product.setProductImg3(rs.getString("product_img3"));
+					product.setProductStatus(rs.getInt("product_status"));
 					productList.add(product);
 				}
 			} catch (SQLException e) {
@@ -468,7 +469,7 @@ public class ProductDAO extends JdbcDAO{
 			try {
 				con=getConnection();
 				
-				String sql="delete product_table where product_num=?";
+				String sql="update product_table set product_status=0 where product_num=?";
 				
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, productNum);

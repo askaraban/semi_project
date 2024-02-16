@@ -7,9 +7,15 @@
 	pageEncoding="UTF-8"%>
 
 <%@include file="/security/login_url.jspf" %>
-<%	
+
+<%
+	
+
 	CartDTO sendCart = new CartDTO();
 	List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient);
+	
+	
+	
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	int totalPrice = 0;
 	int cnt=0;
@@ -145,7 +151,7 @@ input[type='number'] {
 <%-- *******************결제창으로 가기 위한 최종 결제금액div *********************************** --%>
 		<div style="display: flex;">
 			<div class="cart-select-product-content" style="width: 180px;">
-				<span class="result-word" >선택상품금액</span>
+				<span class="result-word" id="selectP">선택상품금액</span>
 				<br>
 				<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
 			</div>
@@ -284,7 +290,13 @@ var orderLength = function() {
 orderLength()
 <%-- 주문페이지로 이동하는 메소드 --%>
 $("#cartOrderBtn").click(function() {
-	if($("#selectedPrice2").text()=="0원"){
+	
+	<%if(cartList.isEmpty()){%>
+		alert("주문할 제품을 선택해주세요.");
+	<%}%>	return;
+	
+	if($("#selectP").text()=="0원"){
+		
 		alert("주문할 제품을 선택해주세요.");
 		return;
 	}

@@ -30,12 +30,18 @@ public class ProductDTO {
 	private String productImg1;
 	private String productImg2;
 	private String productImg3;
+	private int productStatus;
 	
 	private int orderProductNum;
 	
 	
 	
-	
+	public int getProductStatus() {
+		return productStatus;
+	}
+	public void setProductStatus(int productStatus) {
+		this.productStatus = productStatus;
+	}
 	public int getOrderProductNum() {
 		return orderProductNum;
 	}
