@@ -307,6 +307,32 @@ public class QaDAO extends JdbcDAO {
 		return rows;
 	}
 	
+	//게시글을 전달받아 REVIEW 테이블에 행으로 삽입하고 삽입행의 갯수를 반환하는 메소드(상품상세에서 작성)
+	public int insertQaByProduct(QaDTO qa) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int rows=0;
+		try {
+			con=getConnection();
+			
+			String sql="insert into qa_table values(?,?,?,?,?,sysdate,null,0,null,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, qa.getQaNum());
+			pstmt.setInt(2, qa.getQaMember());
+			pstmt.setString(3, qa.getQaSubject());
+			pstmt.setString(4, qa.getQaContent());
+			pstmt.setString(5, qa.getQaImage());
+			pstmt.setInt(6, qa.getQaProductNum());
+			
+			rows=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("[에러]insertQaByProduct() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt);
+		}
+		return rows;
+	}
+	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 메소드
 	public QaDTO selectQaByNum(int qaNum) {
 		Connection con=null;

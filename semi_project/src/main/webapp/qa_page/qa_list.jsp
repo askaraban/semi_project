@@ -8,10 +8,11 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link href="<%=request.getContextPath()%>/style/review_list_style.css" type="text/css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/style/qa_style.css" type="text/css" rel="stylesheet">
 <%
 	// 제품번호 가져옴(review)
 	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
+	//System.out.println("qa_list의 reviewProductNum = " + reviewProductNum);				// qa_list의 reviewProductNum = 2
 
 	//페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
 	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
@@ -92,6 +93,15 @@
 <div id="qa_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
 	<div id="qa_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px; font-weight: bold;">Q&A목록(<%=qaReview %>)</div>
+	<div style="text-align: right;">
+		<%-- <%if(loginClient!=null && loginClient.getClientStatus()==1) { %> --%> <!-- !!!!!!!!!!!!!!!!!!!!!!!!권한 추가하기!!!!!!!!!!!!!!!!!!!!!!!! -->
+			<%
+				String Url=request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_write"
+						+"&reviewProductNum="+reviewProductNum+"&pageNum="+pageNum+"&pageSize="+pageSize;
+			%>
+			<button type="button" id="qaWriteBtn" onclick="location.href='<%=Url%>'">QA작성</button>
+		<%-- <%} %> --%>
+	</div>
 	
 	<%-- 게시글 목록 출력 --%>
 	<table>
@@ -175,7 +185,7 @@
 	<div id="page_list">
 		<%
 			String responseUrl=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
-					+"&productNum="+reviewProductNum+"&review_list"+"&pageSize="+pageSize;
+					+"&productNum="+reviewProductNum+"&qa_list"+"&pageSize="+pageSize;
 		%>
 		
 		<%-- 이전 페이지블럭이 있는 경우에만 링크 제공 --%>
@@ -211,7 +221,4 @@ $("#reviewCount").change(function() {
 		+"&pageNum=<%=pageNum%>&pageSize="+$("#reviewCount").val();
 });
 
-$("#writeBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/index.jsp?group=review&worker=review_write";	
-});
 </script>
