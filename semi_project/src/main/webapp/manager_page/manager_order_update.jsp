@@ -13,7 +13,7 @@
 	String timeStamp = request.getParameter("timeStemp").substring(0, 17);
 	String clientNum = request.getParameter("orderClientNum");
 	
-	// 회원정보를 전달해 회원정보를 받아옴 
+	// 회원정보를 전달해 회원정보를 받아옴 263 보기
 	ClientDTO client = ClientDAO.getDAO().selectClientByNum(Integer.parseInt(clientNum));
 	
 	List<OrderDTO> orderlist = OrderDAO.getDAO().selectManagerOrder(timeStamp);
