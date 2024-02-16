@@ -21,7 +21,6 @@
 	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 	int pageSize=Integer.parseInt(request.getParameter("pageSize"));
 	String reviewSubject=request.getParameter("reviewSubject");
-	//System.out.println("reviewNum = " + reviewNum);
 	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("reviewNum")==null) {
@@ -31,7 +30,6 @@
 
 	// 제품번호 가져옴
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
-	//System.out.println("productNum = " + productNum);
 	
 	//글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
 	//ReviewDAO 클래스의 메소드 호출
@@ -47,7 +45,6 @@
 	// => 검색된 게시글이 비밀글인 경우 권한을 확인하기 위해 필요
 	// => 권한에 따른 태그 출력을 위해 필요
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
-	//System.out.println("loginClient.getClientStatus() = " + loginClient.getClientStatus());
 	
 	//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 ReviewDAO 클래스의 메소드 호출

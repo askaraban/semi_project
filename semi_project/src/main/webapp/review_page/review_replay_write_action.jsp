@@ -25,7 +25,6 @@
 	int productNum = Integer.parseInt(request.getParameter("productNum"));
 	int reviewNum = Integer.parseInt(request.getParameter("reviewNum"));
 	String replay=request.getParameter("replay");
-	//System.out.println("action의 productNum = " + productNum);
 	
 	// reviewDTO 객체를 생성하여 변수값(전달값)을 필드값으로 저장
 	ReviewDTO review = new ReviewDTO();

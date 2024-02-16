@@ -33,7 +33,6 @@
 	int productNum = Integer.parseInt(multipartRequest.getParameter("productNum"));
 	String qaSubject=Utility.escapeTag(multipartRequest.getParameter("qaSubject"));
 	String qaContent=Utility.escapeTag(multipartRequest.getParameter("qaContent"));
-	System.out.println("qaContent = " + qaContent);
 	
 	//서버 디렉토리에 업로드되어 저장된 파일명을 반환받아 컨텍스트 경로를 저장
 	String qaImage=multipartRequest.getFilesystemName("qaImage");

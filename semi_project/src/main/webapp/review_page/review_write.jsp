@@ -24,12 +24,6 @@
    , orderNum=request.getParameter("orderNum"),reviewSubject=request.getParameter("reviewSubject"),reviewNum=request.getParameter("reviewNum");
    int productNum=Integer.parseInt(request.getParameter("productNum"));
    
-//   System.out.println("replay = " + replay);
-//   System.out.println("orderNum = " + orderNum);
-//   System.out.println("productNum = " + productNum);
-//   System.out.println("reviewSubject = " + reviewSubject);
-//   System.out.println("reviewNum = " + reviewNum);
-   
    if(request.getParameter("replay")!=null) {//전달값이 있는 경우 - 답글
       //부모글 관련 정보를 반환받아 저장
       replay=request.getParameter("replay");

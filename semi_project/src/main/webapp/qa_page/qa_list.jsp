@@ -12,7 +12,6 @@
 <%
 	// 제품번호 가져옴(review)
 	int reviewProductNum = Integer.parseInt(request.getParameter("productNum"));
-	//System.out.println("qa_list의 reviewProductNum = " + reviewProductNum);				// qa_list의 reviewProductNum = 2
 
 	//페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
 	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정

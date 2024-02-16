@@ -10,7 +10,6 @@
 
 <%@include file="/security/login_check.jspf" %>    
 <%
-	System.out.println("qaNum = " + request.getParameter("qaNum"));
 	//전달값을 반환받아 저장
 	int qaNum=Integer.parseInt(request.getParameter("qaNum"));
 	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
@@ -44,10 +43,6 @@
 	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
 	//QaDAO 클래스의 메소드 호출
 	QaDAO.getDAO().deleteQa(qaNum);
-	//System.out.println("delete 탔어용");
-	
-	//System.out.println("review.getQaProductNum() = " + review.getQaProductNum());
-	
 	
 	//페이지 이동
  	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"

@@ -112,7 +112,6 @@ td {
 					%>
 					
 					<input type="text" name="qaSubject" id="qaSubject" size="40" value="[<%= productName %>]">
-					<% System.out.println("getProductName = " + product.getProductName()); %>
 				</td>					
 			</tr>	
 			<tr>

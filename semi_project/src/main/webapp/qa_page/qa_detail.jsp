@@ -47,7 +47,6 @@
 	// => 검색된 게시글이 비밀글인 경우 권한을 확인하기 위해 필요
 	// => 권한에 따른 태그 출력을 위해 필요
 	ClientDTO loginClient = (ClientDTO)session.getAttribute("loginClient");
-	//System.out.println("loginClient.getClientStatus() = " + loginClient.getClientStatus());
 	
 	//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 ReviewDAO 클래스의 메소드 호출
@@ -210,8 +209,6 @@ td {
 				<br>
 				<% if(qa.getQaImage()!=null) { %>
 					<img src="<%=request.getContextPath()%>/<%=qa.getQaImage()%>" width="200">
-					<%-- <% System.out.println("request.getContextPath() = " + request.getContextPath()); %> --%>
-					<!-- request.getContextPath() = /semi_project_1 -->
 				<% } %>
 			</td>
 		</tr>

@@ -10,7 +10,6 @@
 
 <%@include file="/security/login_check.jspf" %>    
 <%
-	System.out.println("reviewNum = " + request.getParameter("reviewNum"));
 	//전달값을 반환받아 저장
 	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
 	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
@@ -44,10 +43,6 @@
 	//게시글을 전달받아 REVIEW 테이블의 저장된 행의 컬럼값을 변경하고 변경행의 갯수를 반환하는
 	//ReviewDAO 클래스의 메소드 호출
 	ReviewDAO.getDAO().deleteReview(reviewNum);
-	//System.out.println("delete 탔어용");
-	
-	//System.out.println("review.getReviewProductNum() = " + review.getReviewProductNum());
-	
 	
 	//페이지 이동
  	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
