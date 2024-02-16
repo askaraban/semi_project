@@ -188,3 +188,7 @@ td ul {
 }
 
 
+ul li {
+		list-style-type: none;
+		margin: 5px 0px;
+	}

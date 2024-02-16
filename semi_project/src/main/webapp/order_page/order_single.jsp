@@ -41,11 +41,6 @@
 <style type="text/css">
 	
 	
-	#useAddress {		 
-		list-style: none;		
-				
-	}
-	
 	.error {
 		color: red;
 		left: 160px;
@@ -320,16 +315,16 @@
 <section style="display=block;">							
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>
- 	<ul>
-		<li>
-		    <input type="radio" id="usedAddress" name="useAddress" checked>
-		    <label for="usedAddress">기존 주소 사용</label>
-		</li>
-		<li>
-		    <input type="ridio" id="newAddress" name="useAddress">
-		    <label for="newAddress">새로운 배송지</label>
-		</li>
-	</ul>      
+	 	<ul>
+			<li>
+			    <input type="radio" id="usedAddress" name="useAddress" checked>
+			    <label for="usedAddress">기존 주소 사용</label>
+			</li>
+			<li>
+			    <input type="ridio" id="newAddress" name="useAddress">
+			    <label for="newAddress">새로운 배송지</label>
+			</li>
+		</ul>      
 	    <input type="hidden" id="clientNum" name="clientNum" value="<%=clientNum%>">
 	    <input type="hidden" id="productNum" name="productNum" value="<%=productNum%>">
 	    <input type="hidden" id="orderSum" name="orderSum" value="<%=orderSum%>">

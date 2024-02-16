@@ -120,7 +120,16 @@
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>      
 	   
-		    
+		<ul>
+			<li>
+			    <input type="radio" id="usedAddress" name="useAddress" checked>
+			    <label for="usedAddress">기존 주소 사용</label>
+			</li>
+			<li>
+			    <input type="ridio">
+			    <label for="newAddress">새로운 배송지</label>
+			</li>
+		</ul>         
 	    <div class="tableTypeWrite payTable">
     	<table>
 			   <colgroup>
