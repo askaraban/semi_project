@@ -57,8 +57,9 @@ public class QaDAO extends JdbcDAO {
 		}
 		return totalCount;
 	}
+	
 	// 회원 페이지에서 자신의 qa 목록을 볼 수 있는 메소드
-	public int selectTotalQa(int clientNum) {
+	public int selectTotalQa(int clientNum, int productStatus) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -66,9 +67,16 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select count(*) from qa_table where qa_member=?";
+			//String sql="select count(*) from qa_table where qa_member=?";
+			String sql="select count(*) from (select temp.*, product_status from (select qa_num"
+					+ " , qa_member, qa_subject, qa_content, qa_image, qa_register"
+					+ " , qa_update, qa_readcount, qa_replay, qa_product_num from qa_table join client_table"
+					+ "  on qa_member=client_num where client_num=? order by qa_register desc,qa_num desc) temp"
+					+ "  join product_table on qa_product_num=product_num where product_status=?)";
+			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
+			pstmt.setInt(2, productStatus);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -139,7 +147,7 @@ public class QaDAO extends JdbcDAO {
 	}
 	
 	//페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 회원번호를 전달받아 회원에 대한 qa리스트 출력하는 메소드
-	public List<QaDTO> selectQaList(int startRow, int endRow, int clientNum) {
+	public List<QaDTO> selectQaList(int clientNum, int productStatus, int startRow, int endRow) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -147,20 +155,23 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-				String sql="select * from (select rownum rn, temp.* from (select qa_num"
-						+ ", qa_member, qa_subject, qa_content, qa_image, qa_register"
-						+ ", qa_update, qa_readcount, qa_replay from qa_table join client_table"
-						+ " on qa_member=client_num where client_num=? order by qa_register desc,qa_num desc) temp)"
-						+ "where rn between ? and ?";
+				String sql="select * from (select rownum rn, temp.*, product_status from (select qa_num"
+						+ " , qa_member, qa_subject, qa_content, qa_image, qa_register"
+						+ " , qa_update, qa_readcount, qa_replay, qa_product_num from qa_table join client_table"
+						+ "  on qa_member=client_num where client_num=? order by qa_register desc,qa_num desc) temp"
+						+ "  join product_table on qa_product_num=product_num where product_status=?)"
+						+ " where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, clientNum);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setInt(2, productStatus);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
 			
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				QaDTO qa=new QaDTO();
+				qa.setProductStatus(rs.getInt("product_status"));
 				qa.setQaNum(rs.getInt("qa_num"));
 				qa.setQaMember(rs.getInt("qa_member"));
 				qa.setQaSubject(rs.getString("qa_subject"));
@@ -170,6 +181,7 @@ public class QaDAO extends JdbcDAO {
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readcount"));
 				qa.setQaReplay(rs.getString("qa_replay"));
+				qa.setQaProductNum(rs.getInt("qa_product_num"));
 				
 				qaList.add(qa);
 			}

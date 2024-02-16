@@ -30,6 +30,10 @@ public class QaDTO {
 	private int clientNum;
 	private String productName;	 //PRODUCT 테이블의 상품명(PRODUCT_NAME 컬럼)을 저장하기 위한 필드 - 상품명
 	
+	//PRODUCT 테이블과 조인
+	private int productStatus;
+	
+	
 	public QaDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -147,4 +151,13 @@ public class QaDTO {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+	public int getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(int productStatus) {
+		this.productStatus = productStatus;
+	}
+	
 }
