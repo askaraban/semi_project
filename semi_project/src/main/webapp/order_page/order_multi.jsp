@@ -388,12 +388,10 @@ $("#orderForm").submit(function() {
 	}
 	
 	var emailReg=/^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+(\.[-a-zA-Z0-9]+)+)*$/g;
-	//alert($("#emailTxt").val());
-	
 	if($("#emailTxt").val()=="") {
 		$("#emailMsg").css("display","block");
 		submitResult=false;
-	} else if(!emailReg.test($("#email").val())) {
+	} else if(!emailReg.test($("#emailTxt").val())) {
 		$("#emailRegMsg").css("display","block");
 		submitResult=false;
 	}

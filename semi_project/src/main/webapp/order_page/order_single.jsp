@@ -529,7 +529,7 @@ $("#orderForm").submit(function() {
 	if($("#emailTxt").val()=="") {
 		$("#emailMsg").css("display","block");
 		submitResult=false;
-	} else if(!emailReg.test($("#email").val())) {
+	} else if(!emailReg.test($("#emailTxt").val())) {
 		$("#emailRegMsg").css("display","block");
 		submitResult=false;
 	}
