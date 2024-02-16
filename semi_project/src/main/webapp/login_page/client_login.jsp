@@ -72,9 +72,16 @@
 	text-align: center;
 }
 
-#message {
+#message1 {
 	color: red;
 	font-weight: bold;
+	text-align: center;
+}
+
+#message2 {
+	color: red;
+	font-weight: bold;
+	text-align: center;
 }
 
 a:hover {
@@ -105,10 +112,12 @@ a:hover {
 			<label for="id" >아이디</label>&nbsp;&nbsp;
 			<input type="text" name="id" id="id" value="<%=id%>" style="width:210px;" >	
 		</li>
+		<div id="message1"><%=message %></div>
 		<li>
 			<label for="passwd">비밀번호</label>&nbsp;&nbsp;
 			<input type="password" name="passwd" id="passwd" style="width:210px;" >	
 		</li>
+		<div id="message2"><%=message %></div>
 	</ul>	
 	<div id="login_btn">로그인</div>
 </form>
@@ -117,20 +126,20 @@ a:hover {
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_passwd">비밀번호 찾기</a> |
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_join">회원가입</a>
 </div>
-<div id="message"><%=message %></div>
+
 
 <script type="text/javascript">
 $("#id").focus();
 
 $("#login_btn").click(function() {
 	if($("#id").val()=="") {
-		$("#message").text("아이디를 입력해 주세요.");
+		$("#message1").text("아이디를 입력해 주세요.");
 		$("#id").focus();
 		return;
 	}	
 	
 	if($("#passwd").val()=="") {
-		$("#message").text("비밀번호를 입력해 주세요.");
+		$("#message2").text("비밀번호를 입력해 주세요.");
 		$("#passwd").focus();
 		return;
 	}	

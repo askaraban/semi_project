@@ -46,7 +46,17 @@
 #email {
 	width: 260px;
 }
-#message {
+#message1 {
+	color: red;
+	font-weight: bold;
+}
+
+#message2 {
+	color: red;
+	font-weight: bold;
+}
+
+#message3 {
 	color: red;
 	font-weight: bold;
 }
@@ -59,36 +69,37 @@
 	method="post" name="searchForm" id="searchForm">
 	<ul class="search_tag">
 		<li>
-			<input type="text" name="name" id="name" placeholder="이름">	
+			<input type="text" name="name" id="name" placeholder="이름"><div id="message1"></div>	
 		</li>
 		<li>
-			<input type="text" name="id" id="id" placeholder="아이디">	
+			<input type="text" name="id" id="id" placeholder="아이디"><div id="message2"></div>	
 		</li>
 		<li>
-			<input type="text" name="email" id="email" placeholder="이메일">	
+			<input type="text" name="email" id="email" placeholder="이메일"><div id="message3"></div>	
 		</li>
 	</ul>	
 	<div id="search_btn" class="repasswd">비밀번호 찾기</div>
 </form>
-<div id="message"></div>
+<br>
+
 
 <script type="text/javascript">
 $("#name").focus();
 
 $("#search_btn").click(function() {
 	if($("#name").val()=="") {
-		$("#message").text("이름을 입력해 주세요.");
+		$("#message1").text("이름을 입력해 주세요.");
 		$("#name").focus();
 		return;
 	}	
 	
 	if($("#id").val()=="") {
-		$("#message").text("아이디를 입력해 주세요.");
+		$("#message2").text("아이디를 입력해 주세요.");
 		$("#id").focus();
 		return;
 	}	
 	if($("#email").val()=="") {
-		$("#message").text("이메일를 입력해 주세요.");
+		$("#message3").text("이메일를 입력해 주세요.");
 		$("#email").focus();
 		return;
 	}

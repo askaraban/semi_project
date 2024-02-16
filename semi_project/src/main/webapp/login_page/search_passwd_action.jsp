@@ -16,6 +16,7 @@
 	
 	String newPasswd= Utility.encrypt(newPasswordOne);
 	//System.out.println("새로운 비밀번호-2 = "+newPasswordOne);
+
 	
 	//전달값을 반환받아 저장
 	String name=request.getParameter("name");
@@ -31,10 +32,11 @@
 	
 	//회원정보를 전달받아 client 테이블에 비밀번호 변경  
 	//ClientDAO 클래스의 메소드 호출
-	ClientDAO.getDAO().updateClientPassword(client);		
+	int passwd=ClientDAO.getDAO().updateClientPassword(client);		
 %>
+
 <h1>임시비밀번호 발급</h1>
-<% if(id!=null && name!=null && email!=null) {//검색결과가 있는 경우 %>
+<% if(passwd!=0) {//검색결과가 있는 경우 %>
 	<p style="font-size: 1.5em;"><%=name %>님의 새로운 비밀번호는 [<%=newPasswordOne %>]입니다.</p>
 <% } else {//검색결과가 없는 경우 %>
 	<p style="font-size: 1.5em;">입력하신 정보를 찾을 수 없습니다.</p>
