@@ -3,6 +3,7 @@
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@page import="xzy.itwill.DAO.ReviewDAO"%>
 <%@page import="xyz.itwill.DTO.ReviewDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 글번호를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 응답하는 JSP 문서 --%>
@@ -52,6 +53,8 @@
 	//글번호를 전달받아 REVIEW 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 ReviewDAO 클래스의 메소드 호출
 	QaDAO.getDAO().updateQaReadCount(qaNum);
+	
+	QaDTO qaProductName = QaDAO.getDAO().selectQaProductName(productNum, qaNum);
 %>
 <%-- 페이지번호 출력 및 링크 제공 - 블럭화 처리 - 잘 모르니 우선 빼기
 <%
@@ -164,7 +167,11 @@ td {
 </style>
 
 <div id="qa_detail">
-	<h1>Q&A</h1>
+	<% if(qaProductName.getProductName()!=null) { %>
+		<h1>상품 Q&A</h1>
+	<% } else { %>	
+		<h1>Q&A</h1>
+	<% } %>
 	
 	<%-- 검색된 게시글 출력 --%>
 	<table>
@@ -182,6 +189,14 @@ td {
 			<th>조회수</th>
 			<td><%=qa.getQaReadCount()+1 %></td>
 		</tr>
+		
+	<% if(qaProductName.getProductName()!=null) { %>
+		<tr>
+			<th>상품명</th>
+			<td><%= qaProductName.getProductName() %></td>
+		</tr>
+	<% } %>
+	
 		<tr>
 			<th>제목</th>
 			<td class="subject">
