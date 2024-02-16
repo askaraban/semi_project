@@ -191,7 +191,7 @@
 
 <section id="orderChk" style="display: block;">
 	<div id="orderProduct" class="orderProductInfo">
-		<h5>주문 상품 정보</h5>  
+		<h5>주문 상품 정보 <a style="font-size: 14px;" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order">[돌아가기]</a></h5>  	
 	</div>
 
 	<div class="cartList">
@@ -259,19 +259,17 @@
 		<% }%> 
 	</div>	
 </section>
-	<div style="display: flex; padding-left: 100px;">
-		<div style="width: 280px; height: 100px; padding-top: 23px;">
+	<div style="display: flex; padding-left: 100px; background-color: pink;" >
+		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 40px;" >
 		</div>
-		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
+		<div style="width: 200px; height: 100px; padding-top: 20px; padding-left: 20px;">
+			<span class="result-word" style="text-align: center;">총 주문금액</span>
+			<br>
+			<span class="result-count" id="selectedPrice2" style="font-style: italic;"><%=format.format(totalPrice) %>원</span>
+			
 			<span class="result-word"></span>
 			<br>
 			<span class="result-count" id="selectedPrice2"></span>
-		</div>
-		<div style="width: 300px; height: 100px; padding-top: 20px;" >
-			<span class="result-word">총 주문금액</span>
-			<br>
-			<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
-			<span>돌아가기</span>
 		</div>
 	</div>
 </form>

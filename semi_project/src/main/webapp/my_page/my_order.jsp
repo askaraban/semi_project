@@ -37,7 +37,7 @@ if (request.getParameter("pageNum") != null) {//전달값이 있는 경우
 	pageNum = Integer.parseInt(request.getParameter("pageNum"));
 }
 
-int pageSize = 10;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+int pageSize = 20;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
@@ -174,8 +174,7 @@ if(request.getParameter("cnt")!=null){
 						<colgroup>
 							<col style="width: 150px;">
 							<col style="width: 150px;">
-							<col style="width: 220px;">
-							<col style="width: 150px;">
+							<col style="width: 370px;">
 							<col style="width: 160px;">
 						</colgroup>
 						<thead>
@@ -183,7 +182,6 @@ if(request.getParameter("cnt")!=null){
 								<th scope="col">주문일자</th>
 								<th scope="col">주문번호</th>
 								<th scope="col">대표제품 명</th>
-								<th scope="col">결제금액</th>
 								<th scope="col">처리현황</th>
 							</tr>
 						</thead>
@@ -205,10 +203,9 @@ if(request.getParameter("cnt")!=null){
 									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
 										 class="orderNumList"> <%=orderList.getOrderNum() %> </a>
 									</td>
-									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=product_page&worker=product&productNum=<%=orderList.getProductNum() %>" 
+									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>" 
 									 class="productName"> <%=orderList.getProductName() %> </a></td>
 																
-								<td id="productAmount"><%=format.format(orderList.getOrderSum()) %>원</td>
 								<%if(orderList.getOrderStatus()==1) {%>
 								<td id="orderStatus">배송완료</td>
 								<%} else { %>
@@ -263,8 +260,11 @@ if(request.getParameter("cnt")!=null){
 			<%} %>
 	</div>
 				<!-- //paging -->
+				<br>
+				<br>
 				<div class="helpWrap">
 					<ul class="bulListType">
+						<li>주문번호와 대표제품 명을 클릭하시면 결제에 대한 상세정보를 확인하실 수 있습니다.</li>
 						<li>배송정보는 처리현황이 배송 중, 배송완료 상태에서 조회가 가능합니다.</li>
 						<li>이상없이 제품을 받으셨다면 수취확인을 해주세요. 확인하지 않으실 경우 배송시작일 부터 7일이후에
 							자동으로 배송완료상태로 변경됩니다.</li>

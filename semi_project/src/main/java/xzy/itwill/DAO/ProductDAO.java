@@ -481,4 +481,52 @@ public class ProductDAO extends JdbcDAO{
 				close(con, pstmt);
 			} return rows;
 		}
+		
+		// 업로드된 제품을 모두 검색해 가져옴
+		public List<ProductDTO> selectBestProudct(){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<ProductDTO> productList = new ArrayList<ProductDTO>();
+			
+			try {
+				con = getConnection();
+				
+				String sql = "select * from (select rownum rn, temp.* from (select product_num, product_name, product_price, product_com, product_cate, product_reg, "
+						+ "product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3 "
+						+ ",order_product_num, count(*) as cnt from product_table join order_table on order_product_num=product_num"
+						+ " group by product_num, product_name, product_price, product_com, product_cate, product_reg,product_dis, product_dis_content"
+						+ ",product_main_img, product_img1, product_img2, product_img3, order_product_num having count(*) >1 order by cnt desc) temp) where rn between 1 and 8";
+				
+				pstmt=con.prepareStatement(sql);
+				
+
+				rs=pstmt.executeQuery();
+		
+				while(rs.next()) {
+					ProductDTO product = new ProductDTO();
+					product.setProductNum(rs.getInt("product_num"));
+					product.setProductName(rs.getString("product_name"));
+					product.setProductPrice(rs.getInt("product_price"));
+					product.setProductCom(rs.getString("product_com"));
+					product.setProductCate(rs.getInt("product_cate"));
+					product.setProductReg(rs.getString("product_reg"));
+					product.setProductDis(rs.getInt("product_dis"));
+					product.setProductDisContent(rs.getString("product_dis_content"));
+					product.setProductMainImg(rs.getString("product_main_img"));
+					product.setProductImg1(rs.getString("product_img1"));
+					product.setProductImg2(rs.getString("product_img2"));
+					product.setProductImg3(rs.getString("product_img3"));
+					product.setOrderProductNum(rs.getInt("order_product_num"));
+					 
+					productList.add(product);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]selectBestProudct() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			} return productList;
+		}
+		
 }

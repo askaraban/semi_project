@@ -31,7 +31,17 @@ public class ProductDTO {
 	private String productImg2;
 	private String productImg3;
 	
+	private int orderProductNum;
 	
+	
+	
+	
+	public int getOrderProductNum() {
+		return orderProductNum;
+	}
+	public void setOrderProductNum(int orderProductNum) {
+		this.orderProductNum = orderProductNum;
+	}
 	public int getProductNum() {
 		return productNum;
 	}
