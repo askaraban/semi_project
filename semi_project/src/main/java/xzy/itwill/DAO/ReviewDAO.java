@@ -458,7 +458,7 @@ public class ReviewDAO extends JdbcDAO {
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectMyReviewList2() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectMyReviewList() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
@@ -466,32 +466,38 @@ public class ReviewDAO extends JdbcDAO {
 	}
    
 	// 마이페이지에서 사용하는 리뷰 총 수를 구하는 메소드
-		public int selectTotalReview(int clientNum, int status) {
-			Connection con=null;
-			PreparedStatement pstmt=null;
-			ResultSet rs=null;
-			int totalCount=0;
-			try {
-				con=getConnection();
-				
-				String sql="select count(*) from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?";
-				
-				pstmt=con.prepareStatement(sql);
-				pstmt.setInt(1,clientNum);
-				pstmt.setInt(2,status);
-				
-				rs=pstmt.executeQuery();
-				
-				if(rs.next()) {
-					totalCount=rs.getInt(1);
-				}
-			} catch (SQLException e) {
-				System.out.println("[에러]selectTotalReview() 메소드의 SQL 오류 = "+e.getMessage());
-			} finally {
-				close(con, pstmt, rs);
+	public int selectTotalReview(int clientNum, int status, int productStatus) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int totalCount=0;
+		try {
+			con=getConnection();
+			
+			//String sql="select count(*) from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?";
+			
+			String sql=" select count(*) from (select temp.*, product_status from (select review_num,review_member_num,review_subject,review_content,review_image"
+					+ " ,review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num,order_review_status, order_num"
+					+ " from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?"
+					+ " order by review_num desc) temp join product_table on review_product_num=product_num where product_status=?)";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,clientNum);
+			pstmt.setInt(2,status);
+			pstmt.setInt(3,productStatus);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCount=rs.getInt(1);
 			}
-			return totalCount;
+		} catch (SQLException e) {
+			System.out.println("[에러]selectTotalReview() 메소드의 SQL 오류 = "+e.getMessage());
+		} finally {
+			close(con, pstmt, rs);
 		}
+		return totalCount;
+	}
 	
 	//글번호를 전달받아 REVIEWTABLE 테이블의 저장된 행의 게시글 조회수가 1 증가되도록 변경하고 
 	//변경행의 갯수를 반환하는 메소드
