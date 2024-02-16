@@ -1,6 +1,4 @@
 @charset "UTF-8";
-
-
 	
 .tableTypeWrite {
 	border-top: 2px solid #000;
@@ -188,8 +186,4 @@ td ul {
 }
 
 
-ul li {
-		list-style-type: none;
-		margin: 5px 0px;
-	}
-	
+

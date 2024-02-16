@@ -6,7 +6,6 @@
 <%@page import="xzy.itwill.DAO.OrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="<%=request.getContextPath()%>/style/order_style.css" type="text/css" rel="stylesheet">
 <%-- 장바구니 페이지에서 구매페이지로  --%>
 
@@ -17,7 +16,7 @@
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	CartDTO sendCart = new CartDTO();
 	List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient);
-	ClientDTO clinet=OrderDAO.getDAO().selectClientInfo(clientNum);
+	
 	
 	/* List<CartDTO> cartList = CartDAO.getDAO().selectCartList(loginClient); 
 	->
@@ -118,21 +117,15 @@
 <br>
 <br>				    							
 	
-<form action="<%=request.getContextPath()%>/order_page/insert_order_multi.jsp" method="post" id="orderForm">
-<section style="display=block;">							
+
  		<!-- 배송지 작성 -->    
- 	<h5 class="deliveryForm">배송지 작성</h5>      
-	   
-		<ul>
-			<li>
-			    <input type="radio" id="usedAddress" name="useAddress" checked>
-			    <label for="usedAddress">기존 주소 사용</label>
-			</li>
-			<li>
-			    <input type="ridio">
-			    <label for="newAddress">새로운 배송지</label>
-			</li>
-		</ul>         
+ 	<h5 class="deliveryForm">배송지 작성</h5>
+ 		<div id="checkboxList">
+			<input type="checkbox" name="clientAddress" class="useAddress" value="주문자 정보와 동일" checked>주문자 정보와 동일&nbsp;&nbsp;		
+			<input type="checkbox" name="newAddress" class="useAddress" value="새로운 배송지">새로운 배송지&nbsp;&nbsp;		
+		</div>
+		<form action="<%=request.getContextPath()%>/order_page/insert_order_multi.jsp" method="post" id="orderForm">
+		<section style="display=block;">
 	    <div class="tableTypeWrite payTable">
     	<table>
 			   <colgroup>
@@ -202,17 +195,17 @@
 			 			<td>
 			 				<ul>
 				 				<li>
-								<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
-								<span id="postSearch">우편번호 검색</span>
-								<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
+									<input type="text" name="zipcode" id="zipcode" size="7" readonly="readonly" placeholder="우편번호">
+									<span id="postSearch">우편번호 검색</span>
+									<div id="zipcodeMsg" class="error">우편번호를 입력해 주세요.</div>
 								</li>
 								<li>
-								<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
-								<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
+									<input type="text" name="address1" id="address1" size="50" readonly="readonly" placeholder="기본주소">
+									<div id="address1Msg" class="error">기본주소를 입력해 주세요.</div>
 								</li>
-								<li>
-								<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
-								<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
+									<li>
+									<input type="text" name="address2" id="address2" size="50" placeholder="상세주소">
+									<div id="address2Msg" class="error">상세주소를 입력해 주세요.</div>
 								</li>
 							</ul>
 			 			</td>
@@ -366,10 +359,46 @@
 			</div>										
 		<% } %>
 </form>
-				                                 				                         											
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>				                                 				                         											
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$(document).ready(function() {
+    // 체크박스 클릭 이벤트 
+    $("#clientAddress").on("change", function() {
+	//check된 상태라면 
+      if ($(this).is(":checked")) {
+    	   //새로운 배송지 체크 해제 
+          $("#newAddress").prop("checked", false);
+    	  
+        // 체크되었을 때 기존 주소 정보를 입력 폼에 설정
+          $("#order_receiver").val("<%=loginClient.getClientName()%>").attr("readonly","readonly");
+          $("#zipcode").val("<%=loginClient.getClientZipcode()%>").attr("readonly","readonly");
+          $("#address1").val("<%=loginClient.getClientAddress1()%>").attr("readonly","readonly");
+          $("#address2").val("<%=loginClient.getClientAddress2()%>").attr("readonly","readonly");
+          $("#mobile5").val("<%=loginClient.getClientMobile().substring(4, 8)%>").attr("readonly","readonly");
+          $("#mobile6").val("<%=loginClient.getClientMobile().substring(9, 13)%>").attr("readonly","readonly");
+          $("#emailTxt").val("<%=loginClient.getClientEmail()%>").attr("readonly","readonly");
+      } else {
+        // 체크가 해제되었을 때 입력 폼 초기화
+        $("#name, #zipcode, #address1, #address2, #mobile2, #email").val("");
+      }
+    });
+
+ // 새로운 배송지 체크 박스 클릭 이벤트 
+    $("#newAddress").on("change", function() {
+	//새로운배송지의 체크박스가 체크 된 상태라면
+      if ($(this).is(":checked")) {
+    	//기존 주소 체크 해제
+          $("#usedAddress").prop("checked", false);
+        // 체크되었을 때 입력 폼 초기화
+          $("#name, #address1, #address2, #mobile2, #email").val("").removeAttr("readonly");
+          //우편번호는 검색 
+          $("#zipcode").val("");
+      }
+    });
+    
+  });
+
 $("#postSearch").click(function() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -433,4 +462,3 @@ $("#orderForm").submit(function() {
 	return submitResult;
 });
 </script>
-
