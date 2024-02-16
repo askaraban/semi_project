@@ -368,8 +368,9 @@ public class ReviewDAO extends JdbcDAO {
 	   }
 	   return review;
 	}
-	//회원번호를 전달받아 회원번호와 상태코드에 해당하는 리뷰리스트를 가져오는 메소드
-	public List<ReviewDTO> selectMyReviewList(int clientNum, int status) {
+	
+	//회원번호, 상태코드, 시작번호, 끝번호를 전달받아 해당하는 리뷰리스트를 가져오는 메소드
+	public List<ReviewDTO> selectMyReviewList(int clientNum, int status, int productStatus, int startRow, int endRow) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -377,17 +378,22 @@ public class ReviewDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select review_num,review_member_num,review_subject,review_content,review_image"
-					+ ",review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num,order_review_status, order_num"
-					+ " from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?";
+			String sql="select * from (select rownum rn, temp.*, product_status from (select review_num,review_member_num,review_subject,review_content,review_image"
+					+ " ,review_register,review_update,review_readcount,review_replay,review_product_num,review_order_num,order_review_status, order_num"
+					+ " from review_table join order_table on order_num=review_order_num where review_member_num=? and order_review_status=?"
+					+ " order by review_num desc) temp join product_table on review_product_num=product_num where product_status=?) where rn between ? and ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, clientNum);
 			pstmt.setInt(2, status);
+			pstmt.setInt(3, productStatus);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				ReviewDTO review=new ReviewDTO();
+				review.setProductStatus(rs.getInt("product_status"));
 				review.setReviewNum(rs.getInt("review_num"));
 				review.setReviewMemberNum(rs.getInt("review_member_num"));
 				review.setReviewSubject(rs.getString("review_subject"));
@@ -401,16 +407,17 @@ public class ReviewDAO extends JdbcDAO {
 				review.setReviewOrderNum(rs.getInt("review_order_num"));
 				review.setOrderReviewStatus(rs.getInt("order_review_status"));
 				review.setOrderNum(rs.getInt("order_num"));
+
 				reviewList.add(review);
-				
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectMyReviewList1() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectMyReviewList() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
 		return reviewList;
 	}
+	
 	//회원번호, 상태코드, 시작번호, 끝번호를 전달받아 해당하는 리뷰리스트를 가져오는 메소드
 	public List<ReviewDTO> selectMyReviewList(int clientNum, int status, int startRow, int endRow) {
 		Connection con=null;

@@ -62,8 +62,7 @@ if (endRow > totalReviewOrder) {
 //페이징 처리 관련 정보(시작 행번호와 종료 행번호)와 게시글 검색 기능 관련 정보(검색대상과
 //검색단어)를 전달받아 REVIEW 테이블에 저장된 행을 검색하여 게시글 목록을 반환하는 ReviewDAO 
 //클래스의 메소드 호출
-List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 2, startRow, endRow);
-
+List<ReviewDTO> reviewList = ReviewDAO.getDAO().selectMyReviewList(loginClient.getClientNum(), 2, 1, startRow, endRow);
 
 //session 객체에 저장된 권한 관련 속성값을 반환받아 저장
 // => 로그인 상태의 사용자에게만 글쓰기 권한 제공
