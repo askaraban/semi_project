@@ -13,69 +13,111 @@
 
 <%
 	//전달값을 반환받아 저장 - 전달값이 없는 경우(새글) 변수에 초기값 저장
-	String qaReplay=null;
-	String pageNum="1", pageSize="10", search="", keyword="";
+	String pageNum="1", pageSize="5";
+	int reviewProductNum=Integer.parseInt(request.getParameter("reviewProductNum"));
+	
 	if(request.getParameter("qaReplay")!=null) {//전달값이 있는 경우 - 답글인 경우 부모글의 정보를 변수에 저장
 		//부모글 관련 정보를 반환받아 저장
-		qaReplay=request.getParameter("qa_replay");
 		pageNum=request.getParameter("pageNum");
 		pageSize=request.getParameter("pageSize");
+		reviewProductNum=Integer.parseInt(request.getParameter("reviewProductNum"));
 	}
 %>
+
 <style type="text/css">
+#qa_write {
+   width: 500px;
+   margin: 0 auto;
+}
+
 table {
-	margin: 0 auto;
+   border: 1px solid black;
+   border-collapse: collapse;
 }
 
 th {
-	width: 100px;
-	font-weight: bold;
+   width: 100px;
+   background: pink;
+   color: gray;
+   border: 1px solid gray;
 }
 
 td {
-	text-align: left;
+   text-align: left;
+   border: 1px solid gray;
+   width: 400px;
+}
+
+
+#qaContent{
+   width: 400px;
+}
+
+#qa_menu {
+   text-align: right;
+   margin: 5px;
+}
+
+#resetBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#saveBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
-<% if(pageNum.equals(null)) {//새글인 경우 %>
-	<h1>새글쓰기</h1>
-<% } else {//답글인 경우 %>
-	<h1>답글쓰기</h1>
-<% } %>
 
-<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
-<form action="<%=request.getContextPath()%>/index.jsp?group=qa_page&worker=qa_writer_action"
-	method="post" enctype="multipart/form-data" id="qaForm">
-	<input type="hidden" name="qaReplay" value="<%=qaReplay %>">
-	<input type="hidden" name="pageNum" value="<%=pageNum %>">
-	<input type="hidden" name="pageSize" value="<%=pageSize %>">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="qaSubjest" id="qaSubjest" size="40">
-				<!-- <input type="checkbox" name="reviewSecret" value="2">비밀글 -->
-			</td>					
-		</tr>	
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea rows="7" cols="60" name="qaContent" id="qaContent"></textarea>
-			</td>
-		</tr>			
-		<tr>
-			<th>이미지파일</th>
-			<td>
-				<input type="file" name="qaImage">
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<button type="submit">글저장</button>
-				<button type="reset" id="resetBtn">다시쓰기</button>
-			</th>
-		</tr>
-	</table>
-</form>
+<div id="qa_write">
+	<h1>Q&A 작성</h1>
+	
+	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
+	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_writer_action"
+		method="post" id="qaForm" enctype="multipart/form-data">
+		<input type="hidden" name="pageNum" value="<%=pageNum %>">
+		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+		<input type="hidden" name="productNum" value="<%=reviewProductNum %>">
+		
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="qaSubject" id="qaSubject" size="40">
+				</td>					
+			</tr>	
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="7" cols="60" name="qaContent" id="qaContent"></textarea>
+				</td>
+			</tr>			
+			<tr>
+				<th>이미지파일</th>
+				<td>
+					<input type="file" name="qaImage">
+				</td>
+			</tr>
+		</table>
+		
+		<div id="qa_menu">
+			<button type="submit" id="saveBtn">글저장</button>
+			<button type="reset" id="resetBtn">다시쓰기</button>
+		</div>
+	</form>
+</div>
 <div id="message" style="color: red;"></div>
 
 <script type="text/javascript">

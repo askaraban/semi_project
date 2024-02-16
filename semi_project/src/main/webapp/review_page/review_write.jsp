@@ -45,6 +45,7 @@
 #review_write {
    width: 500px;
    margin: 0 auto;
+   text-align: left;
 }
 
 table {
@@ -162,22 +163,22 @@ td {
 <script type="text/javascript">
 $("#reviewSubject").focus();
 
-	if(replay==null) {//새글인 경우만
-		$("#reviewForm").submit(function() {
-		 	if($("#reviewSubject").val()=="") {
-				$("#message").text("제목을 입력해 주세요.");
-			
-			$("#reviewSubject").focus();
+if(replay==null) {//새글인 경우만
+	$("#reviewForm").submit(function() {
+	 	if($("#reviewSubject").val()=="") {
+			$("#message").text("제목을 입력해 주세요.");
+		
+		$("#reviewSubject").focus();
+		return false;
+		}
+	   
+		if($("#reviewContent").val()=="") {
+			$("#message").text("내용을 입력해 주세요.");
+			$("#reviewContent").focus();
 			return false;
-			}
-		   
-			if($("#reviewContent").val()=="") {
-				$("#message").text("내용을 입력해 주세요.");
-				$("#reviewContent").focus();
-				return false;
-			}
-		});
-	}
+		}
+	});
+}
 
 $("#resetBtn").click(function() {
 	$("#reviewSubject").focus();

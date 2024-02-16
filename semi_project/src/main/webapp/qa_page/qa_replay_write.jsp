@@ -30,15 +30,13 @@
     int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
     */
     int productNum=Integer.parseInt(request.getParameter("productNum"));
-    String pageNum="1", pageSize="10", search="", keyword=""; //페이지 검색 정보 유지 위해
+    String pageNum="1", pageSize="5";
     int qaNum=Integer.parseInt(request.getParameter("qaNum"));
     if(request.getParameter("qa_replay")!=null) {//전달값이 있는 경우 - 답글인 경우 부모글의 정보를 변수에 저장
         //부모글 관련 정보를 반환받아 저장
         //ref, restep, revlevel 제일 중요
         pageNum=request.getParameter("pageNum");
         pageSize=request.getParameter("pageSize");
-        search=request.getParameter("search");
-        keyword=request.getParameter("keyword");
     }
     //글번호를 전달받아 REVIEW 테이블의 단일행을 검색하여 게시글(ReviewDTO 객체)을 반환하는 
     //ReviewDAO 클래스의 메소드 호출
