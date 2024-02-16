@@ -151,7 +151,7 @@ input[type='number'] {
 			</div>
 			<div class="cart-minus-content">-</div>
 			<div style="width: 200px; height: 100px; padding-top: 20px;">
-				<span class="result-word">즉시할인예상금액</span>
+				<span class="result-word">배송비</span>
 				<br>
 				<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
 			</div>

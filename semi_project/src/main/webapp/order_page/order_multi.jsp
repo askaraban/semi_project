@@ -311,21 +311,28 @@
 		<% }%> 
 	</div>	
 </section>
-	<div style="display: flex; padding-left: 100px;">
-		<div style="width: 300px; height: 100px; padding-top: 20px;" >
-			<span class="result-word">총 주문금액</span>
-			<br>
-			<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
+	<div style="display: flex;">
+			<div class="cart-select-product-content">
+				<span class="result-word" >선택상품금액</span>
+				<br>
+				<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
+			</div>
+			<div class="cart-minus-content">-</div>
+			<div style="width: 100px; height: 100px; padding-top: 20px;">
+				<span class="result-word">배송비</span>
+				<br>
+				<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
+			</div>
+			<div class="cart-result-content">=</div>
+			<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+				<span class="result-word">주문금액</span>
+				<br>
+				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
+			</div>
+			<div style="width: 200px; height: 100px; padding-top: 23px;">
+				<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
+			</div>
 		</div>
-		<div style="width: 280px; height: 100px; padding-top: 23px;">
-			<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" >결제하기</button>
-		</div>
-		<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
-			<span class="result-word"></span>
-			<br>
-			<span class="result-count" id="selectedPrice2"></span>
-		</div>
-	</div>
 </form>
 				                                 				                         											
     
