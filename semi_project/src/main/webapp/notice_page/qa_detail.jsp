@@ -27,6 +27,7 @@
 	String qaSubject=request.getParameter("qaSubject");
 	//System.out.println("reviewNum = " + reviewNum);
 	
+	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("qaNum")==null) {
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=error&worker=error_400");
@@ -243,7 +244,6 @@ $("#replyBtn").click(function() {
 
 
 $("#listBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main"
-		+"&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>";	
+	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_main";	
 });
 </script>
