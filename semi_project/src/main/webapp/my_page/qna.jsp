@@ -103,7 +103,7 @@ System.out.println(endRow);
 		<div class="col col-lg-2">
 			<%@include file="/my_page/my_side.jspf" %>
 		</div>
-		<div class="col col-lg-10">
+		<div class="col col-lg-10" style="margin-bottom: 200px">
 			<h1 class="subTitle1">Q&A</h1>
 			<div id="listArea">
 				<div id="qa_list">
@@ -145,7 +145,7 @@ System.out.println(endRow);
 									
 									<td class="left"><a href="javascript:void(0)"> <%=review.getQaSubject() %></a></td>
 									<td><%=loginClient.getClientName() %></td>
-									<td>2023.11.15</td>
+									<td><%=review.getQaRegister() %></td>
 								</tr>
 								
 							<%} %>
