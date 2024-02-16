@@ -88,6 +88,8 @@ if(request.getParameter("cnt")!=null){
 	color: #F5A9D0;
 	font-size: 17px;
 }
+
+
 </style>
 
 <div class="container text-center">

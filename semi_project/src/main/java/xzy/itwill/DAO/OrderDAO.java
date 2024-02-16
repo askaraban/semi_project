@@ -706,6 +706,67 @@ public class OrderDAO extends JdbcDAO {
 			}
 			return orderList;
 	}
+		// 모든 주문리스트를 출력하는 메소드 중복은 제거 - 관리자용
+		public List<OrderDTO> selectMyOrderList(int startNum, int endNum, String startDate, String endDate) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<OrderDTO> orderList = new ArrayList<OrderDTO>();
+			
+			
+			try {
+				
+				con = getConnection();
+				
+				String sql = "select * from (select rownum row_num, temp.* from (select * from (select order_num, order_client_num, order_time, order_date, order_product_num"
+						+ ", order_status, order_sum, order_dis_sum, order_content, order_receiver, order_zipcode, order_address1"
+						+ ", order_address2, order_mobile, order_count, product_num, product_name, product_price"
+						+ ", product_dis, product_main_img, order_email, row_number() over (partition by order_client_num, order_time"
+						+ " order by order_time) as rn from order_table join product_table on product_num=order_product_num"
+						+ " where to_char(order_date,'yyyy-mm-dd') between ? and ?)) temp where rn=1) where row_num between ? and ?";
+				
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, startDate);
+				pstmt.setString(2, endDate);
+				pstmt.setInt(3, startNum);
+				pstmt.setInt(4, endNum);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					OrderDTO order=new OrderDTO();
+					order.setOrderNum(rs.getInt("order_num"));
+					order.setOrderClientNum(rs.getInt("order_client_num"));
+					order.setOrderTime(rs.getString("order_time"));
+					order.setOrderDate(rs.getString("order_date"));
+					order.setOrderProductNum(rs.getInt("order_product_num"));
+					order.setOrderStatus(rs.getInt("order_status"));
+					order.setOrderSum(rs.getInt("order_sum"));
+					order.setOrderDisSum(rs.getInt("order_dis_sum"));
+					order.setOrderContent(rs.getString("order_content"));
+					order.setOrderReceiver(rs.getString("order_receiver"));
+					order.setOrderZipcode(rs.getString("order_zipcode"));
+					order.setOrderAddress1(rs.getString("order_address1"));
+					order.setOrderAddress2(rs.getString("order_address2"));
+					order.setOrderMobile(rs.getString("order_mobile"));
+					order.setOrderCount(rs.getInt("order_count"));
+					order.setProductName(rs.getString("product_name"));
+					order.setProductPrice(rs.getInt("product_price"));
+					order.setProductDis(rs.getInt("product_dis"));
+					order.setProductMainImg(rs.getString("product_main_img"));
+					order.setProductNum(rs.getInt("order_product_num"));
+					order.setOrder_email(rs.getString("order_email"));
+					orderList.add(order);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("[에러]selectOrderList() 메소드 오류" + e.getMessage());
+			} finally {
+				close(con, pstmt, rs);
+			}
+			return orderList;
+		}
 		// 회원번호를 전달받아 주문리스트를 출력하는 메소드 중복은 제거
 		public List<OrderDTO> selectMyOrderCnt(int clientNum) {
 			Connection con = null;
