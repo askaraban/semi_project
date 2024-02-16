@@ -128,11 +128,11 @@ td {
 					<%displayNum--; // 제품 게시물들의 번호를 1씩 감소시킴  %>
 					<td>&nbsp;<%=pro.getProductNum() %>&nbsp;</td>
 					<%if(pro.getProductStatus()==0){ %>
-					<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
-					<%=pro.getProductName() %></a>&nbsp;</td>
+						<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
+						[삭제됨]&nbsp;&nbsp;<%=pro.getProductName() %></a>&nbsp;</td>
 					<%} else { %>
-					<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
-					[삭제됨]&nbsp;&nbsp;<%=pro.getProductName() %></a>&nbsp;</td>
+						<td>&nbsp;<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?group=manager_page&worker=manager_product_update&productNum=<%= pro.getProductNum()%>" id="url" >
+						<%=pro.getProductName() %></a>&nbsp;</td>
 					<%} %>
 					<td>&nbsp;<%=pro.getProductCate() %>&nbsp;</td>
 					<td>&nbsp;<%=format.format(pro.getProductPrice()) %>원&nbsp;</td>
