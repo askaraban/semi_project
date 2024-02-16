@@ -483,19 +483,58 @@
 		</div>
  </section>	
   				
-    <section id="orderChk" style="display: block;">
-    <div id="orderProduct" class="totalPrice">
-    </div>
-    	<div class="ec-base-button gFull" id="orderFixItem"> 
-	    	<button type="submit" class="btnSubmit" id="btn_payment">	
-		    	<%
-				  int discount1 = (int)Math.floor(((double)(product.getProductPrice())*(100-product.getProductDis())/100)/10)*10;
-				%>
-	    	<span id="totalOrderDisPrice"><%=format.format(discount1*productCount) %> 원</span> 	
-	    	<span class="payment">결제하기</span>
-	    	</button>	
-    	</div>
-    </section>
+    <% if(productCount*discount < 50000) { %>
+			<div style="display: flex;">
+					<div class="cart-select-product-content" style="width: 150px;">							
+							<span class="result-word" >선택상품금액</span>
+							<br>
+							<span class="result-count" id="selectedPrice"><%=format.format(productCount*discount) %>원</span>
+						</div>
+						<div class="cart-minus-content" style="width: 70px; padding-left: 10px;">+</div>
+						<div style="width: 160px; height: 100px; padding-top: 20px;">
+							<span class="result-word">배송비</span>
+							<br>
+							<span class="result-count" id="selectedPrice"><%=format.format(5000) %>원</span>
+							<br>
+						</div>
+						<div class="cart-result-content">=</div>
+						<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+							<span class="result-word">주문금액</span>
+							<br>
+							<span class="result-count" id="selectedPrice2"><%=format.format(productCount*discount+5000) %>원</span>
+						</div>
+				
+					<div style="width: 200px; height: 100px; padding-top: 23px;">
+						<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
+					</div>
+			</div>
+				
+		<% } else { %>
+				<div style="display: flex;">
+					<div class="cart-select-product-content" style="width: 150px;">							
+							<span class="result-word" >선택상품금액</span>
+							<br>
+							<span class="result-count" id="selectedPrice"><%=format.format(productCount*discount) %>원</span>
+						</div>
+						<div class="cart-minus-content" style="width: 70px; padding-left: 10px;">+</div>
+						<div style="width: 160px; height: 100px; padding-top: 20px;">
+							<span class="result-word">배송비</span>
+							<br>
+							<span class="result-count" id="selectedPrice">0 원</span>
+							<br>
+						</div>
+						<div class="cart-result-content">=</div>
+						<div style="width: 250px; height: 100px; padding-top: 20px; padding-left: 20px;">
+							<span class="result-word">주문금액</span>
+							<br>
+							<span class="result-count" id="selectedPrice2"><%=format.format(productCount*discount) %>원</span>
+						</div>
+				
+					<div style="width: 200px; height: 100px; padding-top: 23px;">
+						<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
+					</div>
+			</div>							
+		<% } %>
  </form>
 				                                 				  
     

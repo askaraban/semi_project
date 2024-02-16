@@ -144,12 +144,13 @@ input[type='number'] {
 
 <%-- *******************결제창으로 가기 위한 최종 결제금액div *********************************** --%>
 		<div style="display: flex;">
-			<div class="cart-select-product-content">
+			<div class="cart-select-product-content" style="width: 180px;">
 				<span class="result-word" >선택상품금액</span>
 				<br>
 				<span class="result-count" id="selectedPrice"><%=format.format(totalPrice) %>원</span>
 			</div>
-			<div class="cart-minus-content">-</div>
+			<div class="cart-minus-content" style="width: 70px;">+</div>
+			<%if(totalPrice>50000){ %>
 			<div style="width: 200px; height: 100px; padding-top: 20px;">
 				<span class="result-word">배송비</span>
 				<br>
@@ -164,6 +165,22 @@ input[type='number'] {
 			<div style="width: 300px; height: 100px; padding-top: 23px;">
 				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" ></button>
 			</div>
+			<%} else { %>
+			<div style="width: 200px; height: 100px; padding-top: 20px;">
+				<span class="result-word">배송비</span>
+				<br>
+				<span class="result-discount" style="font-size: 20px; font-weight: bold;"><%=format.format(5000) %>원</span>
+			</div>
+			<div class="cart-result-content">=</div>
+			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
+				<span class="result-word">주문금액</span>
+				<br>
+				<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice+5000) %>원</span>
+			</div>
+			<div style="width: 300px; height: 100px; padding-top: 23px;">
+				<button type="submit" id="cartOrderBtn" class="cart-order-btn" value="" ></button>
+			</div>
+			<%} %>
 		</div>
 	</div>
 </div>

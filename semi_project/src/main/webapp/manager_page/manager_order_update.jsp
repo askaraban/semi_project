@@ -224,10 +224,10 @@
 					<%if(order.getProductDis()!=0) {%>
 					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px;">
 					가격 : <%=format.format(discount) %>원
-					<span class="discount" style="font-size: 10px;"><%=format.format(order.getProductPrice()) %>원</span>
+					<span class="discount" style="font-size: 10px; text-decoration:line-through;"><%=format.format(order.getProductPrice()) %>원</span>
 					</div>
 					<%} else {%>
-					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px;">
+					<div class="cart-product-price" id="select_price_<%=order.getProductPrice() %>" style="padding-top: 10px; ">
 					가격 : <%=format.format(order.getProductPrice()) %>원
 					</div>
 					</div>

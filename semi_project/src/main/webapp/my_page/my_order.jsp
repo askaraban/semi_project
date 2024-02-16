@@ -199,7 +199,7 @@ if(request.getParameter("cnt")!=null){
 						<%} %>
 							<%for(OrderDTO orderList : myOrderList) { %>
 							<tr class="<%=orderList.getOrderTime().substring(0, 17)%> orList" >
-								<td class="findOrderList"><%=orderList.getOrderDate().substring(0,10) %></td>
+								<td class="findOrderList"><%=orderList.getOrderDate()%></td>
 								
 								
 									<td><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>"
@@ -218,50 +218,6 @@ if(request.getParameter("cnt")!=null){
 						</tbody>
 					</table>
 				</div>
-				<!-- paging -->
-				<%
-		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
-		int blockSize=5;
-	
-		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
-		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
-		int startPage=(pageNum-1)/blockSize*blockSize+1;
-		
-		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
-		// ex) 1블럭 : 5, 2블럭 : 10
-		int endPage=startPage+blockSize-1;
-		
-		// 토탈페이지보다 종료페이지보다 크다면
-		if(totalPage<endPage){
-			endPage=totalPage;
-		}
-	%>
-	
-	<br>
-	<div id="page_list" style="text-align: center;">
-		<%
-			String responseList="";
-		%>
-		
-		<%if(startPage>blockSize){%>
-			<a  href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
-		<%} else {%>
-			[이전]
-		<%} %>
-		<% for(int i=startPage;i<=endPage;i++){ %>
-			<%if(pageNum !=i) {%>
-				<a id="cnt_<%=i %>" href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=i%>&pageSize=<%=pageSize%>" class="page">[<%=i %>]</a>
-			<%}else{  %>
-				[<%=i %>]
-			<%} %>
-		<%} %>
-			<%if(endPage!=totalPage){ %>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=my_order&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
-			<%}else{  %>
-				[다음]
-			<%} %>
-	</div>
-				<!-- //paging -->
 				<br>
 				<br>
 				<div class="helpWrap">
@@ -401,9 +357,8 @@ $("#inquiry5").click(function() {
 						var html="<tr>";
 						html+="<td>"+this.date+"</td>";//주문날짜
 						html+="<td><a href='"+this.url2+"'>"+this.number+" </a></td>";//주문번호
-						html+="<td class='left productName'><a href='"+this.url+"'>"+this.product+" </a></td>";//제품이름
-						html+="<td>"+this.price+"원</td>";//가격
-						if(this.status==1){
+						html+="<td class='left productName'><a href='"+this.url2+"'>"+this.product+" </a></td>";//제품이름
+						if(this.status==0){
 						html+="<td>제품 준비중</td>";//주문상태
 						} else {
 						html+="<td>배송 완료</td>";//주문상태
