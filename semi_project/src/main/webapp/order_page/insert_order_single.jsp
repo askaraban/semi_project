@@ -49,9 +49,7 @@
 		order.setOrderMobile(orderMobile);//10
 		order.setOrderCount(orderCount);//11
 		order.setOrder_email(orderEmail);
-		
-		//System.out.println(orderZipcode);
-		
+				
 		//주문정보를 전달받아 Order 테이블의 행으로 삽입하고 삽입행의 갯수를 반환하는 OrderDAO 클래스의 메소드 호출
 		int rows=OrderDAO.getDAO().insertOrder(order);
 		 

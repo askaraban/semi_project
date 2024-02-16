@@ -15,7 +15,6 @@
 	String newPasswordOne=Utility.newPasswordOne();
 	
 	String newPasswd= Utility.encrypt(newPasswordOne);
-	//System.out.println("새로운 비밀번호-2 = "+newPasswordOne);
 
 	
 	//전달값을 반환받아 저장
