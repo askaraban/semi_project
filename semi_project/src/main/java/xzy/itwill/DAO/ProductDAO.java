@@ -313,7 +313,7 @@ public class ProductDAO extends JdbcDAO{
 					try {
 						con = getConnection();
 						
-						String sql = "select count(*) from product_table where product_cate=?";
+						String sql = "select count(*) from product_table where product_cate=? and product_status=1";
 						pstmt=con.prepareStatement(sql);
 						
 						pstmt.setInt(1, category);
@@ -341,7 +341,7 @@ public class ProductDAO extends JdbcDAO{
 			
 				String sql="select * from (select rownum rn, temp.* from (select product_num, product_name,product_com, product_cate"
 						+ ", product_price, product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
-						+ " from product_table where product_cate=? order by product_num desc) temp) where rn between ? and ?";
+						+ " from product_table where product_cate=? and product_status=1 order by product_num desc) temp) where rn between ? and ?";
 				
 				pstmt=con.prepareStatement(sql);
 				
@@ -550,7 +550,7 @@ public class ProductDAO extends JdbcDAO{
 				
 				String sql = "select * from(select product_num, product_name, product_price, product_com, product_cate, product_reg"
 						+ ", product_dis, product_dis_content, product_main_img, product_img1, product_img2, product_img3"
-						+ " from product_table order by DBMS_RANDOM.RANDOM) where rownum < 9";
+						+ " from product_table where product_status=1 order by DBMS_RANDOM.RANDOM) where rownum < 9";
 				
 				pstmt=con.prepareStatement(sql);
 				

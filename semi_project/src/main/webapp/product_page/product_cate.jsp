@@ -44,7 +44,6 @@
 		
 		// 검색 대상과 검색 단어를 전달받아 product_table에 검색 대상과 검색단어에 해당되는 제품의 개수를 반환하는 메소드 호출
 		int totalProduct = ProductDAO.getDAO().searchTotalList(category);
-		
 		// 전체 페이지의 개수를 계산하기 위한 변수 ceil> 나머지 올림처리
 		int totalPage = (int)Math.ceil((double)totalProduct/pageSize);
 		
@@ -103,7 +102,7 @@
 					<div id="inner_img" class="">
 					<%-- 제품이미지 클릭시 제품상세설명으로 이동할 때 넘길 값 --%>
 					<%
-					displayNum++;
+					displayNum--;
 					String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 							   +"&productNum="+pro.getProductNum();
 					%>
@@ -181,7 +180,7 @@
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	      <%} else {%>
-	      <a class="page-link" href="#" aria-label="Previous">
+	      <a class="page-link" aria-label="Previous">
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	    </li>
@@ -193,7 +192,7 @@
 	   	 			</li>
 	   	 		<%}else{  %>
 	   	 			<li class="page-item">
-					<a class="page-link" href="#"><%=i %></a>
+					<a class="page-link" ><%=i %></a>
 					</li>
 				<%} %>
 			<%} %>
@@ -205,7 +204,7 @@
 			    </li>
 			    <%}else{  %>
 					<li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
+			      <a class="page-link" aria-label="Next">
 			        <span aria-hidden="true">&raquo;</span>
 			      </a>
 			    </li>
