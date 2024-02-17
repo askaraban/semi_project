@@ -63,5 +63,5 @@
 	QaDAO.getDAO().updateQa(qa);	
 	//페이지 이동
 	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=qa_page&worker=qa_detail"
-		+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum());
+		+"&qaNum="+qa.getQaNum()+"&productNum="+qa.getQaProductNum()+"&pageNum="+pageNum);
 %>

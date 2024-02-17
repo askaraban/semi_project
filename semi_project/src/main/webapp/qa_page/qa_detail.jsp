@@ -287,9 +287,17 @@ td {
 
 <script type="text/javascript">
 $("#modifyBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_modify"
-		+"&qaNum=<%=qaNum%>&pageNum=<%=pageNum%>"
-		+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
+	var referrer = document.referrer;
+	   
+	if(referrer.includes('qna')){
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_modify"
+			+"&qaNum=<%=qaNum%>&pageNum=<%=pageNum%>"
+			+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>&qna";   
+	} else {
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=qa_page&worker=qa_modify"
+			+"&qaNum=<%=qaNum%>&pageNum=<%=pageNum%>"
+			+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";   
+	}
 });
 
 $("#removeBtn").click(function() {

@@ -62,6 +62,6 @@
 	
 	//페이지 이동
  	request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=review_page&worker=review_detail"
-			+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum+"&pageSize="+pageSize);
+			+"&reviewNum="+review.getReviewNum()+"&productNum="+review.getReviewProductNum()+"&pageNum="+pageNum);
 	
 %>

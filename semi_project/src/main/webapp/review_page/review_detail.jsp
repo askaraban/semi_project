@@ -18,9 +18,17 @@
 <%
 	//전달값을 반환받아 저장
 	int reviewNum=Integer.parseInt(request.getParameter("reviewNum"));
-	int pageNum=Integer.parseInt(request.getParameter("pageNum"));
-	int pageSize=Integer.parseInt(request.getParameter("pageSize"));
-	String reviewSubject=request.getParameter("reviewSubject");
+	
+	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
+	if(request.getParameter("pageNum")!=null) {//전달값이 있는 경우
+		pageNum=Integer.parseInt(request.getParameter("pageNum"));
+	}
+	
+	int pageSize=5;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+	if(request.getParameter("pageSize")!=null) {//전달값이 있는 경우
+		pageSize=Integer.parseInt(request.getParameter("pageSize"));
+	}
+	/* String reviewSubject=request.getParameter("reviewSubject"); */
 	
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("reviewNum")==null) {
@@ -251,9 +259,20 @@ td {
 
 <script type="text/javascript">
 $("#modifyBtn").click(function() {
-	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify"
+<%-- 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify"
 		+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
-		+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
+		+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	 --%>
+		var referrer = document.referrer;
+
+		if(referrer.includes('review_written')) {// 마이페이지 화면에서 이동됬으면 글목록 버튼 클릭시 다시 마이페이지로 이동
+			location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify"
+				+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
+				+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>&review_written";
+		} else {// 아니면 해당제품의 상품상세로 이동
+			location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify"
+				+"&reviewNum=<%=review.getReviewNum()%>&pageNum=<%=pageNum%>"
+				+"&pageSize=<%=pageSize%>&productNum=<%=productNum%>";	
+		}
 });
 
 $("#removeBtn").click(function() {
@@ -267,7 +286,7 @@ $("#removeBtn").click(function() {
 $("#replyBtn").click(function() {
 	location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_replay_write"
 		+"&replay=<%=review.getReviewReplay()%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>"
-		+"&orderNum=<%=review.getReviewOrderNum()%>&productNum=<%=productNum%>&reviewSubject=<%= reviewSubject %>&reviewNum=<%=reviewNum%>";
+		+"&orderNum=<%=review.getReviewOrderNum()%>&productNum=<%=productNum%>&reviewNum=<%=reviewNum%>";
 });
 
 

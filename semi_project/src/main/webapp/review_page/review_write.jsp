@@ -107,7 +107,6 @@ td {
 		method="post" id="reviewForm" enctype="multipart/form-data">
 		<input type="hidden" name="replay" value="<%=replay %>">
 		<input type="hidden" name="pageNum" value="<%=pageNum %>">
-		<input type="hidden" name="pageSize" value="<%=pageSize %>">
 		<input type="hidden" name="productNum" value="<%=productNum %>">
 		<input type="hidden" name="orderNum" value="<%=orderNum %>">
 		

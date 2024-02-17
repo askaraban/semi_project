@@ -32,6 +32,7 @@ int pageSize = 10;//게시글갯수- 전달값이 없는 경우 저장된 초기
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
+System.out.println(pageSize);
 
 //REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
 int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(loginClient.getClientNum(), 1, 1);
@@ -104,101 +105,83 @@ int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 			</div>
 			<div style="text-align: right;">
 				<div class="mbOutTop" style="border: unset;">
-					<%
-					if (reviewList.size() == 0) {
-					%>
-					<div class="nonList">
-						구매하신 제품이 있을 경우에만<br> 리뷰 작성이 가능합니다.
-					</div>
-
-					<!-- 리뷰 없을때 -->
-
-					<%
-					} else {
-					%>
-					<div class="tableType">
-						<table style="text-align: center; padding: 10px;">
-							<colgroup>
-								<col style="width: 100px;">
-								<col style="width: 400px;">
-								<col style="width: 150px;">
-								<col style="width: 200px;">
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col">번호</th>
-									<th scope="col">제품명</th>
-									<th scope="col">구매일시</th>
-									<th scope="col">구매자</th>
-								</tr>
-							</thead>
-							<tbody style="padding-top: 10px;">
-								<%
-								for (OrderDTO list : reviewList) {
-								%>
-								<tr>
-									<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
-									<td><%=displayNum%></td>
-									<%
-									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
-									%>
-									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write&orderNum=<%=list.getOrderNum() %>&productNum=<%=list.getOrderProductNum()%>">
-											<%=list.getProductName()%></a></td>
-									<td><%=list.getOrderDate()%></td>
-									<td><%=loginClient.getClientName()%></td>
-								</tr>
-									
-								<%
-								}
-								%>
-								<%
-								}
-								%>
-							</tbody>
-						</table>
-					</div>
-	<%
-		// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
-		int blockSize=5;
-	
-		// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
-		// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
-		int startPage=(pageNum-1)/blockSize*blockSize+1;
-		
-		// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
-		// ex) 1블럭 : 5, 2블럭 : 10
-		int endPage=startPage+blockSize-1;
-		
-		// 토탈페이지보다 종료페이지보다 크다면
-		if(totalPage<endPage){
-			endPage=totalPage;
-		}
-	%>
-	<br>
-	<div id="page_list" style="text-align: center;">
-		<%
-			String responseList="";
-		%>
-		
-		<%if(startPage>blockSize){%>
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>">[이전]</a>		
-		<%} else {%>
-			[이전]
-		<%} %>
-		<% for(int i=startPage;i<=endPage;i++){ %>
-			<%if(pageNum !=i) {%>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=i%>&pageSize=<%=pageSize%>">[<%=i %>]</a>
-			<%}else{  %>
-				[<%=i %>]
-			<%} %>
-		<%} %>
-			<%if(endPage!=totalPage){ %>
-				<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage+blockSize%>&pageSize=<%=pageSize%>">[다음]</a>
-			<%}else{  %>
-				[다음]
-			<%} %>
-	</div>
+				<% if (reviewList.size() == 0) { %>
+				<div class="nonList">
+					구매하신 제품이 있을 경우에만<br> 리뷰 작성이 가능합니다.
+				</div>
+				<!-- 리뷰 없을때 -->
+				<% } else { %>
+				<div class="tableType">
+					<table style="text-align: center; padding: 10px;">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 400px;">
+							<col style="width: 150px;">
+							<col style="width: 200px;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">제품명</th>
+								<th scope="col">구매일시</th>
+								<th scope="col">구매자</th>
+							</tr>
+						</thead>
+						<tbody style="padding-top: 10px;">
+							<% for (OrderDTO list : reviewList) { %>
+							<tr>
+								<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
+								<td><%=displayNum%></td>
+								<% displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장 %>
+								<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write
+														&orderNum=<%=list.getOrderNum() %>&productNum=<%=list.getOrderProductNum()%>"><%=list.getProductName()%></a></td>
+								<td><%=list.getOrderDate()%></td>
+								<td><%=loginClient.getClientName()%></td>
+							</tr>
+							<% } %>
+				<% } %>
+						</tbody>
+					</table>
+				</div>
+				<%
+					// 하나의 페이지블럭에 출력될 페이지번호의 개수 설정
+					int blockSize=5;
+				
+					// 페이지 블럭에 출력될 시작 페이지번호를 계산하여 저장
+					// ex) 1 블럭 : 1, 2블럭 6, 3블럭 : 11
+					int startPage=(pageNum-1)/blockSize*blockSize+1;
+					
+					// 페이지블럭에 출력될 종료페이지번호를 계산하여 저장
+					// ex) 1블럭 : 5, 2블럭 : 10
+					int endPage=startPage+blockSize-1;
+					
+					// 토탈페이지보다 종료페이지보다 크다면
+					if(totalPage<endPage){
+						endPage=totalPage;
+					}
+				%>
+					<br>
+					<div id="page_list" style="text-align: center;">
+						<% String responseList=""; %>
+						
+						<% if(startPage>blockSize){ %>
+							<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage-blockSize%>">[이전]</a>		
+						<% } else { %>
+							[이전]
+						<% } %>
+						<% for(int i=startPage;i<=endPage;i++) { %>
+							<% if(pageNum !=i) {%>
+								<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=i%>">[<%=i %>]</a>
+							<% } else {  %>
+								[<%=i %>]
+							<% } %>
+						<% } %>
+						<% if(endPage!=totalPage){ %>
+							<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=review&pageNum=<%=startPage+blockSize%>">[다음]</a>
+						<% } else { %>
+							[다음]
+						<% } %>
+					</div>	
 				</div>
 			</div>
 		</div>

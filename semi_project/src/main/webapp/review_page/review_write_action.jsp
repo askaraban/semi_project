@@ -31,7 +31,6 @@ MultipartRequest mr = new MultipartRequest(request, saveDirectory, 20 * 1024 * 1
 
 //전달값을 반환받아 저장
 String pageNum = mr.getParameter("pageNum");
-String pageSize = mr.getParameter("pageSize");
 String productNum = mr.getParameter("productNum");
 int orderNum = Integer.parseInt(mr.getParameter("orderNum"));
 String replay=request.getParameter("replay");
@@ -57,6 +56,5 @@ review.setOrderReviewStatus(orderNum);
 ReviewDAO.getDAO().insertReview(review, orderNum);
 int rows = OrderDAO.getDAO().updateReviewStatus(orderNum);
 
-request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=my_page&worker=review" + "&pageNum="
-		+ pageNum + "&pageSize=" + pageSize);
+request.setAttribute("returnURL", request.getContextPath() + "/main_page/main.jsp?group=my_page&worker=review" + "&pageNum="+ pageNum);
 %>
