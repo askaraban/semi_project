@@ -212,14 +212,13 @@
 		%>
 		
 		<div class="product-info">
-			<div class="product-inner">
-				<div>
+			<div class="product-inner" style="display: inline-flex;">
 					<%String url=request.getContextPath()+"/main_page/main.jsp?group=product_page&worker=product"
 							   +"&productNum="+order.getOrderProductNum(); %>
 					<a href="<%=url%>">
-					<img class="cart-product-img" alt="thumb" src="<%=request.getContextPath()%>/productImg/<%=order.getProductMainImg()%>">
+					<img class="cart-product-img" alt="thumb" style="width: 80px;"
+					src="<%=request.getContextPath()%>/productImg/<%=order.getProductMainImg()%>">
 					</a>
-				</div>
 				<div class="cart-product-infoArea"
 					style="width: 250px; margin-left: 15px;">
 					<div class="cart-product-title" style="font-weight: bold;">
@@ -236,23 +235,22 @@
 					</div>
 					<%} %>
 				</div>
+				<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left; padding-left: 10px;">
+					<span>상품 주문 수량 : <%=order.getOrderCount() %>개 </span>
+				</div>
+				<input type="hidden" value="" id="plzCheck" name="plzCheck" >
+				<div class="cart-product-infoArea third-inner" style="width: 250px;">
+					<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
+					<span><strong style="font-weight: bold; font-size: 18px;">
+						<%if(order.getProductDis()!=0) {%>
+						<em><%=format.format(order.getOrderCount()*discount) %>원</em>
+						<%} else {%>
+						<em><%=format.format(order.getOrderCount()*order.getProductPrice()) %>원</em>
+						<%} %>
+					</strong>&nbsp;(<%=order.getOrderCount() %>개)</span>
+				</div>
 			</div>
 			
-			<div class="cart-product-infoArea second-inner" style="width: 270px; text-align: left;">
-				<span>상품 주문 수량 : <%=order.getOrderCount() %>개 </span>
-			</div>
-			<input type="hidden" value="" id="plzCheck" name="plzCheck" >
-			<div class="cart-product-infoArea third-inner" style="width: 250px;">
-				<span style="font-weight: bold; font-size: 13px;">상품 금액</span> <br><br>
-				<span><strong style="font-weight: bold; font-size: 18px;">
-				
-					<%if(order.getProductDis()!=0) {%>
-					<em><%=format.format(order.getOrderCount()*discount) %>원</em>
-					<%} else {%>
-					<em><%=format.format(order.getOrderCount()*order.getProductPrice()) %>원</em>
-					<%} %>
-				</strong>&nbsp;(<%=order.getOrderCount() %>개)</span>
-			</div>
 			<br>
 		</div>
 		<input type="hidden" value="<%=order.getOrderNum()%>" name="orderNum">
@@ -260,32 +258,32 @@
 		<input type="hidden" value="<%=order.getOrderTime()%>" name="timeStamp">
 		<% }%> 
 	</div>	
-	<div style="display: flex; padding-left: 50px; background-color: pink;" >
-		<div style="width: 80px; height: 100px; padding-top: 20px; padding-left: 40px;" >
-			<button type="submit" style="border-radius: 10px; width: 140px; height: 50px; background-color: pink; font-weight: bold; font-size: 20px;">
+	<div style="display: flex; padding-left: 20px; background-color: pink;" >
+		<div style="width: 120px; height: 100px; padding-top: 20px; padding-left: 40px;" >
+			<button type="submit" style="border-radius: 10px; width: 120px; height: 50px; background-color: pink; font-weight: bold; font-size: 17px;">
 			배송완료하기</button>
 		</div>
-		<div style="width: 320px; height: 100px; padding-top: 20px; padding-left: 20px;">
+		<div style="width: 150px; height: 100px; padding-top: 20px; padding-left: 20px;">
 			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">선택 상품금액</span>
 			<br>
 			<br>
 			<span class="result-count" id="selectedPrice2" style="font-weight: bold; font-size: 20px;">
 			<%=format.format(totalPrice) %>원</span>
 		</div>
-		<div style="width: 20px; height: 100px; padding-top: 20px; padding-left: 20px;">
+		<div style="width: 40px; height: 100px; padding-top: 20px; padding-left: 20px;">
 			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">+</span>
 			<br>
 			<br>
 		</div>
 		<%if(totalPrice>=50000){ %>
-		<div style="width: 320px; height: 100px; padding-top: 20px; padding-left: 20px;">
+		<div style="width: 120px; height: 100px; padding-top: 20px; padding-left: 20px;">
 			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">배송비</span>
 			<br>
 			<br>
 			<span class="result-count" id="selectedPrice2" style="font-weight: bold; font-size: 20px;">
 			0 원</span>
 		</div>
-		<div style="width: 20px; height: 100px; padding-top: 20px; padding-left: 20px;">
+		<div style="width: 40px; height: 100px; padding-top: 20px; padding-left: 20px;">
 			<span class="result-word" style="text-align: center; font-weight: bold; font-size: 20px;">=</span>
 			<br>
 			<br>

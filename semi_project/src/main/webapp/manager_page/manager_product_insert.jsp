@@ -22,7 +22,11 @@ div ul li {
 	margin-right: 10px;
 }
 
-.insert_div_content {
+.error {
+	color: red;
+	position: relative;
+	left: 110px;
+	display: none;
 }
 
 table {
@@ -50,22 +54,25 @@ td {
 			<ul>
 				<li>
 					<div class="insert_div">
-						<input type="text" name="productName"> <label>제품명</label>
+						<input type="text" name="productName" id="name"> <label>제품명</label>
+						<div id="NameMsg" class="error">제품명을 입력해주세요.</div>
 					</div>
 				</li>
 				<li>
 					<div class="insert_div">
-						<input type="text" name="productPrice"> <label>가격</label>
+						<input type="text" name="productPrice" id="price"> <label>가격</label>
+						<div id="PriceMsg" class="error">가격을 입력해 주세요.</div>
 					</div>
 				</li>
 				<li>
 					<div class="insert_div">
-						<input type="text" name="productCom"> <label>제조사</label>
+						<input type="text" name="productCom" id="com"> <label>제조사</label>
+						<div id="ComMsg" class="error">제조사를 입력해 주세요.</div>
 					</div>
 				</li>
 				<li>
 					<div class="insert_div">
-						<select name="productCate">
+						<select name="productCate" id="cate">
 							<option value="10">&nbsp;스낵&nbsp;</option>
 							<option value="20">&nbsp;파이&amp;쿠키&nbsp;</option>
 							<option value="30">&nbsp;캔디&amp;젤리&nbsp;</option>
@@ -73,6 +80,7 @@ td {
 							<option value="50">&nbsp;껌&nbsp;</option>
 						</select> <label>유형</label>
 					</div>
+					<div id="CateMsg" class="error">유형을 선택해 주세요.</div>
 				</li>
 			</ul>
 		</div>
@@ -81,12 +89,14 @@ td {
 		<ul>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="productMainImg"> <label>제품이미지</label>
+					<input type="file" name="productMainImg" id="main"> <label>제품이미지</label>
+					<div id="MainMsg" class="error">메인사진을 넣어 주세요.</div>
 				</div>
 			</li>
 			<li>
 				<div class="insert_div">
-					<input type="file" name="productImg1"> <label>상세이미지1</label>
+					<input type="file" name="productImg1" id="img1"> <label>상세이미지1</label>
+					<div id="img1Msg" class="error">상세제품에 들어갈 이미지를 넣어 주세요.</div>
 				</div>
 			</li>
 			<li>
@@ -102,8 +112,44 @@ td {
 		</ul>
 	</div>
 	<hr>
-	<div class="insert_div">
+	<div class="insert_div" style="padding-left: 10%;">
 		<button type="submit">제품등록</button>
 		<button type="reset">다시입력</button>
 	</div>
 </form>
+
+<script type="text/javascript">
+
+$("#uploadForm").submit(function() {
+	var submitResult = true;
+	
+	$(".error").css("display","none");
+
+	if($("#name").val()=="") {
+		$("#NameMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#price").val()=="") {
+		$("#PriceMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#com").val()=="") {
+		$("#ComMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#cate").val()=="") {
+		$("#CateMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#main").val()=="") {
+		$("#MainMsg").css("display","block");
+		submitResult=false;
+	}
+	if($("#img1").val()=="") {
+		$("#img1Msg").css("display","block");
+		submitResult=false;
+	}
+	return submitResult;
+});
+
+</script>

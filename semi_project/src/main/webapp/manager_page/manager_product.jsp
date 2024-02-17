@@ -165,7 +165,7 @@ td {
 		}
 	%>
 	
-	<div id="page_list">
+	<div id="page_list" style="padding-left: 40%;">
 		
 		<%if(startPage>blockSize){%>
 			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_product&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[이전]</a>		
@@ -187,7 +187,7 @@ td {
 	</div>
 	<div>
 	<%-- 사용자로부터 검색 관련 정보를 입력받기 위한 태그 출력 --%>
-	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post">
+	<form action="<%=request.getContextPath() %>/manager_page/manager.jsp?group=manager_page&worker=manager_product" method="post" style="padding-left: 35%;">
 		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정 --%>
 		<select name="search">
 			<option value="product_name" <%if(search.equals("product_name")) {%> selected<%} %>>&nbsp;제품이름&nbsp;</option>

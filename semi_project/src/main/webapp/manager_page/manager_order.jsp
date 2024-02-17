@@ -151,8 +151,8 @@ td {
 			endPage=totalPage;
 		}
 	%>
-	
-	<div id="page_list">
+	<br>
+	<div id="page_list" style="padding-left: 40%">
 		
 		<%if(startPage>blockSize){%>
 			<a href="<%=request.getContextPath()%>/manager_page/manager.jsp?worker=manager_order&pageNum=<%=startPage-blockSize%>&pageSize=<%=pageSize%>&search=<%=search%>&keyword=<%=keyword%>">[ÀÌÀü]</a>		
@@ -173,7 +173,7 @@ td {
 			<%} %>
 	</div>
 </div>
-
+<hr>
 <script type="text/javascript">
 
 	$("#searchBtn").click(function() {
