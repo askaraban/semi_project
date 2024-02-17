@@ -29,7 +29,7 @@
 	border: 2px solid aqua;
 }
 
-#search_btn {
+.search_btn {
 	margin: 0 auto;
 	padding: 5px;
 	width: 252px;
@@ -63,7 +63,7 @@
 			<input type="text" name="email" id="email" placeholder="이메일">	
 		</li>		
 	</ul>	
-	<div id="search_btn">아이디 찾기</div>
+	<div id="search_btn" class="search_btn">아이디 찾기</div>
 </form>
 <br>
 <div id="message"></div>

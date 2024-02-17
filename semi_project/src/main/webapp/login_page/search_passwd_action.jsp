@@ -15,11 +15,7 @@
     background-color: #ffb0d9;
     
 }
-.btn :hover {
-	background: #ffb0d9;
-	color: black;
-	
-}
+
 </style>    
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청

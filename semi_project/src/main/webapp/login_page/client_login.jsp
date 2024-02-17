@@ -50,7 +50,7 @@
 	border: 2px solid aqua;
 }
 
-#login_btn {
+.login_btn {
 	text-align: center;
 	margin: 0 auto;
 	padding: 5px;
@@ -62,6 +62,7 @@
 	letter-spacing: 20px;
 	font-weight: bold;
 }
+
 
 #search {
 	margin-top: 10px;
@@ -113,7 +114,7 @@ a:hover {
 				&nbsp;&nbsp;<input type="password" name="passwd" id="passwd" style="width:76%;" placeholder="패스워드" >	
 			</li>		
 		</ul>	
-	<div id="login_btn">로그인</div>
+	<div id="login_btn" class="login_btn">로그인</div>
 	</div>
 </form>
 <div id="search">
