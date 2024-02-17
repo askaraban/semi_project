@@ -304,7 +304,7 @@ $("#listBtn").click(function() {
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna";
  	} else {// 아니면 해당제품의 상품상세로 이동
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
-			+"&productNum=<%=productNum%>&review_list&pageSize=<%=pageSize%>&pageNum=<%=pageNum%>#qa_list";
+			+"&productNum=<%=productNum%>#qa_list";
  	}
 });
 </script>
