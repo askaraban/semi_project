@@ -19,10 +19,21 @@
 <%-- => [글변경] 태그와 [글삭제] 태그는 게시글 작성자 또는 관리자에게만 출력되어 링크를 제공하고
 [답글쓰기] 태그는 로그인 상태의 사용자에게만 출력되어 링크 제공 --%>
 <%
+	//페이징 처리에 필요한 전달값(페이지번호과 게시글갯수)을 반환받아 저장
+	int pageNum=1;//페이지번호- 전달값이 없는 경우 저장된 초기값 설정
+	if(request.getParameter("pageNum")!=null) {//전달값이 있는 경우
+		pageNum=Integer.parseInt(request.getParameter("pageNum"));
+	}
+	
+	int pageSize=5;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+	if(request.getParameter("pageSize")!=null) {//전달값이 있는 경우
+		pageSize=Integer.parseInt(request.getParameter("pageSize"));
+	}
+
 	//전달값을 반환받아 저장
 	int qaNum=Integer.parseInt(request.getParameter("qaNum"));
-	String pageNum=request.getParameter("pageNum");
-	String pageSize=request.getParameter("pageSize");
+/* 	String pageNum=request.getParameter("pageNum");
+	String pageSize=request.getParameter("pageSize"); */
 	String qaSubject=request.getParameter("qaSubject");
 	//글번호가 전달되지 않은 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getParameter("qaNum")==null) {
@@ -214,8 +225,6 @@ td {
 		</tr>
 	</table>
 	
-	<% System.out.println("loginClient.getClientNum() = " + loginClient.getClientNum()); %>
-	<% System.out.println("qa.getQaMember() = " + qa.getQaMember()); %>
 	<!-- 버튼 태그 div -->
 	<div id="qa_menu" style="text-align: right;">
 		<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
@@ -301,10 +310,10 @@ $("#listBtn").click(function() {
 	var referrer = document.referrer;
 	
  	if(referrer.includes('qna')){// 마이페이지 화면에서 이동됬으면 글목록 버튼 클릭시 다시 마이페이지로 이동
-		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna";
+		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=my_page&worker=qna&pageNum=<%=pageNum%>";
  	} else {// 아니면 해당제품의 상품상세로 이동
 		location.href="<%=request.getContextPath()%>/main_page/main.jsp?group=product_page&worker=product"
-			+"&productNum=<%=productNum%>#qa_list";
+			+"&productNum=<%=productNum%>&pageNum=<%=pageNum%>&pageSize=<%=pageSize%>#qa_list";
  	}
 });
 </script>
