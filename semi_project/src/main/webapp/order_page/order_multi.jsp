@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"%>
 <link href="<%=request.getContextPath()%>/style/order_style.css" type="text/css" rel="stylesheet">
 <%-- 장바구니 페이지에서 구매페이지로  --%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <%@include file="/security/login_url.jspf" %>
 
 <%	
@@ -31,9 +31,7 @@
 	if(cartNumList==null){
 		request.setAttribute("returnURL", request.getContextPath()+"/main_page/main.jsp?group=cart_page&worker=cart");
 		return;
-	}
-	
- 
+	}	
 %>
 
 <style>
@@ -44,7 +42,6 @@
 	align-content: flex-start;
 }
 </style>
-
 
 <div id="titleArea" class="titleArea">
 	<h2>결제하기</h2>	
@@ -85,7 +82,7 @@
 			 			연락처
 			 		</th>
 					<td>
-						<select name="mobile11" readonly="readonly">
+						<select name="mobile11" >
 							<option value="010" selected>&nbsp;010&nbsp;</option>
 							<option value="011">&nbsp;011&nbsp;</option>
 							<option value="016">&nbsp;016&nbsp;</option>
@@ -121,8 +118,8 @@
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>
  		<div id="checkboxList">
-			<input type="checkbox" name="clientAddress" class="useAddress" value="주문자 정보와 동일" checked>주문자 정보와 동일&nbsp;&nbsp;		
-			<input type="checkbox" name="newAddress" class="useAddress" value="새로운 배송지">새로운 배송지&nbsp;&nbsp;		
+			<input type="checkbox" name="newAddress" class="newAddress" value="새로운 배송지" checked>새로운 배송지&nbsp;&nbsp;		
+			<input type="checkbox" name="clientAddress" class="clientAddress" value="주문자 정보와 동일">주문자 정보와 동일&nbsp;&nbsp;		
 		</div>
 		<form action="<%=request.getContextPath()%>/order_page/insert_order_multi.jsp" method="post" id="orderForm">
 		<section style="display=block;">
@@ -239,8 +236,7 @@
 	</div>
 
 	<div class="cartList">
-		<%
-		
+		<%		
 		for(String cart : cartNumList){
 			CartDTO cartOne = CartDAO.getDAO().selectOrder(Integer.parseInt(cart));
 			
@@ -251,9 +247,7 @@
 				totalPrice += cartOne.getCartCount() * discount;
 			}
 			
-			int productNum = CartDAO.getDAO().selectProductCount(cartOne.getCartNum());
-			
-			
+			int productNum = CartDAO.getDAO().selectProductCount(cartOne.getCartNum());			
 		%>
 		
 		<div class="product-info">
@@ -359,16 +353,17 @@
 			</div>										
 		<% } %>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>				                                 				                         											
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
 $(document).ready(function() {
-    // 체크박스 클릭 이벤트 
-    $("#clientAddress").on("change", function() {
-	//check된 상태라면 
-      if ($(this).is(":checked")) {
+   	 	// 체크박스 클릭 이벤트 
+    $(".clientAddress").on("change", function() {
+		//check된 상태라면 
+      if($(this).is(":checked")) {
     	   //새로운 배송지 체크 해제 
-          $("#newAddress").prop("checked", false);
+          $(".newAddress").prop("checked", false);
     	  
         // 체크되었을 때 기존 주소 정보를 입력 폼에 설정
           $("#order_receiver").val("<%=loginClient.getClientName()%>").attr("readonly","readonly");
@@ -380,24 +375,24 @@ $(document).ready(function() {
           $("#emailTxt").val("<%=loginClient.getClientEmail()%>").attr("readonly","readonly");
       } else {
         // 체크가 해제되었을 때 입력 폼 초기화
-        $("#name, #zipcode, #address1, #address2, #mobile2, #email").val("");
+        $("#order_receiver, #zipcode, #address1, #address2, #mobile5, #mobile6, #emailTxt").val("");
       }
-    });
-
- // 새로운 배송지 체크 박스 클릭 이벤트 
-    $("#newAddress").on("change", function() {
+    }); 
+		//alert("<%=loginClient.getClientMobile().substring(9, 13)%>");
+ 	//새로운 배송지 체크 박스 클릭 이벤트 
+    $(".newAddress").on("change", function() {
 	//새로운배송지의 체크박스가 체크 된 상태라면
       if ($(this).is(":checked")) {
-    	//기존 주소 체크 해제
-          $("#usedAddress").prop("checked", false);
-        // 체크되었을 때 입력 폼 초기화
-          $("#name, #address1, #address2, #mobile2, #email").val("").removeAttr("readonly");
+    		//기존 주소 체크 해제
+          $(".clientAddress").prop("checked", false);
+       	 	// 체크되었을 때 입력 폼 초기화
+          $("#order_receiver, #address1, #address2, #mobile5, #mobile6, #emailTxt").val("").removeAttr("readonly");
           //우편번호는 검색 
           $("#zipcode").val("");
       }
     });
+ });
     
-  });
 
 $("#postSearch").click(function() {
 	new daum.Postcode({
