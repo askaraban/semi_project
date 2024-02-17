@@ -55,6 +55,3 @@
 		request.setAttribute("returnURL", url); 
 	}
 %>
-
-
-

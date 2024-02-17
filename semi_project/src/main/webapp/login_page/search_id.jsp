@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%-- 아이디를 검색하기 위해 사용자로부터 이름과 이메일을 입력받기 위한 JSP 문서 --%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style type="text/css">
+
+
 .search_tag {
 	margin: 5px auto;
 	width: 300px;
@@ -39,17 +42,12 @@
 	text-align: center;
 }
 
-#message1 {
+#message {
 	color: red;
 	font-weight: bold;
-	text-align: left;
+	text-align: center;
 }
 
-#message2 {
-	color: red;
-	font-weight: bold;
-	text-align: left;
-}
 </style>
 <div class="titlearea">
 <h1>아이디 찾기</h1>
@@ -60,14 +58,16 @@
 		<li>
 			<input type="text" name="name" id="name" placeholder="이름">	
 		</li>
-		<div id="message1"></div>
+		
 		<li>
 			<input type="text" name="email" id="email" placeholder="이메일">	
-		</li>
-		<div id="message2"></div>
+		</li>		
 	</ul>	
 	<div id="search_btn">아이디 찾기</div>
 </form>
+<br>
+<div id="message"></div>
+
 
 
 <script type="text/javascript">
@@ -75,13 +75,13 @@ $("#name").focus();
 
 $("#search_btn").click(function() {
 	if($("#name").val()=="") {
-		$("#message1").text("이름을 입력해 주세요.");
+		$("#message").text("이름을 입력해 주세요.");
 		$("#name").focus();
 		return;
 	}	
 	
 	if($("#email").val()=="") {
-		$("#message2").text("이메일을 입력해 주세요.");
+		$("#message").text("이메일을 입력해 주세요.");
 		$("#email").focus();
 		return;
 	}	

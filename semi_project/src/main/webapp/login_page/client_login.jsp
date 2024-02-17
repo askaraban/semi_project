@@ -69,13 +69,7 @@
 	text-align: center;
 }
 
-#message1 {
-	color: red;
-	font-weight: bold;
-	text-align: center;
-}
-
-#message2 {
+#message {
 	color: red;
 	font-weight: bold;
 	text-align: center;
@@ -114,11 +108,9 @@ a:hover {
 			<li>
 				&nbsp;&nbsp;<input type="text" name="id" id="id" value="<%=id%>" style="width:76%;" placeholder="아이디" >	
 			</li>
-			<div id="message1"><%=message %></div>
 			<li>
 				&nbsp;&nbsp;<input type="password" name="passwd" id="passwd" style="width:76%;" placeholder="패스워드" >	
-			</li>
-			<div id="message2"><%=message %></div>
+			</li>		
 		</ul>	
 	<div id="login_btn">로그인</div>
 	</div>
@@ -128,6 +120,7 @@ a:hover {
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page&worker=search_passwd">비밀번호 찾기</a> |
 	<a href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page&worker=client_join">회원가입</a>
 </div>
+<div id="message"><%=message %></div>
 
 
 <script type="text/javascript">
