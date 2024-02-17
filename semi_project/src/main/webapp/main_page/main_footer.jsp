@@ -2,26 +2,22 @@
 	pageEncoding="UTF-8"%>
 
 
-	<!-- footer 부분-->
-	<footer id="footer" class="foot_line">
-		<div class="inner_foot">
-			<a href="<%=request.getContextPath()%>/main_page/main.jsp" class="link_logo"> <img src="<%=request.getContextPath()%>/images/King2.png" width="70"
-				height="60" class="img_thumb" alt="쿠키몰" >
-			</a>
-			<div class="info_policy">
-				<ul class="foot_ul">
-					<li>회사소개&nbsp;</li>
-					<li>비즈니스&nbsp;</li>
-					<li>인재채용&nbsp;</li>
-					<li>이용약관&nbsp;</li>
-					<li>운영정책&nbsp;</li>
-				</ul>
-			</div>
-			<div class="info_policy">
-				<ul class="foot_ul">
-					<li>Copyright © itwill Corp. All rights reserved.&nbsp;</li>
-				</ul>
-			</div>
-		</div>
-	</footer>
+<!-- footer 부분-->
+<footer id="footer" class="foot_line">
+	<div class="inner_foot" style="color: #b4b4b4;">
+		<table style="text-align: center; margin: 0 auto;">
+			<tr>
+				<td>이용약관 |</td>
+				<td>개인정보처리방침 |</td>
+				<td>책임의 한계와 법적고지 |</td>
+				<td>회원정보 고객센터</td>
+			</tr>
+		</table>
+		<table style="text-align: center; margin: 0 auto;">
+			<tr>
+				<td>Copyright © Cookie King Corp. All rights reserved.</td>
+			</tr>
+		</table>
+	</div>
+</footer>
 </html>
