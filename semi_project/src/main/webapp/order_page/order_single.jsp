@@ -7,9 +7,9 @@
     pageEncoding="UTF-8"%>
     
 <%@include file="/security/login_url.jspf" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <%
-	
 	DecimalFormat format = new DecimalFormat("###,###,##0");
 	
 
@@ -313,8 +313,8 @@
  		<!-- 배송지 작성 -->    
  	<h5 class="deliveryForm">배송지 작성</h5>
 	 	<div id="checkboxList">
-			<input type="checkbox" name="clientAddress" class="useAddress" value="주문자 정보와 동일" checked>주문자 정보와 동일&nbsp;&nbsp;		
-			<input type="checkbox" name="newAddress" class="useAddress" value="새로운 배송지">새로운 배송지&nbsp;&nbsp;		
+			<input type="checkbox" name="newAddress" class="newAddress" value="새로운 배송지" checked>새로운 배송지&nbsp;&nbsp;		
+			<input type="checkbox" name="clientAddress" class="clientAddress" value="주문자 정보와 동일">주문자 정보와 동일&nbsp;&nbsp;		
 		</div>
 		<form action="<%=request.getContextPath()%>/order_page/insert_order_single.jsp" method="post" id="orderForm">
 		<section style="display=block;">
@@ -535,9 +535,10 @@
 		<% } %>
  </form>
 				                 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>				                                 				  
+				                                 				  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
 $("#order_receiver").focus();
 
 $("#postSearch").click(function() {
@@ -550,41 +551,39 @@ $("#postSearch").click(function() {
 });
 
 $(document).ready(function() {
-    // 체크박스 클릭 이벤트 
-    $("#clientAddress").on("change", function() {
-	//check된 상태라면 
-      if ($(this).is(":checked")) {
-    	   //새로운 배송지 체크 해제 
-          $("#newAddress").prop("checked", false);
-    	  
-        // 체크되었을 때 기존 주소 정보를 입력 폼에 설정
-          $("#order_receiver").val("<%=loginClient.getClientName()%>").attr("readonly","readonly");
-          $("#zipcode").val("<%=loginClient.getClientZipcode()%>").attr("readonly","readonly");
-          $("#address1").val("<%=loginClient.getClientAddress1()%>").attr("readonly","readonly");
-          $("#address2").val("<%=loginClient.getClientAddress2()%>").attr("readonly","readonly");
-          $("#mobile5").val("<%=loginClient.getClientMobile().substring(4, 8)%>").attr("readonly","readonly");
-          $("#mobile6").val("<%=loginClient.getClientMobile().substring(9, 13)%>").attr("readonly","readonly");
-          $("#emailTxt").val("<%=loginClient.getClientEmail()%>").attr("readonly","readonly");
-      } else {
-        // 체크가 해제되었을 때 입력 폼 초기화
-        $("#name, #zipcode, #address1, #address2, #mobile2, #email").val("");
-      }
-    });
-
- // 새로운 배송지 체크 박스 클릭 이벤트 
-    $("#newAddress").on("change", function() {
+	 // 체크박스 클릭 이벤트 
+	$(".clientAddress").on("change", function() {
+		//check된 상태라면 
+ 	 	if($(this).is(":checked")) {
+	  		 //새로운 배송지 체크 해제 
+      		  $(".newAddress").prop("checked", false);
+	  
+	    	  // 체크되었을 때 기존 주소 정보를 입력 폼에 설정
+		      $("#order_receiver").val("<%=loginClient.getClientName()%>").attr("readonly","readonly");
+		      $("#zipcode").val("<%=loginClient.getClientZipcode()%>").attr("readonly","readonly");
+		      $("#address1").val("<%=loginClient.getClientAddress1()%>").attr("readonly","readonly");
+		      $("#address2").val("<%=loginClient.getClientAddress2()%>").attr("readonly","readonly");
+		      $("#mobile5").val("<%=loginClient.getClientMobile().substring(4, 8)%>").attr("readonly","readonly");
+		      $("#mobile6").val("<%=loginClient.getClientMobile().substring(9, 13)%>").attr("readonly","readonly");
+		      $("#emailTxt").val("<%=loginClient.getClientEmail()%>").attr("readonly","readonly");
+	  } else {
+    	// 체크가 해제되었을 때 입력 폼 초기화
+    	$("#order_receiver, #zipcode, #address1, #address2, #mobile5, #mobile6, #emailTxt").val("");
+  	}
+}); 
+	//새로운 배송지 체크 박스 클릭 이벤트 
+	$(".newAddress").on("change", function() {
 	//새로운배송지의 체크박스가 체크 된 상태라면
-      if ($(this).is(":checked")) {
-    	//기존 주소 체크 해제
-          $("#usedAddress").prop("checked", false);
-        // 체크되었을 때 입력 폼 초기화
-          $("#name, #address1, #address2, #mobile2, #email").val("").removeAttr("readonly");
-          //우편번호는 검색 
-          $("#zipcode").val("");
-      }
-    });
-    
-  });
+  		if ($(this).is(":checked")) {
+			//기존 주소 체크 해제
+      		$(".clientAddress").prop("checked", false);
+   	 		// 체크되었을 때 입력 폼 초기화
+     		 $("#order_receiver, #address1, #address2, #mobile5, #mobile6, #emailTxt").val("").removeAttr("readonly");
+      		//우편번호는 검색 
+      		$("#zipcode").val("");
+  		}
+	});
+});
 
 
 $("#orderForm").submit(function() {
