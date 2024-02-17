@@ -4,7 +4,23 @@
 <%@page import="xyz.itwill.DTO.ClientDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 이름과 아이디를 전달받아 MEMBER 테이블에 저장된 행의 비밀번호를 검색하여 검색 결과를 전달하여 응답하는 JSP 문서 --%>    
+<%-- 이름과 아이디를 전달받아 MEMBER 테이블에 저장된 행의 비밀번호를 검색하여 검색 결과를 전달하여 응답하는 JSP 문서 --%>
+<style>
+.btn {
+	border: 1px solid lightgray;
+	color: white;
+    font-size: large;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: #ffb0d9;
+    
+}
+.btn :hover {
+	background: #ffb0d9;
+	color: black;
+	
+}
+</style>    
 <%
 	//JSP 문서를 GET 방식으로 요청한 경우에 대한 응답 처리 - 비정상적인 요청
 	if(request.getMethod().equals("GET")) {
@@ -43,6 +59,6 @@
 
 <a href="<%=request.getContextPath()%>/main_page/main.jsp?group=login_page
 &worker=client_login">
-<button type="submit" >로그인하기</button>
+<button type="submit"  class="btn" id="btn">로그인하기</button>
 
 

@@ -33,7 +33,7 @@
 	margin: 0 auto;
 	padding: 5px;
 	width: 252px;
-	background-color: pink;
+	background-color:#ffb0d9;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;

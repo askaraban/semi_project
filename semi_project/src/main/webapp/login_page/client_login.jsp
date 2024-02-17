@@ -55,7 +55,7 @@
 	margin: 0 auto;
 	padding: 5px;
 	width: 26%;
-	background-color: pink;
+	background-color: #ffb0d9;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;
@@ -86,6 +86,7 @@ a:hover {
 	margin:0 auto;
 	color : pink;
 	text-align: center;
+	color: #ffb0d9;
 }
 
 .userinfo {

@@ -9,8 +9,6 @@
 	width: 320px;
 }
 
-
-
 #searchForm ul li {
 	list-style-type: none;
 	margin-bottom: 10px;
@@ -25,7 +23,7 @@
 	margin: 0 auto;
 	padding: 5px;
 	width: 264px;
-	background-color: pink;
+	background-color: #ffb0d9;
 	color: white;
 	font-size: 1.2em;
 	cursor: pointer;
@@ -51,8 +49,6 @@
 	font-weight: bold;
 	text-align: center;
 }
-
-
 
 
 </style>
