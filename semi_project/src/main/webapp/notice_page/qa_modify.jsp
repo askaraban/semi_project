@@ -41,24 +41,63 @@
 	}
 %>
 <style type="text/css">
-table {
+#qa_modify {
+	width: 500px;
 	margin: 0 auto;
+}
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 th {
 	width: 100px;
-	font-weight: bold;
+	background: pink;
+	color: gray;
+	border: 1px solid gray;
 }
 
 td {
 	text-align: left;
+	border: 1px solid gray;
+	width: 400px;
+}
+
+#qaContent{
+	width: 400px;
+}
+
+#qa_menu {
+	text-align: right;
+	margin-top: 7px;
+}
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#resetBtn {
+	height: 100%;
+	margin-top: 5px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
-<h1 style="text-align: center;">Q&A 변경</h1>
 
-<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 <div id="qa_modify">
-	<h1>게시글수정</h1>
+	<h1>Q&A 수정</h1>
 	
 	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_modify_action"
@@ -92,13 +131,14 @@ td {
 				</td>
 			</tr>
 		</table>
-		<div id="qa_menu">
-			<button type="submit">글변경</button>
+		<div id="qa_menu" style="text-align: right;">
+			<button type="submit" id="modifyBtn">수정</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
 		</div>
 	</form>
 	<div id="message" style="color: red;"></div>
 </div>
+
 <script type="text/javascript">
 $("#qaSubject").focus();
 

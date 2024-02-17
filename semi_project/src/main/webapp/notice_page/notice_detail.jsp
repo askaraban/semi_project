@@ -92,12 +92,15 @@ td {
 	vertical-align: middle;
 }
 
-/*
 #notice_menu {
 	text-align: right;
 	margin: 5px;
 }
-*/
+
+#notice_main {
+	text-align: right;
+	margin-top: 50px;
+}
 
 #modifyBtn {
 	height: 100%;
@@ -181,8 +184,11 @@ td {
 			<button type="button" id="removeBtn">글삭제</button>
 		<% } %>
 		
-		<button type="button" id="NoticeMainBtn">글목록</button>
 	</div>
+</div>
+
+<div id="notice_main">
+	<button type="button" id="NoticeMainBtn">글목록</button>
 </div>
 <script type="text/javascript">
 $("#modifyBtn").click(function() {

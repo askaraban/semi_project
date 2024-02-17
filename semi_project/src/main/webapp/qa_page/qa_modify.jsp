@@ -73,7 +73,7 @@ td {
 
 #modifyBtn {
 	height: 100%;
-	margin-top: 5px;
+	margin-top: 10px;
 	margin-bottom: 7px;
 	background-color: rgb(239, 239, 239);
  	color: black;
@@ -84,7 +84,7 @@ td {
 
 #resetBtn {
 	height: 100%;
-	margin-top: 5px;
+	margin-top: 10px;
 	margin-bottom: 7px;
 	background-color: rgb(239, 239, 239);
  	color: black;
@@ -93,6 +93,7 @@ td {
  	border: 1px solid gray;
 }
 </style>
+
 <div id="qa_modify">
 	<h1>Q&A 수정</h1>
 	
@@ -103,6 +104,7 @@ td {
 		<input type="hidden" name="productNum" value="<%=productNum %>">
 		<input type="hidden" name="pageNum" value="<%=pageNum %>">
 		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+
 		<table>
 			<tr>
 				<th>제목</th>
@@ -127,13 +129,15 @@ td {
 				</td>
 			</tr>
 		</table>
+		
 		<div id="qa_menu" style="text-align: right;">
-			<button type="submit" id="modifyBtn">수정</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
+			<button type="submit" id="modifyBtn">수정</button>
 		</div>
 	</form>
-	<div id="message" style="color: red;"></div>
 </div>
+<div id="message" style="color: red;"></div>
+
 <script type="text/javascript">
 $("#qaSubject").focus();
 

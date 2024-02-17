@@ -107,7 +107,6 @@ h1 {
 	width: 1000px;
 	margin: 0 auto;
 	margin-top: 30px;
-	margin-bottom: 30px;
 	text-align: center;
 }
 
@@ -176,6 +175,27 @@ td {
 #page_list a:hover {
 	font-size: 1.3em;
 }
+
+#noticeWriteBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#qaWriteBtn {
+	height: 100%;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
 </style>
 
 <h1 style="margin-top:30px; margin-bottom:30px;">고객센터</h1>
@@ -183,11 +203,9 @@ td {
 	<div id="notice_title">- 공지사항/Q&A</div>
 		
 	<div style="text-align: right;">
-	<%if(loginClient!=null){ %>
-		<% if(loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
-			<button type="button" id="noticeWriteBtn">공지쓰기</button>
-		<% } %>
-	<%} %>
+	<%if(loginClient!=null && loginClient.getClientStatus()==9) {//로그인 상태의 사용자가 JSP 문서를 요청한 경우 %>
+		<button type="button" id="noticeWriteBtn">공지작성</button>
+	<% } %>
 	</div>
 	
 	<%-- 공지사항 --%>
@@ -256,8 +274,8 @@ td {
 	
 	<div style="text-align: right;">
 		<%if(loginClient!=null){ %>
-			<% if(loginClient.getClientStatus()==1 || loginClient.getClientStatus()==9) { %>
-				<button type="button" id="qaWriteBtn">QA쓰기</button>
+			<% if(loginClient.getClientStatus()==1) { %>
+				<button type="button" id="qaWriteBtn">QA작성</button>
 			<%} %>
 		<%} %>
 	</div>

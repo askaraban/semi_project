@@ -257,22 +257,14 @@ td {
 
  		<div id="qa_menu" style="text-align: right;">
 			<!-- 관리자인 경우에만 태그를 출력하여 링크 제공 -->
-			<% if(loginClient!=null) { %>	
-				<% if(loginClient.getClientStatus()==9) { %>
+			<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
+			    <% if(qa.getQaReplay()==null) {//새글인 경우 %>
+					<button type="button" id="replyBtn">답변작성</button>
+				<% } else {//답글인 경우 %>
 					<button type="button" id="replyBtn">답변수정</button>
 				<% } %>
 			<% } %>
 		</div> 
-		
-		
-<%-- 		<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
-			<div id="qa_menu" style="text-align: right;">
-				관리자인 경우에만 태그를 출력하여 링크 제공
-				<button type="button" id="replyBtn">답변수정</button>
-			</div>
-		<% } else { %>
-			<div id="qa_menu" style="text-align: right;"></div>
-		<% } %> --%>
 	</form>
 </div>
 
@@ -280,7 +272,7 @@ td {
 	<%-- 로그인 상태의 사용자면서 게시글 작성자인 경우에만 태그를 출력하여 링크 제공 --%>
 	<% if(loginClient!=null && (loginClient.getClientNum()==qa.getQaMember()
 			|| loginClient.getClientStatus()==9)) { %>
-		<button type="button" id="removeBtn">삭제</button>
+		<button type="button" id="removeBtn">글삭제</button>
 	<% } %>
 	<button type="button" id="listBtn">글목록</button>
 </div>

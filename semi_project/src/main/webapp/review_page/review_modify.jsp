@@ -67,11 +67,6 @@ td {
 	width: 400px;
 }
 
-/* #review_menu {
-	text-align: right;
-	margin: 5px;
-} */
-
 #review_menu {
 	text-align: right;
 	margin-top: 7px;
@@ -100,7 +95,7 @@ td {
 }
 </style>
 <div id="review_modify">
-	<h1>게시글 수정</h1>
+	<h1>제품리뷰 수정</h1>
 	
 	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_modify_action"
@@ -135,12 +130,12 @@ td {
 		</table>
 		
 		<div id="review_menu" style="text-align: right;">
-			<button type="submit" id="modifyBtn">수정</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
+			<button type="submit" id="modifyBtn">수정</button>
 		</div>
 	</form>
-	<div id="message" style="color: red;"></div>
 </div>
+
 <script type="text/javascript">
 $("#reviewSubject").focus();
 

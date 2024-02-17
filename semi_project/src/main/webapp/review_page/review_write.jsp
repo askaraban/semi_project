@@ -74,7 +74,8 @@ td {
 }
 
 #resetBtn {
-	height: 100%;
+	height: 29px;
+    width: 70px;
 	margin-top: 10px;
 	margin-bottom: 7px;
 	background-color: rgb(239, 239, 239);
@@ -85,7 +86,8 @@ td {
 }
 
 #saveBtn {
-	height: 100%;
+	height: 29px;
+    width: 57px;
 	margin-top: 10px;
 	margin-bottom: 7px;
 	background-color: rgb(239, 239, 239);
@@ -98,9 +100,9 @@ td {
 
 <div id="review_write">
 	<% if(replay==null) {//새글인 경우 %>
-		<h1>새글쓰기</h1>
+		<h1>리뷰 작성</h1>
 	<% } else {//답글인 경우 %>
-		<h1>답글쓰기</h1>
+		<h1>리뷰 수정</h1>
 	<% } %>
 	
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write_action" 
@@ -114,7 +116,6 @@ td {
 		<tr>
 			<th>제목</th>
 			<td>
-				<!--  <input type="text" name="reviewSubject" id="reviewSubject" size="40"> -->
 				<% if(replay==null) {//새글인 경우 %>
 					<input type="text" name="reviewSubject" id="reviewSubject" size="40">
 				<% } else {//답글인 경우 %>

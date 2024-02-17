@@ -42,66 +42,106 @@
 	}
 %>
 <style type="text/css">
-table {
+#notice_modify {
+	width: 500px;
 	margin: 0 auto;
+	text-align: left;
+}
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 th {
 	width: 100px;
-	font-weight: bold;
+	background: pink;
+	color: gray;
+	border: 1px solid gray;
 }
 
 td {
 	text-align: left;
+	border: 1px solid gray;
+	width: 400px;
+}
+
+#noticeContent{
+	width: 400px;
+}
+
+#notice_menu {
+	text-align: right;
+	margin-top: 7px;
+}
+
+#modifyBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#resetBtn {
+	height: 100%;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
-<h1 style="text-align: center;">공지사항 변경</h1>
 
-<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
-<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_modify_action"
-	method="post" enctype="multipart/form-data" id="noticeForm">
-	<input type="hidden" name="noticeNum" value="<%=noticeNum %>">
-	<input type="hidden" name="pageNum" value="<%=pageNum %>">
-	<input type="hidden" name="pageSize" value="<%=pageSize %>">
-	<input type="hidden" name="search" value="<%=search %>">
-	<input type="hidden" name="keyword" value="<%=keyword %>">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="noticeTitle" id="noticeSubject" size="40" 
-					value="<%=notice.getNoticeTitle()%>">
-				<%-- 비밀글 없음
-				<input type="checkbox" name="qaSecret" value="2"
-					<% if(review.getReviewStatus()==2) { %> checked <% } %>>비밀글
-				--%>
-			</td>					
-		</tr>	
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea rows="7" cols="60" name="noticeContent" id="noticeContent"><%=notice.getNoticeContent()%></textarea>
-			</td>
-		</tr>			
-		<tr>
-			<th>이미지파일</th>
-			<td>
-				<input type="file" name="noticeImage"><br><br>
-				<% if(notice.getNoticeImage()!=null) { %>
-					<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
-					<img src="<%=request.getContextPath()%>/<%=notice.getNoticeImage()%>" width="200">
-				<% } %>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<button type="submit">글변경</button>
-				<button type="reset" id="resetBtn">다시쓰기</button>
-			</th>
-		</tr>
-	</table>
-</form>
-<div id="message" style="color: red;"></div>
+<div id="notice_modify">
+	<h1>공지사항 변경</h1>
+	
+	<%-- 파일(리뷰 이미지)을 입력받아 전달하기 위해 form 태그의 enctype 속성값을 반드시 [multipart/form-date]로 설정 --%>
+	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=notice_modify_action"
+		method="post" id="noticeForm" enctype="multipart/form-data">
+		<input type="hidden" name="noticeNum" value="<%=noticeNum %>">
+		<input type="hidden" name="pageNum" value="<%=pageNum %>">
+		<input type="hidden" name="pageSize" value="<%=pageSize %>">
+		<input type="hidden" name="search" value="<%=search %>">
+		<input type="hidden" name="keyword" value="<%=keyword %>">
+		
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="noticeTitle" id="noticeSubject" size="40" 
+						value="<%=notice.getNoticeTitle()%>">
+				</td>					
+			</tr>	
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea rows="7" cols="60" name="noticeContent" id="noticeContent"><%=notice.getNoticeContent()%></textarea>
+				</td>
+			</tr>			
+			<tr>
+				<th>이미지파일</th>
+				<td>
+					<input type="file" name="noticeImage"><br><br>
+					<% if(notice.getNoticeImage()!=null) { %>
+						<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>
+						<img src="<%=request.getContextPath()%>/<%=notice.getNoticeImage()%>" width="200">
+					<% } %>
+				</td>
+			</tr>
+		</table>
+		
+		<div id="notice_menu">
+			<button type="reset" id="resetBtn">다시쓰기</button>
+			<button type="submit" id="modifyBtn">수정</button>
+		</div>
+	</form>
+</div>
 
 <script type="text/javascript">
 $("#noticeTitle").focus();

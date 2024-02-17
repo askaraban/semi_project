@@ -85,7 +85,7 @@
 	
 <div id="review_list">
 	<%-- 검색된 게시글 총갯수 출력 --%>
-	<div id="review_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px;">제품후기목록(<%=productReview %>)</div>
+	<div id="review_title" style="margin-bottom:65px; margin-top:40px; font-size: 25px;">제품리뷰목록(<%=productReview %>)</div>
 	
 	<%-- 게시글 목록 출력 --%>
 	<table>

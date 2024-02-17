@@ -169,7 +169,7 @@ td {
 </style>
 
 <div id="review_detail">
-	<h1>제품후기</h1>
+	<h1>제품리뷰</h1>
 	
 	<%-- 검색된 게시글 출력 --%>
 	<table>

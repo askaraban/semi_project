@@ -57,7 +57,8 @@ table {
 }
 
 th {
-   width: 100px;
+	height: 35px;
+   width: 110px;
    background: pink;
    color: gray;
    border: 1px solid gray;
@@ -79,13 +80,40 @@ td {
 
 #qa_menu {
    text-align: right;
-
    margin: 5px;
+}
+
+#resetBtn {
+	height: 29px;
+    width: 70px;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
+}
+
+#saveBtn {
+	height: 29px;
+    width: 57px;
+	margin-top: 10px;
+	margin-bottom: 7px;
+	background-color: rgb(239, 239, 239);
+ 	color: black;
+ 	font-weight: bold;
+ 	border-radius: 5px;
+ 	border: 1px solid gray;
 }
 </style>
 
 <div id="qa_write">
-    <h1>답글쓰기</h1>
+    <% if(qa.getQaReplay()==null) {//새글인 경우 %>
+		<h1 style="text-align: left;">답변 작성</h1>
+	<% } else {//답글인 경우 %>
+		<h1 style="text-align: left;">답변 수정</h1>
+	<% } %>
     
     <form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_replay_write_action" 
         method="post" id="qaForm">
@@ -94,22 +122,31 @@ td {
         <input type="hidden" name="pageSize" value="<%=pageSize %>">
         <input type="hidden" name="search" value="<%=search %>">
         <input type="hidden" name="keyword" value="<%=keyword %>">
+        
         <table>
             <tr>
-                <th>작성자</th>
+                <th style="text-align:left">작성자</th>
                 <td>관리자</td>
             </tr>
             <tr>
-                <th>내용</th>
+                <th style="text-align:left">내용</th>
                 <td>
-                    <textarea rows="7" cols="60" name="replay" id="replay"></textarea>
+                	<% if(qa.getQaReplay()==null) {//새글인 경우 %>
+						<textarea rows="7" cols="60" name="replay" id="replay"></textarea>
+					<% } else {//답글인 경우 %>
+                    	<textarea rows="7" cols="60" name="replay" id="replay"><%=qa.getQaReplay() %></textarea>
+					<% } %>
                 </td>
             </tr>
         </table>
         
         <div id="qa_menu">
-            <button type="submit">글저장</button>
             <button type="reset" id="resetBtn">다시쓰기</button>
+            <% if(qa.getQaReplay()==null) {//새글인 경우 %>
+				<button type="submit" id="saveBtn">글저장</button>
+			<% } else {//답글인 경우 %>
+				<button type="submit" id="saveBtn">수정</button>
+			<% } %>
         </div>
     </form>
 </div>

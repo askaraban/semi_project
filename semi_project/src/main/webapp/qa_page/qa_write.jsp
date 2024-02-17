@@ -52,14 +52,13 @@ td {
    width: 400px;
 }
 
-
 #qaContent{
    width: 400px;
 }
 
 #qa_menu {
    text-align: right;
-   margin: 5px;
+   margin: 7px;
 }
 
 #resetBtn {
@@ -99,7 +98,6 @@ td {
 			<tr>
 				<th>제목</th>
 				<td>
-					<!-- <input type="text" name="qaSubject" id="qaSubject" size="40" value=""test> -->
 					<%
 					  // 제품명 가져오기
 					  String productName = product.getProductName();
@@ -108,9 +106,7 @@ td {
 					  if (productName.length() > 9) {
 					    productName = productName.substring(0, 9) + "..."; // 5글자 이상이면 말 줄임 표시 추가
 					  }
-					
 					%>
-					
 					<input type="text" name="qaSubject" id="qaSubject" size="40" value="[<%= productName %>]">
 				</td>					
 			</tr>	
@@ -129,8 +125,8 @@ td {
 		</table>
 		
 		<div id="qa_menu">
-			<button type="submit" id="saveBtn">글저장</button>
 			<button type="reset" id="resetBtn">다시쓰기</button>
+			<button type="submit" id="saveBtn">저장</button>
 		</div>
 	</form>
 </div>
