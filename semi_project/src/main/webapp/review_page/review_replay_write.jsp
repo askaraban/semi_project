@@ -38,12 +38,12 @@
    text-align: left;
 }
 
-table {
+.table_review {
    border: 1px solid black;
    border-collapse: collapse;
 }
 
-th {
+.th_review {
    border: 1px solid gray;
    padding: 5px;
    width: 100px;
@@ -51,7 +51,7 @@ th {
    color: gray;
 }
 
-td {
+.td_review {
    text-align: left;
    border: 1px solid gray;
    padding: 5px;
@@ -110,13 +110,13 @@ td {
 		<input type="hidden" name="reviewNum" value="<%=reviewNum %>">
 		<input type="hidden" name="productNum" value="<%=productNum %>">
 		
-		<table>
+		<table class="table_review">
 			<tr>
-				<th style="text-align: left;">작성자</th>
-				<td>관리자</td>
+				<th style="text-align: left;" class="th_review">작성자</th>
+				<td class="td_review">관리자</td>
 			</tr>
 			<tr>
-				<th style="text-align: left;">내용</th>
+				<th style="text-align: left;" class="th_review">내용</th>
 				<td>
 					<% if(review.getReviewReplay()==null) {//새글인 경우 %>
 						<textarea rows="7" cols="60" name="replay" id="replay"></textarea>

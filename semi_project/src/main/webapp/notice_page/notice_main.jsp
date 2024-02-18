@@ -122,19 +122,19 @@ h1 {
 	text-align: left;
 }
 
-table {
+.table_review {
 	margin: 5px auto;
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-th {
+.th_review {
 	border: 1px solid gray;
 	background: pink;
 	color: black;
 }
 
-td {
+.td_review {
 	border: 1px solid black;
 	text-align: center;	
 }
@@ -212,27 +212,27 @@ td {
 	<%-- 게시글 목록 출력 --%>
 	<table>
 		<tr>
-			<th width="100">글번호</th>
-			<th width="500">제목</th>
-			<th width="100">작성자</th>
-			<th width="100">조회수</th>
-			<th width="200">작성일</th>
+			<th width="100" class="th_review">글번호</th>
+			<th width="500" class="th_review">제목</th>
+			<th width="100" class="th_review">작성자</th>
+			<th width="100" class="th_review">조회수</th>
+			<th width="200" class="th_review">작성일</th>
 		</tr>
 		
 		<% if(totalNotice==0) { %>
 			<tr>
-				<td colspan="5">검색된 게시글이 없습니다.</td>
+				<td colspan="5" class="td_review">검색된 게시글이 없습니다.</td>
 			</tr>
 		<% } else { %>
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
 			<% for(NoticeDTO notice : noticeList) { %>
-			<tr>
+			<tr >
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
-				<td><%=noticeDisplayNum %></td>
+				<td class="td_review"><%=noticeDisplayNum %></td>
 				<% noticeDisplayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
 				
 				<%-- 제목 --%>
-				<td class="subject">
+				<td class="subject td_review">
 					<%-- 답글 기능 지움 --%>
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
@@ -244,14 +244,14 @@ td {
 						<a href="<%=url%>"><%=notice.getNoticeTitle() %></a>
 				</td>			
 					<%-- 작성자 출력 --%>
-					<td>과자몰</td>
+					<td class="td_review">과자몰</td>
 								
 					<%-- 조회수 출력 --%>
-					<td><%=notice.getNoticeCount() %></td>
+					<td class="td_review"><%=notice.getNoticeCount() %></td>
 								
 					<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
 					 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
-					 <td>
+					 <td class="td_review">
 					 	<%-- 오늘 작성된 게시글인 경우 --%>
 
 						 		<%=notice.getNoticeDate() %>
@@ -282,36 +282,36 @@ td {
 	
 	<%-- Q&A --%>
 	<%-- 게시글 목록 출력 --%>
-	<table>
+	<table class="table_review">
 		<tr>
-			<th width="100">글번호</th>
-			<th width="100">답변</th>
-			<th width="500">제목</th>
-			<th width="100">작성자</th>
-			<th width="100">조회수</th>
-			<th width="200">작성일</th>
+			<th width="100" class="th_review">글번호</th>
+			<th width="100" class="th_review">답변</th>
+			<th width="500" class="th_review">제목</th>
+			<th width="100" class="th_review">작성자</th>
+			<th width="100" class="th_review">조회수</th>
+			<th width="200" class="th_review">작성일</th>
 		</tr>
 		
 		<% if(totalQa==0) { %>
 			<tr>
-				<td colspan="5">검색된 게시글이 없습니다.</td>
+				<td colspan="5" class="td_review">검색된 게시글이 없습니다.</td>
 			</tr>
 		<% } else { %>
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
 			<% for(QaDTO qa : qaList) { %>
 			<tr>
 				<%-- 게시글의 글번호가 아닌게시글의 일련번호 출력 --%>
-				<td><%=qaDisplayNum %></td>
+				<td class="td_review"><%=qaDisplayNum %></td>
 				<% qaDisplayNum--; %><%-- 게시글 일련번호를 1씩 감소하여 저장 --%>
 											
 			<% if(qa.getQaReplay()==null) { %>
-				<td>미완료</td>
+				<td class="td_review">미완료</td>
 			<% } else { %>
-				<td>완료</td>
+				<td class="td_review">완료</td>
 			<% } %>
 				
 				<%-- 제목 --%>
-				<td class="subject">
+				<td class="subject td_review">
 					<%-- 게시글이 답글인 경우에 대한 응답 처리 --%>
 				
 					<%-- 게시글 상태를 비교하여 제목과 링크를 구분해 응답 처리 --%>
@@ -324,14 +324,14 @@ td {
 				</td>
 				
 				<%-- 작성자 출력 --%>
-				<td><%=qa.getQaName() %></td>
+				<td class="td_review"><%=qa.getQaName() %></td>
 							
 				<%-- 조회수 출력 --%>
-				<td><%=qa.getQaReadCount() %></td>
+				<td class="td_review"><%=qa.getQaReadCount() %></td>
 							
 				<%-- 작성일 출력 : 오늘 작성된 게시글인 경우 시간만 출력하고 오늘
 				 작성된 게시글이 아닌 경우 날짜와 시간 출력 --%>
-				<td>
+				<td class="td_review">
 				 	<%-- 오늘 작성된 게시글인 경우 --%>
 				 	<%=qa.getQaRegister() %>
 				</td>

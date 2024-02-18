@@ -26,7 +26,7 @@ table .nolist{
 	border-collapse: collapse;
 }
 
-th {
+.th_review {
 	border: 1px solid gray;
 	background: pink;
 	color: black;

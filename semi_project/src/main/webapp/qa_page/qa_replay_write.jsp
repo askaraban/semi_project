@@ -50,12 +50,12 @@
 	margin: 0 auto;
 }
 
-table {
+.table_review {
    border: 1px solid black;
    border-collapse: collapse;
 }
 
-th {
+.th_review {
    border: 1px solid gray;
    padding: 5px;
    width: 100px;
@@ -63,7 +63,7 @@ th {
    color: gray;
 }
 
-td {
+.td_review {
    text-align: left;
    border: 1px solid gray;
    padding: 5px;
@@ -121,14 +121,14 @@ td {
         <input type="hidden" name="pageNum" value="<%=pageNum %>">
         <input type="hidden" name="pageSize" value="<%=pageSize %>">
         <input type="hidden" name="productNum" value="<%=productNum %>">
-        <table>
+        <table class="table_review">
             <tr>
-                <th style="text-align: left; padding: 5px;">작성자</th>
-                <td>관리자</td>
+                <th style="text-align: left; padding: 5px;" class="th_review">작성자</th>
+                <td class="td_review">관리자</td>
             </tr>
             <tr>
-                <th style="text-align: left;">내용</th>
-                <td>
+                <th style="text-align: left;" class="th_review">내용</th>
+                <td class="td_review">
                 	<% if(qa.getQaReplay()==null) {//새글인 경우 %>
 						<textarea rows="7" cols="60" name="replay" id="replay"></textarea>
 					<% } else {//답글인 경우 %>

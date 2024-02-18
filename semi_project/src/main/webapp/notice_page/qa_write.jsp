@@ -30,19 +30,19 @@
    margin: 0 auto;
 }
 
-table {
+.table_review {
    border: 1px solid black;
    border-collapse: collapse;
 }
 
-th {
+.th_review {
    width: 100px;
    background: pink;
    color: gray;
    border: 1px solid gray;
 }
 
-td {
+.td_review {
    text-align: left;
    border: 1px solid gray;
    width: 400px;
@@ -91,22 +91,22 @@ td {
 		<input type="hidden" name="search" value="<%=search %>">
 		<input type="hidden" name="keyword" value="<%=keyword %>">
 		
-		<table>
+		<table class="table_review">
 			<tr>
-				<th>제목</th>
-				<td>
+				<th class="th_review">제목</th>
+				<td class="td_review">
 					<input type="text" name="qaSubject" id="qaSubject" size="40">
 				</td>					
 			</tr>	
 			<tr>
-				<th>내용</th>
-				<td>
+				<th class="th_review">내용</th>
+				<td class="td_review">
 					<textarea rows="7" cols="60" name="qaContent" id="qaContent"></textarea>
 				</td>
 			</tr>			
 			<tr>
-				<th>이미지파일</th>
-				<td>
+				<th class="th_review">이미지파일</th>
+				<td class="td_review">
 					<input type="file" name="qaImage">
 				</td>
 			</tr>

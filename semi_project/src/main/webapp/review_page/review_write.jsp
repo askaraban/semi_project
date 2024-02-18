@@ -42,19 +42,19 @@
    text-align: left;
 }
 
-table {
+.table_review {
    border: 1px solid black;
    border-collapse: collapse;
 }
 
-th {
+.th_review {
    width: 100px;
    background: pink;
    color: gray;
    border: 1px solid gray;
 }
 
-td {
+td_review {
    text-align: left;
    border: 1px solid gray;
    width: 400px;
@@ -112,10 +112,10 @@ td {
 		<input type="hidden" name="productNum" value="<%=productNum %>">
 		<input type="hidden" name="orderNum" value="<%=orderNum %>">
 		
-	<table>
+	<table class="table_review">
 		<tr>
-			<th>제목</th>
-			<td>
+			<th class="th_review">제목</th>
+			<td class="td_review">
 				<% if(replay==null) {//새글인 경우 %>
 					<input type="text" name="reviewSubject" id="reviewSubject" size="40">
 				<% } else {//답글인 경우 %>
@@ -125,8 +125,8 @@ td {
 			</td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td>
+			<th class="th_review">내용</th>
+			<td class="td_review">
 				<% if(replay==null) {//새글인 경우 %>
 					<textarea rows="7" cols="60" name="reviewContent" id="reviewContent"></textarea>
 				<% } else { //답글인 경우 %>
@@ -136,8 +136,8 @@ td {
 		</tr>
 		<% if(replay==null) {//새글인 경우 %>
 		<tr>
-			<th>이미지파일</th>
- 			<td>
+			<th class="th_review">이미지파일</th>
+ 			<td class="td_review">
  				<input type="file" name="reviewImage">
  			</td>
 		</tr>

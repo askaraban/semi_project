@@ -83,23 +83,23 @@
 	margin-top: 50px;
 }
 
-table {
+.table_review {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-th, td {
+.th_review, .td_review {
 	border: 1px solid gray;
 	padding: 5px;	
 }
 
-th {
+.th_review {
 	width: 100px;
 	background: pink;
 	color: gray;
 }
 
-td {
+.td_review {
 	width: 400px;
 }
 
@@ -172,29 +172,29 @@ td {
 	<h1>제품리뷰</h1>
 	
 	<%-- 검색된 게시글 출력 --%>
-	<table>
+	<table class="table_review">
 		<tr>
-			<th>작성자</th>
-			<td>
+			<th class="th_review">작성자</th>
+			<td class="td_review">
 				<%=review.getReviewName() %>
 			</td>
 		</tr>
 		<tr>
-			<th>작성일</th>
-			<td><%=review.getReviewRegister() %></td>
+			<th class="th_review">작성일</th>
+			<td class="td_review"><%=review.getReviewRegister() %></td>
 		</tr>
 		<tr>
-			<th>조회수</th>
-			<td><%=review.getReviewReadcount()+1 %></td>
+			<th class="th_review">조회수</th>
+			<td class="td_review"><%=review.getReviewReadcount()+1 %></td>
 		</tr>
 		<tr>
-			<th>제목</th>
+			<th class="th_review">제목</th>
 			<td class="subject">
 				<%=review.getReviewSubject() %>
 			</td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<th class="th_review">내용</th>
 			<td class="content">
 				<% if(review.getReviewContent()!=null) { %>
 					<%= review.getReviewContent().replace("\n", "<br>") %>
@@ -226,15 +226,15 @@ td {
 		
 		<table>
 			<tr>
-				<th>작성자</th>
-				<td>관리자</td>
+				<th class="th_review">작성자</th>
+				<td class="td_review">관리자</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th class="th_review">내용</th>
 				<% if(review.getReviewReplay()==null) { %>
-					<td class="content">답변이 없습니다.</td>
+					<td class="content td_review" >답변이 없습니다.</td>
 				<% } else { %>
-					<td class="content"><%= review.getReviewReplay().replace("\n", "<br>") %></td>
+					<td class="content td_review"><%= review.getReviewReplay().replace("\n", "<br>") %></td>
 				<% } %>
 			</tr>
 		</table>

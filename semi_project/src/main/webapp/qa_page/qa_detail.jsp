@@ -91,23 +91,23 @@
 	margin-top: 50px;
 }
 
-table {
+.table_review {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-th, td {
+.th_review, .td_review {
 	border: 1px solid gray;
 	padding: 5px;	
 }
 
-th {
+.th_review {
 	width: 100px;
 	background: pink;
 	color: gray;
 }
 
-td {
+.td_review {
 	width: 400px;
 }
 
@@ -183,20 +183,20 @@ td {
 <%-- 	<% } %> --%>
 	
 	<%-- 검색된 게시글 출력 --%>
-	<table>
+	<table class="table_review">
 		<tr>
-			<th>작성자</th>
-			<td>
+			<th class="th_review">작성자</th>
+			<td class="td_review">
 				<%=qa.getQaName() %>
 			</td>
 		</tr>
 		<tr>
-			<th>작성일</th>
-			<td><%=qa.getQaRegister() %></td>
+			<th class="th_review">작성일</th>
+			<td class="td_review"><%=qa.getQaRegister() %></td>
 		</tr>
 		<tr>
-			<th>조회수</th>
-			<td><%=qa.getQaReadCount()+1 %></td>
+			<th class="th_review">조회수</th>
+			<td class="td_review"><%=qa.getQaReadCount()+1 %></td>
 		</tr>
 		
 <%-- 	<% if(qaProductName.getProductName()!=null) { %>
@@ -207,14 +207,14 @@ td {
 	<% } %> --%>
 	
 		<tr>
-			<th>제목</th>
-			<td class="subject">
+			<th class="th_review">제목</th>
+			<td class="subject td_review">
 				<%=qa.getQaSubject() %>
 			</td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td class="content">
+			<th class="th_review">내용</th>
+			<td class="content td_review">
 				<%-- <%=review.getReviewContent().replace("\n", "<br>")%> --%>
 				<%=qa.getQaContent()%>
 				<br>
@@ -240,17 +240,17 @@ td {
 	<form action="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page&worker=qa_replay_writer_action" 
 		method="post" id="reviewForm" enctype="multipart/form-data">
 		
-		<table>
+		<table class="table_review">
 			<tr>
-				<th>작성자</th>
-				<td>관리자</td>
+				<th class="th_review">작성자</th>
+				<td class="td_review">관리자</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th class="th_review">내용</th>
 				<% if(qa.getQaReplay()==null) { %>
-					<td class="content">답변이 없습니다.</td>
+					<td class="content td_review">답변이 없습니다.</td>
 				<% } else { %>
-					<td class="content"><%= qa.getQaReplay().replace("\n", "<br>") %></td>
+					<td class="content td_review"><%= qa.getQaReplay().replace("\n", "<br>") %></td>
 				<% } %>
 			</tr>
 		</table>

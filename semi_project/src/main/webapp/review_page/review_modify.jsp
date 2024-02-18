@@ -45,19 +45,19 @@
 	margin: 0 auto;
 }
 
-table {
+.table_review {
 	border: 1px solid black;
 	border-collapse: collapse;
 }
 
-th {
+.th_review {
 	width: 100px;
 	background: pink;
 	color: gray;
 	border: 1px solid gray;
 }
 
-td {
+.td_review {
 	text-align: left;
 	border: 1px solid gray;
 	width: 400px;
@@ -104,22 +104,22 @@ td {
 		<input type="hidden" name="productNum" value="<%=productNum %>">
 		<input type="hidden" name="pageNum" value="<%=pageNum %>">
 		<input type="hidden" name="pageSize" value="<%=pageSize %>">
-		<table>
+		<table class="table_review">
 			<tr>
-				<th>제목</th>
-				<td>
+				<th class="th_review">제목</th>
+				<td class="td_review">
 					<input type="text" name="reviewSubject" id="reviewSubject" size="40" value="<%=review.getReviewSubject()%>">
 				</td>					
 			</tr>	
 			<tr>
-				<th>내용</th>
-				<td>
+				<th class="th_review">내용</th>
+				<td class="td_review">
 					<textarea rows="7" cols="60" name="reviewContent" id="reviewContent"><%=review.getReviewContent() %></textarea>
 				</td>
 			</tr>			
 			<tr>
-				<th>이미지파일</th>
-				<td>
+				<th class="th_review">이미지파일</th>
+				<td class="td_review">
 					<input type="file" name="reviewImage"><br><br>
 					<% if(review.getReviewImage()!=null) { %>
 						<div style="color: red;">이미지를 변경할 경우에만 파일을 입력해 주세요.</div>

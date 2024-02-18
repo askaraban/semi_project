@@ -90,12 +90,12 @@
 	<%-- 게시글 목록 출력 --%>
 	<table>
 		<tr>
-			<th width="100">글번호</th>
-			<th width="100">답변</th>
-			<th width="400">제목</th>
-			<th width="100">작성자</th>
-			<th width="100">조회수</th>
-			<th width="200">작성일</th>
+			<th width="100" class="th_review">글번호</th>
+			<th width="100" class="th_review">답변</th>
+			<th width="400" class="th_review">제목</th>
+			<th width="100" class="th_review">작성자</th>
+			<th width="100" class="th_review">조회수</th>
+			<th width="200" class="th_review">작성일</th>
 		</tr>
 		<% if(productReview==0) {//검색된 게시글이 없는 경우 %>
 			<tr id="nolist">
