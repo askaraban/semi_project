@@ -34,7 +34,7 @@
 				<div class="col-4 pt-1" style="font-size: 15px">
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=notice_page
-					&worker=notice_main">공지사항</a>
+					&worker=notice_main">고객센터</a>
 					<%if(loginClient==null) {%>
 					<a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 						href="<%=request.getContextPath()%>/main_page/main.jsp?group=client_page
