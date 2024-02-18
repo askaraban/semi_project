@@ -37,7 +37,7 @@ if (request.getParameter("pageNum") != null) {//전달값이 있는 경우
 	pageNum = Integer.parseInt(request.getParameter("pageNum"));
 }
 
-int pageSize = 20;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
+int pageSize = 100;//게시글갯수- 전달값이 없는 경우 저장된 초기값 설정
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }

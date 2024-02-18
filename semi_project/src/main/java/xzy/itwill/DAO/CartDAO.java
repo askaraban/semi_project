@@ -165,7 +165,8 @@ public class CartDAO extends JdbcDAO {
 			con = getConnection();
 
 			String sql = "select cart_num, cart_client_num, cart_product_num, cart_count, product_name, product_price, product_com, "
-					+ "product_dis, product_main_img from cart_table join product_table on cart_product_num = product_num where cart_client_num = ?"
+					+ "product_dis, product_main_img from cart_table join product_table on cart_product_num = product_num"
+					+ " where cart_client_num = ? and product_status=1"
 					+ " order by cart_num desc";
 
 			pstmt = con.prepareStatement(sql);
