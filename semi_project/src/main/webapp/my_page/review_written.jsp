@@ -133,7 +133,7 @@ int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 								<tr>
 									<th scope="col">글번호</th>
 									<th scope="col">제목</th>
-									<th scope="col">등록일</th>
+									<th scope="col">등록일시</th>
 									<th scope="col">작성자</th>
 								</tr>
 							</thead>
@@ -153,8 +153,8 @@ int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 									<%
 									displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장
 									%>
-									<td class="left"><a
-										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_detail&orderNum=<%=review.getOrderNum() %>&pageNum=<%=pageNum %>&pageSize=<%=pageSize%>&productNum=<%=review.getReviewProductNum()%>&reviewNum=<%=review.getReviewNum()%>">
+									<td class="left" style="text-align:left"><a
+										href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_detail&orderNum=<%=review.getOrderNum() %>&pageNum=<%=pageNum %>&productNum=<%=review.getReviewProductNum()%>&reviewNum=<%=review.getReviewNum()%>">
 											<%=review.getReviewSubject()%></a></td>
 									<td><%=review.getReviewRegister()%></td>
 									<td><%=loginClient.getClientName()%></td>

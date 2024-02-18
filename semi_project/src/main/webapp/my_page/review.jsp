@@ -132,7 +132,7 @@ int displayNum = totalReviewOrder - (pageNum - 1) * pageSize;
 								<%-- 게시글의 일련번호 출력 : 게시글의 글번호가 아닌 일련번호라는 점을 주의하자!!! --%>
 								<td><%=displayNum%></td>
 								<% displayNum--; // 게시글의 일련번호를 1씩 감소하여 저장 %>
-								<td class="left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write
+								<td class="left" style="text-align:left"><a href="<%=request.getContextPath()%>/main_page/main.jsp?group=review_page&worker=review_write
 														&orderNum=<%=list.getOrderNum() %>&productNum=<%=list.getOrderProductNum()%>"><%=list.getProductName()%></a></td>
 								<td><%=list.getOrderDate()%></td>
 								<td><%=loginClient.getClientName()%></td>

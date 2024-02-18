@@ -155,12 +155,12 @@ public class QaDAO extends JdbcDAO {
 		try {
 			con=getConnection();
 			
-				String sql="select * from (select rownum rn, temp.*, product_status from (select qa_num"
-						+ " , qa_member, qa_subject, qa_content, qa_image, qa_register"
-						+ " , qa_update, qa_readcount, qa_replay, qa_product_num from qa_table join client_table"
-						+ "  on qa_member=client_num where client_num=? order by qa_register desc,qa_num desc) temp"
-						+ "  join product_table on qa_product_num=product_num where product_status=?)"
-						+ " where rn between ? and ?";
+				String sql=" select * from (select rownum rn, temp.*, product_status from (select qa_num, qa_member"
+						+ ", qa_subject, qa_content, qa_image, qa_register, qa_update, qa_readcount, qa_replay"
+						+ ", qa_product_num from qa_table join client_table on qa_member=client_num "
+						+ " where client_num=? order by qa_register desc, qa_num desc) temp "
+						+ " left outer join product_table on qa_product_num=product_num where product_status = ?" 
+						+ " or product_status is null) where rn between ? and ?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, clientNum);
 				pstmt.setInt(2, productStatus);
