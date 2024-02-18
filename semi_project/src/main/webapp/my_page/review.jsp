@@ -32,7 +32,6 @@ int pageSize = 10;//게시글갯수- 전달값이 없는 경우 저장된 초기
 if (request.getParameter("pageSize") != null) {//전달값이 있는 경우
 	pageSize = Integer.parseInt(request.getParameter("pageSize"));
 }
-System.out.println(pageSize);
 
 //REVIEW_TABLE에 저장된 제품별 리뷰의 count(갯수)를 반환하는 메소드 호출
 int totalReviewOrder = OrderDAO.getDAO().selectOrderCnt(loginClient.getClientNum(), 1, 1);
