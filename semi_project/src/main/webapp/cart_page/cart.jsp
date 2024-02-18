@@ -158,9 +158,9 @@ input[type='number'] {
 			<div class="cart-minus-content" style="width: 70px;">+</div>
 			<%if(totalPrice>50000){ %>
 			<div style="width: 200px; height: 100px; padding-top: 20px;">
-				<span class="result-word">배송비</span>
+				<span class="result-word" >배송비</span>
 				<br>
-				<span class="result-discount" style="font-size: 20px; font-weight: bold;">0원</span>
+				<span class="result-discount" id="delivery" style="font-size: 20px; font-weight: bold;">0원</span>
 			</div>
 			<div class="cart-result-content">=</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
@@ -173,9 +173,9 @@ input[type='number'] {
 			</div>
 			<%} else { %>
 			<div style="width: 200px; height: 100px; padding-top: 20px;">
-				<span class="result-word">배송비</span>
+				<span class="result-word" >배송비</span>
 				<br>
-				<span class="result-discount" style="font-size: 20px; font-weight: bold;"><%=format.format(5000) %>원</span>
+				<span class="result-discount" id="delivery" style="font-size: 20px; font-weight: bold;"><%=format.format(5000) %>원</span>
 			</div>
 			<div class="cart-result-content">=</div>
 			<div style="width: 300px; height: 100px; padding-top: 20px; padding-left: 20px;">
@@ -222,6 +222,13 @@ let cbArray = document.getElementsByClassName("selectCheck"); // 개별 체크�
 		}
 	}
 	$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	if(totalPrice>=50000){
+		$("#selectedPrice2").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#delivery").html(Number(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	} else {
+		$("#selectedPrice2").html((totalPrice+5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		$("#delivery").html(Number(5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+	}
 	orderLength()
 	
 });
@@ -234,10 +241,23 @@ $("input[type=checkbox]").filter(".selectCheck").click(function() { // .selectCh
 	if($("#"+checked).is(":checked")){
 		totalPrice+=Number(num_price[1]*num_price[2]);
 		$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
-		
+		if(totalPrice>=50000){
+			$("#selectedPrice2").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+			$("#delivery").html(Number(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		} else {
+			$("#selectedPrice2").html((totalPrice+5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+			$("#delivery").html(Number(5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		}
 	} else{
 		totalPrice-=Number(num_price[1]*num_price[2]);
 		$("#selectedPrice").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		if(totalPrice>=50000){
+			$("#selectedPrice2").html(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+			$("#delivery").html(Number(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		} else {
+			$("#selectedPrice2").html((totalPrice+5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+			$("#delivery").html(Number(5000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+"원");
+		}
 	}
 	// 전체 체크박스 체크 선택/해제 되도록 조건 설정
 	if(checkLength!=$("input[type=checkbox]").filter(".selectCheck:checked").length){
