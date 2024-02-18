@@ -86,6 +86,16 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 $("#ClientPasswd").focus();
 
+document.addEventListener("keydown", function(event) {
+    // 엔터 누르면 클릭 기능 
+    if (event.key === "Enter") {
+        var passwdButton = document.getElementById("submitBtn"); 
+        if (passwdButton) {
+        	passwdButton.click();
+        }
+    }
+});
+
 $("#submitBtn").click(function() {
 	if($("#ClientPasswd").val()=="") {
 		$("#message").text("입력 비밀번호와 확인 비밀번호가 불일치 합니다.");
