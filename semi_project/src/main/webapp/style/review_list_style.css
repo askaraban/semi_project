@@ -32,6 +32,12 @@ table .nolist{
 	color: black;
 }
 
+th {
+	border: 1px solid gray;
+	background: pink;
+	color: black;
+}
+
 #nolist {
 	border: 1px solid black;
 	text-align: center;	
