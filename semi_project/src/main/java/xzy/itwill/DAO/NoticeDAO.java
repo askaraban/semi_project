@@ -207,6 +207,10 @@ public class NoticeDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
+				String sql = "select notice_num, client_num, notice_title,notice_content,notice_image,notice_date,notice_update"
+						+ ", notice_count from notice_table join client_table on notice_member=client_num order by notice_date desc";
+				
+				/*
 				if(keyword.equals("")) { //검색 기능을 사용하지 않는 경우
 					String sql="select * from (select rownum rn, temp.* from (select notice_num, client_num"
 							+ ", notice_title,notice_content,notice_image,notice_date,notice_update"
@@ -227,7 +231,8 @@ public class NoticeDAO extends JdbcDAO {
 					pstmt.setInt(2, startRow);
 					pstmt.setInt(3, endRow);
 				}
-				
+				*/
+				pstmt=con.prepareStatement(sql);
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()) {

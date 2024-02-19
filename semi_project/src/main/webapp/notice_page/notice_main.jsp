@@ -46,7 +46,6 @@
 	//검색정보(검색대상과 검색단어)를 전달받아 REVIEW 테이블에 저장된 게시글 중 검색대상의 컬럼에
 	//검색단어가 포함된 게시글의 갯수를 검색하여 반환하는 ReviewDAO 클래스의 메서드 호출
 	// => 검색 기능을 사용하지 않을 경우 REVIEW 테이블에 저장된 모든 게시글의 갯수를 반환
-	int totalNotice=NoticeDAO.getDAO().selectTotalNotice(search, keyword);
 	int totalQa=QaDAO.getDAO().selectTotalQa(search, keyword);//검색된 게시글의 총갯수
 	
 	//전체 페이지의 총갯수를 계산하여 저장
@@ -88,7 +87,7 @@
 	
 	//페이지에 출력될 게시글의 일련번호 시작값을 계산하여 저장
 	// => 검색된 게시글의 총갯수가 91개인 경우 >> 1Page : 91, 2Page : 81, 3Page, 71
-	int noticeDisplayNum=totalNotice-(pageNum-1)*pageSize;
+	int noticeDisplayNum=noticeList.size();
 	int qaDisplayNum=totalQa-(pageNum-1)*pageSize;
 	
 %>
@@ -219,11 +218,6 @@ h1 {
 			<th width="200" class="th_review">작성일</th>
 		</tr>
 		
-		<% if(totalNotice==0) { %>
-			<tr>
-				<td colspan="5" class="td_review">검색된 게시글이 없습니다.</td>
-			</tr>
-		<% } else { %>
 			<%-- List 객체의 요소(ReviewDTO 객체)를 차례대로 제공받아 저장하여 처리하기 위한 반복문 --%>
 			<% for(NoticeDTO notice : noticeList) { %>
 			<tr >
@@ -264,7 +258,6 @@ h1 {
 				<% } %>
 				--%>
 			</tr>	
-		<% } %>
 	<% } %>
 	</table>
 	
