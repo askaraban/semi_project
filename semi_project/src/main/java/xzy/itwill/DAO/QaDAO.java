@@ -40,7 +40,7 @@ public class QaDAO extends JdbcDAO {
 				String sql="select count(*) from qa_table";
 				pstmt=con.prepareStatement(sql);
 			} else {
-				String sql="select count(*) from qa_table where "+search+" like '%'||?||'%'";
+				String sql="select count(*) from qa_table join client_table on qa_member=client_num where "+search+" like '%'||?||'%'";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, keyword);
 			}
@@ -51,7 +51,7 @@ public class QaDAO extends JdbcDAO {
 				totalCount=rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectTotalQa() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectTotalQa1() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
@@ -83,7 +83,7 @@ public class QaDAO extends JdbcDAO {
 				totalCount=rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectTotalQa() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectTotalQa2() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
@@ -135,11 +135,12 @@ public class QaDAO extends JdbcDAO {
 				qa.setQaUpdate(rs.getString("qa_update"));
 				qa.setQaReadCount(rs.getInt("qa_readcount"));
 				qa.setQaReplay(rs.getString("qa_replay"));
+				qa.setQaName(rs.getString("client_name"));
 				
 				qaList.add(qa);
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectQaList1() 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}
@@ -186,7 +187,7 @@ public class QaDAO extends JdbcDAO {
 				qaList.add(qa);
 			}
 		} catch (SQLException e) {
-			System.out.println("[에러]selectQaList() 메소드의 SQL 오류 = "+e.getMessage());
+			System.out.println("[에러]selectQaList()2 메소드의 SQL 오류 = "+e.getMessage());
 		} finally {
 			close(con, pstmt, rs);
 		}

@@ -396,7 +396,7 @@ h1 {
 	<form action="<%=request.getContextPath() %>/main_page/main.jsp?group=notice_page&worker=notice_main" method="post" >
 		<%-- select 태그를 사용하여 검색대상을 선택해 전달 - 전달값은 반드시 컬럼명으로 설정(DAO에서 사용하기 위해 컬럼명으로 설정) --%>
 		<select name="search">
-			<option value="name" <% if(search.equals("name")) { %>  selected <% } %>>&nbsp;작성자&nbsp;</option>
+			<option value="client_name" <% if(search.equals("client_name")) { %>  selected <% } %>>&nbsp;작성자&nbsp;</option>
 			<option value="qa_subject" <% if(search.equals("qa_subject")) { %>  selected <% } %>>&nbsp;제목&nbsp;</option>
 			<option value="qa_content" <% if(search.equals("qa_content")) { %>  selected <% } %>>&nbsp;내용&nbsp;</option>
 		</select>
