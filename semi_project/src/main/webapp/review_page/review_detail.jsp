@@ -242,7 +242,11 @@
 		<% if(loginClient!=null && loginClient.getClientStatus()==9) { %>
 		<div id="review_menu" style="text-align: right;">
 			<%-- 관리자인 경우에만 태그를 출력하여 링크 제공 --%>
-				<button type="button" id="replyBtn">답변수정</button>
+				<% if(review.getReviewReplay()==null) {//새글인 경우 %>
+					<button type="button" id="replyBtn">답변작성</button>
+				<% } else {//답글인 경우 %>
+					<button type="button" id="replyBtn">답변수정</button>
+				<% } %>
 		</div>
 		<% } else {} %>
 	</form>
