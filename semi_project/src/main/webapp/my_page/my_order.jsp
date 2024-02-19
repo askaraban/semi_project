@@ -208,7 +208,7 @@ if(request.getParameter("cnt")!=null){
 									<td class="left orderPrductList"><a href="<%=request.getContextPath() %>/main_page/main.jsp?group=my_page&worker=my_order_detail&orderNum=<%=orderList.getOrderNum() %>&orderTime=<%=orderList.getOrderTime() %>" id="orderNumber_<%=orderList.getOrderNum() %>" 
 									 class="productName"> <%=orderList.getProductName() %> </a></td>
 																
-								<%if(orderList.getOrderStatus()==1) {%>
+								<%if(orderList.getOrderStatus()==2) {%>
 								<td id="orderStatus">배송완료</td>
 								<%} else { %>
 								<td id="orderStatus">제품 준비중</td>

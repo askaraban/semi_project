@@ -36,7 +36,7 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				con=getConnection();
 				
-				String sql="insert into order_table values(order_table_seq.nextval,?,substr(current_timestamp,0,17),sysdate,?,0,?,?,?,?,?,?,?,?,?,1,?)";
+				String sql="insert into order_table values(order_table_seq.nextval,?,substr(current_timestamp,0,17),sysdate,?,1,?,?,?,?,?,?,?,?,?,1,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, order.getOrderClientNum());
 				pstmt.setInt(2, order.getOrderProductNum());
@@ -279,7 +279,7 @@ public class OrderDAO extends JdbcDAO {
 				String sql = "select order_num, order_client_num, order_time, order_date, order_product_num, order_status, order_sum, order_dis_sum, order_content, order_receiver"
 						+",order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
 						+", product_dis, product_main_img, order_email from order_table join product_table on order_product_num = product_num"
-						+ " where order_time like '%'||?||'%' and order_status=0 order by order_num desc";
+						+ " where order_time like '%'||?||'%' and order_status=1 order by order_num desc";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -396,7 +396,7 @@ public class OrderDAO extends JdbcDAO {
 						+ " , order_dis_sum, order_content, order_receiver"
 						+ " , order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
 						+ " , product_dis, product_main_img, order_review_status, product_status, order_email from order_table join product_table"
-						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? order by order_num desc)"
+						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? and order_status=2 order by order_num desc)"
 						+ " temp) where rn between ? and ?";
 				
 				pstmt = con.prepareStatement(sql);
@@ -462,7 +462,7 @@ public class OrderDAO extends JdbcDAO {
 						+ ", order_dis_sum, order_content, order_receiver"
 						+ ", order_zipcode, order_address1, order_address2, order_mobile, order_count, product_num, product_name, product_price"
 						+ ", product_dis, product_main_img, order_review_status, product_status, order_email from order_table join product_table"
-						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? order by order_num desc)"
+						+ " on order_product_num = product_num where order_client_num = ? and order_review_status=? and product_status=? and order_status=2 order by order_num desc)"
 						+ " temp)";
 				
 				pstmt = con.prepareStatement(sql);
@@ -853,7 +853,7 @@ public class OrderDAO extends JdbcDAO {
 							+ ", order_address2, order_mobile, order_count, product_num, product_name, product_price"
 							+ ", product_dis, product_main_img, order_email, row_number() over (partition by order_client_num, order_time"
 							+ " order by order_time) as rn from order_table join product_table on product_num=order_product_num"
-							+ " where order_status=0 order by order_date desc)) temp where rn=1) where row_num between ? and ?";
+							+ " where order_status=1 order by order_date desc)) temp where rn=1) where row_num between ? and ?";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -866,7 +866,7 @@ public class OrderDAO extends JdbcDAO {
 							+ ", order_address2, order_mobile, order_count, product_num, product_name, product_price"
 							+ ", product_dis, product_main_img, order_email, row_number() over (partition by order_client_num, order_time"
 							+ " order by order_time) as rn from order_table join product_table on product_num=order_product_num"
-							+ " where order_status=0 and "+search+" like '%'||?||'%' order by order_date desc)) temp where rn=1) where row_num between ? and ?";
+							+ " where order_status=1 and "+search+" like '%'||?||'%' order by order_date desc)) temp where rn=1) where row_num between ? and ?";
 					
 					pstmt = con.prepareStatement(sql);
 					
@@ -961,7 +961,7 @@ public class OrderDAO extends JdbcDAO {
 			try {
 				
 				con = getConnection();
-				String sql = "update order_table set order_status=1 where order_client_num=? and order_time=?";
+				String sql = "update order_table set order_status=2 where order_client_num=? and order_time=?";
 				
 				pstmt = con.prepareStatement(sql);
 				

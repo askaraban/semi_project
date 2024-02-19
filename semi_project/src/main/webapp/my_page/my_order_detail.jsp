@@ -300,9 +300,6 @@
 								<br>
 								<span class="result-count" id="selectedPrice2"><%=format.format(totalPrice) %>원</span>
 							</div>
-							<div style="width: 200px; height: 100px; padding-top: 23px;">
-					<button type="submit" id="cartOrderBtn" class="cart-order-btn"  >결제하기</button>
-				</div>
 			</div>										
 		<% } %>
 </form>
